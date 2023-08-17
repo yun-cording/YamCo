@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
+	xsi:schemaLocation="http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-4.3.xsd
+		http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
+		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+	
+		<!-- resources/props/jdbc.properties에 설정 정보 셋팅되어 있음 -->
+		<context:property-placeholder location="classpath:props/jdbc.properties"/>
+		<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">		
+		<property name="driverClassName" value="${jdbc.driver}" />
+        <property name="url" value="${jdbc.url}" />
+        <property name="username" value="${jdbc.user}" />
+        <property name="password" value="${jdbc.pwd}" />
+        <!-- 동시에 사용할 수 있는 최대 커넥션 수 -->
+		<property name="maxActive" value="${jdbc.maxActive}" />
+		<!-- 커넥션 풀에 반납할때 최대로 유지되는 커넥션의 수 -->
+		<property name="maxIdle" value="${jdbc.maxIdle}" />
+		<!-- 커넥션 풀에 반납할때 최소로 유지되는 커넥션의 수 -->
+		<property name="minIdle" value="${jdbc.minIdle}" />
+	</bean>
+
+	<!-- mybatis에 config 역할(오라클과 mybatis연결 , mapper 위치) -->
+	<bean id="sqlSessionFactoryBean"
+		class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" /> <!-- 오라클정보를 마이바티스에서 받기 위함 -->
+		<property name="configLocation" value="classpath:mybatis-config.xml" />
+	</bean>
+
+	<!-- DAO에서 사용할 SqlSessionTemplate 클래스를 xml에서 객체로 만들어야한다. -->
+	<bean id="sqlSessionTemplate"
+		class="org.mybatis.spring.SqlSessionTemplate">
+		<!-- SqlSessionTemplate는 기본생성자가 아니라서 컨스트럭트로 sqlSessionFactoryBean 넣어줘야 
+			인식이 된다. -->
+		<constructor-arg ref="sqlSessionFactoryBean"></constructor-arg>
+	</bean>
+		<context:annotation-config />
+		<context:component-scan base-package="com.yamco.*" />
+</beans>

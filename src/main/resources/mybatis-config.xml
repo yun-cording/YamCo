@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+ "https://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	
+	<!-- MyBais에서 쿼리에 매핑되는 파라미터에 NULL 값이 있는 경우 에러 발생
+	 => 해결 <setting name="jdbcTypeForNull" value="NULL"/> -->
+	 <!-- MyBatis cache 사용 여부 
+	 => <setting name="cacheEnabled" value="false"/> -->
+	<settings>
+		<setting name="jdbcTypeForNull" value="NULL"/>
+		<setting name="cacheEnabled" value="false"/>
+	</settings>
+	
+	<typeAliases> <!-- (별칭) vo위치를 별칭으로 지정해주는 역활
+	=> com.ict.model.vo.membersVO 를 mvo 라는 별칭으로 지정해서 불러줌 
+	<typeAlias type="com.ict.model.vo.membersVO" alias="mvo" /> -->
+	</typeAliases>
+	
+	<mappers><!-- 매퍼 위치를 쓰기 -->
+		<!-- <mapper resource="mappers/members-mapper.xml" /> -->
+			
+	</mappers>
+	
+</configuration>
