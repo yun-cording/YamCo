@@ -7,7 +7,8 @@
 <title>welcome YamYam Coperation</title>
 </head>
 <body>
-	<h1>Hello Welcom2 YamYam Coperation!</h1>]
+	<h1>������ õ��</h1>
+	<h2>Oop! Sorry~����</h2>
 	<h1>ÈñÁØ½ÃÄ¡ ¹Ùº¸</h1>
 	asdasd
 	asd
