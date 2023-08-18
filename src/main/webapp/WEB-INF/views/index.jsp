@@ -7,6 +7,10 @@
 <title>welcome YamYam Coperation</title>
 </head>
 <body>
+<<<<<<< HEAD
 	<h1>º∫»∆¿Ã √µ¿Á</h1>
+=======
+	<h1>¿±º∫»∆ πŸ∫∏</h1>
+>>>>>>> refs/heads/master
 </body>
 </html>
