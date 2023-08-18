@@ -7,6 +7,6 @@
 <title>welcome YamYam Coperation</title>
 </head>
 <body>
-	<h1>Hello Welcom YamYam Coperation!</h1>
+	<h1>À±¼ºÈÆ ¹Ùº¸</h1>
 </body>
 </html>
