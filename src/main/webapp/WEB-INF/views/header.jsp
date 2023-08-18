@@ -10,7 +10,7 @@
 <style type="text/css">
 /* Header_재훈(완성) */
 
-#bg{
+#header{
 width: 1920px;
 height: 230px;
 left: 0px;
@@ -387,11 +387,9 @@ color: #000000;
 </head>
 <body>
 	<form action="">
-	<div id="header">
-		<div id="bg">
+		<div id="header">
 		ddd
-		</div>
-		</div>
+	</div>
 	</form>
 	
 </body>
