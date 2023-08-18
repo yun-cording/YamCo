@@ -1,15 +1,12 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
-<title>welcome YamYam Coperation</title>
+<meta charset="UTF-8">
+<title>Insert title here</title>
 </head>
 <body>
-	<h1>Hello Welcom2 YamYam Coperation!</h1>]
-	<h1>희준시치 바보</h1>
-	asdasd
-	asd
+	<h1>梨꾨┝�떆移�...Oops...!</h1>
 </body>
 </html>
