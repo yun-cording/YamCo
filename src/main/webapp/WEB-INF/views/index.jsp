@@ -12,7 +12,7 @@
 </script>
 </head>
 <body>
-	<h2>Oop! Sorry~����</h2>
+	<h2>      Oop! Sorry~����</h2>
 	asdasd
 	asd
 	<h1>채림시치...Oops...!</h1>
