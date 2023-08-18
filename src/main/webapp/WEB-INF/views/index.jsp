@@ -18,5 +18,6 @@
 	<h1>채림시치...Oops...!</h1>
 	<h2>1week</h2>
 	<button onclick="go_home()">Home</button>
+	Hello
 </body>
 </html>
