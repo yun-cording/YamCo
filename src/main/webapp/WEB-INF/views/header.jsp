@@ -12,6 +12,7 @@
 
 #bg{
 width: 1920px;
+height: 230px;
 left: 0px;
 top: 0px;
 
