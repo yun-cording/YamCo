@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>밥상레시피</title>
+<title>냠냠레시피</title>
 <link rel="icon" type="image/x-icon"
 	href="resources/images/icon_tomato.png">
 <style type="text/css">
@@ -20,11 +20,7 @@
         margin:  auto;
 		
     }
-
-#header{
-	width : 100%;
-	height: 230px;
-}
+    
  #sidebar-right {
 	background-color: yellow;
 	float: left;
