@@ -9,15 +9,28 @@
 	function go_home() {
 		location.href = "/go_home.do";
 	}
+	function go_ranking_search() {
+		location.href = "/go_ranking_search.do";
+	}
+	function go_plz() {
+		location.href = "/go_plz.do";
+	}
+	function go_faq() {
+		location.href = "/go_faq.do";
+	}
+	function go_award() {
+		location.href = "/go_award.do";
+	}
 </script>
 </head>
 <body>
-	<h2>Oop! Sorry~</h2>
-	asdasd
-	asd
-	<h1>채림시치...Oops...!</h1>
-	<h2>1week</h2>
+	<h1>각자 페이지로 가는 버튼 생성 시작~</h1>
+	<hr>
 	<button onclick="go_home()">Home</button>
-	Hello
+	<button onclick="go_ranking_search()">ranking_search</button>
+	<button onclick="go_plz()">plz</button>
+	<button onclick="go_faq()">faq</button>
+	<button onclick="go_award()">award</button>
+	<hr>
 </body>
 </html>
