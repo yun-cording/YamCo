@@ -12,7 +12,8 @@
 }
 
 html, body {
-	width: 100%;
+	width: 1920px;
+	margin: auto;
 }
 
 aside {
@@ -31,7 +32,7 @@ main {
 <body>
 <!-- 	<header></header> -->
 	<aside><jsp:include page="admin_sidebar.jsp" /></aside>
-	<main><jsp:include page="admin_sidebar.jsp" /></main>
+	<main></main>
 <!-- 	<footer></footer> -->
 </body>
 </html>

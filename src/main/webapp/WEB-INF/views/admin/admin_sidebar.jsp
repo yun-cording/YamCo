@@ -6,8 +6,7 @@
 <meta charset="UTF-8">
 <title>admin_sidebar</title>
 
-<link rel="stylesheet"
-	href="https://cdn.korzh.com/metroui/v4/css/metro-all.min.css">
+<link rel="stylesheet" href="https://cdn.korzh.com/metroui/v4/css/metro-all.min.css">
 
 <script src="https://cdn.korzh.com/metroui/v4/js/metro.min.js"></script>
 </head>
