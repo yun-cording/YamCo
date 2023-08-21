@@ -4,35 +4,19 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>admin_sidebar</title>
-<style type="text/css">
-* {
-	margin: 0px auto;
-	padding: 0px;
-}
-
-html, body {
-	width: 1920px;
-	margin: auto;
-}
-
-aside {
-	width: 20%;
-	display: inline-block;
-	float: left;
-}
-
-main {
-	width: 80%;
-	display: inline-block;
-	float: left;
-}
-</style>
+<title>admin_index</title>
+<link rel="stylesheet"
+	href="https://cdn.korzh.com/metroui/v4/css/metro-all.min.css">
+<link rel="stylesheet" href="resources/css/admin/admin_index.css">
+<script src="https://cdn.korzh.com/metroui/v4/js/metro.min.js"></script>
 </head>
 <body>
-<!-- 	<header></header> -->
-	<aside><jsp:include page="admin_sidebar.jsp" /></aside>
-	<main></main>
-<!-- 	<footer></footer> -->
+	<!-- 	<header></header> -->
+	<div id="admin_index_container">
+		<aside><jsp:include page="admin_sidebar.jsp" /></aside>
+		<header><jsp:include page="admin_header.jsp" /></header>
+		<main><jsp:include page="admin_main_dashboard.jsp" /></main>
+	</div>
+	<!-- 	<footer></footer> -->
 </body>
 </html>
