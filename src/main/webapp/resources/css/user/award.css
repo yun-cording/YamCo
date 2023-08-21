@@ -1,0 +1,135 @@
+@charset "UTF-8";
+
+.scene * {
+	transition: all 0.5s ease-in-out;
+}
+
+.scene {
+	width: 100%;
+	height: 100%;
+	padding: 100px;
+	justify-content: center;
+	align-items: center;
+	perspective: 1200px;
+	text-align: center;
+	justify-content: center;
+}
+
+.carousel {
+	width: 600px;
+	height: 400px;
+	position: relative;
+	transform-style: preserve-3d;
+	display: inline-block;
+}
+
+.item {
+	position: absolute;
+	top: 200px;
+	left: 0px;
+	width: 600px;
+	height: 400px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border: 1px solid black;
+	color: #fff;
+	font-size: 32px;
+	font-weight: 600;
+}
+
+.item:nth-child(1) {
+	background-color: #ff7979;
+	transform: translateX(-690px) rotateY(-40deg) translateZ(-250px);
+}
+
+/* .item:nth-child(1):hover { */
+/* 	transform: translateZ(500px) rotateY(0deg) translateX(0px) */
+/* 		translateY(100px) scale(1.2); */
+/* } */
+.item:nth-child(2) {
+	background-color: #ffbe76;
+}
+
+/* .item:nth-child(2):hover { */
+/* 	transform: translateZ(500px) translateY(100px) scale(1.2); */
+/* } */
+.item:nth-child(3) {
+	background-color: #f0932b;
+	transform: translateX(690px) rotateY(40deg) translateZ(-250px);
+}
+
+/* .item:nth-child(3):hover { */
+/* 	transform: translateZ(500px) rotateY(0deg) translateX(0px) */
+/* 		translateY(100px) scale(1.2); */
+/* } */
+.carousel:nth-last-child(1) {
+	font-size: 5em;
+	font-weight: 600;
+	color: tomato;
+}
+
+.item>div {
+	width: 100%;
+	height: 100%;
+	display: none;
+}
+
+.prize_title {
+	width: 100%;
+	height: 25%;
+}
+
+.prize_title p {
+	font-size: 64px;
+}
+
+.prize_content {
+	width: 100%;
+	height: 75%;
+}
+
+.prize_profile {
+	width: 50%;
+	height: 100%;
+	float: left;
+}
+
+.profile_photo {
+	width: 100%;
+	height: 80%;
+}
+
+.prize_content img {
+	margin: 10px;
+	width: calc(100% - 20px);
+	max-height: calc(100% - 20px);
+}
+
+.profile_nickname {
+	width: 100%;
+	height: 20%;
+}
+
+.prize_recipe {
+	margin: 10px;
+	width: calc(50% - 20px);
+	height: calc(100% - 20px);
+	float: left;
+	font-size: 16px;
+}
+
+.prize_recipe_title {
+	width: 100%;
+	height: 20%;
+}
+
+.prize_recipe_photo {
+	width: 100%;
+	height: 50%;
+}
+
+.prize_recipe_content {
+	width: 100%;
+	height: 30%;
+}
