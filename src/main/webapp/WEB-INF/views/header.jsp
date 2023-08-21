@@ -12,7 +12,6 @@
 position: relative;
 width: 1920px;
 height: 230px;
-
 background: #FFFFFF;
 }
 
@@ -298,7 +297,6 @@ color: #FFFFFF;
 		<span id="grade"><a>명예의전당</a></span>
 		<span id="faq"><a>FAQ</a></span>
 	</div>
-	</form>
-	
+	</form>	
 </body>
 </html>
