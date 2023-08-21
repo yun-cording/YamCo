@@ -76,7 +76,7 @@ width: 1260px;
 height: 80px; 
 margin-left: 30px;
 margin-right: 30px;
-padding-top: 17px;
+padding-top: 30px;
 
 border-left: 20px solid ;
 border-bottom: 3px solid ;
