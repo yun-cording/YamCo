@@ -268,9 +268,6 @@ color: #FFFFFF;
 
 </style>
 <script>
-  // 페이지가 로드될 때 초기 색상을 저장합니다.
-  var originalColor = window.getComputedStyle(document.querySelector("#faq a")).color;
-
   // 다른 링크를 클릭할 때 색상을 원래대로 되돌립니다.
   function resetColor() {
     document.querySelector("#faq a").style.color = originalColor;
