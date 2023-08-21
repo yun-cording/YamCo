@@ -28,18 +28,6 @@
 	top: 0px;
 }
 
-/* Rectangle 4225 */
-/* #body{
-	position: absolute;
-	width: 1320px;
-	height: 1430px;
-	left: 300px;
-	top: 230px;
-  text-align: center;
-	background: #FFFFFF;
-
-} */
-
 #sidebar-right {
 	background-color: yellow;
 	float: right;
@@ -66,7 +54,6 @@
 	background-color: #333;
 	left: 0px;
 	color: #fff;
-	text-align: center;
 	width: 100%;
 	height: 300px;
 	clear: left;
@@ -625,21 +612,41 @@ a{
 }
 
 </style>
+<script type="text/javascript">
+function select_search() {
+	
+}
+function select_recipe() {
+	
+}
+function select_today() {
+	
+}
+function select_week() {
+	
+}
+function select_month() {
+	
+}
+
+
+</script>
 </head>
 <body>
+	
 	<div id="mydiv">
     <jsp:include page="../../header.jsp" />
 		<div id="test">
 			<aside id="sidebar-left">왼쪽</aside>
 
-				<div id="lrecipe"><span id="recipetext">레시피</span></div>
-				<dlv id="lsearch"><span id="searchtext">검색어</span></dlv>
+				<div id="lrecipe" onclick="select_recipe()"><span id="recipetext">레시피</span></div>
+				<dlv id="lsearch" onclick="select_search()"><span id="searchtext">검색어</span></dlv>
 				<div id="topline"></div>
         <div id="search_rankingtext">검색어랭킹</div>
 				
-				<div id="today"><span class="todaytext">일간</span></div>
-				<div id="week"><span class="todaytext">주간</span></div>
-				<div id="month"><span class="todaytext">월간</span></div>
+				<div id="today" onclick="select_today()"><span class="todaytext">일간</span></div>
+				<div id="week" onclick="select_week()"><span class="todaytext">주간</span></div>
+				<div id="month" onclick="select_month()"><span class="todaytext">월간</span></div>
 		
 		
 		<c:forEach var="k" begin="1" end="30">
@@ -653,7 +660,6 @@ a{
 		<div id="footer">
 			<jsp:include page="../../footer.jsp" />
 		</div>
-
 	</div>
 
 </body>
