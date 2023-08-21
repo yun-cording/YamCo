@@ -12,6 +12,9 @@
 	function go_ranking_search() {
 		location.href = "/go_ranking_search.do";
 	}
+	function go_ranking_recipe() {
+		location.href = "/go_ranking_recipe.do";
+	}
 	function go_plz() {
 		location.href = "/go_plz.do";
 	}
@@ -31,6 +34,7 @@
 	<hr>
 	<button onclick="go_home()">Home</button>
 	<button onclick="go_ranking_search()">ranking_search</button>
+	<button onclick="go_ranking_recipe()">ranking_recipe</button>
 	<button onclick="go_plz()">plz</button>
 	<button onclick="go_faq()">faq</button>
 	<button onclick="go_award()">award</button>
