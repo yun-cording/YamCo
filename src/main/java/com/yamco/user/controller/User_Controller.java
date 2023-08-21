@@ -28,4 +28,8 @@ public class User_Controller {
 	public ModelAndView go_award() {
 		return new ModelAndView("user/award/award");
 	}
+	@RequestMapping("go_admin.do")
+	public ModelAndView go_admin() {
+		return new ModelAndView("admin/admin_index");
+	}
 }

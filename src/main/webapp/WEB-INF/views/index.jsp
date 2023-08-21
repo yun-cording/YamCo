@@ -21,6 +21,9 @@
 	function go_award() {
 		location.href = "/go_award.do";
 	}
+	function go_admin() {
+		location.href = "/go_admin.do";
+	}
 </script>
 </head>
 <body>
@@ -31,6 +34,7 @@
 	<button onclick="go_plz()">plz</button>
 	<button onclick="go_faq()">faq</button>
 	<button onclick="go_award()">award</button>
+	<button onclick="go_admin()">admin</button>
 	<hr>
 </body>
 </html>
