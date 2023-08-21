@@ -32,4 +32,8 @@ public class User_Controller {
 	public ModelAndView go_admin() {
 		return new ModelAndView("admin/admin_index");
 	}
+	@RequestMapping("/go_public_list.do")
+	public ModelAndView goPublicList() {
+		return new ModelAndView("user/recipe/public_list");
+	}
 }

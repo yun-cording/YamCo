@@ -24,11 +24,15 @@
 	function go_admin() {
 		location.href = "/go_admin.do";
 	}
+	function go_public_list(){
+		location.href = "/go_public_list.do";
+	}
 </script>
 </head>
 <body>
 	<h1>각자 페이지로 가는 버튼 생성 시작~</h1>
 	<hr>
+	<button onclick="go_public_list()"></button>
 	<button onclick="go_home()">Home</button>
 	<button onclick="go_ranking_search()">ranking_search</button>
 	<button onclick="go_plz()">plz</button>
