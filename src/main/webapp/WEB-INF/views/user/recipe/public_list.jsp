@@ -1,212 +1,285 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="UTF-8">
-	<title>냠냠레시피</title>
-	<link rel="icon" type="image/x-icon" href="resources/images/icon_tomato.png">
-	<style type="text/css">
-		* {
-			padding: 0;
-			margin: 0;
-			box-sizing: border-box;
-		}
+<meta charset="UTF-8">
+<title>냠냠레시피</title>
+<link rel="icon" type="image/x-icon"
+	href="resources/images/icon_tomato.png">
+<style type="text/css">
+@font-face {
+    font-family: 'BM HANNA_TTF';
+    src: url('../resources/fonts/BMHANNA_11yrs_ttf.ttf') format('truetype');
+}
+* {
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+}
 
-		#mydiv {
-			width: 1920px;
-			height: 100%;
-			margin: auto;
+#mydiv {
+	width: 1920px;
+	margin: auto;
+}
 
-		}
+#sidebar-right {
+	background-color: yellow;
+	float: left;
+	width: 15.625%;
+}
 
-		#sidebar-right {
-			background-color: yellow;
-			float: left;
-			width: 15.625%;
-			height: 100%;
-		}
+#sidebar-left {
+	width: 15.625%;
+	float: left;
+}
 
-		#sidebar-left {
-			background-color: yellow;
-			width: 15.625%;
-			height: 100%;
-			float: left;
+#content {
+	font-family: 'BM HANNA_TTF';
+	width: 68.75%;
+	float: left;
+	/* Rectangle 77 */
+	margin-top: 0px;
+}
 
-		}
+#footer {
+	left: 0px;
+	width: 100%;
+	height: 300px;
+	clear: left;
+}
 
-		#content {
-			width: 68.75%;
-			height: 100%;
-			float: left;
-			/* Rectangle 77 */
-			margin-top: 0px;
-			background: snow;
-		}
+#category {
+	font-size: 16px;
+	width: 835px;
+	height: 128px;
+	margin: auto;
+}
 
-		#footer {
-			left: 0px;
-			width: 100%;
-			height: 300px;
-			clear: left;
-		}
+#category li:hover {
+	background-color: #E53A1B;
+}
 
-		#test {
-			width: 100%;
-			height: 1500px;
-		}
+#howto_menu {
+	color: #FFF;
+	width: 832px;
+	list-style: none;
+	margin: auto;
+}
 
+.howto_center {
+	background-color: tomato;
+	border-bottom: 1px solid #FFF;
+	width: 100px;
+	line-height: 50px;
+	text-align: center;
+	float: left;
+	height: 50px;
+}
 
+#howto_first {
+	border-right: 1px solid #FFF;
+	border-bottom: 1px solid #FFF;
+	line-height: 50px;
+	text-align: center;
+	float: left;
+	height: 50px;
+	background-color: tomato;
+	width: 116px;
+	border-radius: 30px 0px 0px 8px;
+}
 
-		#category {
-			width: 835px;
-			height: 128px;
-			margin: auto;
-		}
+#howto_etc {
+	border-bottom: 1px solid #FFF;
+	line-height: 50px;
+	text-align: center;
+	float: left;
+	height: 50px;
+	background-color: tomato;
+	width: 116px;
+	border-radius: 0% 30px 8px 0px;
+}
 
-		#category li:hover {
-			background-color: #E53A1B;
-		}
+#category_menu {
+	color: #FFF;
+	width: 800px;
+	list-style: none;
+	margin: auto;
+}
 
-		#howto_menu {
-			color: #FFF;
-			width: 832px;
-			list-style: none;
-			margin: auto;
-		}
+.category_center {
+	background-color: tomato;
+	color: #FFF;
+	width: 100px;
+	line-height: 50px;
+	text-align: center;
+	float: left;
+	height: 50px;
+}
 
-		.howto_center {
-			background-color: tomato;
-			border-bottom: 1px solid #FFF;
-			width: 100px;
-			line-height: 50px;
-			text-align: center;
-			float: left;
-			height: 50px;
-		}
+#category_first {
+	line-height: 50px;
+	text-align: center;
+	float: left;
+	height: 50px;
+	background-color: tomato;
+	width: 100px;
+	border-radius: 0px 0px 0px 30px;
+	border-right: 1px solid #FFF;
+}
 
-		#howto_first {
-			border-right: 1px solid #FFF;
-			border-bottom: 1px solid #FFF;
-			line-height: 50px;
-			text-align: center;
-			float: left;
-			height: 50px;
-			background-color: tomato;
-			width: 116px;
-			border-radius: 30px 0px 0px 8px;
-		}
+#category_etc {
+	line-height: 50px;
+	text-align: center;
+	float: left;
+	height: 50px;
+	background-color: tomato;
+	width: 100px;
+	border-radius: 0px 0px 30px 0px;
+}
 
-		#howto_etc {
-			border-bottom: 1px solid #FFF;
-			line-height: 50px;
-			text-align: center;
-			float: left;
-			height: 50px;
-			background-color: tomato;
-			width: 116px;
-			border-radius: 0% 30px 8px 0px;
-		}
+#category_helmet {
+	width: 80px;
+	height: 28px;
+	border-radius: 10px 10px 0px 0px;
+	border-bottom: 1px solid #FFF;
+	background: #FF6347;
+	margin: auto;
+}
 
-		#category_menu {
-			color: #FFF;
-			width: 800px;
-			list-style: none;
-			margin: auto;
-		}
+.recipe_thumbnail {
+	width: 250px;
+	height: 250px;
+}
 
-		.category_center {
-			background-color: tomato;
-			color: #FFF;
-			width: 100px;
-			line-height: 50px;
-			text-align: center;
-			float: left;
-			height: 50px;
-		}
+.recipe_one {
+	margin: 60px 20px;
+	width: 250px;
+	display: inline-block;
+}
 
-		#category_first {
-			line-height: 50px;
-			text-align: center;
-			float: left;
-			height: 50px;
-			background-color: tomato;
-			width: 100px;
-			border-radius: 0px 0px 0px 30px;
-			border-right: 1px solid #FFF;
-		}
+.like img {
+	vertical-align: middle;
+	width: 16px;
+	height: 16px;
+}
 
-		#category_etc {
-			line-height: 50px;
-			text-align: center;
-			float: left;
-			height: 50px;
-			background-color: tomato;
-			width: 100px;
-			border-radius: 0px 0px 30px 0px;
-		}
+.like span {
+	height: 16px;
+	font-size: 12px;
+}
 
-		#category_helmet {
-			width: 80px;
-			height: 28px;
-			border-radius: 10px 10px 0px 0px;
-			border-bottom: 1px solid #FFF;
-			background: #FF6347;
-			margin: auto;
-		}
+.profile {
+	vertical-align: middle;
+	width: 30px;
+}
 
-		.recipe_thumbnail {
-			width: 250px;
-			height: 250px;
-		}
+.writer {
+	height: 30px;
+}
 
-		.recipe_one {
-			margin: 60px 20px;
-			background-color: aqua;
-			width: 250px;
-			display: inline-block;
-		}
+.writer span {
+	font-size: 16px;
+	line-height: 30px;
+}
 
-		.like img {
-			vertical-align: middle;
-			width: 16px;
-			height: 16px;
-		}
+.flexContainer {
+	width: 1320px;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: space-evenly;
+}
+.quickmenu {
+	font-family: 'BM HANNA_TTF';
+	position:relative;
+	background:#fff;
+	width: 300px;
+}
 
-		.like span {
-			height: 16px;
-			font-size: 12px;
-		}
+.recent {
+	width: 270px;
+	height: 30px;
+	display: inline-block;
+	border-bottom: 4px solid #FDC040;
+}
 
-		.profile {
-			vertical-align: middle;
-			width: 30px;
-		}
+.recent span {
+	display: inline-block;
+	height: 30px;
+	border-bottom: 4px solid tomato;
+}
 
-		.writer {
-			height: 30px;
-		}
+.recent_center {
+	width: 270px;
+}
 
-		.writer span {
-			font-size: 16px;
-			line-height: 30px;
-		}
+.recent_center img {
+	width: 135px;
+	float: left;
+	margin-right: 15px;
+}
 
-		.flexContainer {
-			width: 1320px;
-			display: flex;
-			flex-direction: row;
-			flex-wrap: wrap;
-			justify-content: space-evenly;
-		}
-	</style>
+.cate {
+	height: 100px;
+}
+
+.writer {
+	height: 35px;
+}
+
+</style>
+	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+	<script>
+		$(document).ready(function () {
+			var currentPosition = parseInt($(".quickmenu").css("top"));
+			$(window).scroll(function () {
+				var position = $(window).scrollTop();
+				$(".quickmenu").stop().animate({ "top": position + currentPosition + "px" }, 500);
+			});
+		});
+	</script>
 </head>
 
 <body>
 	<div id="mydiv">
 		<jsp:include page="../../header.jsp" />
-		<div id="test">
-			<aside id="sidebar-left">왼쪽</aside>
+		<aside id="sidebar-left">
+			<div class="quickmenu">
+				<div class="recent">
+					<span>최근 본 레시피</span>
+					<br><br>
+				</div>
+				<div class="recent_center">
+					<img src="https://mediahub.seoul.go.kr/wp-content/uploads/2020/10/d13ea4a756099add8375e6c795b827ab.jpg" alt="">
+					<p class="cate">분식 | 떡볶이</p>
+					<p class="writer">작성자 : 김희준</p>
+				</div>
+			</div>
+			<div class="quickmenu">
+				<div class="recent">
+					<span>최근 본 레시피</span>
+					<br><br>
+				</div>
+				<div class="recent_center">
+					<img src="https://mediahub.seoul.go.kr/wp-content/uploads/2020/10/d13ea4a756099add8375e6c795b827ab.jpg" alt="">
+					<p class="cate">분식 | 떡볶이</p>
+					<p class="writer">작성자 : 김희준</p>
+				</div>
+			</div>
+			<div class="quickmenu">
+				<div class="recent">
+					<span>최근 본 레시피</span>
+					<br><br>
+				</div>
+				<div class="recent_center">
+					<img src="https://mediahub.seoul.go.kr/wp-content/uploads/2020/10/d13ea4a756099add8375e6c795b827ab.jpg" alt="">
+					<p class="cate">분식 | 떡볶이</p>
+					<p class="writer">작성자 : 김희준</p>
+				</div>
+			</div>
+		</aside>
 			<div id="content">
 				<!-- 카테고리 만들기 -->
 				<div id="category">
@@ -236,34 +309,40 @@
 				<!-- 레시피 출력 -->
 				<!-- 콘텐츠공간 -->
 				<div class="flexContainer">
-					<div class="recipe_one">
-						<p><img src="https://mediahub.seoul.go.kr/wp-content/uploads/2020/10/d13ea4a756099add8375e6c795b827ab.jpg"
-								class="recipe_thumbnail"></p>
-						<p>공공레시피명</p>
-						<div class="writer">
-							<img
-								src="https://png.pngtree.com/png-vector/20191115/ourmid/pngtree-beautiful-profile-line-vector-icon-png-image_1990469.jpg"
-								class="profile">
-							<span>작성자 이름</span>
+					<c:forEach begin="1" end="12">
+						<div class="recipe_one">
+							<p>
+								<img
+									src="https://mediahub.seoul.go.kr/wp-content/uploads/2020/10/d13ea4a756099add8375e6c795b827ab.jpg"
+									class="recipe_thumbnail">
+							</p>
+							<p>공공레시피명</p>
+							<div class="writer">
+								<img
+									src="https://png.pngtree.com/png-vector/20191115/ourmid/pngtree-beautiful-profile-line-vector-icon-png-image_1990469.jpg"
+									class="profile"> <span>작성자 이름</span>
+							</div>
+							<div class="like" style="text-align: right;">
+								<img class="icon"	src="https://img.medicalreport.kr/resources/2019/07/23/o0vYNCXzJDWRPejw.jpg"	alt="">
+								 <span>4.9</span> 
+								 <img class="icon" src="https://cdn-icons-png.flaticon.com/512/8316/8316018.png" alt="">
+								  <span>42</span>
+								   <img class="icon"
+									src="https://cdn-icons-png.flaticon.com/512/2415/2415461.png"
+									alt=""> 
+									<span>7만</span>
+							</div>
 						</div>
-						<div class="like" style="text-align: right;">
-							<img class="icon" src="https://img.medicalreport.kr/resources/2019/07/23/o0vYNCXzJDWRPejw.jpg" alt="">
-							<span>4.9</span>
-							<img class="icon" src="https://cdn-icons-png.flaticon.com/512/8316/8316018.png" alt="">
-							<span>42</span>
-							<img class="icon" src="https://cdn-icons-png.flaticon.com/512/2415/2415461.png" alt="">
-							<span>7만</span>
-						</div>
-					</div>
+					</c:forEach>
 				</div>
 				<!-- 레시피 출력끝  -->
 			</div>
-			<aside id="sidebar-right">오른</aside>
-		</div>
+		<aside id="sidebar-right">오른</aside>
 		<div id="footer">
 			<jsp:include page="../../footer.jsp" />
 		</div>
 	</div>
+
 
 </body>
 

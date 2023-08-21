@@ -32,7 +32,7 @@
 <body>
 	<h1>각자 페이지로 가는 버튼 생성 시작~</h1>
 	<hr>
-	<button onclick="go_public_list()"></button>
+	<button onclick="go_public_list()">공공레시피</button>
 	<button onclick="go_home()">Home</button>
 	<button onclick="go_ranking_search()">ranking_search</button>
 	<button onclick="go_plz()">plz</button>
