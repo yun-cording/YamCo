@@ -32,4 +32,8 @@ public class User_Controller {
 	public ModelAndView go_admin() {
 		return new ModelAndView("admin/admin_index");
 	}
+	@RequestMapping("go_main.do")
+	public ModelAndView go_main() {
+		return new ModelAndView("/main");
+	}
 }
