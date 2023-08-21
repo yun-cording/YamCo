@@ -47,10 +47,7 @@
 
 
 #footer {
-	background-color: #333;
 	left: 0px;
-	color: #fff;
-	text-align: center;
 	width: 100%;
 	height: 300px;
 	clear: left;
@@ -75,7 +72,7 @@
 		</div>
 		<aside id="sidebar-right">오른</aside>
 		</div>
-		<div id="footer">아래</div>
+		<div id="footer"><jsp:include page="footer.jsp" /></div>
 	</div>
 
 </body>
