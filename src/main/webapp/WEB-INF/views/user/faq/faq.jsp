@@ -16,8 +16,8 @@
 }
 
 @font-face {
-    font-family: 'BM HANNA_TTF';
-    src: url('../resources/fonts/BMHANNA_11yrs_ttf.ttf') format('truetype');
+    font-family: 'Yeongdeok_TTF';
+    src: url('../resources/fonts/Yeongdeok Blueroad.ttf') format('truetype');
 }
 
  #mydiv{
@@ -43,7 +43,7 @@
 	/* Rectangle 77 */
 	margin-top: 0px;
 	background: white;
-	font-family: 'BM HANNA_TTF';
+	font-family: 'Yeongdeok_TTF';
 }
 
 #footer {
@@ -62,63 +62,63 @@
 }
 /* Line 12 */
 #title_line{
-width: 1320px;
-height: 1px;
-border: 3px solid tomato;
-margin-top: 10px;
-margin-bottom: 135px;
+	width: 1320px;
+	height: 1px;
+	border: 2px solid tomato;
+	margin-top: 10px;
+	margin-bottom: 135px;
 }
 
 /* Rectangle 79 */
 #q_title{
-box-sizing: border-box;
-width: 1260px;
-height: 80px; 
-margin-left: 30px;
-margin-right: 30px;
-padding-top: 30px;
-
-border-left: 20px solid ;
-border-bottom: 3px solid ;
-border-color: tomato;
-margin-top: 30px;
+	box-sizing: border-box;
+	width: 1260px;
+	height: 80px; 
+	margin-left: 30px;
+	margin-right: 30px;
+		
+	border-left: 20px solid ;
+	border-bottom: 3px solid ;
+	border-color: tomato;
+	margin-top: 30px;
 }
 
 .arrow{
-float: right;
-margin-right: 30px;
+	float: right;
+	padding-bottom: 20px;
+	margin-right: 30px;
 }
 
 #q_title_t{	
-font-size: 30px;
-padding-left: 10px;
-
+	width: 1100px;
+	font-size: 30px;
+	padding-left: 10px;
+	float: left;
+	margin-top: 25px;
 }
 
 #answer{
 	font-size: 30px;
 	text-align: center;
-	 display: none;  
-	/* display: flex; */
+	display: none;  
+	 	
+	box-sizing: border-box;
 	
-box-sizing: border-box;
-
-margin-left: 30px;
-margin-right: 30px;
-margin-bottom: 50px;
-padding-top: 17px;
-width: 1260px;
-height: 300px;
-
-font-family: 'BM HANNA_TTF';
-font-weight: 400;
-line-height: 40px;
-
-color: tomato;
-
-border-bottom: 3px solid tomato;
-align-items: center;
-justify-content: center;
+	margin-left: 30px;
+	margin-right: 30px;
+	margin-bottom: 50px;
+	padding-top: 17px;
+	width: 1260px;
+	height: 300px;
+	
+	font-weight: 400;
+	line-height: 40px;
+	
+	color: tomato;
+	
+	border-bottom: 3px solid tomato;
+	align-items: center;
+	justify-content: center;
 }
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
@@ -216,7 +216,7 @@ justify-content: center;
 			<div id="title_line"></div>
 			<div id="q_title">
 				<span id="q_title_t">요리 레시피를 어떻게 검색하나요?</span>
-				<img class="arrow" id="a_1" src="/resources/images/arrow_down.png">
+				<div><img class="arrow" id="a_1" src="/resources/images/arrow_down.png"></div>
 			</div>
 			<div id="answer" class="a1">
 				<p id="a_text_1">레시피 검색은 사이트 상단의 검색 바에 키워드나 요리명을 입력하면 됩니다. 또한, 카테고리별로 분류된 레시피 목록을 확인할 수 있습니다.
