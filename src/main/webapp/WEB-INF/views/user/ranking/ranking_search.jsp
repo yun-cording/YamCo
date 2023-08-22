@@ -28,18 +28,6 @@
 	top: 0px;
 }
 
-/* Rectangle 4225 */
-/* #body{
-	position: absolute;
-	width: 1320px;
-	height: 1430px;
-	left: 300px;
-	top: 230px;
-  text-align: center;
-	background: #FFFFFF;
-
-} */
-
 #sidebar-right {
 	background-color: yellow;
 	float: right;
@@ -66,7 +54,6 @@
 	background-color: #333;
 	left: 0px;
 	color: #fff;
-	text-align: center;
 	width: 100%;
 	height: 300px;
 	clear: left;
@@ -94,9 +81,10 @@
 	position: absolute;
 	width: 110px;
 	height: 54px;
-	left: 430px;
-	top: 375px;
 	border: 2px solid #FF6347;
+	left: 539px;
+	top: 375px;
+	z-index: 2;
 }
 
 #lsearch {
@@ -105,10 +93,11 @@
 	position: absolute;
 	width: 110px;
 	height: 54px;
-	left: 539px;
+	left: 430px;
 	top: 375px;
 	background: #FF6347;
 	border: 2px solid #FF6347;
+	z-index: 2;
 }
 
 #toptext {
@@ -117,7 +106,7 @@
 	height: 48px;
 	left: calc(50% - 203px/ 2 + 0.5px);
 	top: 370px;
-	font-family: 'BM HANNA_TTF';
+	font-family: 'Yeongdeok_TTF';
 	font-style: normal;
 	font-weight: 400;
 	font-size: 48px;
@@ -145,6 +134,7 @@
 	left: 1301px;
 	top: 474px;
 	border: 2px solid #FF6347;
+	z-index:2;
 }
 
 #month {
@@ -156,9 +146,44 @@
 	top: 474px;
 	background: #FF6347;
 	border: 2px solid #FF6347;
+	z-index:2;
 }
-.todaytext{
-font-family: 'BM HANNA_TTF';
+
+#month > span:hover{
+	background: #FF6347;
+	color: white;
+}
+
+#week > span:hover{
+	background: #FF6347;
+	color: white;
+}
+
+#lrecipe > span:hover{
+	background: #FF6347;
+	color: white;
+}
+
+
+#lsearch > span:hover{
+	background: #FF6347;
+	color: white;
+}
+
+#monthtext{
+font-family: 'Yeongdeok_TTF';
+font-style: normal;
+font-weight: 400;
+font-size: 24px;
+line-height: 54px;
+text-align: center;
+display: block;
+align-items: center;
+color: #000000;
+}
+
+#weektext{
+font-family: 'Yeongdeok_TTF';
 font-style: normal;
 font-weight: 400;
 font-size: 24px;
@@ -171,23 +196,24 @@ color: #000000;
 
 #searchtext{
   text-align: center;
-  font-family: 'BM HANNA_TTF';
+  font-family: 'Yeongdeok_TTF';
 font-style: normal;
 font-weight: 400;
   font-size: 24px;
 line-height: 54px;
 display: block;
-color: #FFFFFF;
+color: #000000;
 }
 
 #recipetext{
   text-align: center;
-  font-family: 'BM HANNA_TTF';
+  font-family: 'Yeongdeok_TTF';
 font-style: normal;
 font-weight: 400;
   font-size: 24px;
   line-height: 54px;
 display: block;
+color: #000000;
 }
 
 #search_rankingtext{
@@ -196,7 +222,7 @@ width: 240px;
 height: 48px;
 left: calc(50% - 203px/2 + 0.5px);
 top: 370px;
-font-family: 'BM HANNA_TTF';
+font-family: 'Yeongdeok_TTF';
 font-style: normal;
 font-weight: 400;
 font-size: 48px;
@@ -619,27 +645,54 @@ a{
   text-decoration: none;
 }
 
+
 @font-face {
-    font-family: 'BM HANNA_TTF';
-    src: url('../resources/fonts/BMHANNA_11yrs_ttf.ttf') format('truetype');
+    font-family: 'Yeongdeok_TTF';
+    src: url('../resources/fonts/Yeongdeok Blueroad.ttf') format('truetype');
 }
 
 </style>
+<script type="text/javascript">
+function search() {
+	document.getElementById("lsearch").style.cssText='color:white; background-color:tomato';
+	document.getElementById("lrecipe").style.cssText='color:black; background-color:white';
+	console.log(2);
+}
+
+function recipe() {
+	document.getElementById("lrecipe").style.cssText='color:white; background-color:tomato';
+	document.getElementById("lsearch").style.cssText='color:black; background-color:white';
+	console.log(2);
+}
+
+function select_week() {
+	document.getElementById("week").style.cssText='color:white; background-color:tomato';
+	document.getElementById("month").style.cssText='color:black; background-color:white';
+	console.log(2);
+}
+
+function select_month() {
+	document.getElementById("month").style.cssText='color:white; background-color:tomato';
+	document.getElementById("week").style.cssText='color:black; background-color:white';
+	console.log(2);
+}
+
+</script>
 </head>
 <body>
+	
 	<div id="mydiv">
     <jsp:include page="../../header.jsp" />
 		<div id="test">
 			<aside id="sidebar-left">왼쪽</aside>
-
-				<div id="lrecipe"><span id="recipetext">레시피</span></div>
-				<dlv id="lsearch"><span id="searchtext">검색어</span></dlv>
+			<div id="content">
+				<div id="lrecipe" onclick = "recipe()"><span id="recipetext" >검색어</span></div>
+				<dlv id="lsearch" onclick = "search()"><span id="searchtext" >레시피</span></dlv>
 				<div id="topline"></div>
         <div id="search_rankingtext">검색어랭킹</div>
 				
-				<div id="today"><span class="todaytext">일간</span></div>
-				<div id="week"><span class="todaytext">주간</span></div>
-				<div id="month"><span class="todaytext">월간</span></div>
+				<div id="week" onclick="select_week()"><span id="weektext">주간</span></div>
+				<div id="month" onclick="select_month()"><span id="monthtext">월간</span></div>
 		
 		
 		<c:forEach var="k" begin="1" end="30">
@@ -647,13 +700,12 @@ a{
         <div id="keyward${k }" class="keywardLineClass"></div>   
 		</c:forEach>
 
-			<aside id="sidebar-right">오른</aside>
 		</div>
-
+</div>
+			<aside id="sidebar-right">오른</aside>
 		<div id="footer">
 			<jsp:include page="../../footer.jsp" />
 		</div>
-
 	</div>
 
 </body>
