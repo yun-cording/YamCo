@@ -103,7 +103,7 @@
 	height: 48px;
 	left: calc(50% - 203px/ 2 + 0.5px);
 	top: 370px;
-	font-family: 'BM HANNA_TTF';
+	font-family: 'Yeongdeok_TTF';
 	font-style: normal;
 	font-weight: 400;
 	font-size: 48px;
@@ -144,7 +144,7 @@
 	border: 2px solid #FF6347;
 }
 .todaytext{
-font-family: 'BM HANNA_TTF';
+font-family: 'Yeongdeok_TTF';
 font-style: normal;
 font-weight: 400;
 font-size: 24px;
@@ -157,7 +157,7 @@ color: #000000;
 
 #searchtext{
   text-align: center;
-  font-family: 'BM HANNA_TTF';
+  font-family: 'Yeongdeok_TTF';
 font-style: normal;
 font-weight: 400;
   font-size: 24px;
@@ -168,7 +168,7 @@ color: #FFFFFF;
 
 #recipetext{
   text-align: center;
-  font-family: 'BM HANNA_TTF';
+  font-family: 'Yeongdeok_TTF';
 font-style: normal;
 font-weight: 400;
   font-size: 24px;
@@ -182,7 +182,7 @@ width: 240px;
 height: 48px;
 left: calc(50% - 203px/2 + 0.5px);
 top: 370px;
-font-family: 'BM HANNA_TTF';
+font-family: 'Yeongdeok_TTF';
 font-style: normal;
 font-weight: 400;
 font-size: 48px;
@@ -198,8 +198,12 @@ a{
 }
 
 @font-face {
-    font-family: 'BM HANNA_TTF';
-    src: url('../resources/fonts/BMHANNA_11yrs_ttf.ttf') format('truetype');
+    font-family: 'Yeongdeok_TTF';
+    src: url('../resources/fonts/Yeongdeok Blueroad.ttf') format('truetype');
+}
+
+.recipe_one p{
+font-family: 'Yeongdeok_TTF';
 }
 
 #lrecipe span:hover{
@@ -217,7 +221,7 @@ width: 250px;
 height: 250px;
 }
 .recipe_one{
-  margin: 60px 20px;
+  margin: 60px 80px;
 	width: 250px;
 	display: inline-block;
 }
@@ -244,6 +248,7 @@ height: 250px;
 
 .writer span {
 	font-size: 16px;
+	font-family: 'Yeongdeok_TTF';
 	line-height: 30px;
 }
 
@@ -260,10 +265,6 @@ height: 250px;
 .medal{
 	width: 60px;
 	height: 60px;
-}
-
-#toppart{
-	
 }
 
 </style>
@@ -293,7 +294,7 @@ function select_month() {
 			<aside id="sidebar-right">오른쪽</aside>
 		<div id="test">
 				
-				<div id="toppart">
+				
 				<div id="lrecipe" onclick="select_recipe()"><span id="recipetext">검색어</span></div>
 				<dlv id="lsearch" onclick="select_search()"><span id="searchtext">레시피</span></dlv>
 				<div id="topline"></div>
@@ -302,15 +303,7 @@ function select_month() {
 				<div id="today" onclick="select_today()"><span class="todaytext">일간</span></div>
 				<div id="week" onclick="select_week()"><span class="todaytext">주간</span></div>
 				<div id="month" onclick="select_month()"><span class="todaytext">월간</span></div>
-				</div>
-				<!-- <c:forEach begin="1" end="30" var="k">
-				<div id="firstline"><img src="../resources/rankingmedal/${k }.png" class="medal" id="medal${k }"></div>
-				<div id="firstline"><img src="../resources/rankingmedal/1.png" class="medal" id="medal1"></div>		
-				</c:forEach> -->
 
-			
-				
-        
         <div id="flexContainer">
       <c:forEach var="k" begin="1" end="30">
         <div class="recipe_one">
