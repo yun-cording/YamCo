@@ -1,18 +1,15 @@
 @charset "UTF-8";
 
-.scene * {
-	transition: all 0.5s ease-in-out;
-}
-
 .scene {
 	width: 100%;
-	height: 100%;
+	height: 900px;
 	padding: 100px;
 	justify-content: center;
 	align-items: center;
 	perspective: 1200px;
 	text-align: center;
 	justify-content: center;
+	z-index: 2;
 }
 
 .carousel {
@@ -32,38 +29,30 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	border: 1px solid black;
-	color: #fff;
+	border: 10px solid tomato;
+	background-color: #ffffffee;
+	color: black;
 	font-size: 32px;
 	font-weight: 600;
+	transition: all 1.0s ease-in-out;
 }
 
 .item:nth-child(1) {
-	background-color: #ff7979;
+/* 	background-color: #ff7979; */
 	transform: translateX(-690px) rotateY(-40deg) translateZ(-250px);
 }
 
-/* .item:nth-child(1):hover { */
-/* 	transform: translateZ(500px) rotateY(0deg) translateX(0px) */
-/* 		translateY(100px) scale(1.2); */
-/* } */
 .item:nth-child(2) {
-	background-color: #ffbe76;
+/* 	background-color: #ffbe76; */
 }
 
-/* .item:nth-child(2):hover { */
-/* 	transform: translateZ(500px) translateY(100px) scale(1.2); */
-/* } */
 .item:nth-child(3) {
-	background-color: #f0932b;
+/* 	background-color: #f0932b; */
 	transform: translateX(690px) rotateY(40deg) translateZ(-250px);
 }
 
-/* .item:nth-child(3):hover { */
-/* 	transform: translateZ(500px) rotateY(0deg) translateX(0px) */
-/* 		translateY(100px) scale(1.2); */
-/* } */
 .carousel:nth-last-child(1) {
+	background-color: inherit;
 	font-size: 5em;
 	font-weight: 600;
 	color: tomato;
@@ -89,6 +78,16 @@
 	height: 75%;
 }
 
+.prize_content a {
+	color: black;
+	text-decoration: none;
+}
+
+.prize_content a:hover {
+	color: black;
+	text-decoration: none;
+}
+
 .prize_profile {
 	width: 50%;
 	height: 100%;
@@ -102,8 +101,8 @@
 
 .prize_content img {
 	margin: 10px;
-	width: calc(100% - 20px);
-	max-height: calc(100% - 20px);
+	height: calc(100% - 20px);
+	max-width: calc(100% - 20px);
 }
 
 .profile_nickname {
@@ -121,15 +120,60 @@
 
 .prize_recipe_title {
 	width: 100%;
-	height: 20%;
+	height: 10%;
 }
 
 .prize_recipe_photo {
 	width: 100%;
-	height: 50%;
+	height: 60%;
 }
 
 .prize_recipe_content {
 	width: 100%;
 	height: 30%;
+}
+
+.lank_table {
+	margin: 10px;
+	padding: 10px;
+	width: calc(100% - 20px);
+	border: 3px solid tomato;
+	border-collapse: collapse;
+	border-radius: 30px;
+	border-style: hidden;
+	box-shadow: 0 0 0 3px tomato;
+	text-align: center;
+	z-index: 1;
+}
+
+.lank_table th {
+	padding: 10px;
+	border: 2px solid tomato;
+	background-color: #FF634788;
+	color: white;
+}
+
+.lank_table td {
+	padding: 10px;
+	border: 1px solid tomato;
+}
+
+.lank_table a {
+	color: black;
+	text-decoration: none;
+}
+
+..lank_table a:hover {
+	color: black;
+	text-decoration: none;
+}
+
+.row_append {
+	margin: 10px;
+	padding: 10px;
+	width: calc(100% - 20px);
+	border: 3px solid tomato;
+	border-radius: 30px;
+	text-align: center;
+	color: tomato;
 }
