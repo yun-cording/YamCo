@@ -27,6 +27,9 @@
 	function go_admin() {
 		location.href = "/go_admin.do";
 	}
+	function go_main() {
+		location.href = "/go_main.do";
+	}
 </script>
 </head>
 <body>
@@ -39,6 +42,7 @@
 	<button onclick="go_faq()">faq</button>
 	<button onclick="go_award()">award</button>
 	<button onclick="go_admin()">admin</button>
+	<button onclick="go_main()">main</button>
 	<hr>
 </body>
 </html>
