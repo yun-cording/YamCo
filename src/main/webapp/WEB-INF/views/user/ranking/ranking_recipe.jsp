@@ -16,37 +16,28 @@
 	box-sizing: border-box;
 }
 
+#content{
+	float:left;
+}
+
 #mydiv {
 	position: relative; 
   width : 1920px;
-	height: 2000px; 
   left : 0px; 
   top : 0px;
 	margin: auto;
-	width: 1920px; 
-  height : 4400px;
 }
 
 #sidebar-right {
 	background-color: yellow;
 	float: right;
 	width: 15.625%;
-	height: 4400px;
 }
 
 #sidebar-left {
 	background-color: yellow;
 	width: 15.625%;
 	float: left;
-	height: 4400px;
-}
-
-#content {
-	width: 68.75%;
-	float: left;
-	margin-top: 0px;
-	background: snow;
-	height: 4400px;
 }
 
 #footer {
@@ -58,11 +49,6 @@
 	clear: left;
 }
 
-#test {
-	width: 100%;
-	height: 1500px;
-}
-
 #topline {
   text-align: center;
 	box-sizing: border-box;
@@ -72,6 +58,7 @@
 	left: calc(50% - 1060px/ 2);
 	top: 348px;
 	border-bottom: 3px solid #21730B;
+	z-index: 1;
 }
 
 #lrecipe {
@@ -83,6 +70,7 @@
 	border: 2px solid #FF6347;
 	left: 539px;
 	top: 375px;
+	z-index: 2;
 }
 
 #lsearch {
@@ -95,6 +83,7 @@
 	top: 375px;
 	background: #FF6347;
 	border: 2px solid #FF6347;
+	z-index: 2;
 }
 
 #toptext {
@@ -103,7 +92,7 @@
 	height: 48px;
 	left: calc(50% - 203px/ 2 + 0.5px);
 	top: 370px;
-	font-family: 'BM HANNA_TTF';
+	font-family: 'Yeongdeok_TTF';
 	font-style: normal;
 	font-weight: 400;
 	font-size: 48px;
@@ -111,16 +100,6 @@
 	display: flex;
 	align-items: center;
 	text-align: center;
-}
-
-#today {
-	box-sizing: border-box;
-	position: absolute;
-	width: 95px;
-	height: 54px;
-	left: 1206px;
-	top: 474px;
-	border: 2px solid #FF6347;
 }
 
 #week {
@@ -131,6 +110,7 @@
 	left: 1301px;
 	top: 474px;
 	border: 2px solid #FF6347;
+	z-index:2;
 }
 
 #month {
@@ -142,9 +122,35 @@
 	top: 474px;
 	background: #FF6347;
 	border: 2px solid #FF6347;
+	z-index:2;
 }
-.todaytext{
-font-family: 'BM HANNA_TTF';
+
+#month > span:hover{
+	background: #FF6347;
+	color: white;
+}
+
+#week > span:hover{
+	background: #FF6347;
+	color: white;
+}
+
+
+
+#monthtext{
+font-family: 'Yeongdeok_TTF';
+font-style: normal;
+font-weight: 400;
+font-size: 24px;
+line-height: 54px;
+text-align: center;
+display: block;
+align-items: center;
+color: #000000;
+}
+
+#weektext{
+font-family: 'Yeongdeok_TTF';
 font-style: normal;
 font-weight: 400;
 font-size: 24px;
@@ -157,23 +163,24 @@ color: #000000;
 
 #searchtext{
   text-align: center;
-  font-family: 'BM HANNA_TTF';
+  font-family: 'Yeongdeok_TTF';
 font-style: normal;
 font-weight: 400;
   font-size: 24px;
 line-height: 54px;
 display: block;
-color: #FFFFFF;
+color: #000000;
 }
 
 #recipetext{
   text-align: center;
-  font-family: 'BM HANNA_TTF';
+  font-family: 'Yeongdeok_TTF';
 font-style: normal;
 font-weight: 400;
   font-size: 24px;
   line-height: 54px;
 display: block;
+color: #000000;
 }
 
 #search_rankingtext{
@@ -182,7 +189,7 @@ width: 240px;
 height: 48px;
 left: calc(50% - 203px/2 + 0.5px);
 top: 370px;
-font-family: 'BM HANNA_TTF';
+font-family: 'Yeongdeok_TTF';
 font-style: normal;
 font-weight: 400;
 font-size: 48px;
@@ -198,18 +205,23 @@ a{
 }
 
 @font-face {
-    font-family: 'BM HANNA_TTF';
-    src: url('../resources/fonts/BMHANNA_11yrs_ttf.ttf') format('truetype');
+    font-family: 'Yeongdeok_TTF';
+    src: url('../resources/fonts/Yeongdeok Blueroad.ttf') format('truetype');
 }
 
-#lrecipe span:hover{
-	background: #FF6347;
-	color: #000000;
+.recipe_one p{
+font-family: 'Yeongdeok_TTF';
 }
 
-#lsearch span:hover{
+#lrecipe > span:hover{
 	background: #FF6347;
-	color: #000000;
+	color: white;
+}
+
+
+#lsearch > span:hover{
+	background: #FF6347;
+	color: white;
 }
 
 .recipe_thumbnail{
@@ -217,7 +229,7 @@ width: 250px;
 height: 250px;
 }
 .recipe_one{
-  margin: 60px 20px;
+  margin: 60px 80px;
 	width: 250px;
 	display: inline-block;
 }
@@ -244,6 +256,7 @@ height: 250px;
 
 .writer span {
 	font-size: 16px;
+	font-family: 'Yeongdeok_TTF';
 	line-height: 30px;
 }
 
@@ -253,6 +266,7 @@ height: 250px;
   flex-wrap: wrap; 
   justify-content: space-evenly;
   margin-top: 280px;
+  
   /* justify-content: space-evenly; 양끝과 아이템 사이의 간격을 동일하게 만듭니다. */
   /* flex-direction: row; 기본값이 row로 설정되어 있음. 안에 내용들이 좌에서 우로 가로방향으로 이동 */
   /* flex-wrap: wrap; flex폭이 지정되어 있고 flex안에 내용들이 flex항목의 width를 넘어갈때 여러 행에 나열될수 있도록 설정해주는 내용. 즉, 다음줄로 이동 */
@@ -261,28 +275,38 @@ height: 250px;
 	width: 60px;
 	height: 60px;
 }
-
-#toppart{
-	
-}
-
 </style>
+
 <script type="text/javascript">
-function select_search() {
-	
+function search() {
+	document.getElementById("lsearch").style.cssText='color:white; background-color:tomato';
+	document.getElementById("lrecipe").style.cssText='color:black; background-color:white';
+	console.log(2);
 }
-function select_recipe() {
-	
+
+function recipe() {
+	document.getElementById("lrecipe").style.cssText='color:white; background-color:tomato';
+	document.getElementById("lsearch").style.cssText='color:black; background-color:white';
+	console.log(2);
 }
-function select_today() {
-	
-}
+
 function select_week() {
-	
+	document.getElementById("week").style.cssText='color:white; background-color:tomato';
+	document.getElementById("month").style.cssText='color:black; background-color:white';
+	console.log(2);
 }
+
 function select_month() {
-	
+	document.getElementById("month").style.cssText='color:white; background-color:tomato';
+	document.getElementById("week").style.cssText='color:black; background-color:white';
+	console.log(2);
 }
+/* document.getElementById("lrecipe").addEventListener("click", function() {
+    alert("Div clicked!");
+});
+    document.getElementById("lsearch").addEventListener("click", function() {
+        alert("Div clicked!");
+}); */
 
 </script>
 </head>
@@ -290,27 +314,16 @@ function select_month() {
 	<div id="mydiv">
     <jsp:include page="../../header.jsp" />
 			<aside id="sidebar-left">왼쪽</aside>
-			<aside id="sidebar-right">오른쪽</aside>
-		<div id="test">
-				
-				<div id="toppart">
-				<div id="lrecipe" onclick="select_recipe()"><span id="recipetext">검색어</span></div>
-				<dlv id="lsearch" onclick="select_search()"><span id="searchtext">레시피</span></dlv>
-				<div id="topline"></div>
-        <div id="search_rankingtext">검색어랭킹</div>
-				
-				<div id="today" onclick="select_today()"><span class="todaytext">일간</span></div>
-				<div id="week" onclick="select_week()"><span class="todaytext">주간</span></div>
-				<div id="month" onclick="select_month()"><span class="todaytext">월간</span></div>
+				<div id="content">
+				<div id="lrecipe" onclick = "recipe()"><span id="recipetext" >검색어</span></div>
+				<dlv id="lsearch" onclick = "search()"><span id="searchtext" >레시피</span></dlv>
+				<div id="topline" >
 				</div>
-				<!-- <c:forEach begin="1" end="30" var="k">
-				<div id="firstline"><img src="../resources/rankingmedal/${k }.png" class="medal" id="medal${k }"></div>
-				<div id="firstline"><img src="../resources/rankingmedal/1.png" class="medal" id="medal1"></div>		
-				</c:forEach> -->
-
-			
+		        <div id="search_rankingtext" >검색어랭킹</div>
 				
-        
+				<div id="week" onclick="select_week()"><span id="weektext">주간</span></div>
+				<div id="month" onclick="select_month()"><span id="monthtext">월간</span></div>
+
         <div id="flexContainer">
       <c:forEach var="k" begin="1" end="30">
         <div class="recipe_one">
@@ -331,9 +344,8 @@ function select_month() {
         </div>
 			</c:forEach>
       </div>
-	
-		</div>
-
+      </div>
+      <aside id="sidebar-right">오른쪽</aside>
 		<div id="footer">
 			<jsp:include page="../../footer.jsp" />
 		</div>

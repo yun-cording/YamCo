@@ -4,9 +4,13 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>회원가입</title>
+<title>login</title>
+<style type="text/css">
+
+</style>
 </head>
 <body>
-
+	<jsp:include page="header.jsp" />
+	
 </body>
 </html>
