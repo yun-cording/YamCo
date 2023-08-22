@@ -7,8 +7,6 @@
 <meta charset="UTF-8">
 <title>냠냠레시피</title>
 <link rel="icon" type="image/x-icon"	href="resources/images/icon_tomato.png">
-<link rel="stylesheet" href="resources/css/bestlist.css" />
-<link rel="stylesheet" href="resources/css/recentlist.css" />
 <link rel="stylesheet" href="resources/css/user/public_list.css" />
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script src="resources/js/public_list.js"></script>
@@ -93,8 +91,5 @@
 			<jsp:include page="../../footer.jsp" />
 		</div>
 	</div>
-
-
 </body>
-
 </html>
