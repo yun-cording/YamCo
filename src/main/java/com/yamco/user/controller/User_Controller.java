@@ -40,4 +40,68 @@ public class User_Controller {
 	public ModelAndView go_main() {
 		return new ModelAndView("/main");
 	}
+	@RequestMapping("go_error.do")
+	public ModelAndView go_error() {
+		return new ModelAndView("/error");
+	}
+	@RequestMapping("go_find_id.do")
+	public ModelAndView go_find_id() {
+		return new ModelAndView("login/find_id");
+	}
+	@RequestMapping("go_find_pw.do")
+	public ModelAndView go_find_pw() {
+		return new ModelAndView("login/find_pw");
+	}
+	@RequestMapping("go_login.do")
+	public ModelAndView go_login() {
+		return new ModelAndView("login/login");
+	}
+	@RequestMapping("go_member_join.do")
+	public ModelAndView go_member_join() {
+		return new ModelAndView("login/member_join");
+	}
+	@RequestMapping("go_new_pw.do")
+	public ModelAndView go_new_pw() {
+		return new ModelAndView("login/new_pw");
+	}
+	@RequestMapping("go_social_join.do")
+	public ModelAndView go_social_join() {
+		return new ModelAndView("login/social_join");
+	}
+	@RequestMapping("go_changeMyinfo.do")
+	public ModelAndView go_changeMyinfo() {
+		return new ModelAndView("mypage/changeMyinfo");
+	}
+	@RequestMapping("go_changeMypw.do")
+	public ModelAndView go_changeMypw() {
+		return new ModelAndView("mypage/changeMypw");
+	}
+	@RequestMapping("go_myComment.do")
+	public ModelAndView go_myComment() {
+		return new ModelAndView("mypage/myComment");
+	}
+	@RequestMapping("go_myContent.do")
+	public ModelAndView go_myContent() {
+		return new ModelAndView("mypage/myContent");
+	}
+	@RequestMapping("go_myinfo.do")
+	public ModelAndView go_myinfo() {
+		return new ModelAndView("mypage/myinfo");
+	}
+	@RequestMapping("go_myWishList.do")
+	public ModelAndView go_myWishList() {
+		return new ModelAndView("mypage/myWishList");
+	}
+	@RequestMapping("go_reportComment.do")
+	public ModelAndView go_reportComment() {
+		return new ModelAndView("mypage/reportComment");
+	}
+	@RequestMapping("go_reportContent.do")
+	public ModelAndView go_reportContent() {
+		return new ModelAndView("mypage/reportContent");
+	}
+	@RequestMapping("go_leaveMember.do")
+	public ModelAndView go_leaveMember() {
+		return new ModelAndView("mypage/leaveMember");
+	}
 }
