@@ -14,7 +14,11 @@ public class User_Controller {
 	}
 	@RequestMapping("go_ranking_search.do")
 	public ModelAndView go_ranking_search() {
-		return new ModelAndView("user/ranking/ranking");
+		return new ModelAndView("user/ranking/ranking_search");
+	}
+	@RequestMapping("go_ranking_recipe.do")
+	public ModelAndView go_ranking_recipe() {
+		return new ModelAndView("user/ranking/ranking_recipe");
 	}
 	@RequestMapping("go_plz.do")
 	public ModelAndView go_plz() {
