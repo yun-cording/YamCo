@@ -36,6 +36,14 @@ public class User_Controller {
 	public ModelAndView go_admin() {
 		return new ModelAndView("admin/admin_index");
 	}
+	@RequestMapping("/go_user_list.do")
+	public ModelAndView goUserList() {
+		return new ModelAndView("user/recipe/user_list");
+	}
+	@RequestMapping("/go_public_list.do")
+	public ModelAndView goPublicList() {
+		return new ModelAndView("user/recipe/public_list");
+	}
 	@RequestMapping("go_main.do")
 	public ModelAndView go_main() {
 		return new ModelAndView("/main");
@@ -43,10 +51,6 @@ public class User_Controller {
 	@RequestMapping("go_error.do")
 	public ModelAndView go_error() {
 		return new ModelAndView("/error");
-	}
-	@RequestMapping("go_find_id.do")
-	public ModelAndView go_find_id() {
-		return new ModelAndView("login/find_id");
 	}
 	@RequestMapping("go_find_pw.do")
 	public ModelAndView go_find_pw() {
@@ -103,5 +107,9 @@ public class User_Controller {
 	@RequestMapping("go_leaveMember.do")
 	public ModelAndView go_leaveMember() {
 		return new ModelAndView("mypage/leaveMember");
+	}
+	@RequestMapping("/go_search.do")
+	public ModelAndView go_searchList() {
+		return new ModelAndView("user/recipe/search_list");
 	}
 }
