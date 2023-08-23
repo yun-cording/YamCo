@@ -88,6 +88,28 @@
 	}
 	
 </script>
+
+<script type="text/javascript">
+function go_admin_report() {
+	location.href = "/go_admin_report.do";
+}
+function go_admin_dashboard() {
+		location.href = "/go_admin_dashboard.do";
+}
+function go_admin_memberchk() {
+		location.href = "/go_admin_memberchk.do";
+}
+function go_admin_notice() {
+		location.href = "/go_admin_notice.do";
+}
+function go_admin_faq() {
+		location.href = "/go_admin_faq.do";
+}
+function go_admin_contentchk() {
+		location.href = "/go_admin_contentchk.do";
+}
+
+</script>
 </head>
 <body>
 	<h1>각자 페이지로 가는 버튼 생성 시작</h1>
@@ -123,6 +145,14 @@
 	<button onclick="go_reportComment()">go_reportComment</button>
 	<button onclick="go_reportContent()">go_reportContent</button>
 	<button onclick="go_leaveMember()">go_leaveMember</button>
+	<hr>
+	<h4>관리자 페이지</h4>
+	<button onclick="go_admin_report()">go_admin_report</button>
+	<button onclick="go_admin_dashboard()">go_admin_dashboard</button>
+	<button onclick="go_admin_memberchk()">go_admin_memberchk</button>
+	<button onclick="go_admin_notice()">go_admin_notice</button>
+	<button onclick="go_admin_faq()">go_admin_faq</button>
+	<button onclick="go_admin_contentchk()">go_admin_contentchk</button>
 	
 	
 </body>
