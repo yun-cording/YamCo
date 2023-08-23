@@ -206,7 +206,7 @@ a{
 
 @font-face {
     font-family: 'Yeongdeok_TTF';
-    src: url('../resources/fonts/Yeongdeok Blueroad.ttf') format('truetype');
+    src: url('resources/fonts/Yeongdeok Blueroad.ttf') format('truetype');
 }
 
 .recipe_one p{

@@ -52,10 +52,6 @@ public class User_Controller {
 	public ModelAndView go_error() {
 		return new ModelAndView("/error");
 	}
-	@RequestMapping("go_find_id.do")
-	public ModelAndView go_find_id() {
-		return new ModelAndView("login/find_id");
-	}
 	@RequestMapping("go_find_pw.do")
 	public ModelAndView go_find_pw() {
 		return new ModelAndView("login/find_pw");

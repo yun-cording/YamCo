@@ -21,6 +21,7 @@
 	flex-shrink: 0;
 	margin: auto;
 	margin-top: 50px;
+	text-align: center;
 }
 </style>
 </head>
