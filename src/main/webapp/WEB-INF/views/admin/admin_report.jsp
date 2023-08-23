@@ -4,13 +4,26 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Bootstrap demo</title>
+<title>어드민 신고관리</title>
+<!-- 부트스트랩 사용하기위해 필요한 라이브러리  -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" ></script>
+
+	<!-- 알럿창꾸미기 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="sweetalert2.min.js"></script>
+    
+    <script type="text/javascript">
+    function chk() {
+    	 Swal.fire({
+    		  position: 'middle',
+    		  icon: 'success',
+    		  title: '블라인드 처리 되었습니다.',
+    		  showConfirmButton: false,
+    		  timer: 2000
+    		})
+	}
+    </script>
   </head>
   <body>
     <div id="Mydiv"> <!-- div 시작-->
@@ -74,7 +87,7 @@
         <td>myBigSecret...</td>
         <td>**************</td>
         <td><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">답변 미작성</button></td>
-        <td><button class="btn btn-primary">블라인드 처리하기</button></td>
+        <td><button class="btn btn-primary" onclick="chk()">블라인드 처리하기</button></td>
       </tr>
       <tr>
         <th scope="row">2</th>
@@ -84,7 +97,7 @@
         <td>myBigSecret...</td>
         <td>**************</td>
         <td><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">답변 미작성</button></td>
-        <td><button class="btn btn-primary">블라인드 처리하기</button></td>
+        <td><button class="btn btn-primary" onclick="chk()">블라인드 처리하기</button></td>
       </tr>
       <tr>
         <th scope="row">3</th>
@@ -94,7 +107,7 @@
         <td>myBigSecret...</td>
         <td>**************</td>
         <td><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">답변 미작성</button></td>
-        <td><button class="btn btn-primary">블라인드 처리하기</button></td>
+        <td><button class="btn btn-primary" onclick="chk()">블라인드 처리하기</button></td>
       </tr>
       <tr>
         <th scope="row">4</th>
@@ -104,7 +117,7 @@
         <td>myBigSecret...</td>
         <td>**************</td>
         <td><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">답변 미작성</button></td>
-        <td><button class="btn btn-primary">블라인드 처리하기</button></td>
+        <td><button class="btn btn-primary" onclick="chk()">블라인드 처리하기</button></td>
       </tr>
       <tr>
         <th scope="row">5</th>
@@ -114,7 +127,7 @@
         <td>myBigSecret...</td>
         <td>**************</td>
         <td><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">답변 미작성</button></td>
-        <td><button class="btn btn-primary">블라인드 처리하기</button></td>
+        <td><button class="btn btn-primary" onclick="chk()">블라인드 처리하기</button></td>
       </tr>
       <tr>
         <th scope="row">6</th>
@@ -124,7 +137,7 @@
         <td>myBigSecret...</td>
         <td>**************</td>
         <td><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">답변 미작성</button></td>
-        <td><button class="btn btn-primary">블라인드 처리하기</button></td>
+        <td><button class="btn btn-primary" onclick="chk()">블라인드 처리하기</button></td>
       </tr>
       <tr>
         <th scope="row">7</th>
@@ -134,7 +147,7 @@
         <td>myBigSecret...</td>
         <td>**************</td>
         <td><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">답변 미작성</button></td>
-        <td><button class="btn btn-primary">블라인드 처리하기</button></td>
+        <td><button class="btn btn-primary" onclick="chk()">블라인드 처리하기</button></td>
       </tr>
       <tr>
         <th scope="row">8</th>
@@ -144,7 +157,7 @@
         <td>myBigSecret...</td>
         <td>**************</td>
         <td><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">답변 미작성</button></td>
-        <td><button class="btn btn-primary">블라인드 처리하기</button></td>
+        <td><button class="btn btn-primary" onclick="chk()">블라인드 처리하기</button></td>
       </tr>
       <tr>
         <th scope="row">9</th>
@@ -154,7 +167,7 @@
         <td>myBigSecret...</td>
         <td>**************</td>
         <td><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">답변 미작성</button></td>
-        <td><button class="btn btn-primary">블라인드 처리하기</button></td>
+        <td><button class="btn btn-primary" onclick="chk()">블라인드 처리하기</button></td>
       </tr>
       <tr>
         <th scope="row">10</th>
@@ -164,7 +177,7 @@
         <td>myBigSecret...</td>
         <td>**************</td>
         <td><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">답변 미작성</button></td>
-        <td><button class="btn btn-primary">블라인드 처리하기</button></td>
+        <td><button class="btn btn-primary" onclick="chk()">블라인드 처리하기</button></td>
       </tr>
       <tr>
         <th scope="row">11</th>
@@ -174,7 +187,7 @@
         <td>myBigSecret...</td>
         <td>**************</td>
         <td><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">답변 미작성</button></td>
-        <td><button class="btn btn-primary">블라인드 처리하기</button></td>
+        <td><button class="btn btn-primary" onclick="chk()">블라인드 처리하기</button></td>
       </tr>
       <tr>
         <th scope="row">12</th>
@@ -184,7 +197,7 @@
         <td>myBigSecret...</td>
         <td>**************</td>
         <td><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">답변 미작성</button></td>
-        <td><button class="btn btn-primary">블라인드 처리하기</button></td>
+        <td><button class="btn btn-primary" onclick="chk()">블라인드 처리하기</button></td>
       </tr>
     </tbody>
     </table>
