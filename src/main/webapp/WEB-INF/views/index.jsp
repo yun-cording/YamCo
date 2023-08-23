@@ -36,9 +36,6 @@
 	function go_error() {
 		location.href = "/go_error.do";
 	}
-	function go_find_id() {
-		location.href = "/go_find_id.do";
-	}
 	function go_find_pw() {
 		location.href = "/go_find_pw.do";
 	}
@@ -100,7 +97,6 @@
 	<button onclick="go_error()">go_error</button>
 	<hr>
 	<h4>login관련</h4>
-	<button onclick="go_find_id()">go_find_id</button>
 	<button onclick="go_find_pw()">go_find_pw</button>
 	<button onclick="go_login()">go_login</button>
 	<button onclick="go_member_join()">go_member_join</button>
