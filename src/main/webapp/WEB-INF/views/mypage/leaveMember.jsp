@@ -36,6 +36,11 @@
 	float: left;
 }
 
+#category li:hover{
+	background-color: #E53A1B;
+}
+
+
 #content {
 	width: 68.75%;
 	float: left;
@@ -66,7 +71,6 @@
  }	
 
 #info_first{
-	
 	flex-direction: row;
 	justify-content: center;
 	align-items: center;
@@ -85,8 +89,7 @@
 	color: #FFFFFF;
 }
 
-#info{
-	
+#info{	
 	flex-direction: row;
 	justify-content: center;
 	align-items: center;
@@ -210,6 +213,14 @@ button{
 	float: left;
 }
 
+input[type="password"]{
+	border:none;
+	/* border-radius: 20px; */
+	font-size: 24px;
+	outline: none;
+	font-family: 'Yeongdeok_TTF';	
+}
+
 #btn_double{
 	width: 100px;
 	height: 35px;
@@ -242,7 +253,7 @@ button{
 			<div id="title_content">회원님의 <span id="pw_color">비밀번호</span>를 입력해주세요.</div>
 			<div class="clear">			
 			<div class="info_all">
-					<div id="info_content">기존 비밀번호 : <button id="btn_double">인증하기</button></div>
+					<div id="info_content">기존 비밀번호 : <input type="password" name="pw"><button id="btn_double">인증하기</button></div>
 				</div>
 			<div class="btn">
 					<button id="btn_bye">탈퇴하기</button>

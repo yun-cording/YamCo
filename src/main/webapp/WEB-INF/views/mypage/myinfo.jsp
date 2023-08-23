@@ -59,6 +59,12 @@
 	font-size: 15px;
 }
 
+
+#category li:hover{
+	background-color: #E53A1B;
+}
+
+
  ul{
  	list-style: none;
 	margin: auto;
