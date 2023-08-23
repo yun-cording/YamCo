@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="resources/css/bestlist.css" />
+<link rel="stylesheet" href="resources/css/bestlist.css?after" />
 </head>
 <body>
 	<div class="bestlist">

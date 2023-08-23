@@ -1,7 +1,7 @@
 @charset "UTF-8";
 @font-face {
 	font-family: 'Yeongdeok_TTF';
-	src: url('../../fonts/Yeongdeok Blueroad.ttf') format('truetype');
+	src: url('/resources/fonts/Yeongdeok Blueroad.ttf') format('truetype');
 }
 * {
 	padding: 0;

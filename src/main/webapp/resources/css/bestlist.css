@@ -6,7 +6,7 @@
 }
 .bestlist{
 	font-family: 'Yeongdeok_TTF';
-	font-weight: 50; position : relative;
+	font-weight: bold;
 	width: 270px;
 	position: relative;
 }
