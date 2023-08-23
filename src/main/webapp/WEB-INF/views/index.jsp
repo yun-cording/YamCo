@@ -27,6 +27,9 @@
 	function go_admin() {
 		location.href = "/go_admin.do";
 	}
+	function go_public_list(){
+		location.href = "/go_public_list.do";
+	}
 	function go_main() {
 		location.href = "/go_main.do";
 	}
@@ -82,6 +85,7 @@
 	<h1>각자 페이지로 가는 버튼 생성 시작</h1>
 	<hr>
 	<h4>user사용화면</h4>
+	<button onclick="go_public_list()">공공레시피</button>
 	<button onclick="go_home()">Home</button>
 	<button onclick="go_ranking_search()">ranking_search</button>
 	<button onclick="go_ranking_recipe()">ranking_recipe</button>
