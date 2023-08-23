@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="resources/css/recentlist.css" />
+<link rel="stylesheet" href="resources/css/recentlist.css?after" />
 </head>
 <body>
 	<div id=quickmenu_total>

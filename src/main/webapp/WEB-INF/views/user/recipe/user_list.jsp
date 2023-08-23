@@ -5,9 +5,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>공공레시피</title>
+<title>냠냠레시피</title>
 <link rel="icon" type="image/x-icon"	href="resources/images/icon_tomato.png">
-<link rel="stylesheet" href="resources/css/user/recipe/public_list.css?after" />
+<link rel="stylesheet" href="resources/css/user/recipe/public_list.css" />
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script src="resources/js/user/sidebar.js"></script>
 </head>
@@ -34,12 +34,20 @@
 				<ul id="category_menu">
 					<li id="category_first">카테고리</li>
 					<li class="category_center">전체보기</li>
-					<li class="category_center">국&찌개</li>
-					<li class="category_center">일품</li>
-					<li class="category_center">밥</li>
+					<li class="category_center">1인분</li>
+					<li class="category_center">채식</li>
+					<li class="category_center">국물류</li>
+					<li class="category_center">돈까스,일식</li>
+					<li class="category_center">고기,구이</li>
+					<li class="category_center">해산물</li>
+					<li class="category_center">분식</li>
+					<li class="category_center">면류</li>
+					<li class="category_center">죽</li>
+					<li class="category_center">술안주</li>
 					<li class="category_center">반찬</li>
 					<li class="category_center">후식</li>
 					<li id="category_etc">기타</li>
+					
 				</ul>
 			</div>
 			<!-- 카테고리 끝 -->
