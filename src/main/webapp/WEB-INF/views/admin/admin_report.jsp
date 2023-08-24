@@ -19,11 +19,15 @@
     		  position: 'middle',
     		  icon: 'success',
     		  title: '블라인드 처리 되었습니다.',
-    		  showConfirmButton: false,
+    		  showConfirmButton: true,
     		  timer: 2000
     		})
 	}
     </script>
+    <style type="text/css">
+    
+    
+    </style>
   </head>
   <body>
     <div id="Mydiv"> <!-- div 시작-->
@@ -66,17 +70,27 @@
    
     <!-- 테이블 시작 -->
     <table class="table table-striped table-hover">
+    <colgroup>
+	<col width="5%" />    
+	<col width="10%" />    
+	<col width="5%" />    
+	<col width="10%" />    
+	<col width="15%" />    
+	<col width="25%" />    
+	<col width="15%" />    
+	<col width="15%" />    
+    </colgroup>
       <thead>
         <tr>
-      <th scope="col">신고번호</th>
-      <th scope="col">신고자</th>
-      <th scope="col">신고 누적 횟수</th>
-      <th scope="col">피신고자 닉네임</th>
-      <th scope="col">게시글 제목</th>
-      <th scope="col">작성 내용</th>
-      <th scope="col">답변</th>
-      <th scope="col">블라인드 처리</th>
-    </tr>
+	      <th scope="col">신고번호</th>
+	      <th scope="col">신고자</th>
+	      <th scope="col">신고 누적 횟수</th>
+	      <th scope="col">피신고자 닉네임</th>
+	      <th scope="col">게시글 제목</th>
+	      <th scope="col">작성 내용</th>
+	      <th scope="col">답변</th>
+	      <th scope="col">블라인드 처리</th>
+    	</tr>
     </thead>
     <tbody>
       <tr>

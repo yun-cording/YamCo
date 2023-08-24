@@ -8,7 +8,7 @@
 <link rel="icon" type="image/x-icon"
 	href="resources/images/icon_tomato.png">
 	<style type="text/css">
-		* {
+* {
 	padding: 0;
 	margin: 0;
 	box-sizing: border-box;
@@ -36,11 +36,14 @@
 	float: left;
 }
 
+#category li:hover{
+	background-color: #E53A1B;
+}
+
+
 #content {
 	width: 68.75%;
 	float: left;
-	/* Rectangle 77 */
-	margin-top: 0px;
 	background: white;
 	font-family: 'Yeongdeok_TTF';
 	height: 1010px;
@@ -54,7 +57,7 @@
 	padding-top: 300px;
 }
 
-#category{
+.category{
 	margin-top: 25px;
 	font-size: 15px;
 }
@@ -66,7 +69,6 @@
  }	
 
 #info_first{
-	
 	flex-direction: row;
 	justify-content: center;
 	align-items: center;
@@ -85,8 +87,7 @@
 	color: #FFFFFF;
 }
 
-#info{
-	
+#info{	
 	flex-direction: row;
 	justify-content: center;
 	align-items: center;
@@ -104,8 +105,7 @@
 	color: #FFFFFF;
 }
 
-#info_end{
-	
+#info_end{	
 	flex-direction: row;
 	justify-content: center;
 	align-items: center;
@@ -124,21 +124,21 @@
 	color: #FFFFFF;
 }
 
-#title_line{
+.title_line{
 	width: 1320px;
 	border: 2px solid tomato;
 	height: 1px;
 	margin-top: 100px;
 }
 
-#title{
+.title{
 	font-size: 40px;
 	margin-top: 98px;
 	font-weight: bold;
 	margin-left: 100px;
 }
 
-#title_content{
+.title_content{
 	margin-top: 100px;
 	margin-left: 474px;
 	font-size: 30px;
@@ -210,6 +210,14 @@ button{
 	float: left;
 }
 
+input[type="password"]{
+	border:none;
+	/* border-radius: 20px; */
+	font-size: 24px;
+	outline: none;
+	font-family: 'Yeongdeok_TTF';	
+}
+
 #btn_double{
 	width: 100px;
 	height: 35px;
@@ -220,7 +228,7 @@ button{
 	border: none;
 	border-radius: 30px 30px 30px 30px;
 }
-	</style>
+</style>
 </head>
 <body>
 <div id="mydiv">		
@@ -228,7 +236,7 @@ button{
 		<div id="test">
 		<aside id="sidebar-left">왼쪽</aside>
 		<div id="content">
-			<div id="category">
+			<div class="category">
 				<ul>
 					<li id="info_first">내 정보</li>
 					<li id="info">찜 목록</li>
@@ -237,14 +245,14 @@ button{
 					<li id="info_end">내가 쓴 댓글</li>
 				</ul>
 			</div>
-			<div id="title_line"></div>
-			<div id="title">회원 탈퇴</div>
-			<div id="title_content">회원님의 <span id="pw_color">비밀번호</span>를 입력해주세요.</div>
+			<div class="title_line"></div>
+			<div class="title">회원 탈퇴</div>
+			<div class="title_content">회원님의 <span id="pw_color">비밀번호</span>를 입력해주세요.</div>
 			<div class="clear">			
 			<div class="info_all">
-					<div id="info_content">기존 비밀번호 : <button id="btn_double">인증하기</button></div>
+					<div id="info_content">기존 비밀번호 : <input type="password" name="pw"><button id="btn_double">인증하기</button></div>
 				</div>
-			<div class="btn">
+				<div class="btn">
 					<button id="btn_bye">탈퇴하기</button>
 					<button id="btn_exit">돌아가기</button>
 				</div>
@@ -252,7 +260,7 @@ button{
 		 </div>
 		<aside id="sidebar-right">오른</aside>
 		</div>
-<div id="footer"><jsp:include page="../footer.jsp" /></div>
-		</div>
+		<div id="footer"><jsp:include page="../footer.jsp" /></div>
+	</div>
 </body>
-</html>s
+</html>
