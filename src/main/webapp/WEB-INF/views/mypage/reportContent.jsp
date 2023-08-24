@@ -9,7 +9,7 @@
 <link rel="icon" type="image/x-icon"
 	href="resources/images/icon_tomato.png">
 	<style type="text/css">
-		* {
+* {
 	padding: 0;
 	margin: 0;
 	box-sizing: border-box;
@@ -20,12 +20,12 @@
     src: url('../resources/fonts/Yeongdeok Blueroad.ttf') format('truetype');
 }
 
- #mydiv{
-        width: 1920px;
-        margin:  auto;		
-    }
+#mydiv{
+    width: 1920px;
+    margin:  auto;		
+}
     
- #sidebar-right {
+#sidebar-right {
 	background-color: white;
 	float: left;
 	width: 15.625%;
@@ -40,7 +40,6 @@
 #content {
 	width: 68.75%;
 	float: left;
-	/* Rectangle 77 */
 	margin-top: 0px;
 	background: white;
 	font-family: 'Yeongdeok_TTF';
@@ -54,12 +53,12 @@
 	padding-top: 300px;
 }
 
-#category{
+.category{
 	margin-top: 25px;
 	font-size: 15px;
 }
 
-#category li:hover{
+.category li:hover{
 	background-color: #E53A1B;
 }
 
@@ -125,14 +124,14 @@
 	color: #FFFFFF;
 }
 
-#title_line{
+.title_line{
 	width: 1320px;
 	border: 2px solid tomato;
 	height: 1px;
 	margin-top: 100px;
 }
 
-#title{
+.title{
 	color: #606060;
 	text-align: center;
 	margin-top: 60px;
@@ -146,8 +145,7 @@ button{
 	 height: 30px;
 	 background-color: white;
 	 border: 2px solid tomato;
-	 float: left;
-	 
+	 float: left;	 
 }
 
 .btn button:hover{
@@ -159,7 +157,8 @@ button{
 	float: right;
 	margin-top: -50px;
 }
-#r_title{
+
+.r_title{
 	box-sizing: border-box;
 	width: 1260px;
 	height: 80px; 
@@ -185,7 +184,7 @@ button{
 	margin-top: 25px;
 }
 
-#answer{
+.answer{
 	font-size: 30px;
 	text-align: center;
 	display: none;  
@@ -209,7 +208,7 @@ button{
 	justify-content: center;
 }
 
-#r_type{
+.r_type{
 	margin: auto;
 	float: right;
 	margin-top: 25px;
@@ -221,55 +220,55 @@ button{
 		var i=0;
 		$("#a_1").on("click", function() {
 			if(i++%2 == 0){
-				$(".a1").fadeOut(400);					
+				$("#a1").fadeOut(400);					
 				$("#a_1").attr("src","/resources/images/arrow_down.png");
 			}else{
-				$(".a1").fadeIn({direction : "top"});
-				$('.a1').attr("style", "display : flex;");
+				$("#a1").fadeIn({direction : "top"});
+				$('#a1').attr("style", "display : flex;");
 				$("#a_1").attr("src","/resources/images/arrow_up.png");
 			}			
 		});
 		
 		$("#a_2").on("click", function() {
 			if(i++%2 == 0){
-				$(".a2").fadeOut(400);			
+				$("#a2").fadeOut(400);			
 				$("#a_2").attr("src","/resources/images/arrow_down.png");
 			}else{
-				$(".a2").fadeIn({direction : "top"});	
-				$('.a2').attr("style", "display : flex;");
+				$("#a2").fadeIn({direction : "top"});	
+				$('#a2').attr("style", "display : flex;");
 				$("#a_2").attr("src","/resources/images/arrow_up.png");
 			}			
 		});
 		
 		$("#a_3").on("click", function() {
 			if(i++%2 == 0){
-				$(".a3").fadeOut(400);					
+				$("#a3").fadeOut(400);					
 				$("#a_3").attr("src","/resources/images/arrow_down.png");
 			}else{
-				$(".a3").fadeIn({direction : "top"});	
-				$('.a3').attr("style", "display : flex;");
+				$("#a3").fadeIn({direction : "top"});	
+				$('#a3').attr("style", "display : flex;");
 				$("#a_3").attr("src","/resources/images/arrow_up.png");
 			}			
 		});
 		
 		$("#a_4").on("click", function() {
 			if(i++%2 == 0){
-				$(".a4").fadeOut(400);					
+				$("#a4").fadeOut(400);					
 				$("#a_4").attr("src","/resources/images/arrow_down.png");
 			}else{
-				$(".a4").fadeIn({direction : "top"});	
-				$('.a4').attr("style", "display : flex;");
+				$("#a4").fadeIn({direction : "top"});	
+				$('#a4').attr("style", "display : flex;");
 				$("#a_4").attr("src","/resources/images/arrow_up.png");
 			}			
 		});
 		
 		$("#a_5").on("click", function() {
 			if(i++%2 == 0){
-				$(".a5").fadeOut(400);				
+				$("#a5").fadeOut(400);				
 				$("#a_5").attr("src","/resources/images/arrow_down.png");
 			}else{
-				$(".a5").fadeIn({direction : "top"});	
-				$('.a5').attr("style", "display : flex;");
+				$("#a5").fadeIn({direction : "top"});	
+				$('#a5').attr("style", "display : flex;");
 				$("#a_5").attr("src","/resources/images/arrow_up.png");
 			}			
 		});
@@ -282,7 +281,7 @@ button{
 		<div id="test">
 		<aside id="sidebar-left">왼쪽</aside>
 		<div id="content">
-		<div id="category">
+		<div class="category">
 				<ul>
 					<li id="info_first">내 정보</li>
 					<li id="info">찜 목록</li>
@@ -291,58 +290,58 @@ button{
 					<li id="info_end">내가 쓴 댓글</li>
 				</ul>
 			</div>
-			<div id="title_line"></div>			
-			<div id="title">
+			<div class="title_line"></div>			
+			<div class="title">
 				<h2>게시글 신고 내역</h2>
 			</div>
 			<div class="btn">
 				<button id="write_con">게시글</button>
 				<button id="write_com">댓글</button>
 			</div>
-			<div id="r_title">
+			<div class="r_title">
 				<span id="r_title_t">신고 게시글 제목</span>
 				<div><img class="arrow" id="a_1" src="/resources/images/arrow_down.png"></div>
-			<div id="r_type"><span>신고유형</span></div>
+			<div class="r_type"><span>신고유형</span></div>
 			</div>
-			<div id="answer" class="a1">
+			<div class="answer" id="a1">
 				<p id="a_text_1">해당 게시물을 확인 후 블라인드 처리 완료하였습니다. 이용에 불편을 드려 죄송합니다.
 				</p>
 			</div>
-			<div id="r_title">
+			<div class="r_title">
 				<span id="r_title_t">신고 게시글 제목</span>
 				<img class="arrow" id="a_2" src="/resources/images/arrow_down.png">
-				<div id="r_type"><span>신고유형</span></div>
+				<div class="r_type"><span>신고유형</span></div>
 				</div>
-				<div id="answer" class="a2">
+				<div class="answer" id="a2">
 				<span id="a_text_2">해당 게시물을 확인 후 블라인드 처리 완료하였습니다. 이용에 불편을 드려 죄송합니다.
 				</span>
 			</div>
-				<div id="r_title">
+				<div class="r_title">
 				<span id="r_title_t">신고 게시글 제목</span>
 				<img class="arrow" id="a_3" src="/resources/images/arrow_down.png">
-		<div id="r_type"><span>신고유형</span></div>
+		<div class="r_type"><span>신고유형</span></div>
 		</div>
-		<div id="answer" class="a3">
+		<div class="answer" id="a3">
 				<span id="a_text_3">
 					해당 게시물을 확인 후 블라인드 처리 완료하였습니다. 이용에 불편을 드려 죄송합니다.
 				</span>
 			</div>
-		<div id="r_title">
+		<div class="r_title">
 				<span id="r_title_t">신고 게시글 제목</span>
 				<img class="arrow" id="a_4" src="/resources/images/arrow_down.png">
-		<div id="r_type"><span>신고유형</span></div>
+		<div class="r_type"><span>신고유형</span></div>
 		</div>
-		<div id="answer" class="a4">
+		<div class="answer" id="a4">
 				<span id="a_text_4">
 					 해당 게시물을 확인 후 블라인드 처리 완료하였습니다. 이용에 불편을 드려 죄송합니다.
 				</span>
 			</div>
-			<div id="r_title">
+			<div class="r_title">
 				<span id="r_title_t">신고 게시글 제목</span>
 				<img class="arrow" id="a_5" src="/resources/images/arrow_down.png">
-		<div id="r_type"><span>신고유형</span></div>
+		<div class="r_type"><span>신고유형</span></div>
 		</div>
-		<div id="answer" class="a5">
+		<div class="answer" id="a5">
 				<span id="a_text_5">해당 게시물을 확인 후 블라인드 처리 완료하였습니다. 이용에 불편을 드려 죄송합니다.
 				</span>
 			</div>

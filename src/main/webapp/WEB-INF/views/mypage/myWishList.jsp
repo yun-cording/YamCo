@@ -9,7 +9,7 @@
 <link rel="icon" type="image/x-icon"
 	href="resources/images/icon_tomato.png">
 	<style type="text/css">
-		* {
+* {
 	padding: 0;
 	margin: 0;
 	box-sizing: border-box;
@@ -20,10 +20,10 @@
     src: url('../resources/fonts/Yeongdeok Blueroad.ttf') format('truetype');
 }
 
- #mydiv{
-        width: 1920px;
-        margin:  auto;		
-    }
+#mydiv{
+   width: 1920px;
+   margin:  auto;		
+}
     
  #sidebar-right {
 	background-color: white;
@@ -40,7 +40,6 @@
 #content {
 	width: 68.75%;
 	float: left;
-	/* Rectangle 77 */
 	margin-top: 0px;
 	background: white;
 	font-family: 'Yeongdeok_TTF';
