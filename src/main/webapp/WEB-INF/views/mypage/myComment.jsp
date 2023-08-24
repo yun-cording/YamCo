@@ -19,6 +19,12 @@
     src: url('../resources/fonts/Yeongdeok Blueroad.ttf') format('truetype');
 }
 
+
+#category li:hover{
+	background-color: #E53A1B;
+}
+
+
  #mydiv{
         width: 1920px;
         margin:  auto;		
@@ -338,4 +344,4 @@
 <div id="footer"><jsp:include page="../footer.jsp" /></div>
 		</div>
 </body>
-</html>s
+</html>

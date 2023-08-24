@@ -59,6 +59,11 @@
 	font-size: 15px;
 }
 
+#category li:hover{
+	background-color: #E53A1B;
+}
+
+
  ul{
  	list-style: none;
 	margin: auto;
@@ -85,8 +90,7 @@
 	color: #FFFFFF;
 }
 
-#info{
-	
+#info{	
 	flex-direction: row;
 	justify-content: center;
 	align-items: center;
@@ -163,6 +167,7 @@
 
 .info_all{
 	margin-top: 181px;
+	font-family: 'Yeongdeok_TTF';	
 }
 
 #info_content{
@@ -190,6 +195,22 @@ button{
 	align-items: center;
 	margin-top: 100px;
 	margin-left: 396px;
+}
+
+input[type="text"]{
+	border:none;
+	/* border-radius: 20px; */
+	font-size: 24px;
+	outline: none;
+	font-family: 'Yeongdeok_TTF';	
+}
+
+input[type="number"]{
+	border:none;
+	/* border-radius: 20px; */
+	font-size: 24px;
+	outline: none;
+	font-family: 'Yeongdeok_TTF';	
 }
 
 #btn_save{
@@ -249,11 +270,12 @@ button{
 			<div id="profile">
 				<img id="pro_pic" src="/resources/images/jongjongka.jpg">
 			<div class="info_all">
-					<div id="info_content">닉네임 : <button id="btn_double">중복 확인</button></div>
-					<div id="info_content">휴대폰 : </div>
-					<div id="info_content">생년월일 : ex) 981016</div>
+					<div id="info_content">닉네임 : <input type="text" name="nickname"><button id="btn_double">중복 확인</button></div>
+					<div id="info_content">휴대폰 : <input  type="number" name="phone"></div>
+					<div id="info_content">생년월일 :<input  type="number" placeholder="ex) 981016" name="birth"></div>
 					<div id="info_content">성별 : &nbsp;&nbsp;&nbsp;<input type="radio" name="gender">&nbsp;&nbsp;여성&nbsp;&nbsp;&nbsp;
 												<input type="radio" name="gender">&nbsp;&nbsp;남성
+					</div>
 					</div>
 			</div>
 			<div class="btn">

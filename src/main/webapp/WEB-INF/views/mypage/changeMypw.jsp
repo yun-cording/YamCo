@@ -176,6 +176,14 @@ button{
 	margin-left: 484px;
 }
 
+input[type="password"]{
+	border:none;
+	/* border-radius: 20px; */
+	font-size: 24px;
+	outline: none;
+	font-family: 'Yeongdeok_TTF';	
+}
+
 #btn_save{
 	width: 175px;
 	height: 53px;
@@ -231,9 +239,9 @@ button{
 			<div id="title">비밀번호 변경</div>
 			<div class="clear">			
 			<div class="info_all">
-					<div id="info_content">기존 비밀번호 : <button id="btn_double">인증하기</button></div>
-					<div id="info_content">새 비밀번호 : </div>
-					<div id="info_content">비밀번호 확인 : </div>
+					<div id="info_content">기존 비밀번호 : <input type="password" name="old_pw"><button id="btn_double">인증하기</button></div>
+					<div id="info_content">새 비밀번호 : <input type="password" name="new_pw"></div>
+					<div id="info_content">비밀번호 확인 : <input type="password" name="new_pw_ok"></div>
 				</div>
 			<div class="btn">
 					<button id="btn_save">비밀번호 변경</button>
