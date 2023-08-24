@@ -32,4 +32,8 @@ public class Admin_Controller {
 	public ModelAndView go_admin_contentchk() {
 		return new ModelAndView("admin/admin_contentchk");
 	}
+	@RequestMapping("go_tableExam.do")
+	public ModelAndView go_tableExam() {
+		return new ModelAndView("admin/table");
+	}
 }
