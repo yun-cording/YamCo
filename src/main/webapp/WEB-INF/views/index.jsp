@@ -108,6 +108,10 @@ function go_admin_faq() {
 function go_admin_contentchk() {
 		location.href = "/go_admin_contentchk.do";
 }
+function go_tableExam() {
+		location.href = "/go_tableExam.do";
+}
+
 
 </script>
 </head>
@@ -154,6 +158,9 @@ function go_admin_contentchk() {
 	<button onclick="go_admin_notice()">go_admin_notice</button>
 	<button onclick="go_admin_faq()">go_admin_faq</button>
 	<button onclick="go_admin_contentchk()">go_admin_contentchk</button>
+
+  <button onclick="go_tableExam()">go_tableExam</button>
+	
 	<button onclick="location.href='/simbatest'">심바테스트중</button>	
 	
 </body>
