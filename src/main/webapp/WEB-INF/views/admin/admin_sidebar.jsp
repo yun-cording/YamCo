@@ -1,40 +1,88 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>admin_sidebar</title>
-
-<!-- <link rel="stylesheet" -->
-<!-- 	href="https://cdn.korzh.com/metroui/v4/css/metro-all.min.css"> -->
-<link rel="stylesheet" href="resources/css/admin/admin_sidebar.css">
-<!-- <script src="https://cdn.korzh.com/metroui/v4/js/metro.min.js"></script> -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
 </head>
 <body>
-	<div class="sidebar-header">
-		<h2>냠냠레시피</h2>
-		<h6>관리자 페이지</h6>
-	</div>
-	<ul class="sidebar-menu border bd-default"
-		style="border-top: none; border-bottom: none; border-left: none; border-right: 3px solid #dfdfdf;">
-		<li><a href="/"><span class="mif-home icon"></span>대시보드</a></li>
-		<li><a href="/"><span class="mif-files-empty icon"></span>사용자게시물 관리</a></li>
-		<li><a href="/"><span class="mif-users icon"></span>회원관리</a></li>
-		<li><a href="/"><span class="mif-bubble icon"></span>신고내역관리</a></li>
-		<li><a href="/"><span class="mif-chart-bars icon"></span>로그분석</a></li>
-		<li><a href="/"><span class="mif-pencil icon"></span>공지사항 배너 등록</a></li>
-		<li><a href="/"><span class="mif-question icon"></span>FAQ 관리</a></li>
-		<li class="group-title">설정</li>
-		<li><a href="/"><span class="mif-cogs icon"></span>환경설정</a></li>
-		<li><a href="/"><span class="mif-user icon"></span>내정보</a></li>
-		<li class="divider"></li>
-		<li><a href="/"><span class="mif-exit icon"></span>로그아웃</a></li>
-	</ul>
-	<div class="sidebar-header">
-		<p>냠냠레시피 관리자 대시보드</p>
-		<p>© 2023 All Rights Reserved</p>
-		<p>Made with by ♥1team</p>
-	</div>
+  <!-- Sidebar -->
+  <ul class="navbar-nav bg-success sidebar sidebar-dark accordion" id="accordionSidebar">
+
+    <!-- Sidebar - Brand -->
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+        <!-- <div class="sidebar-brand-icon rotate-n-15">
+            <i class="fas fa-laugh-wink"></i>
+        </div> -->
+        <div class="sidebar-brand-text mx-3">
+            <h3 class="font-weight-bold">냠냠 레시피</h3>
+        </div>
+    </a>
+    <div class="sidebar-heading">
+        <h6>관리자 페이지</h6>
+    </div>
+
+
+    <!-- Nav Item - Dashboard -->
+    <li class="nav-item active">
+        <a class="nav-link" href="index.html">
+            <i class="fas fa-fw fa-tachometer-alt"></i>
+            <span>대시보드</span></a>
+    </li>
+
+    <!-- Nav Item - 관리 -->
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+            aria-expanded="true" aria-controls="collapseTwo">
+            <i class="fas fa-fw fa-cog"></i>
+            <span>관리</span>
+        </a>
+        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header"></h6>
+                <a class="collapse-item" href="buttons.html">사용자 게시물 관리</a>
+                <a class="collapse-item" href="cards.html">회원관리</a>
+                <a class="collapse-item" href="cards.html">신고내역 관리</a>
+            </div>
+        </div>
+    </li>
+
+
+    <!-- Nav Item - 로그분석 -->
+    <li class="nav-item">
+        <a class="nav-link" href="charts.html">
+            <i class="fas fa-fw fa-chart-area"></i>
+            <span>로그분석</span></a>
+    </li>
+
+    <!-- Nav Item - 공지사항 -->
+    <li class="nav-item">
+        <a class="nav-link" href="tables.html">
+            <i class="fas fa-fw fa-table"></i>
+            <span>공지사항 배너 등록</span></a>
+    </li>
+    
+    <!-- Divider -->
+    <hr class="sidebar-divider d-none d-md-block">
+
+    <!-- Sidebar Toggler (Sidebar) -->
+    <div class="text-center d-none d-md-inline">
+        <button class="rounded-circle border-0" id="sidebarToggle"></button>
+    </div>
+
+    <!-- Sidebar Message -->
+    <div class="sidebar-card d-none d-lg-flex">
+        <img class="sidebar-card-illustration mb-2" src="https://url.kr/b2x3ar" alt="...">
+        <p class="text-center mt-3">
+            <strong>냠냠 레시피 관리자 대시보드</strong>
+             <i class="far fa-copyright" ></i>2023 All Rights Reserved
+        </p>
+    </div>
+
+</ul>
+<!-- End of Sidebar -->
+
 </body>
 </html>

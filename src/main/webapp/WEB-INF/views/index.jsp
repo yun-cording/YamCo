@@ -36,8 +36,11 @@
 	function go_main() {
 		location.href = "/go_main.do";
 	}
-	function go_error() {
-		location.href = "/go_error.do";
+	function go_error404() {
+		location.href = "/go_error404.do";
+	}
+	function go_error500() {
+		location.href = "/go_error500.do";
 	}
 	function go_find_pw() {
 		location.href = "/go_find_pw.do";
@@ -80,9 +83,6 @@
 	function go_leaveMember() {
 		location.href = "/go_leaveMember.do";
 	}
-	function go_leaveMember() {
-		location.href = "/go_user_list.do";
-	}
 	function go_search() {
 		location.href = "/go_search.do";
 	}
@@ -108,6 +108,10 @@ function go_admin_faq() {
 function go_admin_contentchk() {
 		location.href = "/go_admin_contentchk.do";
 }
+function go_tableExam() {
+		location.href = "/go_tableExam.do";
+}
+
 
 </script>
 </head>
@@ -126,7 +130,8 @@ function go_admin_contentchk() {
 	<button onclick="go_award()">award</button>
 	<button onclick="go_admin()">admin</button>
 	<button onclick="go_main()">main</button>
-	<button onclick="go_error()">go_error</button>
+	<button onclick="go_error404()">go_error404</button>
+	<button onclick="go_error500()">go_error500</button>
 	<hr>
 	<h4>login관련</h4>
 	<button onclick="go_find_pw()">go_find_pw</button>
@@ -153,7 +158,10 @@ function go_admin_contentchk() {
 	<button onclick="go_admin_notice()">go_admin_notice</button>
 	<button onclick="go_admin_faq()">go_admin_faq</button>
 	<button onclick="go_admin_contentchk()">go_admin_contentchk</button>
+
+  <button onclick="go_tableExam()">go_tableExam</button>
 	
+	<button onclick="location.href='/simbatest'">심바테스트중</button>	
 	
 </body>
 </html>

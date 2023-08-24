@@ -48,9 +48,13 @@ public class User_Controller {
 	public ModelAndView go_main() {
 		return new ModelAndView("/main");
 	}
-	@RequestMapping("go_error.do")
-	public ModelAndView go_error() {
-		return new ModelAndView("/error");
+	@RequestMapping("go_error404.do")
+	public ModelAndView go_error404() {
+		return new ModelAndView("/error404");
+	}
+	@RequestMapping("go_error500.do")
+	public ModelAndView go_error500() {
+		return new ModelAndView("/error500");
 	}
 	@RequestMapping("go_find_pw.do")
 	public ModelAndView go_find_pw() {
