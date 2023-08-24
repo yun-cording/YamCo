@@ -27,14 +27,17 @@
 	function go_admin() {
 		location.href = "/go_admin.do";
 	}
+	function go_public_list(){
+		location.href = "/go_public_list.do";
+	}
+	function go_user_list(){
+		location.href = "/go_user_list.do";
+	}
 	function go_main() {
 		location.href = "/go_main.do";
 	}
 	function go_error() {
 		location.href = "/go_error.do";
-	}
-	function go_find_id() {
-		location.href = "/go_find_id.do";
 	}
 	function go_find_pw() {
 		location.href = "/go_find_pw.do";
@@ -77,8 +80,35 @@
 	function go_leaveMember() {
 		location.href = "/go_leaveMember.do";
 	}
+	function go_leaveMember() {
+		location.href = "/go_user_list.do";
+	}
+	function go_search() {
+		location.href = "/go_search.do";
+	}
 	
-	
+</script>
+
+<script type="text/javascript">
+function go_admin_report() {
+	location.href = "/go_admin_report.do";
+}
+function go_admin_dashboard() {
+		location.href = "/go_admin_dashboard.do";
+}
+function go_admin_memberchk() {
+		location.href = "/go_admin_memberchk.do";
+}
+function go_admin_notice() {
+		location.href = "/go_admin_notice.do";
+}
+function go_admin_faq() {
+		location.href = "/go_admin_faq.do";
+}
+function go_admin_contentchk() {
+		location.href = "/go_admin_contentchk.do";
+}
+
 </script>
 </head>
 <body>
@@ -86,6 +116,9 @@
 	<hr>
 	<h4>user사용화면</h4>
 	<button onclick="go_home()">Home</button>
+	<button onclick="go_search()">검색결과</button>
+	<button onclick="go_public_list()">공공레시피</button>
+	<button onclick="go_user_list()">사용자레시피</button>
 	<button onclick="go_ranking_search()">ranking_search</button>
 	<button onclick="go_ranking_recipe()">ranking_recipe</button>
 	<button onclick="go_plz()">plz</button>
@@ -96,7 +129,6 @@
 	<button onclick="go_error()">go_error</button>
 	<hr>
 	<h4>login관련</h4>
-	<button onclick="go_find_id()">go_find_id</button>
 	<button onclick="go_find_pw()">go_find_pw</button>
 	<button onclick="go_login()">go_login</button>
 	<button onclick="go_member_join()">go_member_join</button>
@@ -113,6 +145,14 @@
 	<button onclick="go_reportComment()">go_reportComment</button>
 	<button onclick="go_reportContent()">go_reportContent</button>
 	<button onclick="go_leaveMember()">go_leaveMember</button>
+	<hr>
+	<h4>관리자 페이지</h4>
+	<button onclick="go_admin_report()">go_admin_report</button>
+	<button onclick="go_admin_dashboard()">go_admin_dashboard</button>
+	<button onclick="go_admin_memberchk()">go_admin_memberchk</button>
+	<button onclick="go_admin_notice()">go_admin_notice</button>
+	<button onclick="go_admin_faq()">go_admin_faq</button>
+	<button onclick="go_admin_contentchk()">go_admin_contentchk</button>
 	
 	
 </body>

@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-	utf-8 사용자
+
 </body>
 </html>

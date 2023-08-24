@@ -18,7 +18,7 @@ public class GlobalControllerFilter implements Filter {
             throws IOException, ServletException {
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         HttpSession session = httpRequest.getSession(false); // 이미 생성된 세션이 있는 경우만 가져옴
-        System.out.println("세션 있는지 여부 체크 : (GlobalControllerFilter.java파일에서 찍고 있어용)" + session);
+        //System.out.println("세션 있는지 여부 체크 : (GlobalControllerFilter.java파일에서 찍고 있어용)" + session);
         
         
         // 세션이 null이 아니고, 실행이 안 되었을 때
@@ -30,7 +30,7 @@ public class GlobalControllerFilter implements Filter {
             }
             visitorCount++;
             session.getServletContext().setAttribute("visitorCount", visitorCount);
-            System.out.println("냠냠시치 지금까지 방문자 수는 : " + visitorCount);
+            //System.out.println("냠냠시치 지금까지 방문자 수는 : " + visitorCount);
             
             // 해당 값을 DB에 넣어주자.
 
