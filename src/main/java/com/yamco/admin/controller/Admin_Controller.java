@@ -1,7 +1,6 @@
 package com.yamco.admin.controller;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -32,8 +31,13 @@ public class Admin_Controller {
 	public ModelAndView go_admin_contentchk() {
 		return new ModelAndView("admin/admin_contentchk");
 	}
+  
 	@RequestMapping("go_tableExam.do")
 	public ModelAndView go_tableExam() {
 		return new ModelAndView("admin/table");
+
+    @RequestMapping("/simbatest")
+	public ModelAndView simbatest() {
+		return new ModelAndView("admin/admin_index");
 	}
 }

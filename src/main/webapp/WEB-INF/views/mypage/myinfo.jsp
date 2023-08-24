@@ -8,7 +8,7 @@
 <link rel="icon" type="image/x-icon"
 	href="resources/images/icon_tomato.png">
 	<style type="text/css">
-		* {
+* {
 	padding: 0;
 	margin: 0;
 	box-sizing: border-box;
@@ -19,12 +19,12 @@
     src: url('../resources/fonts/Yeongdeok Blueroad.ttf') format('truetype');
 }
 
- #mydiv{
-        width: 1920px;
-        margin:  auto;		
-    }
+#mydiv{
+   width: 1920px;
+   margin:  auto;		
+}
     
- #sidebar-right {
+#sidebar-right {
 	background-color: white;
 	float: left;
 	width: 15.625%;
@@ -38,8 +38,7 @@
 
 #content {
 	width: 68.75%;
-	float: left;
-	/* Rectangle 77 */
+	float: left;	
 	margin-top: 0px;
 	background: white;
 	font-family: 'Yeongdeok_TTF';
@@ -54,10 +53,16 @@
 	padding-top: 300px;
 }
 
-#category{
+.category{
 	margin-top: 25px;
 	font-size: 15px;
 }
+
+
+.category li:hover{
+	background-color: #E53A1B;
+}
+
 
  ul{
  	list-style: none;
@@ -65,8 +70,7 @@
 	width: 625px;
  }	
 
-#info_first{
-	
+#info_first{	
 	flex-direction: row;
 	justify-content: center;
 	align-items: center;
@@ -85,8 +89,7 @@
 	color: #FFFFFF;
 }
 
-#info{
-	
+#info{	
 	flex-direction: row;
 	justify-content: center;
 	align-items: center;
@@ -104,8 +107,7 @@
 	color: #FFFFFF;
 }
 
-#info_end{
-	
+#info_end{	
 	flex-direction: row;
 	justify-content: center;
 	align-items: center;
@@ -124,20 +126,20 @@
 	color: #FFFFFF;
 }
 
-#title_line{
+.title_line{
 	width: 1320px;
 	border: 2px solid tomato;
 	height: 1px;
 	margin-top: 100px;
 }
 
-#profile{
+.profile{
 	width: 220px;
 	height: 300px;
 	margin-left: 280px;
 }
 
-#title{
+.title{
 	font-size: 40px;
 	margin-top: 98px;
 	font-weight: bold;
@@ -241,8 +243,7 @@ button{
 	border-radius: 30px 30px 30px 30px;
 	float: left;
 }
-
-	</style>
+</style>
 </head>
 <body>
 <div id="mydiv">		
@@ -250,7 +251,7 @@ button{
 		<div id="test">
 		<aside id="sidebar-left">왼쪽</aside>
 		<div id="content">
-			<div id="category">
+			<div class="category">
 				<ul>
 					<li id="info_first">내 정보</li>
 					<li id="info">찜 목록</li>
@@ -259,10 +260,10 @@ button{
 					<li id="info_end">내가 쓴 댓글</li>
 				</ul>
 			</div>
-			<div id="title_line"></div>
-			<div id="title">로그인 정보</div>
+			<div class="title_line"></div>
+			<div class="title">로그인 정보</div>
 			<div class="clear">
-			<div id="profile">
+			<div class="profile">
 				<img id="pro_pic" src="/resources/images/jongjongka.jpg">
 					<span id="nickname">닉네임</span>
 					<div id="nick_line"></div>
