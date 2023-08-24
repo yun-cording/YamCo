@@ -153,7 +153,7 @@ function go_admin_contentchk() {
 	<button onclick="go_admin_notice()">go_admin_notice</button>
 	<button onclick="go_admin_faq()">go_admin_faq</button>
 	<button onclick="go_admin_contentchk()">go_admin_contentchk</button>
-	
+	<button onclick="location.href='/simbatest'">심바테스트중</button>	
 	
 </body>
 </html>
