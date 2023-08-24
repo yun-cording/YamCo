@@ -54,12 +54,12 @@
 	padding-top: 300px;
 }
 
-#category{
+.category{
 	margin-top: 25px;
 	font-size: 15px;
 }
 
-#category li:hover{
+.category li:hover{
 	background-color: #E53A1B;
 }
 
@@ -199,7 +199,6 @@ button{
 
 input[type="text"]{
 	border:none;
-	/* border-radius: 20px; */
 	font-size: 24px;
 	outline: none;
 	font-family: 'Yeongdeok_TTF';	
@@ -207,7 +206,6 @@ input[type="text"]{
 
 input[type="number"]{
 	border:none;
-	/* border-radius: 20px; */
 	font-size: 24px;
 	outline: none;
 	font-family: 'Yeongdeok_TTF';	
@@ -251,11 +249,11 @@ input[type="number"]{
 </head>
 <body>
 <div id="mydiv">		
-		<jsp:include page="../header.jsp" />
-		<div id="test">
-		<aside id="sidebar-left">왼쪽</aside>
+	<jsp:include page="../header.jsp" />
+	<div id="test">
+	<aside id="sidebar-left">왼쪽</aside>
 		<div id="content">
-			<div id="category">
+			<div class="category">
 				<ul>
 					<li id="info_first">내 정보</li>
 					<li id="info">찜 목록</li>
@@ -268,26 +266,26 @@ input[type="number"]{
 			<div id="title">내 정보 변경</div>
 			<div class="clear">
 			<div id="profile">
-				<img id="pro_pic" src="/resources/images/jongjongka.jpg">
-			<div class="info_all">
+					<img id="pro_pic" src="/resources/images/jongjongka.jpg">
+				<div class="info_all">
 					<div id="info_content">닉네임 : <input type="text" name="nickname"><button id="btn_double">중복 확인</button></div>
 					<div id="info_content">휴대폰 : <input  type="number" name="phone"></div>
 					<div id="info_content">생년월일 :<input  type="number" placeholder="ex) 981016" name="birth"></div>
-					<div id="info_content">성별 : &nbsp;&nbsp;&nbsp;<input type="radio" name="gender">&nbsp;&nbsp;여성&nbsp;&nbsp;&nbsp;
-												<input type="radio" name="gender">&nbsp;&nbsp;남성
+					<div id="info_content">성별 : &nbsp;&nbsp;&nbsp;
+						<input type="radio" name="gender">&nbsp;&nbsp;여성&nbsp;&nbsp;&nbsp;
+						<input type="radio" name="gender">&nbsp;&nbsp;남성
 					</div>
-					</div>
+				</div>
 			</div>
 			<div class="btn">
-					<button id="btn_save">저장</button>
-					<button id="btn_exit">돌아가기</button>
-				</div>
-				</div>
-			</div>		 
-		 </div>
-		<aside id="sidebar-right">오른</aside>
-		</div>
-<div id="footer"><jsp:include page="../footer.jsp" /></div>
-		</div>
+				<button id="btn_save">저장</button>
+				<button id="btn_exit">돌아가기</button>
+			</div>
+			</div>
+		</div>		 
+	<aside id="sidebar-right">오른</aside>
+	</div>
+	<div id="footer"><jsp:include page="../footer.jsp" /></div>
+</div>
 </body>
 </html>

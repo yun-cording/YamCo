@@ -8,7 +8,7 @@
 <link rel="icon" type="image/x-icon"
 	href="resources/images/icon_tomato.png">
 	<style type="text/css">
-		* {
+* {
 	padding: 0;
 	margin: 0;
 	box-sizing: border-box;
@@ -20,9 +20,9 @@
 }
 
  #mydiv{
-        width: 1920px;
-        margin:  auto;		
-    }
+    width: 1920px;
+    margin:  auto;		
+}
     
  #sidebar-right {
 	background-color: white;
@@ -39,7 +39,6 @@
 #content {
 	width: 68.75%;
 	float: left;
-	/* Rectangle 77 */
 	margin-top: 0px;
 	background: white;
 	font-family: 'Yeongdeok_TTF';
@@ -53,12 +52,12 @@
 	padding-top: 300px;
 }
 
-#category{
+.category{
 	margin-top: 25px;
 	font-size: 15px;
 }
 
-#category li:hover{
+.category li:hover{
 	background-color: #E53A1B;
 }
 
@@ -124,7 +123,7 @@
 	color: #FFFFFF;
 }
 
-#title_line{
+.title_line{
 	width: 1320px;
 	border: 2px solid tomato;
 	height: 1px;
@@ -165,7 +164,7 @@ button{
 	top: 11px;
 }
 
-#icon{
+.icon{
 	z-index: 1;
 	position: relative;
 	margin-left: 811px;
@@ -233,10 +232,9 @@ button{
 }
 
 #star{
-	background-color: white;
 	float: left;
 	padding: 2px;
-	}
+}
 	</style>
 </head>
 <body>
@@ -245,7 +243,7 @@ button{
 		<div id="test">
 		<aside id="sidebar-left">왼쪽</aside>
 		<div id="content">
-			<div id="category">
+			<div class="category">
 				<ul>
 					<li id="info_first">내 정보</li>
 					<li id="info">찜 목록</li>
@@ -254,12 +252,11 @@ button{
 					<li id="info_end">내가 쓴 댓글</li>
 				</ul>
 			</div>
-			<div id="title_line"></div>
-			<div id="search">
+			<div class="title_line"></div>
 				<input type="text" id="search_txf" name="search_txf">
 				<button id="search_btn">
 				</button>
-				<div id="icon">
+				<div class="icon">
 					<img id="search_icon2" src="/resources/images/search_icon_white.png">
 				</div>
 			<div class="kindOf">
@@ -267,8 +264,7 @@ button{
 				<button id="save">등록순</button>
 				<button id="star">평점순</button>
 			</div>
-			</div>
-			<div id="content_all">
+			<div class="content_all">
 			<div class="content_title">
 				<span id="c_title_t">1. 육회덮밥</span>
 			</div>
