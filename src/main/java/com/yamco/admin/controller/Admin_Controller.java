@@ -33,6 +33,6 @@ public class Admin_Controller {
 	}
 	@RequestMapping("/simbatest")
 	public ModelAndView simbatest() {
-		return new ModelAndView("admin/admin_index");
+		return new ModelAndView("admin/admin_dashboard");
 	}
 }
