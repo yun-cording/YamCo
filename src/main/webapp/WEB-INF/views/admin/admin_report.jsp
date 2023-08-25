@@ -29,11 +29,14 @@
 <!-- Custom fonts for this template-->
 <link href="/resources/vendor/fontawesome-free/css/all.min.css"
 	rel="stylesheet" type="text/css">
+	
+	<!-- Custom styles for this template-->
+	<link href="/resources/css/sb-admin-2.min.css?after" rel="stylesheet">	
+	
 <link
 	href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
 	rel="stylesheet">
-<!-- Custom styles for this template-->
-<link href="/resources/css/sb-admin-2.min.css" rel="stylesheet">
+
 <!-- Custom styles for this page -->
 <link href="resources/vendor/datatables/dataTables.bootstrap4.min.css"
 	rel="stylesheet">
@@ -99,7 +102,7 @@
 					<!-- 라디오 버튼 끝 -->
 
 					<!-- Begin Page Content -->
-					<div class="container-fluid">
+					<div class="container-fluid" style="text-align: center;">
 						<!-- DataTales Example -->
 						<div class="card shadow mb-4">
 							<div class="card-body">
@@ -108,12 +111,12 @@
 										<colgroup>
 											<col width="5%" />
 											<col width="10%" />
-											<col width="5%" />
+											<col width="7%" />
 											<col width="10%" />
 											<col width="15%" />
-											<col width="25%" />
-											<col width="15%" />
-											<col width="15%" />
+											<col width="32%" />
+											<col width="10%" />
+											<col width="11%" />
 										</colgroup>
 										<thead>
 											<tr>
@@ -135,10 +138,10 @@
 												<td>심바gray의 50가지 레시피</td>
 												<td>myBigSecret...</td>
 												<td>**************</td>
-												<td><button type="button" class="btn btn-success"
+												<td><button type="button" style="color: white;" class="btn bg-success bg-opacity-100 "
 														data-bs-toggle="modal" data-bs-target="#exampleModal"
 														data-bs-whatever="@mdo">답변 미작성</button></td>
-												<td><button class="btn btn-success" onclick="chk()">블라인드
+												<td><button class="btn btn-danger" onclick="chk()">블라인드
 														처리하기</button></td>
 											</tr>
 											<tr>
@@ -148,10 +151,23 @@
 												<td>심바gray의 50가지 레시피</td>
 												<td>myBigSecret...</td>
 												<td>**************</td>
-												<td><button type="button" class="btn btn-success"
+												<td><button type="button" style="color: white; disabled;" class="btn bg-secondary"
+														data-bs-toggle="modal" data-bs-target="#exampleModal"
+														data-bs-whatever="@mdo">답변 작성완료</button></td>
+												<td><button class="btn btn-secondary" onclick="chk()">블라인드
+														처리완료</button></td>
+											</tr>
+											<tr>
+												<th scope="row">7</th>
+												<td>ysh</td>
+												<td>4</td>
+												<td>심바gray의 50가지 레시피</td>
+												<td>myBigSecret...</td>
+												<td>**************</td>
+												<td><button type="button" style="color: white;" class="btn bg-success bg-opacity-75"
 														data-bs-toggle="modal" data-bs-target="#exampleModal"
 														data-bs-whatever="@mdo">답변 미작성</button></td>
-												<td><button class="btn btn-success" onclick="chk()">블라인드
+												<td><button class="btn btn-danger" onclick="chk()">블라인드
 														처리하기</button></td>
 											</tr>
 											<tr>
@@ -161,10 +177,10 @@
 												<td>심바gray의 50가지 레시피</td>
 												<td>myBigSecret...</td>
 												<td>**************</td>
-												<td><button type="button" class="btn btn-success"
+												<td><button type="button" style="color: white;" class="btn bg-success bg-opacity-75"
 														data-bs-toggle="modal" data-bs-target="#exampleModal"
 														data-bs-whatever="@mdo">답변 미작성</button></td>
-												<td><button class="btn btn-success" onclick="chk()">블라인드
+												<td><button class="btn btn-danger" onclick="chk()">블라인드
 														처리하기</button></td>
 											</tr>
 											<tr>
@@ -174,10 +190,10 @@
 												<td>심바gray의 50가지 레시피</td>
 												<td>myBigSecret...</td>
 												<td>**************</td>
-												<td><button type="button" class="btn btn-success"
+												<td><button type="button" style="color: white;" class="btn bg-success bg-opacity-75"
 														data-bs-toggle="modal" data-bs-target="#exampleModal"
 														data-bs-whatever="@mdo">답변 미작성</button></td>
-												<td><button class="btn btn-success" onclick="chk()">블라인드
+												<td><button class="btn btn-danger" onclick="chk()">블라인드
 														처리하기</button></td>
 											</tr>
 											<tr>
@@ -187,10 +203,10 @@
 												<td>심바gray의 50가지 레시피</td>
 												<td>myBigSecret...</td>
 												<td>**************</td>
-												<td><button type="button" class="btn btn-success"
+												<td><button type="button" style="color: white;" class="btn bg-success bg-opacity-75"
 														data-bs-toggle="modal" data-bs-target="#exampleModal"
 														data-bs-whatever="@mdo">답변 미작성</button></td>
-												<td><button class="btn btn-success" onclick="chk()">블라인드
+												<td><button class="btn btn-danger" onclick="chk()">블라인드
 														처리하기</button></td>
 											</tr>
 											<tr>
@@ -200,10 +216,10 @@
 												<td>심바gray의 50가지 레시피</td>
 												<td>myBigSecret...</td>
 												<td>**************</td>
-												<td><button type="button" class="btn btn-success"
+												<td><button type="button" style="color: white;" class="btn bg-success bg-opacity-75"
 														data-bs-toggle="modal" data-bs-target="#exampleModal"
 														data-bs-whatever="@mdo">답변 미작성</button></td>
-												<td><button class="btn btn-success" onclick="chk()">블라인드
+												<td><button class="btn btn-danger" onclick="chk()">블라인드
 														처리하기</button></td>
 											</tr>
 											<tr>
@@ -213,10 +229,10 @@
 												<td>심바gray의 50가지 레시피</td>
 												<td>myBigSecret...</td>
 												<td>**************</td>
-												<td><button type="button" class="btn btn-success"
+												<td><button type="button" style="color: white;" class="btn bg-success bg-opacity-75"
 														data-bs-toggle="modal" data-bs-target="#exampleModal"
 														data-bs-whatever="@mdo">답변 미작성</button></td>
-												<td><button class="btn btn-success" onclick="chk()">블라인드
+												<td><button class="btn btn-danger" onclick="chk()">블라인드
 														처리하기</button></td>
 											</tr>
 											<tr>
@@ -226,10 +242,10 @@
 												<td>심바gray의 50가지 레시피</td>
 												<td>myBigSecret...</td>
 												<td>**************</td>
-												<td><button type="button" class="btn btn-success"
+												<td><button type="button" style="color: white;" class="btn bg-success bg-opacity-75"
 														data-bs-toggle="modal" data-bs-target="#exampleModal"
 														data-bs-whatever="@mdo">답변 미작성</button></td>
-												<td><button class="btn btn-success" onclick="chk()">블라인드
+												<td><button class="btn btn-danger" onclick="chk()">블라인드
 														처리하기</button></td>
 											</tr>
 											<tr>
@@ -239,10 +255,10 @@
 												<td>심바gray의 50가지 레시피</td>
 												<td>myBigSecret...</td>
 												<td>**************</td>
-												<td><button type="button" class="btn btn-success"
+												<td><button type="button" style="color: white;" class="btn bg-success bg-opacity-75"
 														data-bs-toggle="modal" data-bs-target="#exampleModal"
 														data-bs-whatever="@mdo">답변 미작성</button></td>
-												<td><button class="btn btn-success" onclick="chk()">블라인드
+												<td><button class="btn btn-danger" onclick="chk()">블라인드
 														처리하기</button></td>
 											</tr>
 											<tr>
@@ -252,10 +268,10 @@
 												<td>심바gray의 50가지 레시피</td>
 												<td>myBigSecret...</td>
 												<td>**************</td>
-												<td><button type="button" class="btn btn-success"
+												<td><button type="button" style="color: white;" class="btn bg-success bg-opacity-75"
 														data-bs-toggle="modal" data-bs-target="#exampleModal"
 														data-bs-whatever="@mdo">답변 미작성</button></td>
-												<td><button class="btn btn-success" onclick="chk()">블라인드
+												<td><button class="btn btn-danger" onclick="chk()">블라인드
 														처리하기</button></td>
 											</tr>
 											<tr>
@@ -265,10 +281,10 @@
 												<td>심바gray의 50가지 레시피</td>
 												<td>myBigSecret...</td>
 												<td>**************</td>
-												<td><button type="button" class="btn btn-success"
+												<td><button type="button" style="color: white;" class="btn bg-success bg-opacity-75"
 														data-bs-toggle="modal" data-bs-target="#exampleModal"
 														data-bs-whatever="@mdo">답변 미작성</button></td>
-												<td><button class="btn btn-success" onclick="chk()">블라인드
+												<td><button class="btn btn-danger" onclick="chk()">블라인드
 														처리하기</button></td>
 											</tr>
 											<tr>
@@ -278,10 +294,10 @@
 												<td>심바gray의 50가지 레시피</td>
 												<td>myBigSecret...</td>
 												<td>**************</td>
-												<td><button type="button" class="btn btn-success"
+												<td><button type="button" style="color: white;" class="btn bg-success bg-opacity-75"
 														data-bs-toggle="modal" data-bs-target="#exampleModal"
 														data-bs-whatever="@mdo">답변 미작성</button></td>
-												<td><button class="btn btn-success" onclick="chk()">블라인드
+												<td><button class="btn btn-danger" onclick="chk()">블라인드
 														처리하기</button></td>
 											</tr>
 											<tr>
@@ -291,10 +307,10 @@
 												<td>심바gray의 50가지 레시피</td>
 												<td>myBigSecret...</td>
 												<td>**************</td>
-												<td><button type="button" class="btn btn-success"
+												<td><button type="button" style="color: white;" class="btn bg-success bg-opacity-75"
 														data-bs-toggle="modal" data-bs-target="#exampleModal"
 														data-bs-whatever="@mdo">답변 미작성</button></td>
-												<td><button class="btn btn-success" onclick="chk()">블라인드
+												<td><button class="btn btn-danger" onclick="chk()">블라인드
 														처리하기</button></td>
 											</tr>
 											<tr>
@@ -304,10 +320,10 @@
 												<td>심바gray의 50가지 레시피</td>
 												<td>myBigSecret...</td>
 												<td>**************</td>
-												<td><button type="button" class="btn btn-success"
+												<td><button type="button" class="btn bg-success bg-opacity-75"
 														data-bs-toggle="modal" data-bs-target="#exampleModal"
 														data-bs-whatever="@mdo">답변 미작성</button></td>
-												<td><button class="btn btn-success" onclick="chk()">블라인드
+												<td><button class="btn btn-danger" onclick="chk()">블라인드
 														처리하기</button></td>
 											</tr>
 											<tr>
@@ -317,10 +333,10 @@
 												<td>심바gray의 50가지 레시피</td>
 												<td>myBigSecret...</td>
 												<td>**************</td>
-												<td><button type="button" class="btn btn-success"
+												<td><button type="button" class="btn bg-success bg-opacity-75"
 														data-bs-toggle="modal" data-bs-target="#exampleModal"
 														data-bs-whatever="@mdo">답변 미작성</button></td>
-												<td><button class="btn btn-success" onclick="chk()">블라인드
+												<td><button class="btn btn-secondary" onclick="chk()">블라인드
 														처리하기</button></td>
 											</tr>
 											<tr>
@@ -330,10 +346,10 @@
 												<td>심바gray의 50가지 레시피</td>
 												<td>myBigSecret...</td>
 												<td>**************</td>
-												<td><button type="button" class="btn btn-success"
+												<td><button type="button" class="btn bg-success bg-opacity-75"
 														data-bs-toggle="modal" data-bs-target="#exampleModal"
 														data-bs-whatever="@mdo">답변 미작성</button></td>
-												<td><button class="btn btn-success" onclick="chk()">블라인드
+												<td><button class="btn btn-secondary" onclick="chk()">블라인드
 														처리하기</button></td>
 											</tr>
 											<tr>
@@ -343,10 +359,10 @@
 												<td>심바gray의 50가지 레시피</td>
 												<td>myBigSecret...</td>
 												<td>**************</td>
-												<td><button type="button" class="btn btn-success"
+												<td><button type="button" class="btn bg-success bg-opacity-75"
 														data-bs-toggle="modal" data-bs-target="#exampleModal"
 														data-bs-whatever="@mdo">답변 미작성</button></td>
-												<td><button class="btn btn-success" onclick="chk()">블라인드
+												<td><button class="btn btn-secondary" onclick="chk()">블라인드
 														처리하기</button></td>
 											</tr>
 											<tr>
@@ -356,10 +372,10 @@
 												<td>심바gray의 50가지 레시피</td>
 												<td>myBigSecret...</td>
 												<td>**************</td>
-												<td><button type="button" class="btn btn-success"
+												<td><button type="button" class="btn bg-success bg-opacity-75"
 														data-bs-toggle="modal" data-bs-target="#exampleModal"
 														data-bs-whatever="@mdo">답변 미작성</button></td>
-												<td><button class="btn btn-success" onclick="chk()">블라인드
+												<td><button class="btn btn-secondary" onclick="chk()">블라인드
 														처리하기</button></td>
 											</tr>
 											<tr>
@@ -369,10 +385,10 @@
 												<td>심바gray의 50가지 레시피</td>
 												<td>myBigSecret...</td>
 												<td>**************</td>
-												<td><button type="button" class="btn btn-success"
+												<td><button type="button" class="btn bg-success bg-opacity-75"
 														data-bs-toggle="modal" data-bs-target="#exampleModal"
 														data-bs-whatever="@mdo">답변 미작성</button></td>
-												<td><button class="btn btn-success" onclick="chk()">블라인드
+												<td><button class="btn btn-secondary" onclick="chk()">블라인드
 														처리하기</button></td>
 											</tr>
 											<tr>
@@ -382,10 +398,10 @@
 												<td>심바gray의 50가지 레시피</td>
 												<td>myBigSecret...</td>
 												<td>**************</td>
-												<td><button type="button" class="btn btn-success"
+												<td><button type="button" class="btn bg-success bg-opacity-75"
 														data-bs-toggle="modal" data-bs-target="#exampleModal"
 														data-bs-whatever="@mdo">답변 미작성</button></td>
-												<td><button class="btn btn-success" onclick="chk()">블라인드
+												<td><button class="btn btn-secondary" onclick="chk()">블라인드
 														처리하기</button></td>
 											</tr>
 											<tr>
@@ -395,23 +411,10 @@
 												<td>심바gray의 50가지 레시피</td>
 												<td>myBigSecret...</td>
 												<td>**************</td>
-												<td><button type="button" class="btn btn-success"
+												<td><button type="button" class="btn bg-success bg-opacity-75"
 														data-bs-toggle="modal" data-bs-target="#exampleModal"
 														data-bs-whatever="@mdo">답변 미작성</button></td>
-												<td><button class="btn btn-success" onclick="chk()">블라인드
-														처리하기</button></td>
-											</tr>
-											<tr>
-												<th scope="row">7</th>
-												<td>ysh</td>
-												<td>4</td>
-												<td>심바gray의 50가지 레시피</td>
-												<td>myBigSecret...</td>
-												<td>**************</td>
-												<td><button type="button" class="btn btn-success"
-														data-bs-toggle="modal" data-bs-target="#exampleModal"
-														data-bs-whatever="@mdo">답변 미작성</button></td>
-												<td><button class="btn btn-success" onclick="chk()">블라인드
+												<td><button class="btn btn-secondary" onclick="chk()">블라인드
 														처리하기</button></td>
 											</tr>
 											
@@ -446,8 +449,8 @@
 										</form>
 									</div>
 									<div class="modal-footer">
-										<button type="button" class="btn btn-success"	data-bs-dismiss="modal">Close</button>
-										<button type="button" class="btn btn-success">Send
+										<button type="button" class="btn btn-secondary"	data-bs-dismiss="modal">Close</button>
+										<button type="button" class="btn btn-secondary">Send
 											message</button>
 									</div>
 								</div>
@@ -483,9 +486,9 @@
 					</button>
 				</div>
 				<div class="modal-footer">
-					<button class="btn btn-success" type="button"
+					<button class="btn btn-secondary" type="button"
 						data-dismiss="modal">취소</button>
-					<a class="btn btn-danger" href="login.html">로그아웃</a>
+					<a class="btn btn-success" href="login.html">로그아웃</a>
 				</div>
 			</div>
 		</div>
