@@ -39,7 +39,7 @@ public class Admin_Controller {
 
     @RequestMapping("/simbatest")
 	public ModelAndView simbatest() {
-		return new ModelAndView("admin/admin_dashboard");
+		return new ModelAndView("user/recipe/search_list");
 	}
     // 상우 테스트
 	@RequestMapping("/admin_test_sw.do")
