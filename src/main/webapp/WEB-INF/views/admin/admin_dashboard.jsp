@@ -171,7 +171,7 @@
 							<div class="card shadow mt-4">
 								<div class="card-header py-3">
 									<h6 class="m-0 font-weight-bold text-success">신고가 많은 게시글 /
-										리뷰 수</h6>
+										리뷰</h6>
 								</div>
 								<div class="card-body">
 									<div class="table-responsive">
@@ -206,10 +206,6 @@
 											</tbody>
 										</table>
 									</div>
-									<hr>
-									Styling for the bar chart can be found in the
-									<code>/js/demo/chart-bar-demo.js</code>
-									file.
 								</div>
 							</div>
 						</div>
@@ -224,9 +220,6 @@
 										<canvas id="myBarChart"></canvas>
 									</div>
 									<hr>
-									Styling for the bar chart can be found in the
-									<code>/js/demo/chart-bar-demo.js</code>
-									file.
 								</div>
 							</div>
 
