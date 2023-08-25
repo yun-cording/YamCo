@@ -74,7 +74,7 @@
 
     <!-- Sidebar Message -->
     <div class="sidebar-card d-none d-lg-flex">
-        <img class="sidebar-card-illustration mb-2" src="https://url.kr/b2x3ar" alt="...">
+        <img class="sidebar-card-illustration mb-2" src="/resources/images/icon_tomato_ver2_1.png" alt="...">
         <p class="text-center mt-3">
             <strong>냠냠 레시피 관리자 대시보드</strong>
              <i class="far fa-copyright" ></i>2023 All Rights Reserved
