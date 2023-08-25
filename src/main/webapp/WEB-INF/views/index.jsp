@@ -87,6 +87,23 @@
 		location.href = "/go_search.do";
 	}
 	
+	// 상우 사용자, 공공 상세페이지, 글쓰기, 수정하기, 관리자 ▼
+	function user_recipe_det() {
+		location.href = "/go_userDet.do";
+	}
+	function public_recipe_det() {
+		location.href = "/go_publicDet.do";
+	}
+	function user_recipe_write() {
+		location.href = "/go_userWrite.do";
+	}
+	function user_recipe_update() {
+		location.href = "/go_userUpdate.do";
+	}
+	function admin_test_sw() {
+		location.href = "/admin_test_sw.do";
+	}
+	
 </script>
 
 <script type="text/javascript">
@@ -132,6 +149,12 @@ function go_tableExam() {
 	<button onclick="go_main()">main</button>
 	<button onclick="go_error404()">go_error404</button>
 	<button onclick="go_error500()">go_error500</button>
+	<!-- 상우  사용자, 공공 상세페이지, 글쓰기, 수정하기 ▼, 관리자 -->
+	<button onclick="user_recipe_det()">user_recipe_det</button>
+	<button onclick="public_recipe_det()">public_recipe_det</button>
+	<button onclick="user_recipe_write()">user_recipe_write</button>
+	<button onclick="user_recipe_update()">user_recipe_update</button>
+	<button onclick="admin_test_sw()">admin_test_sw</button>
 	<hr>
 	<h4>login관련</h4>
 	<button onclick="go_find_pw()">go_find_pw</button>
