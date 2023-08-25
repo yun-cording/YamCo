@@ -16,7 +16,7 @@
 			<div class="recent_center">
 				<img
 					src="https://mediahub.seoul.go.kr/wp-content/uploads/2020/10/d13ea4a756099add8375e6c795b827ab.jpg"
-					alt="">
+					alt="" >
 				<p class="cate">분식 | 떡볶이</p>
 				<p class="writer">작성자 : 김희준</p>
 			</div>
