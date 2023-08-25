@@ -31,7 +31,7 @@ public class Admin_Controller {
 	public ModelAndView go_admin_contentchk() {
 		return new ModelAndView("admin/admin_contentchk");
 	}
-  
+   
 	@RequestMapping("go_tableExam.do")
 	public ModelAndView go_tableExam() {
 		return new ModelAndView("admin/table");
@@ -39,5 +39,10 @@ public class Admin_Controller {
     @RequestMapping("/simbatest")
 	public ModelAndView simbatest() {
 		return new ModelAndView("admin/admin_index");
+	}
+    // 상우 테스트
+	@RequestMapping("/admin_test_sw.do")
+	public ModelAndView admin_test_sw() {
+		return new ModelAndView("admin/admin_test_sw");
 	}
 }
