@@ -10,8 +10,23 @@
     <meta name="author" content="">
 
     <title>냠냠레시피 관리자</title>
+    <style type="text/css">
+    	.btn_group{
+    align-items: center;
+    justify-content: center;
+    display: flex;
+}
+.btn_empty{
+    margin: 5px;
+}
+    
+    .date_size{
+    	width: 300px;
+    	height: 30px;
+    }	
+    </style>
    
-    <link href="resources/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom fonts for this template-->
     <link href="/resources/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link
@@ -19,6 +34,8 @@
         rel="stylesheet">
     <!-- Custom styles for this template-->
     <link href="/resources/css/sb-admin-2.min.css" rel="stylesheet">
+    <link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
 </head>
 <body id="page-top">
     <!-- Page Wrapper -->
@@ -30,17 +47,130 @@
             <!-- Main Content -->
             <div id="content">
 				<jsp:include page="admin_header.jsp" />
-                
-                <div class="container-fluid">
-                    <h1 class="ml-5 mt-5 font-weight-bold">사용자 게시물 관리</h1>
-                    <hr>
 
-                    <!-- 여기에서 작업하시면 됩니다. -->
-      
-               
-                    
-                    
-                    <!-- Page Wrapper -->
+				<div class="container-fluid">
+					<h1 class="ml-5 mt-5 font-weight-bold">사용자 게시물 관리</h1>
+					<hr>
+
+					<!-- 여기에서 작업하시면 됩니다. -->
+					<div
+						class="col-12 mt-4 p-3 col-lg mt-lg-0 text-center rounded shadow">
+						<div class="card h-100">
+							<h6
+								class="card-header bg-light text-black-50 fw-bold small text-start">
+								검색 조건</h6>
+							<ul class="list-group list-group-flush">
+								<li class="list-group-item">
+									<div class="row justify-content-around align-items-center">
+										<div class="col-auto fw-bold text-nowrap">검색어</div>
+										<div class="col col-lg-auto mx-auto">
+											<div class="dropdown">
+												<button class="btn btn-light dropdown-toggle" type="button"
+													data-bs-toggle="dropdown" aria-expanded="false">
+													카테고리</button>
+												<ul class="dropdown-menu">
+													<li><button class="dropdown-item" type="button">1인분</button></li>
+													<li><button class="dropdown-item" type="button">채식</button></li>
+													<li><button class="dropdown-item" type="button">국물류</button></li>
+													<li><button class="dropdown-item" type="button">돈까스,
+															일식</button></li>
+													<li><button class="dropdown-item" type="button">고기,
+															구이</button></li>
+													<li><button class="dropdown-item" type="button">해산물</button></li>
+													<li><button class="dropdown-item" type="button">분식</button></li>
+													<li><button class="dropdown-item" type="button">면류</button></li>
+													<li><button class="dropdown-item" type="button">죽</button></li>
+													<li><button class="dropdown-item" type="button">술안주</button></li>
+													<li><button class="dropdown-item" type="button">반찬</button></li>
+													<li><button class="dropdown-item" type="button">후식</button></li>
+													<li><button class="dropdown-item" type="button">기타</button></li>
+												</ul>
+
+											</div>
+										</div>
+										<div class="col-12 mt-2 col-lg mt-lg-0 mx-auto">
+											<div class="input-group">
+												<input type="text" class="form-control" aria-label="input"
+													aria-describedby="inputGroup-sizing-default">
+											</div>
+										</div>
+									</div>
+								</li>
+								<li class="list-group-item">
+									<div class="row justify-content-around align-items-center">
+										<div class="col-4 col-xxl-auto fw-bold text-nowrap">기간
+											조건</div>
+										<div class="col-8 col-xxl"></div>
+										<div class="card-body">
+											<div class="row px-4 mt-3">
+												<div class="col-md-6 pl-0 pr-0 pr-md-2 mb-2">
+													<input type="date" name="start-date" class="date_size">
+												</div>
+												<div class="col-md-6 pl-0 pl-md-2 pr-0">
+													<input type="date" name="end-date" class="date_size">
+												</div>
+											</div>
+											<div class="btn_group" role="group"
+												aria-label="Basic radio toggle button group">
+												<div class="btn_empty">
+													<input type="radio" class="btn-check" name="btn_date"
+														id="btnradio1" autocomplete="off"> <label
+														class="btn btn-outline-success" for="btnradio1">1일</label>
+												</div>
+												<div class="btn_empty">
+													<input type="radio" class="btn-check" name="btn_date"
+														id="btnradio2" autocomplete="off"> <label
+														class="btn btn-outline-success" for="btnradio2">1주일</label>
+												</div>
+												<div class="btn_empty">
+													<input type="radio" class="btn-check" name="btn_date"
+														id="btnradio3" autocomplete="off"> <label
+														class="btn btn-outline-success" for="btnradio3">1개월</label>
+												</div>
+											</div>
+										</div>
+									</div>
+								</li>
+								<li class="list-group-item">
+									<div class="row justify-content-around align-items-center">
+										<div class="col-12 col-xxl-auto text-xxl-start fw-bold">게시글
+											상태</div>
+										<div class="col-6 order-3 col-sm-4 mt-2 col-xxl m-xxl-0">
+											<button type="button"
+												class="btn btn-outline-success w-100 fw-bold">게시중</button>
+										</div>
+										<div
+											class="col-6 order-3 col-sm-4 mt-2 offset-xxl-1 col-xxl m-xxl-0">
+											<button type="button"
+												class="btn btn-outline-success w-100 fw-bold">블라인드</button>
+										</div>
+									</div>
+								</li>
+								<li class="list-group-item">
+									<div class="row justify-content-between align-items-center">
+										<div class="col-auto"></div>
+										<div class="col-auto">
+											<div class="row">
+												<div class="col-auto">
+													<button type="button"
+														class="btn btn-outline-success w-100 fw-bold">
+														초기화 <i class="fa-solid fa-arrow-rotate-right"></i>
+													</button>
+												</div>
+												<div class="col-auto">
+													<button type="button" class="btn btn-success w-100 fw-bold">검색</button>
+												</div>
+											</div>
+										</div>
+									</div>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+
+
+				<!-- Page Wrapper -->
     <div id="wrapper">
 
         <!-- Content Wrapper -->
@@ -267,7 +397,7 @@
 
 <!-- Bootstrap core JavaScript-->
     <script src="resources/vendor/jquery/jquery.min.js"></script>
-    <script src="resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
 
     <!-- Core plugin JavaScript-->
     <script src="resources/vendor/jquery-easing/jquery.easing.min.js"></script>
