@@ -36,7 +36,6 @@
 
 #content {
 	width: 68.75%;
-	height: 100%;
 	float: left;
 	margin-top: 0px;
 	background: white;

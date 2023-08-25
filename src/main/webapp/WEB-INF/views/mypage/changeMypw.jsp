@@ -39,7 +39,6 @@
 #content {
 	width: 68.75%;
 	float: left;
-	/* Rectangle 77 */
 	margin-top: 0px;
 	background: white;
 	font-family: 'Yeongdeok_TTF';
@@ -54,7 +53,7 @@
 	padding-top: 300px;
 }
 
-#category{
+.category{
 	margin-top: 25px;
 	font-size: 15px;
 }
@@ -65,8 +64,7 @@
 	width: 625px;
  }	
 
-#info_first{
-	
+#info_first{	
 	flex-direction: row;
 	justify-content: center;
 	align-items: center;
@@ -85,8 +83,7 @@
 	color: #FFFFFF;
 }
 
-#info{
-	
+#info{	
 	flex-direction: row;
 	justify-content: center;
 	align-items: center;
@@ -104,8 +101,7 @@
 	color: #FFFFFF;
 }
 
-#info_end{
-	
+#info_end{	
 	flex-direction: row;
 	justify-content: center;
 	align-items: center;
@@ -124,14 +120,14 @@
 	color: #FFFFFF;
 }
 
-#title_line{
+.title_line{
 	width: 1320px;
 	border: 2px solid tomato;
 	height: 1px;
 	margin-top: 100px;
 }
 
-#title{
+.title{
 	font-size: 40px;
 	margin-top: 98px;
 	font-weight: bold;
@@ -176,6 +172,14 @@ button{
 	margin-left: 484px;
 }
 
+input[type="password"]{
+	border:none;
+	/* border-radius: 20px; */
+	font-size: 24px;
+	outline: none;
+	font-family: 'Yeongdeok_TTF';	
+}
+
 #btn_save{
 	width: 175px;
 	height: 53px;
@@ -210,7 +214,7 @@ button{
 	border: none;
 	border-radius: 30px 30px 30px 30px;
 }
-	</style>
+</style>
 </head>
 <body>
 <div id="mydiv">		
@@ -218,7 +222,7 @@ button{
 		<div id="test">
 		<aside id="sidebar-left">왼쪽</aside>
 		<div id="content">
-			<div id="category">
+			<div class="category">
 				<ul>
 					<li id="info_first">내 정보</li>
 					<li id="info">찜 목록</li>
@@ -227,13 +231,13 @@ button{
 					<li id="info_end">내가 쓴 댓글</li>
 				</ul>
 			</div>
-			<div id="title_line"></div>
-			<div id="title">비밀번호 변경</div>
+			<div class="title_line"></div>
+			<div class="title">비밀번호 변경</div>
 			<div class="clear">			
 			<div class="info_all">
-					<div id="info_content">기존 비밀번호 : <button id="btn_double">인증하기</button></div>
-					<div id="info_content">새 비밀번호 : </div>
-					<div id="info_content">비밀번호 확인 : </div>
+					<div id="info_content">기존 비밀번호 : <input type="password" name="old_pw"><button id="btn_double">인증하기</button></div>
+					<div id="info_content">새 비밀번호 : <input type="password" name="new_pw"></div>
+					<div id="info_content">비밀번호 확인 : <input type="password" name="new_pw_ok"></div>
 				</div>
 			<div class="btn">
 					<button id="btn_save">비밀번호 변경</button>

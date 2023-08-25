@@ -8,7 +8,7 @@
 <link rel="icon" type="image/x-icon"
 	href="resources/images/icon_tomato.png">
 	<style type="text/css">
-		* {
+* {
 	padding: 0;
 	margin: 0;
 	box-sizing: border-box;
@@ -19,12 +19,18 @@
     src: url('../resources/fonts/Yeongdeok Blueroad.ttf') format('truetype');
 }
 
- #mydiv{
+
+#category li:hover{
+	background-color: #E53A1B;
+}
+
+
+#mydiv{
         width: 1920px;
         margin:  auto;		
-    }
+}
     
- #sidebar-right {
+#sidebar-right {
 	background-color: white;
 	float: left;
 	width: 15.625%;
@@ -53,7 +59,7 @@
 	padding-top: 300px;
 }
 
-#category{
+.category{
 	margin-top: 25px;
 	font-size: 15px;
 }
@@ -64,8 +70,7 @@
 	width: 625px;
  }	
 
-#info_first{
-	
+#info_first{	
 	flex-direction: row;
 	justify-content: center;
 	align-items: center;
@@ -84,8 +89,7 @@
 	color: #FFFFFF;
 }
 
-#info{
-	
+#info{	
 	flex-direction: row;
 	justify-content: center;
 	align-items: center;
@@ -103,8 +107,7 @@
 	color: #FFFFFF;
 }
 
-#info_end{
-	
+#info_end{	
 	flex-direction: row;
 	justify-content: center;
 	align-items: center;
@@ -123,18 +126,18 @@
 	color: #FFFFFF;
 }
 
-#title_line{
+.title_line{
 	width: 1320px;
 	border: 2px solid tomato;
 	height: 1px;
 	margin-top: 100px;
 }
 
-#q_all{
+.q_all{
 	margin-top: 100px;
 }
 
-#q_title{
+.q_title{
 	box-sizing: border-box;
 	width: 1260px;
 	height: 80px; 
@@ -184,7 +187,7 @@
 
 }
 
-#answer{
+.answer{
 	font-size: 30px;
 	text-align: center;
 	display: none;  
@@ -201,12 +204,9 @@
 	font-weight: 400;
 	line-height: 40px;
 	
-	color: tomato;
-	
-	border-bottom: 3px solid tomato;
-	
+	color: tomato;	
+	border-bottom: 3px solid tomato;	
 }
-
 	</style>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 <script type="text/javascript">
@@ -214,55 +214,55 @@
 		var i=0;
 		$("#a_1").on("click", function() {
 			if(i++%2 == 0){
-				$(".a1").fadeOut(400);					
+				$("#a1").fadeOut(400);					
 				$("#a_1").attr("src","/resources/images/arrow_down.png");
 			}else{
-				$(".a1").fadeIn({direction : "top"});
-				$('.a1').attr("style", "display : flex;");
+				$("#a1").fadeIn({direction : "top"});
+				$('#a1').attr("style", "display : flex;");
 				$("#a_1").attr("src","/resources/images/arrow_up.png");
 			}			
 		});
 		
 		$("#a_2").on("click", function() {
 			if(i++%2 == 0){
-				$(".a2").fadeOut(400);			
+				$("#a2").fadeOut(400);			
 				$("#a_2").attr("src","/resources/images/arrow_down.png");
 			}else{
-				$(".a2").fadeIn({direction : "top"});	
-				$('.a2').attr("style", "display : flex;");
+				$("#a2").fadeIn({direction : "top"});	
+				$('#a2').attr("style", "display : flex;");
 				$("#a_2").attr("src","/resources/images/arrow_up.png");
 			}			
 		});
 		
 		$("#a_3").on("click", function() {
 			if(i++%2 == 0){
-				$(".a3").fadeOut(400);					
+				$("#a3").fadeOut(400);					
 				$("#a_3").attr("src","/resources/images/arrow_down.png");
 			}else{
-				$(".a3").fadeIn({direction : "top"});	
-				$('.a3').attr("style", "display : flex;");
+				$("#a3").fadeIn({direction : "top"});	
+				$('#a3').attr("style", "display : flex;");
 				$("#a_3").attr("src","/resources/images/arrow_up.png");
 			}			
 		});
 		
 		$("#a_4").on("click", function() {
 			if(i++%2 == 0){
-				$(".a4").fadeOut(400);					
+				$("#a4").fadeOut(400);					
 				$("#a_4").attr("src","/resources/images/arrow_down.png");
 			}else{
-				$(".a4").fadeIn({direction : "top"});	
-				$('.a4').attr("style", "display : flex;");
+				$("#a4").fadeIn({direction : "top"});	
+				$('#a4').attr("style", "display : flex;");
 				$("#a_4").attr("src","/resources/images/arrow_up.png");
 			}			
 		});
 		
 		$("#a_5").on("click", function() {
 			if(i++%2 == 0){
-				$(".a5").fadeOut(400);				
+				$("#a5").fadeOut(400);				
 				$("#a_5").attr("src","/resources/images/arrow_down.png");
 			}else{
-				$(".a5").fadeIn({direction : "top"});	
-				$('.a5').attr("style", "display : flex;");
+				$("#a5").fadeIn({direction : "top"});	
+				$('#a5').attr("style", "display : flex;");
 				$("#a_5").attr("src","/resources/images/arrow_up.png");
 			}			
 		});
@@ -275,7 +275,7 @@
 		<div id="test">
 		<aside id="sidebar-left">왼쪽</aside>
 		<div id="content">
-			<div id="category">
+			<div class="category">
 				<ul>
 					<li id="info_first">내 정보</li>
 					<li id="info">찜 목록</li>
@@ -284,50 +284,50 @@
 					<li id="info_end">내가 쓴 댓글</li>
 				</ul>
 			</div>
-			<div id="title_line"></div>
-			<div id="q_all">
-			<div id="q_title">
+			<div class="title_line"></div>
+			<div class="q_all">
+			<div class="q_title">
 				<span id="q_title_t">1. 육회덮밥</span>
 				<div><img class="arrow" id="a_1" src="/resources/images/arrow_down.png"></div>
 			</div>
-			<div id="answer" class="a1">
+			<div class="answer" id="a1">
 				<div class="img"><img src="/resources/images/potatoes.png" class="img_size"></div>
 				<p id="a_text_1" class="text_center">맛있어요~
 				</p>
 			</div>
-			<div id="q_title">
+			<div class="q_title">
 				<span id="q_title_t">2. 감자전</span>
 				<img class="arrow" id="a_2" src="/resources/images/arrow_down.png">
 				</div>
-				<div id="answer" class="a2">
+				<div class="answer" id="a2">
 				<div class="img"><img src="/resources/images/potatoes.png" class="img_size"></div>
 				<span id="a_text_2">바삭해요~~바삭해요~~바삭해요~~바삭해요~~바삭해요~~바삭해요~~바삭해요~~바삭해요~~바삭해요~~바삭해요~~바삭해요~~바삭해요~~바삭해요~~바삭해요~~바삭해요~~
 				<br><br><br><br><br><br><br>
 				</span>
 			</div>
-				<div id="q_title">
+				<div class="q_title">
 				<span id="q_title_t">3. 치킨</span>
 				<img class="arrow" id="a_3" src="/resources/images/arrow_down.png">
 		</div>
-		<div id="answer" class="a3">
+		<div class="answer" id="a3">
 				<span id="a_text_3">
 					존맛탱~~~
 				</span>
 			</div>
-		<div id="q_title">
+		<div class="q_title">
 				<span id="q_title_t">4. 피자</span>
 				<img class="arrow" id="a_4" src="/resources/images/arrow_down.png">
 		</div>
-		<div id="answer" class="a4">
+		<div class="answer" id="a4">
 				<span id="a_text_4">
 					 좀 짭니다~~~~
 				</span>
 			</div>
-			<div id="q_title">
+			<div class="q_title">
 				<span id="q_title_t">5. 김치찜</span>
 				<img class="arrow" id="a_5" src="/resources/images/arrow_down.png">
 		</div>
-		<div id="answer" class="a5">
+		<div class="answer" id="a5">
 				<span id="a_text_5">고기를 더 넣었더니 더 맛있네요~~~~~
 				</span>
 			</div>
@@ -338,4 +338,4 @@
 <div id="footer"><jsp:include page="../footer.jsp" /></div>
 		</div>
 </body>
-</html>s
+</html>

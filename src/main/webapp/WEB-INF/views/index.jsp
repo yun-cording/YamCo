@@ -36,8 +36,11 @@
 	function go_main() {
 		location.href = "/go_main.do";
 	}
-	function go_error() {
-		location.href = "/go_error.do";
+	function go_error404() {
+		location.href = "/go_error404.do";
+	}
+	function go_error500() {
+		location.href = "/go_error500.do";
 	}
 	function go_find_pw() {
 		location.href = "/go_find_pw.do";
@@ -80,11 +83,25 @@
 	function go_leaveMember() {
 		location.href = "/go_leaveMember.do";
 	}
-	function go_leaveMember() {
-		location.href = "/go_user_list.do";
-	}
 	function go_search() {
 		location.href = "/go_search.do";
+	}
+	
+	// 상우 사용자, 공공 상세페이지, 글쓰기, 수정하기, 관리자 ▼
+	function user_recipe_det() {
+		location.href = "/go_userDet.do";
+	}
+	function public_recipe_det() {
+		location.href = "/go_publicDet.do";
+	}
+	function user_recipe_write() {
+		location.href = "/go_userWrite.do";
+	}
+	function user_recipe_update() {
+		location.href = "/go_userUpdate.do";
+	}
+	function admin_test_sw() {
+		location.href = "/admin_test_sw.do";
 	}
 	
 </script>
@@ -108,6 +125,10 @@ function go_admin_faq() {
 function go_admin_contentchk() {
 		location.href = "/go_admin_contentchk.do";
 }
+function go_tableExam() {
+		location.href = "/go_tableExam.do";
+}
+
 
 </script>
 </head>
@@ -126,7 +147,14 @@ function go_admin_contentchk() {
 	<button onclick="go_award()">award</button>
 	<button onclick="go_admin()">admin</button>
 	<button onclick="go_main()">main</button>
-	<button onclick="go_error()">go_error</button>
+	<button onclick="go_error404()">go_error404</button>
+	<button onclick="go_error500()">go_error500</button>
+	<!-- 상우  사용자, 공공 상세페이지, 글쓰기, 수정하기 ▼, 관리자 -->
+	<button onclick="user_recipe_det()">user_recipe_det</button>
+	<button onclick="public_recipe_det()">public_recipe_det</button>
+	<button onclick="user_recipe_write()">user_recipe_write</button>
+	<button onclick="user_recipe_update()">user_recipe_update</button>
+	<button onclick="admin_test_sw()">admin_test_sw</button>
 	<hr>
 	<h4>login관련</h4>
 	<button onclick="go_find_pw()">go_find_pw</button>
@@ -153,6 +181,9 @@ function go_admin_contentchk() {
 	<button onclick="go_admin_notice()">go_admin_notice</button>
 	<button onclick="go_admin_faq()">go_admin_faq</button>
 	<button onclick="go_admin_contentchk()">go_admin_contentchk</button>
+
+  <button onclick="go_tableExam()">go_tableExam</button>
+	
 	<button onclick="location.href='/simbatest'">심바테스트중</button>	
 	
 </body>

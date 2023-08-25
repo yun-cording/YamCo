@@ -4,9 +4,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Oops!</title>
+<title>Insert title here</title>
 </head>
 <body>
-
+	<h2>유저레시피 목록</h2>
 </body>
 </html>
