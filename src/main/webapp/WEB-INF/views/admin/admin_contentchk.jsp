@@ -10,7 +10,7 @@
     <meta name="author" content="">
 
     <title>냠냠레시피 관리자</title>
-    
+   
     <link href="resources/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
     <!-- Custom fonts for this template-->
     <link href="/resources/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -32,13 +32,12 @@
 				<jsp:include page="admin_header.jsp" />
                 
                 <div class="container-fluid">
-                    <h1 class="ml-5 mt-5 font-weight-bold">페이지 제목입니다.</h1>
+                    <h1 class="ml-5 mt-5 font-weight-bold">사용자 게시물 관리</h1>
                     <hr>
 
                     <!-- 여기에서 작업하시면 됩니다. -->
-                    
-                    
-                    
+      
+               
                     
                     
                     <!-- Page Wrapper -->
@@ -59,176 +58,162 @@
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
-                                            <th>Name</th>
-                                            <th>Position</th>
-                                            <th>Office</th>
-                                            <th>Age</th>
-                                            <th>Start date</th>
-                                            <th>Salary</th>
-                                            <th>Name</th>
-                                            <th>Name</th>
-                                            <th>Name</th>
-                                            <th>Name</th>
+                                            <th>게시물 번호</th>
+                                            <th>카테고리</th>
+                                            <th>작성자</th>
+                                            <th>레시피 제목</th>
+                                            <th>찜</th>
+                                            <th>조회수</th>
+                                            <th>작성일</th>
+                                            <th>신고횟수</th>
+                                            <th>상태</th>
+                                            <th>관리</th>
                                         </tr>
                                     </thead>
-                                    <tfoot>
-                                        <tr>
-                                            <th>Name</th>
-                                            <th>Position</th>
-                                            <th>Office</th>
-                                            <th>Age</th>
-                                            <th>Start date</th>
-                                            <th>Salary</th>
-                                            <th>Name</th>
-                                            <th>Name</th>
-                                            <th>Name</th>
-                                            <th>Name</th>
-                                        </tr>
-                                    </tfoot>
                                     <tbody>
                                         <tr>
-                                            <td>Lael Greer</td>
-                                            <td>Systems Administrator</td>
-                                            <td>London</td>
-                                            <td>21</td>
-                                            <td>2009/02/27</td>
-                                            <td>$103,500</td>
-                                            <td>$320,800</td>
-                                            <td>$320,800</td>
-                                            <td>$320,800</td>
-                                            <td>$320,800</td>
+                                            <td>1</td>
+                                            <td>1인분</td>
+                                            <td>김희준</td>
+                                            <td>레시피 제목</td>
+                                            <td>500</td>
+                                            <td>500</td>
+                                            <td>2023-06-01</td>
+                                            <td>0</td>
+                                            <td>게시중</td>
+                                            <td>상태변경</td>
                                         </tr>
                                         <tr>
-                                            <td>Jonas Alexander</td>
-                                            <td>Developer</td>
-                                            <td>San Francisco</td>
-                                            <td>30</td>
-                                            <td>2010/07/14</td>
-                                            <td>$86,500</td>
-                                            <td>$320,800</td>
-                                            <td>$320,800</td>
-                                             <td>$320,800</td>
-                                            <td>$320,800</td>
+                                            <td>2</td>
+                                            <td>채식</td>
+                                            <td>박채림</td>
+                                            <td>레시피 제목</td>
+                                            <td>500</td>
+                                            <td>500</td>
+                                            <td>2023-06-01</td>
+                                            <td>12</td>
+                                            <td>게시중</td>
+                                            <td>상태변경</td>
                                         </tr>
                                         <tr>
-                                            <td>Shad Decker</td>
-                                            <td>Regional Director</td>
-                                            <td>Edinburgh</td>
-                                            <td>51</td>
-                                            <td>$320,800</td>
-                                            <td>$320,800</td>
-                                            <td>2008/11/13</td>
-                                            <td>$183,000</td>
-                                             <td>$320,800</td>
-                                            <td>$320,800</td>
+                                            <td>3</td>
+                                            <td>국물류</td>
+                                            <td>김재훈</td>
+                                            <td>레시피 제목</td>
+                                            <td>500</td>
+                                            <td>500</td>
+                                            <td>2023-06-01</td>
+                                            <td>125</td>
+                                            <td>블라인드</td>
+                                            <td>상태변경</td>
                                         </tr>
                                         <tr>
-                                            <td>Michael Bruce</td>
-                                            <td>Javascript Developer</td>
-                                            <td>Singapore</td>
-                                            <td>29</td>
-                                            <td>2011/06/27</td>
-                                            <td>$320,800</td>
-                                            <td>$320,800</td>
-                                            <td>$183,000</td>
-                                             <td>$320,800</td>
-                                            <td>$320,800</td>
+                                            <td>4</td>
+                                            <td>돈가스, 일식</td>
+                                            <td>김상우</td>
+                                            <td>레시피 제목</td>
+                                            <td>500</td>
+                                            <td>500</td>
+                                            <td>2023-06-01</td>
+                                            <td>1</td>
+                                            <td>게시중</td>
+                                            <td>상태변경</td>
                                         </tr>
                                         <tr>
-                                            <td>Donna Snider</td>
-                                            <td>Customer Support</td>
-                                            <td>New York</td>
-                                            <td>27</td>
-                                            <td>2011/01/25</td>
-                                            <td>$320,800</td>
-                                            <td>$320,800</td>
-                                            <td>$112,000</td>
-                                             <td>$320,800</td>
-                                            <td>$320,800</td>
+                                            <td>5</td>
+                                            <td>고기, 구이</td>
+                                            <td>이한주</td>
+                                            <td>레시피 제목</td>
+                                            <td>500</td>
+                                            <td>500</td>
+                                            <td>2023-06-01</td>
+                                            <td>0</td>
+                                            <td>게시중</td>
+                                            <td>상태변경</td>
                                         </tr>
                                         <tr>
-                                            <td>Donna Snider</td>
-                                            <td>Customer Support</td>
-                                            <td>New York</td>
-                                            <td>27</td>
-                                            <td>2011/01/25</td>
-                                            <td>$320,800</td>
-                                            <td>$320,800</td>
-                                            <td>$112,000</td>
-                                             <td>$320,800</td>
-                                            <td>$320,800</td>
+                                            <td>6</td>
+                                            <td>해산물</td>
+                                            <td>윤성훈</td>
+                                            <td>레시피 제목</td>
+                                            <td>500</td>
+                                            <td>500</td>
+                                            <td>2023-06-01</td>
+                                            <td>0</td>
+                                            <td>게시중</td>
+                                            <td>상태변경</td>
                                         </tr>
                                         <tr>
-                                            <td>Donna Snider</td>
-                                            <td>Customer Support</td>
-                                            <td>New York</td>
-                                            <td>27</td>
-                                            <td>2011/01/25</td>
-                                            <td>$320,800</td>
-                                            <td>$320,800</td>
-                                            <td>$112,000</td>
-                                             <td>$320,800</td>
-                                            <td>$320,800</td>
+                                            <td>7</td>
+                                            <td>분식</td>
+                                            <td>탁영송</td>
+                                            <td>레시피 제목</td>
+                                            <td>500</td>
+                                            <td>500</td>
+                                            <td>2023-06-01</td>
+                                            <td>0</td>
+                                            <td>게시중</td>
+                                            <td>상태변경</td>
                                         </tr>
                                         <tr>
-                                            <td>Donna Snider</td>
-                                            <td>Customer Support</td>
-                                            <td>New York</td>
-                                            <td>27</td>
-                                            <td>2011/01/25</td>
-                                            <td>$320,800</td>
-                                            <td>$320,800</td>
-                                            <td>$112,000</td>
-                                             <td>$320,800</td>
-                                            <td>$320,800</td>
+                                            <td>8</td>
+                                            <td>면류</td>
+                                            <td>강성진</td>
+                                            <td>레시피 제목</td>
+                                            <td>500</td>
+                                            <td>500</td>
+                                            <td>2023-06-01</td>
+                                            <td>12</td>
+                                            <td>게시중</td>
+                                            <td>상태변경</td>
                                         </tr>
                                         <tr>
-                                            <td>Donna Snider</td>
-                                            <td>Customer Support</td>
-                                            <td>New York</td>
-                                            <td>27</td>
-                                            <td>2011/01/25</td>
-                                            <td>$320,800</td>
-                                            <td>$320,800</td>
-                                            <td>$112,000</td>
-                                             <td>$320,800</td>
-                                            <td>$320,800</td>
+                                            <td>9</td>
+                                            <td>죽</td>
+                                            <td>권연준</td>
+                                            <td>레시피 제목</td>
+                                            <td>500</td>
+                                            <td>500</td>
+                                            <td>2023-06-01</td>
+                                            <td>2</td>
+                                            <td>게시중</td>
+                                            <td>상태변경</td>
                                         </tr>
                                         <tr>
-                                            <td>Donna Snider</td>
-                                            <td>Customer Support</td>
-                                            <td>New York</td>
-                                            <td>27</td>
-                                            <td>2011/01/25</td>
-                                            <td>$320,800</td>
-                                            <td>$320,800</td>
-                                            <td>$112,000</td>
-                                             <td>$320,800</td>
-                                            <td>$320,800</td>
+                                            <td>10</td>
+                                            <td>술안주</td>
+                                            <td>이수환</td>
+                                            <td>레시피 제목</td>
+                                            <td>500</td>
+                                            <td>500</td>
+                                            <td>2023-06-01</td>
+                                            <td>445</td>
+                                            <td>블라인드</td>
+                                            <td>상태변경</td>
                                         </tr>
                                         <tr>
-                                            <td>Donna Snider</td>
-                                            <td>Customer Support</td>
-                                            <td>New York</td>
-                                            <td>27</td>
-                                            <td>2011/01/25</td>
-                                            <td>$320,800</td>
-                                            <td>$320,800</td>
-                                            <td>$112,000</td>
-                                             <td>$320,800</td>
-                                            <td>$320,800</td>
+                                            <td>11</td>
+                                            <td>반찬</td>
+                                            <td>이소연</td>
+                                            <td>레시피 제목</td>
+                                            <td>500</td>
+                                            <td>500</td>
+                                            <td>2023-06-01</td>
+                                            <td>786</td>
+                                            <td>블라인드</td>
+                                            <td>상태변경</td>
                                         </tr>
                                         <tr>
-                                            <td>Donna Snider</td>
-                                            <td>Customer Support</td>
-                                            <td>New York</td>
-                                            <td>27</td>
-                                            <td>2011/01/25</td>
-                                            <td>$320,800</td>
-                                            <td>$320,800</td>
-                                            <td>$112,000</td>
-                                             <td>$320,800</td>
-                                            <td>$320,800</td>
+                                            <td>12</td>
+                                            <td>후식</td>
+                                            <td>김민지</td>
+                                            <td>레시피 제목</td>
+                                            <td>500</td>
+                                            <td>500</td>
+                                            <td>2023-06-01</td>
+                                            <td>12</td>
+                                            <td>게시중</td>
+                                            <td>상태변경</td>
                                         </tr>
                                     </tbody>
                                 </table>
