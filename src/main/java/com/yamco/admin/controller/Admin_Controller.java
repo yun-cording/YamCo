@@ -35,7 +35,7 @@ public class Admin_Controller {
 	@RequestMapping("go_tableExam.do")
 	public ModelAndView go_tableExam() {
 		return new ModelAndView("admin/table");
-
+	}
     @RequestMapping("/simbatest")
 	public ModelAndView simbatest() {
 		return new ModelAndView("admin/admin_index");
