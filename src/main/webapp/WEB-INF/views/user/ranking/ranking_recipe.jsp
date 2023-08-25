@@ -6,317 +6,57 @@
 <head>
 <meta charset="UTF-8">
 <title>냠냠레시피</title>
-<link rel="icon" type="image/x-icon"
-	href="resources/images/icon_tomato.png">
-<style type="text/css">
 
-* {
-	padding: 0;
-	margin: 0;
-	box-sizing: border-box;
-}
-
-#content{
-	float:left;
-}
-
-#mydiv {
-	position: relative; 
-  width : 1920px;
-  left : 0px; 
-  top : 0px;
-	margin: auto;
-}
-
-#sidebar-right {
-	background-color: yellow;
-	float: right;
-	width: 15.625%;
-}
-
-#sidebar-left {
-	background-color: yellow;
-	width: 15.625%;
-	float: left;
-}
-
-#footer {
-	background-color: #333;
-	left: 0px;
-	color: #fff;
-	width: 100%;
-	height: 300px;
-	clear: left;
-}
-
-#topline {
-  text-align: center;
-	box-sizing: border-box;
-	position: absolute;
-	width: 1060px;
-	height: 106px;
-	left: calc(50% - 1060px/ 2);
-	top: 348px;
-	border-bottom: 3px solid #21730B;
-	z-index: 1;
-}
-
-#lrecipe {
-  text-align: center;
-	box-sizing: border-box;
-	position: absolute;
-	width: 110px;
-	height: 54px;
-	border: 2px solid #FF6347;
-	left: 539px;
-	top: 375px;
-	z-index: 2;
-}
-
-#lsearch {
-  text-align: center;
-	box-sizing: border-box;
-	position: absolute;
-	width: 110px;
-	height: 54px;
-	left: 430px;
-	top: 375px;
-	background: #FF6347;
-	border: 2px solid #FF6347;
-	z-index: 2;
-}
-
-#toptext {
-	position: absolute;
-	width: 203px;
-	height: 48px;
-	left: calc(50% - 203px/ 2 + 0.5px);
-	top: 370px;
-	font-family: 'Yeongdeok_TTF';
-	font-style: normal;
-	font-weight: 400;
-	font-size: 48px;
-	line-height: 48px;
-	display: flex;
-	align-items: center;
-	text-align: center;
-}
-
-#week {
-	box-sizing: border-box;
-	position: absolute;
-	width: 96px;
-	height: 54px;
-	left: 1301px;
-	top: 474px;
-	border: 2px solid #FF6347;
-	z-index:2;
-}
-
-#month {
-	box-sizing: border-box;
-	position: absolute;
-	width: 95px;
-	height: 54px;
-	left: 1397px;
-	top: 474px;
-	background: #FF6347;
-	border: 2px solid #FF6347;
-	z-index:2;
-}
-
-#month > span:hover{
-	background: #FF6347;
-	color: white;
-}
-
-#week > span:hover{
-	background: #FF6347;
-	color: white;
-}
-
-
-
-#monthtext{
-font-family: 'Yeongdeok_TTF';
-font-style: normal;
-font-weight: 400;
-font-size: 24px;
-line-height: 54px;
-text-align: center;
-display: block;
-align-items: center;
-color: #000000;
-}
-
-#weektext{
-font-family: 'Yeongdeok_TTF';
-font-style: normal;
-font-weight: 400;
-font-size: 24px;
-line-height: 54px;
-text-align: center;
-display: block;
-align-items: center;
-color: #000000;
-}
-
-#searchtext{
-  text-align: center;
-  font-family: 'Yeongdeok_TTF';
-font-style: normal;
-font-weight: 400;
-  font-size: 24px;
-line-height: 54px;
-display: block;
-color: #000000;
-}
-
-#recipetext{
-  text-align: center;
-  font-family: 'Yeongdeok_TTF';
-font-style: normal;
-font-weight: 400;
-  font-size: 24px;
-  line-height: 54px;
-display: block;
-color: #000000;
-}
-
-#search_rankingtext{
-position: absolute;
-width: 240px;
-height: 48px;
-left: calc(50% - 203px/2 + 0.5px);
-top: 370px;
-font-family: 'Yeongdeok_TTF';
-font-style: normal;
-font-weight: 400;
-font-size: 48px;
-line-height: 48px;
-display: flex;
-align-items: center;
-text-align: center;
-color: #000000;
-}
-
-a{
-  text-decoration: none;
-}
-
-@font-face {
-    font-family: 'Yeongdeok_TTF';
-    src: url('resources/fonts/Yeongdeok Blueroad.ttf') format('truetype');
-}
-
-.recipe_one p{
-font-family: 'Yeongdeok_TTF';
-}
-
-#lrecipe > span:hover{
-	background: #FF6347;
-	color: white;
-}
-
-
-#lsearch > span:hover{
-	background: #FF6347;
-	color: white;
-}
-
-.recipe_thumbnail{
-width: 250px;
-height: 250px;
-}
-.recipe_one{
-  margin: 60px 80px;
-	width: 250px;
-	display: inline-block;
-}
-
-.like img {
-	vertical-align: middle;
-	width: 16px;
-	height: 16px;
-}
-
-.like span {
-	height: 16px;
-	font-size: 12px;
-}
-
-.profile {
-	vertical-align: middle;
-	width: 30px;
-}
-
-.writer {
-	height: 30px;
-}
-
-.writer span {
-	font-size: 16px;
-	font-family: 'Yeongdeok_TTF';
-	line-height: 30px;
-}
-
-#flexContainer{
-  display: flex;
-  width: 1320px;
-  flex-wrap: wrap; 
-  justify-content: space-evenly;
-  margin-top: 280px;
-  
-  /* justify-content: space-evenly; 양끝과 아이템 사이의 간격을 동일하게 만듭니다. */
-  /* flex-direction: row; 기본값이 row로 설정되어 있음. 안에 내용들이 좌에서 우로 가로방향으로 이동 */
-  /* flex-wrap: wrap; flex폭이 지정되어 있고 flex안에 내용들이 flex항목의 width를 넘어갈때 여러 행에 나열될수 있도록 설정해주는 내용. 즉, 다음줄로 이동 */
-}
-.medal{
-	width: 60px;
-	height: 60px;
-}
-</style>
-
+<link rel="icon" type="image/x-icon"href="resources/images/icon_tomato.png">
+<link rel="stylesheet" href="resources/css/user/ranking/ranking_recipe.css" />
+	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script src="resources/js/user/sidebar.js"></script>
 <script type="text/javascript">
 function search() {
-	document.getElementById("lsearch").style.cssText='color:white; background-color:tomato';
-	document.getElementById("lrecipe").style.cssText='color:black; background-color:white';
-	console.log(2);
+	document.getElementById("lsearch").style.background='tomato';
+	document.getElementById("searchtext").style.color='white ';
+	
+	document.getElementById("lrecipe").style.background='white';
+	document.getElementById("recipetext").style.color='black';
 }
 
 function recipe() {
-	document.getElementById("lrecipe").style.cssText='color:white; background-color:tomato';
-	document.getElementById("lsearch").style.cssText='color:black; background-color:white';
-	console.log(2);
+	document.getElementById("lrecipe").style.background='tomato';
+	document.getElementById("recipetext").style.color='white ';
+
+	document.getElementById("lsearch").style.background='white';
+	document.getElementById("searchtext").style.color='black';
 }
 
+
 function select_week() {
-	document.getElementById("week").style.cssText='color:white; background-color:tomato';
-	document.getElementById("month").style.cssText='color:black; background-color:white';
-	console.log(2);
+	document.getElementById("week").style.cssText='background-color:tomato';
+	document.getElementById("weektext").style.color='white';
+	
+	document.getElementById("month").style.cssText='background-color:white';
+	document.getElementById("monthtext").style.color='black';
 }
 
 function select_month() {
-	document.getElementById("month").style.cssText='color:white; background-color:tomato';
-	document.getElementById("week").style.cssText='color:black; background-color:white';
-	console.log(2);
+	document.getElementById("month").style.cssText='background-color:tomato';
+	document.getElementById("monthtext").style.color='white';
+	
+	document.getElementById("week").style.cssText='background-color:white';
+	document.getElementById("weektext").style.color='black';
 }
-/* document.getElementById("lrecipe").addEventListener("click", function() {
-    alert("Div clicked!");
-});
-    document.getElementById("lsearch").addEventListener("click", function() {
-        alert("Div clicked!");
-}); */
+
 
 </script>
 </head>
 <body>
 	<div id="mydiv">
     <jsp:include page="../../header.jsp" />
-			<aside id="sidebar-left">왼쪽</aside>
+			<aside id="sidebar-left">
+			<jsp:include page="../../recentlist.jsp"/>
+			</aside>
 				<div id="content">
-				<div id="lrecipe" onclick = "recipe()"><span id="recipetext" >검색어</span></div>
-				<dlv id="lsearch" onclick = "search()"><span id="searchtext" >레시피</span></dlv>
+				<div id="lrecipe" onclick = "recipe()"><span id="recipetext" >레시피</span></div>
+				<dlv id="lsearch" onclick = "search()"><span id="searchtext" >검색어</span></dlv>
 				<div id="topline" >
 				</div>
 		        <div id="search_rankingtext" >검색어랭킹</div>
@@ -345,7 +85,9 @@ function select_month() {
 			</c:forEach>
       </div>
       </div>
-      <aside id="sidebar-right">오른쪽</aside>
+      <aside id="sidebar-right">
+      <jsp:include page="../../bestlist.jsp"/>
+      </aside>
 		<div id="footer">
 			<jsp:include page="../../footer.jsp" />
 		</div>
