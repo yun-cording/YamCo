@@ -10,7 +10,7 @@
 	href="resources/images/icon_tomato.png">
 <link rel="stylesheet"
 	href="https://cdn.korzh.com/metroui/v4/css/metro-all.min.css">
-<link rel="stylesheet" href="resources/css/user/award.css">
+<link rel="stylesheet" href="resources/css/user/award.css?after">
 <style type="text/css">
 * {
 	padding: 0;
@@ -39,7 +39,6 @@
 	width: 68.75%;
 	float: left;
 	margin-top: 0px;
-	background: snow;
 }
 
 #footer {
