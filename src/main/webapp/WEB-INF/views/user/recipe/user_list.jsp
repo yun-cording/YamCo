@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 <title>냠냠레시피</title>
 <link rel="icon" type="image/x-icon"	href="resources/images/icon_tomato.png">
-<link rel="stylesheet" href="resources/css/user/recipe/public_list.css" />
+<link rel="stylesheet" href="resources/css/user/recipe/user_list.css" />
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script src="resources/js/user/sidebar.js"></script>
 </head>
