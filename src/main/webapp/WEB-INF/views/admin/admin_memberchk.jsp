@@ -28,6 +28,12 @@
 <!-- Custom styles for this page -->
 <link href="resources/vendor/datatables/dataTables.bootstrap4.min.css"
 	rel="stylesheet">
+<style type="text/css">
+input[type='date']::before {
+	content: attr(data-placeholder);
+	width: 100%;
+}
+</style>
 </head>
 <body id="page-top">
 	<!-- Page Wrapper -->
@@ -174,6 +180,7 @@
 												</select>
 											</div>
 											<div class="col-6 mt-2 col-xxl mt-xxl-0">
+												<input type="date" name="start_date" data-placeholder="시작일" class="text-center btn-outline-secondary">
 												<button type="button"
 													class="btn btn-outline-secondary w-100 fw-bold text-nowrap">
 													시작일 <i class="fa-regular fa-calendar-days"></i>
@@ -265,7 +272,8 @@
 										cellspacing="0">
 										<thead>
 											<tr>
-												<th data-orderable="false" class="text-nowrap">프로필</th>
+												<th data-orderable="false" class="text-nowrap"
+													style="max-width: 3rem;">프로필</th>
 												<th class="text-nowrap">닉네임</th>
 												<th class="text-nowrap">이메일</th>
 												<th class="text-nowrap">전화번호</th>
@@ -283,25 +291,73 @@
 											</tr>
 										</thead>
 										<tbody>
-											<tr>
-												<td class="text-nowrap">img</td>
-												<td class="text-nowrap">Mr.Happiniess!</td>
-												<td class="text-nowrap">Mr.H********@.g********</td>
-												<td class="text-nowrap">82+ 10-1234-****</td>
-												<td class="text-nowrap">931208</td>
-												<td class="text-nowrap">Male</td>
-												<td class="text-nowrap">2023-04-25</td>
-												<td class="text-nowrap">자체</td>
-												<td class="text-nowrap">정상</td>
-												<td class="text-nowrap">정상</td>
-												<td class="text-nowrap">정상</td>
-												<td class="text-nowrap text-center"><a href="/"><i
+											<tr class="align-middle">
+												<td class="align-middle text-nowrap text-center"><img
+													src="/resources/images/alarm.png"
+													class="img-fluid img-thumbnail" alt="" /></td>
+												<td class="align-middle text-nowrap">Mr.Happiniess!</td>
+												<td class="align-middle text-nowrap">Mr.H********@.g********</td>
+												<td class="align-middle text-nowrap">82+ 10-1234-****</td>
+												<td class="align-middle text-nowrap">931208</td>
+												<td class="align-middle text-nowrap">Male</td>
+												<td class="align-middle text-nowrap">2023-04-25</td>
+												<td class="align-middle text-nowrap">자체</td>
+												<td class="align-middle text-nowrap">정상</td>
+												<td class="align-middle text-nowrap">정상</td>
+												<td class="align-middle text-nowrap">정상</td>
+												<td class="align-middle text-center"><a href="/"><i
 														class="fa-solid fa-ban text-danger"></i></a></td>
-												<td class="text-nowrap text-center"><a href="/"><i
+												<td class="align-middle text-center"><a href="/"><i
 														class="fa-solid fa-trash-can text-danger"></i></a></td>
-												<td class="text-nowrap text-center"><a href="/"><i
+												<td class="align-middle text-center"><a href="/"><i
 														class="fa-solid fa-user-slash text-danger"></i></a></td>
-												<td class="text-nowrap text-center"><a href="/"><i
+												<td class="align-middle text-center"><a href="/"><i
+														class="fa-solid fa-user-pen text-primary"></i></a></td>
+											</tr>
+											<tr class="align-middle">
+												<td class="align-middle text-nowrap text-center"><img
+													src="/resources/images/alarm.png"
+													class="img-fluid img-thumbnail" alt="" /></td>
+												<td class="align-middle text-nowrap">Mr.Happiniess!</td>
+												<td class="align-middle text-nowrap">Mr.H********@.g********</td>
+												<td class="align-middle text-nowrap">82+ 10-1234-****</td>
+												<td class="align-middle text-nowrap">931208</td>
+												<td class="align-middle text-nowrap">Male</td>
+												<td class="align-middle text-nowrap">2023-04-25</td>
+												<td class="align-middle text-nowrap">자체</td>
+												<td class="align-middle text-nowrap">정상</td>
+												<td class="align-middle text-nowrap">정상</td>
+												<td class="align-middle text-nowrap">정상</td>
+												<td class="align-middle text-center"><a href="/"><i
+														class="fa-solid fa-ban text-danger"></i></a></td>
+												<td class="align-middle text-center"><a href="/"><i
+														class="fa-solid fa-trash-can text-danger"></i></a></td>
+												<td class="align-middle text-center"><a href="/"><i
+														class="fa-solid fa-user-slash text-danger"></i></a></td>
+												<td class="align-middle text-center"><a href="/"><i
+														class="fa-solid fa-user-pen text-primary"></i></a></td>
+											</tr>
+											<tr class="align-middle">
+												<td class="align-middle text-nowrap text-center"><img
+													src="/resources/images/alarm.png"
+													class="img-fluid img-thumbnail" alt="" /></td>
+												<td class="align-middle text-nowrap">Mr.Happiniess!</td>
+												<td class="align-middle text-nowrap">Mr.H********@.g********</td>
+												<td class="align-middle text-nowrap">82+ 10-1234-****</td>
+												<td class="align-middle text-nowrap">931208</td>
+												<td class="align-middle text-nowrap">Male</td>
+												<td class="align-middle text-nowrap">2023-04-25</td>
+												<td class="align-middle text-nowrap">자체</td>
+												<td class="align-middle text-nowrap">정상</td>
+												<td class="align-middle text-nowrap">정상</td>
+												<td class="align-middle text-nowrap">정상</td>
+												<td class="align-middle text-center"><a href="/"><i
+														class="fa-solid fa-ban text-danger"></i></a></td>
+												<td class="align-middle text-center"><a href="/"><i
+														class="fa-solid fa-trash-can text-danger"></i></a></td>
+												<td class="align-middle text-center"><a href="/"><i
+														class="fa-solid fa-user-slash text-danger"></i></a></td>
+												<td class="align-middle text-center"><a href="/"><i
 														class="fa-solid fa-user-pen text-primary"></i></a></td>
 											</tr>
 										</tbody>
@@ -361,15 +417,15 @@
 
 	<!-- Page level custom scripts -->
 	<script src="resources/js/demo/datatables-demo.js"></script>
-	
-	<script>
-    $(document).ready(function () {
-        var dataTable = $('#dataTable').DataTable(); // 테이블 초기화
 
-        // 두 번째 열을 기준으로 정렬
-        dataTable.order([1, 'asc']).draw();
-    });
-</script>
+	<script>
+		$(document).ready(function() {
+			var dataTable = $('#dataTable').DataTable(); // 테이블 초기화
+
+			// 두 번째 열을 기준으로 정렬
+			dataTable.order([ 1, 'asc' ]).draw();
+		});
+	</script>
 </body>
 
 </html>
