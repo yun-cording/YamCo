@@ -54,12 +54,12 @@
 	padding-top: 300px;
 }
 
-.category{
+#category{
 	margin-top: 25px;
 	font-size: 15px;
 }
 
-.category li:hover{
+#category li:hover{
 	background-color: #E53A1B;
 }
 
@@ -210,6 +210,13 @@ input[type="number"]{
 	outline: none;
 	font-family: 'Yeongdeok_TTF';	
 }
+ /* input number 화살표 없애는 거 */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+} 
+ 
 
 #btn_save{
 	width: 175px;
@@ -253,7 +260,7 @@ input[type="number"]{
 	<div id="test">
 	<aside id="sidebar-left">왼쪽</aside>
 		<div id="content">
-			<div class="category">
+			<div id="category">
 				<ul>
 					<li id="info_first">내 정보</li>
 					<li id="info">찜 목록</li>

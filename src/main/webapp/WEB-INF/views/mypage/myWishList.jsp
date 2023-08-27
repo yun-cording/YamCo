@@ -124,7 +124,7 @@
 	color: #FFFFFF;
 }
 
-#title_line{
+.title_line{
 	width: 1320px;
 	border: 2px solid tomato;
 	height: 1px;
@@ -141,7 +141,7 @@ button{
 	 box-sizing: border-box;
 }
 
-#search_txf{
+.search_txf{
 	width: 300px;
 	height: 29px;
 	
@@ -152,7 +152,12 @@ button{
 	margin-left: 510px;	
 }
 
-#search_btn{
+.search_item input:focus{
+    border-color:tomato;
+    outline: none;
+}
+
+.search_btn{
 	width: 40px;
 	height: 32px;
 	border: none;
@@ -165,15 +170,15 @@ button{
 	top: 11px;
 }
 
-#icon{
-	z-index: 1;
+.icon_search{
+	z-index : 1;
 	position: relative;
 	margin-left: 811px;
 	margin-top: -53px;
 	width: 20px;
 }
 
-#search_icon2{
+.search_icon2{
 	width: 35px;
 	height: 35px;
 	position: relative;
@@ -206,15 +211,14 @@ button{
 	float: left;
 	padding: 2px;
 	}
-	
-	
-.recipe_thumbnail{
-width: 250px;
-height: 250px;
+
+.recipe_thumbnail {
+	width: 250px;
+	height: 250px;
 }
 
-.recipe_one{
-  margin: 60px 80px;
+.recipe_one {
+	margin: 60px 20px;
 	width: 250px;
 	display: inline-block;
 }
@@ -241,14 +245,21 @@ height: 250px;
 
 .writer span {
 	font-size: 16px;
-	font-family: 'Yeongdeok_TTF';
 	line-height: 30px;
+}
+
+.flexContainer {
+	width: 1320px;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: space-evenly;
 }
 
 ol.paging {
 	text-align:center;
 	list-style: none;
-	margin-top: 60px;
+	height: 50px;
 }
 
 ol.paging li {
@@ -291,13 +302,13 @@ ol.paging li a:hover {
 					<li id="info_end">내가 쓴 댓글</li>
 				</ul>
 			</div>
-			<div id="title_line"></div>			
-			<div id="search">
-				<input type="text" id="search_txf" name="search_txf">
-				<button id="search_btn">
+			<div class="title_line"></div>			
+			<div class="search_item">
+				<input type="text" class="search_txf" name="search_txf">
+				<button class="search_btn">
 				</button>
-				<div id="icon">
-					<img id="search_icon2" src="/resources/images/search_icon_white.png">
+				<div class="icon_search">
+					<img class="search_icon2" src="/resources/images/search_icon_white.png">
 				</div>
 				<div class="kindOf">
 					<button id="see">조회순</button>
@@ -305,25 +316,32 @@ ol.paging li a:hover {
 					<button id="star">평점순</button>
 				</div>
 			</div>
-			<div id="flexContainer">
-      <c:forEach var="k" begin="1" end="9">
-        <div class="recipe_one">
-          <p>
-            <img src="https://mediahub.seoul.go.kr/wp-content/uploads/2020/10/d13ea4a756099add8375e6c795b827ab.jpg" class="recipe_thumbnail">
-          </p>
-          <p>공공레시피명</p>
-          <div class="writer">
-            <img src="https://png.pngtree.com/png-vector/20191115/ourmid/pngtree-beautiful-profile-line-vector-icon-png-image_1990469.jpg"
-              class="profile"> <span>작성자 이름</span>
-          </div>
-          <div class="like" style="text-align: right;">
-            <img class="icon" src="https://img.medicalreport.kr/resources/2019/07/23/o0vYNCXzJDWRPejw.jpg"
-              alt=""> <span>4.9</span> <img class="icon" src="https://cdn-icons-png.flaticon.com/512/8316/8316018.png"
-              alt=""> <span>42</span> <img class="icon" src="https://cdn-icons-png.flaticon.com/512/2415/2415461.png" alt=""> <span>7만</span>
-          </div>
-        </div>
-			</c:forEach>
-      </div>
+			<div class="flexContainer">
+				<c:forEach begin="1" end="12">
+					<div class="recipe_one">
+						<p>
+							<img
+								src="https://mediahub.seoul.go.kr/wp-content/uploads/2020/10/d13ea4a756099add8375e6c795b827ab.jpg"
+								class="recipe_thumbnail">
+						</p>
+						<p>공공레시피명</p>
+						<div class="writer">
+							<img
+								src="https://png.pngtree.com/png-vector/20191115/ourmid/pngtree-beautiful-profile-line-vector-icon-png-image_1990469.jpg"
+								class="profile"> <span>작성자 이름</span>
+						</div>
+						<div class="like" style="text-align: right;">
+							<img class="icon"
+								src="https://img.medicalreport.kr/resources/2019/07/23/o0vYNCXzJDWRPejw.jpg"
+								alt=""> <span>4.9</span> <img class="icon"
+								src="https://cdn-icons-png.flaticon.com/512/8316/8316018.png"
+								alt=""> <span>42</span> <img class="icon"
+								src="https://cdn-icons-png.flaticon.com/512/2415/2415461.png"
+								alt=""> <span>7만</span>
+						</div>
+					</div>
+				</c:forEach>
+			</div>
       <div class=pagecontainer>
 				<ol class="paging">
 					<li><a href=""> < </a></li>
@@ -340,6 +358,30 @@ ol.paging li a:hover {
 		</div>
 <div id="footer"><jsp:include page="../footer.jsp" /></div>
 		</div>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>		
+<script type="text/javascript">
+	$(document).ready(function() {
+		var i = 0;
+		$("#see").on("click", function() {
+				$("#see").attr("style", "background-color : tomato; color : white;")
+				$("#save").attr("style", "background-color : white; color : black;")
+				$("#star").attr("style", "background-color : white; color : black;")
+		})
+		
+		$("#save").on("click", function() {
+				$("#save").attr("style", "background-color : tomato; color : white;")
+				$("#see").attr("style", "background-color : white; color : black;")
+				$("#star").attr("style", "background-color : white; color : black;")
+		})
+		
+		$("#star").on("click", function() {
+				$("#star").attr("style", "background-color : tomato; color : white;")
+				$("#see").attr("style", "background-color : white; color : black;")
+				$("#save").attr("style", "background-color : white; color : black;")
+		})
+		
+	})		
+</script>
 </body>
 </html>
 	

@@ -36,6 +36,11 @@
 	float: left;
 }
 
+#category{
+	margin-top: 25px;
+	font-size: 15px;
+}
+
 #category li:hover{
 	background-color: #E53A1B;
 }
@@ -54,7 +59,6 @@
 	color: #fff;
 	width: 100%;
 	clear: left;
-	padding-top: 300px;
 }
 
 .category{
@@ -217,17 +221,6 @@ input[type="password"]{
 	outline: none;
 	font-family: 'Yeongdeok_TTF';	
 }
-
-#btn_double{
-	width: 100px;
-	height: 35px;
-	float: right;
-	text-align: center;
-	color: white;
-	background-color: tomato;
-	border: none;
-	border-radius: 30px 30px 30px 30px;
-}
 </style>
 </head>
 <body>
@@ -236,7 +229,7 @@ input[type="password"]{
 		<div id="test">
 		<aside id="sidebar-left">왼쪽</aside>
 		<div id="content">
-			<div class="category">
+			<div id="category">
 				<ul>
 					<li id="info_first">내 정보</li>
 					<li id="info">찜 목록</li>
@@ -250,7 +243,7 @@ input[type="password"]{
 			<div class="title_content">회원님의 <span id="pw_color">비밀번호</span>를 입력해주세요.</div>
 			<div class="clear">			
 			<div class="info_all">
-					<div id="info_content">기존 비밀번호 : <input type="password" name="pw"><button id="btn_double">인증하기</button></div>
+					<div id="info_content">기존 비밀번호 : <input type="password" name="pw"></div>
 				</div>
 				<div class="btn">
 					<button id="btn_bye">탈퇴하기</button>

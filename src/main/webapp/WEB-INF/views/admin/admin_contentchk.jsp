@@ -20,11 +20,15 @@
     margin: 5px;
 }
     
-    .date_size{
-    	width: 300px;
-    	height: 30px;
-    }	
-    </style>
+.date_size{
+   	width: 300px;
+   	height: 30px;
+}	
+   
+select option[value=""][disabled] {
+	display: none;
+}
+</style>
    
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom fonts for this template-->
@@ -52,10 +56,9 @@
 					<h1 class="ml-5 mt-5 font-weight-bold">사용자 게시물 관리</h1>
 					<hr>
 
-					<!-- 여기에서 작업하시면 됩니다. -->
-					<div
-						class="col-12 mt-4 p-3 col-lg mt-lg-0 text-center rounded shadow">
-						<div class="card h-100">
+					<!-- 여기에서 작업하시면 됩니다. -->					
+						<div class="card h-100 mb-5" style="width: 30%; margin-left: 10%;">
+							<div class="col">
 							<h6
 								class="card-header bg-light text-black-50 fw-bold small text-start">
 								검색 조건</h6>
@@ -65,27 +68,24 @@
 										<div class="col-auto fw-bold text-nowrap">검색어</div>
 										<div class="col col-lg-auto mx-auto">
 											<div class="dropdown">
-												<button class="btn btn-light dropdown-toggle" type="button"
-													data-bs-toggle="dropdown" aria-expanded="false">
-													카테고리</button>
-												<ul class="dropdown-menu">
-													<li><button class="dropdown-item" type="button">1인분</button></li>
-													<li><button class="dropdown-item" type="button">채식</button></li>
-													<li><button class="dropdown-item" type="button">국물류</button></li>
-													<li><button class="dropdown-item" type="button">돈까스,
-															일식</button></li>
-													<li><button class="dropdown-item" type="button">고기,
-															구이</button></li>
-													<li><button class="dropdown-item" type="button">해산물</button></li>
-													<li><button class="dropdown-item" type="button">분식</button></li>
-													<li><button class="dropdown-item" type="button">면류</button></li>
-													<li><button class="dropdown-item" type="button">죽</button></li>
-													<li><button class="dropdown-item" type="button">술안주</button></li>
-													<li><button class="dropdown-item" type="button">반찬</button></li>
-													<li><button class="dropdown-item" type="button">후식</button></li>
-													<li><button class="dropdown-item" type="button">기타</button></li>
-												</ul>
-
+												<select class="btn-light form-select">
+													<option value="" disabled selected>카테고리</option>
+													<option value="1">1인분</option>
+													<option value="1">채식</option>
+													<option value="1">국물류</option>
+													<option class="dropdown-item"  value="1">돈까스,
+															일식</option>
+													<option class="dropdown-item" value="2">고기,
+															구이</option>
+													<option class="dropdown-item" value="3">해산물</option>
+													<option class="dropdown-item" value="4">분식</option>
+													<option class="dropdown-item" value="5">면류</option>
+													<option class="dropdown-item" value="6">죽</option>
+													<option class="dropdown-item" value="7">술안주</option>
+													<option class="dropdown-item" value="8">반찬</option>
+													<option class="dropdown-item" value="9">후식</option>
+													<option class="dropdown-item" value="10">기타</option>
+											</select>
 											</div>
 										</div>
 										<div class="col-12 mt-2 col-lg mt-lg-0 mx-auto">
@@ -102,11 +102,11 @@
 											조건</div>
 										<div class="col-8 col-xxl"></div>
 										<div class="card-body">
-											<div class="row px-4 mt-3">
-												<div class="col-md-6 pl-0 pr-0 pr-md-2 mb-2">
+											<div class="row px-4 mt-3 justify-content-between">
+												<div class="col-sm-6 pl-0 pr-0 pr-md-2 mb-2">
 													<input type="date" name="start-date" class="date_size">
 												</div>
-												<div class="col-md-6 pl-0 pl-md-2 pr-0">
+												<div class="col-sm-6 pl-0 pl-md-2 pr-0">
 													<input type="date" name="end-date" class="date_size">
 												</div>
 											</div>
@@ -165,14 +165,30 @@
 									</div>
 								</li>
 							</ul>
+							</div>
+						</div> 
+						<div class="col w-50">
+							<div class="card border-left-success shadow h-100 py-2">
+								<div class="card-body">
+									<div class="row no-gutters align-items-center">
+										<div class="col mr-2">
+											<div
+												class="text-xs font-weight-bold text-success text-uppercase mb-1">
+												<span class="font-weight-bold font">총 조회수</span>
+											</div>
+											<div class="h5 mb-0 font-weight-bold text-gray-800">75</div>
+										</div>
+										<div class="col-auto">
+											<img src="/resources/images/search 1.png" alt=""
+												width="40px;">
+										</div>
+									</div>
+								</div>
+							</div>
 						</div>
-					</div>
 				</div>
-
-
 				<!-- Page Wrapper -->
     <div id="wrapper">
-
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
 
