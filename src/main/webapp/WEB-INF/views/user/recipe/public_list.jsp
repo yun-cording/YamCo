@@ -8,8 +8,6 @@
 <title>공공레시피</title>
 <link rel="icon" type="image/x-icon"	href="resources/images/icon_tomato.png">
 <link rel="stylesheet" href="resources/css/user/recipe/public_list.css?after" />
-<script src="http://code.jquery.com/jquery-latest.min.js"></script>
-<script src="resources/js/user/sidebar.js"></script>
 </head>
 <body>
 	<div id="mydiv">
@@ -49,15 +47,16 @@
 				<c:forEach begin="1" end="12">
 					<div class="recipe_one">
 						<p>
+						<a href="/public_recipe_detail.go">
 							<img
 								src="https://mediahub.seoul.go.kr/wp-content/uploads/2020/10/d13ea4a756099add8375e6c795b827ab.jpg"
-								class="recipe_thumbnail">
+								class="recipe_thumbnail"></a>
 						</p>
 						<p>공공레시피명</p>
 						<div class="writer">
 							<img
 								src="https://png.pngtree.com/png-vector/20191115/ourmid/pngtree-beautiful-profile-line-vector-icon-png-image_1990469.jpg"
-								class="profile"> <span>작성자 이름</span>
+								class="profile"> <span>공공레시피 제공</span>
 						</div>
 						<div class="like" style="text-align: right;">
 							<img class="icon"
@@ -91,5 +90,6 @@
 			<jsp:include page="../../footer.jsp" />
 		</div>
 	</div>
+	
 </body>
 </html>
