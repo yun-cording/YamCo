@@ -53,13 +53,12 @@
 	padding-top: 300px;
 }
 
-.category{
+#category{
 	margin-top: 25px;
 	font-size: 15px;
 }
 
-
-.category li:hover{
+#category li:hover{
 	background-color: #E53A1B;
 }
 
@@ -251,7 +250,7 @@ button{
 		<div id="test">
 		<aside id="sidebar-left">왼쪽</aside>
 		<div id="content">
-			<div class="category">
+			<div id="category">
 				<ul>
 					<a href="/myinfo.go"><li id="info_first">내 정보</li></a>
 					<a href="/mywishlist.go"><li id="info">찜 목록</li></a>

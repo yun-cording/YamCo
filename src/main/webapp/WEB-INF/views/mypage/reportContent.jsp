@@ -53,12 +53,12 @@
 	padding-top: 300px;
 }
 
-.category{
+#category{
 	margin-top: 25px;
 	font-size: 15px;
 }
 
-.category li:hover{
+#category li:hover{
 	background-color: #E53A1B;
 }
 
@@ -272,6 +272,16 @@ button{
 				$("#a_5").attr("src","/resources/images/arrow_up.png");
 			}			
 		});
+		
+		$("#write_con").on("click", function() {
+			$("#write_con").attr("style", "background-color : tomato; color : white;")
+			$("#write_com").attr("style", "background-color : white; color : black;")
+	});
+	
+	$("#write_com").on("click", function() {
+			$("#write_com").attr("style", "background-color : tomato; color : white;")
+			$("#write_con").attr("style", "background-color : white; color : black;")
+	});
 	});
 </script>
 </head>
@@ -281,7 +291,7 @@ button{
 		<div id="test">
 		<aside id="sidebar-left">왼쪽</aside>
 		<div id="content">
-			<div class="category">
+		<div id="category">
 				<ul>
 					<a href="/myinfo.go"><li id="info_first">내 정보</li></a>
 					<a href="/mywishlist.go"><li id="info">찜 목록</li></a>
