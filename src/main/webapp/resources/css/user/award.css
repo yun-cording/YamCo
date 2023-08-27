@@ -1,0 +1,179 @@
+@charset "UTF-8";
+
+.scene {
+	width: 100%;
+	height: 900px;
+	padding: 100px;
+	justify-content: center;
+	align-items: center;
+	perspective: 1200px;
+	text-align: center;
+	justify-content: center;
+	z-index: 2;
+}
+
+.carousel {
+	width: 600px;
+	height: 400px;
+	position: relative;
+	transform-style: preserve-3d;
+	display: inline-block;
+}
+
+.item {
+	position: absolute;
+	top: 200px;
+	left: 0px;
+	width: 600px;
+	height: 400px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border: 5px solid tomato;
+	background-color: #ffffffee;
+	color: black;
+	font-size: 32px;
+	font-weight: 600;
+	transition: all 1.0s ease-in-out;
+}
+
+.item:nth-child(1) {
+/* 	background-color: #ff7979; */
+	transform: translateX(-690px) rotateY(-40deg) translateZ(-250px);
+}
+
+.item:nth-child(2) {
+/* 	background-color: #ffbe76; */
+}
+
+.item:nth-child(3) {
+/* 	background-color: #f0932b; */
+	transform: translateX(690px) rotateY(40deg) translateZ(-250px);
+}
+
+.carousel:nth-last-child(1) {
+	background-color: inherit;
+	font-size: 5em;
+	font-weight: 600;
+	color: tomato;
+}
+
+.item>div {
+	width: 100%;
+	height: 100%;
+	display: none;
+}
+
+.prize_title {
+	width: 100%;
+	height: 25%;
+}
+
+.prize_title p {
+	font-size: 64px;
+}
+
+.prize_content {
+	width: 100%;
+	height: 75%;
+}
+
+.prize_content a {
+	color: black;
+	text-decoration: none;
+}
+
+.prize_content a:hover {
+	color: black;
+	text-decoration: none;
+}
+
+.prize_profile {
+	width: 50%;
+	height: 100%;
+	float: left;
+}
+
+.profile_photo {
+	width: 100%;
+	height: 80%;
+}
+
+.prize_content img {
+	margin: 10px;
+	height: calc(100% - 20px);
+	max-width: calc(100% - 20px);
+}
+
+.profile_nickname {
+	width: 100%;
+	height: 20%;
+}
+
+.prize_recipe {
+	margin: 10px;
+	width: calc(50% - 20px);
+	height: calc(100% - 20px);
+	float: left;
+	font-size: 16px;
+}
+
+.prize_recipe_title {
+	width: 100%;
+	height: 10%;
+}
+
+.prize_recipe_photo {
+	width: 100%;
+	height: 60%;
+}
+
+.prize_recipe_content {
+	width: 100%;
+	height: 30%;
+}
+
+.lank_table {
+	margin: 10px;
+	padding: 10px;
+	width: calc(100% - 20px);
+	border: 3px solid tomato;
+	border-collapse: collapse;
+	border-radius: 30px;
+	border-style: hidden;
+	box-shadow: 0 0 0 3px tomato;
+	text-align: center;
+	z-index: 1;
+}
+
+.lank_table th {
+	padding: 10px;
+	border: 2px solid tomato;
+	background-color: #FF634788;
+	color: white;
+}
+
+.lank_table td {
+	padding: 10px;
+	border: 1px solid tomato;
+}
+
+.lank_table a {
+	color: black;
+	text-decoration: none;
+}
+
+..lank_table a:hover {
+	color: black;
+	text-decoration: none;
+}
+
+.row_append {
+	margin: 10px;
+	padding: 10px;
+	width: calc(100% - 20px);
+	border: 3px solid tomato;
+	border-radius: 30px;
+	text-align: center;
+	color: tomato;
+}

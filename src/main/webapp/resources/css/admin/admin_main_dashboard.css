@@ -1,0 +1,27 @@
+@charset "UTF-8";
+
+#admin_main_dashboard_container {
+	width: 100%;
+	height: 100%;
+	color: #f3f2f7;
+}
+
+.dash_table {
+	width: 100%;
+	height: 100%;
+}
+
+.dash_table tr {
+	width: 100%;
+	height: 50%;
+}
+
+.dash_table td {
+	width: 50%;
+	height: 100%;
+}
+
+#chart_div {
+	width: 768px;
+	height: 603px;
+}

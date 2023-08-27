@@ -1,0 +1,49 @@
+@charset "UTF-8";
+* {
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+}
+.bestlist{
+	font-family: 'Yeongdeok_TTF';
+	font-weight: bold;
+	width: 270px;
+	position: relative;
+}
+
+#bestlist_label {
+	width: 270px;
+	height: 30px;
+	display: inline-block;
+	border-bottom: 4px solid #FDC040;
+}
+
+#bestlist_label span {
+	
+	display: inline-block;
+	height: 30px;
+	border-bottom: 4px solid tomato;
+}
+
+.bestlist_subject {
+	width: 270px;
+	margin-top: 20px;
+	border-left: 3px solid green;
+	border-bottom: 1px solid green;
+}
+
+.bestlist_subject span:nth-child(1) {
+	text-align:center;
+	display: inline-block;
+	width: 10%;
+}
+
+.bestlist_subject span:nth-child(2) {
+	display: inline-block;
+	width: 75%;
+}
+
+.bestlist_subject span:nth-child(3) {
+	display: inline-block;
+	width: 15%;
+}
