@@ -277,22 +277,22 @@ color: #FFFFFF;
 <body>
 	<form action="">
 	<div id="header">
-		<img id="mainlogo" src ="/resources/images/logo.png">
+		<a href="/home.go"><img id="mainlogo" src ="/resources/images/logo.png"></a>
 		<input type="text" id="search_tf" name="search_tf" value="">
 		<div id="search_bt"></div>
 		<img id="search_icon" src ="/resources/images/search_icon_white.png">
 		<div id="login_bt"></div>
 		<div id="login_white_circle"></div>
-		<div id="rcp_write"><a>레시피 작성</a></div>
+		<div id="rcp_write"><a href="/user_recipe_write.go">레시피 작성</a></div>
 		<img id="rcp_write_icon" src ="/resources/images/secret_recipe_icon.png">
-		<span id="login_text"><a>로그인</a></span>
+		<span id="login_text"><a href="/login.go">로그인</a></span>
 		<div id="menu_bar"></div>
-		<span id="p_rcp"><a>냠냠공식레시피</a></span>
-		<span id="chef_rcp"><a>냠냠's쉐프레시피</a></span>
-		<span id="rank"><a>랭킹</a></span>
-		<span id="open_ref"><a>냉장고를열어봐</a></span>
-		<span id="grade"><a>명예의전당</a></span>
-		<span id="faq"><a>FAQ</a></span>
+		<span id="p_rcp"><a href="/public_list.go">냠냠공식레시피</a></span>
+		<span id="chef_rcp"><a href="/user_list.go">냠냠's쉐프레시피</a></span>
+		<span id="rank"><a href="/ranking_recipe.go">랭킹</a></span>
+		<span id="open_ref"><a href="/plz.go">냉장고를열어봐</a></span>
+		<span id="grade"><a href="/award.go">명예의전당</a></span>
+		<span id="faq"><a href="/faq.go">FAQ</a></span>
 	</div>
 	</form>	
 </body>
