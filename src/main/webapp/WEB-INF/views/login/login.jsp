@@ -200,8 +200,10 @@ function restorePlaceholder(element, defaultPlaceholder) {
 		    console.log("Email: " + responsePayload.email);
 		    /* var vo = [responsePayload]; */
 		    var fullname = responsePayload.name;
-		  	var id = responsePayload
-		    location.href="/gglogin_go?name="+fullname;
+		  	var id = responsePayload.sub;
+		  	var image = responsePayload.picture;
+		  	var email = responsePayload.email;
+		    location.href="/gglogin_go?name="+fullname+"&m_id="+id;
 		};
 		function parseJwt (token) {
 		    var base64Url = token.split('.')[1];
