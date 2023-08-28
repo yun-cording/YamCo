@@ -6,9 +6,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class User_Controller2 {
-	@RequestMapping("/home.go")
+	@RequestMapping("/main.go")
 	public ModelAndView homeGo() {
-		ModelAndView mv = new ModelAndView("/home");
+		ModelAndView mv = new ModelAndView("/main");
 		return mv;
 	}
 	@RequestMapping("/public_list.go")
