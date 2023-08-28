@@ -17,7 +17,7 @@ function memberinfoagree() {
 </head>
 <body>
 	<jsp:include page="member_header.jsp" />
-	<form action="">
+	<form action="/">
 	<div id="mydiv">
 	
 	<div style="width:990px; margin: auto; margin-top:240px; text-align: center;">
@@ -28,7 +28,7 @@ function memberinfoagree() {
 	<div id="detail"></div> <!-- 중복된 닉네임입니다. 사용가능한 닉네임 입니다. 표시용 -->
 	
 	<div style="margin-top:200px;">
-	<input type="text" value="${vo.nickname }" id="textfiled" required>
+	<input type="text" value="${m_vo.m_nick }" id="textfiled" required>
 	<div id="idline"></div>
 	</div>
 	
@@ -42,10 +42,10 @@ function memberinfoagree() {
 	</div>
 	
 	<div style="text-align:center; margin-top:120px;">
-	<button class="buttons" style="background:#FF6347;"><span>회원가입</span></button>
+	<button type="submit" class="buttons" style="background:#FF6347;"><span>회원가입</span></button>
 	<button class="buttons" style="background:gray;"><span>돌아가기</span></button>
 	</div>
-	
+	<input type="hidden" value="${m_vo }" name="m_vo">
 	</div>
 	</form>
 </body>

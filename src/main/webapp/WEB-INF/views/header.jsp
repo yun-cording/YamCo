@@ -277,9 +277,9 @@ a{
 	<script type="text/javascript">
           // 로그인 확인 여부
 
-          var loginChk = false ; // 예시, 나중에 로그인 인터셉터에서 세션으로 값을 가져와야함
+          var loginChk = '${loginChk}'' ; // 예시, 나중에 로그인 인터셉터에서 세션으로 값을 가져와야함
           if(loginChk){
-            var userId = "사용자아이디";
+            var userId = '${vo.m_nick }';
             var userThumbnail = "사용자썸네일URL";
 
             document.getElementById("login_text").style.display = "none"; // 로그인 글자를 숨기기

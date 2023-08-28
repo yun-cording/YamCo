@@ -5,7 +5,6 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
-import java.util.Iterator;
 
 import javax.servlet.http.HttpSession;
 
@@ -17,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.yamco.api.model.service.Api_Service;
-import com.yamco.api.model.vo.Naver_VO;
+import com.yamco.user.model.vo.Member_VO;
 
 @Controller
 public class LoginController {
@@ -87,35 +86,38 @@ public class LoginController {
 					String nickname = response.get("nickname").toString();
 					String profile_image = response.get("profile_image").toString();
 					String gender = response.get("gender").toString();
-					String email = response.get("email").toString();
 					String mobile = response.get("mobile").toString();
 					String birthday = response.get("birthday").toString();
 					String birthyear = response.get("birthyear").toString();
 					
 					
-					Naver_VO vo = new Naver_VO();
+					Member_VO m_vo = new Member_VO();
 					
-					vo.setId(id);
-					vo.setNickname(nickname);
-					vo.setProfile_image(profile_image);
-					vo.setGender(gender);
-					vo.setEmail(email);
-					vo.setMobile(mobile);
-					vo.setBirthday(birthday);
-					vo.setBirthyear(birthyear);
+					m_vo.setM_id(id);
+					m_vo.setM_status("1");
+					m_vo.setM_login_type("3");
+					m_vo.setM_nick(nickname);
+					m_vo.setM_image(profile_image);
+					m_vo.setM_gender(gender);
+					m_vo.setM_phone(mobile);
+					String str = birthyear+birthday;
+					str = str.replaceAll("-", "");
+					m_vo.setM_birthday(str);
 					
 					// DB다녀와서 고유id 있는지 체크하기
-					boolean idChk = api_Service.getIdChk(id);
-					if(idChk) {
+					Member_VO m_vo2 = api_Service.getIdChk(id);
+					if(m_vo2!=null) {
 						// 있으면 세션에 로그인 변수저장후 홈페이지로
 						mv.setViewName("/user/home");
 						session.setAttribute("loginChk", "ok");
-						session.setAttribute("m_id", id);
+						session.setAttribute("m_nick", nickname);
+						session.setAttribute("m_idx", m_vo2.getM_idx());
 					}
 					
 					// 없으면 닉네임 기입창으로
+					session.setAttribute("str", str);
 					mv.setViewName("/login/social_join");
-					mv.addObject("vo",vo);
+					mv.addObject("m_vo",m_vo);
 					return mv;
 				}
 			}
@@ -125,4 +127,5 @@ public class LoginController {
 		}
 		return new ModelAndView("error");
 	}
+	@
 }
