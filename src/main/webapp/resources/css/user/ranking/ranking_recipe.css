@@ -1,5 +1,8 @@
 @charset "UTF-8";
-
+@font-face {
+	font-family: 'Yeongdeok_TTF';
+	src: url('/resources/fonts/Yeongdeok Blueroad.ttf') format('truetype');
+}
 * {
 	padding: 0;
 	margin: 0;
@@ -55,6 +58,7 @@
 	position: absolute;
 	width: 110px;
 	height: 54px;
+	background: #FF6347;
 	border: 2px solid #FF6347;
 	left: 539px;
 	top: 375px;
@@ -71,7 +75,6 @@
 	height: 54px;
 	left: 539px;
 	top: 375px;
-	background: #FF6347;
 	border: 2px solid #FF6347;
 	z-index: 2;
 }
@@ -159,7 +162,7 @@ font-weight: 400;
   font-size: 24px;
 line-height: 54px;
 display: block;
-color:white;
+color:black;
 }
 
 #recipetext{
@@ -170,7 +173,7 @@ font-weight: 400;
   font-size: 24px;
   line-height: 54px;
 display: block;
-color: black;
+color: white;
 }
 
 #search_rankingtext{

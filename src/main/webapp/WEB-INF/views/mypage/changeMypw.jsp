@@ -53,9 +53,13 @@
 	padding-top: 300px;
 }
 
-.category{
+#category{
 	margin-top: 25px;
 	font-size: 15px;
+}
+
+#category li:hover{
+	background-color: #E53A1B;
 }
 
  ul{
@@ -222,13 +226,13 @@ input[type="password"]{
 		<div id="test">
 		<aside id="sidebar-left">왼쪽</aside>
 		<div id="content">
-			<div class="category">
+			<div id="category">
 				<ul>
-					<li id="info_first">내 정보</li>
-					<li id="info">찜 목록</li>
-					<li id="info">신고 내역</li>
-					<li id="info">내가 쓴 게시글</li>
-					<li id="info_end">내가 쓴 댓글</li>
+					<a href="/myinfo.go"><li id="info_first">내 정보</li></a>
+					<a href="/mywishlist.go"><li id="info">찜 목록</li></a>
+					<a href="/reportcontent.go"><li id="info">신고 내역</li></a>
+					<a href="/mycontent.go"><li id="info">내가 쓴 게시글</li></a>
+					<a href="/mycomment.go"><li id="info_end">내가 쓴 댓글</li></a>
 				</ul>
 			</div>
 			<div class="title_line"></div>

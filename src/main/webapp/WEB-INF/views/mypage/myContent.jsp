@@ -52,12 +52,12 @@
 	padding-top: 300px;
 }
 
-.category{
+#category{
 	margin-top: 25px;
 	font-size: 15px;
 }
 
-.category li:hover{
+#category li:hover{
 	background-color: #E53A1B;
 }
 
@@ -140,7 +140,7 @@ button{
 	 box-sizing: border-box;
 }
 
-#search_txf{
+.search_txf{
 	width: 300px;
 	height: 29px;
 	
@@ -235,6 +235,11 @@ button{
 	float: left;
 	padding: 2px;
 }
+
+.search_item input:focus{
+    border-color:tomato;
+    outline: none;
+}
 	</style>
 </head>
 <body>
@@ -243,21 +248,23 @@ button{
 		<div id="test">
 		<aside id="sidebar-left">왼쪽</aside>
 		<div id="content">
-			<div class="category">
+			<div id="category">
 				<ul>
-					<li id="info_first">내 정보</li>
-					<li id="info">찜 목록</li>
-					<li id="info">신고 내역</li>
-					<li id="info">내가 쓴 게시글</li>
-					<li id="info_end">내가 쓴 댓글</li>
+					<a href="/myinfo.go"><li id="info_first">내 정보</li></a>
+					<a href="/mywishlist.go"><li id="info">찜 목록</li></a>
+					<a href="/reportcontent.go"><li id="info">신고 내역</li></a>
+					<a href="/mycontent.go"><li id="info">내가 쓴 게시글</li></a>
+					<a href="/mycomment.go"><li id="info_end">내가 쓴 댓글</li></a>
 				</ul>
 			</div>
 			<div class="title_line"></div>
-				<input type="text" id="search_txf" name="search_txf">
+			<div class="search_item">
+				<input type="text" class="search_txf" name="search_txf">
 				<button id="search_btn">
 				</button>
 				<div class="icon">
 					<img id="search_icon2" src="/resources/images/search_icon_white.png">
+				</div>
 				</div>
 			<div class="kindOf">
 				<button id="see">조회순</button>
@@ -286,5 +293,27 @@ button{
 		</div>
 <div id="footer"><jsp:include page="../footer.jsp" /></div>
 		</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>		
+<script type="text/javascript">
+	$(document).ready(function() {
+		$("#see").on("click", function() {
+				$("#see").attr("style", "background-color : tomato; color : white;")
+				$("#save").attr("style", "background-color : white; color : black;")
+				$("#star").attr("style", "background-color : white; color : black;")
+		});
+		
+		$("#save").on("click", function() {
+				$("#save").attr("style", "background-color : tomato; color : white;")
+				$("#see").attr("style", "background-color : white; color : black;")
+				$("#star").attr("style", "background-color : white; color : black;")
+		});
+		
+		$("#star").on("click", function() {
+				$("#star").attr("style", "background-color : tomato; color : white;")
+				$("#see").attr("style", "background-color : white; color : black;")
+				$("#save").attr("style", "background-color : white; color : black;")
+		});	
+	});		
+</script>
 </body>
 </html>
