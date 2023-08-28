@@ -131,7 +131,7 @@ span.plus {
 					<form action="https://httpbin.org/post" class="dropzone needsclick"
 						id="demo-upload">
 						<div id="titletextbox">
-										<label style="size: 35px;">제목 :  </label>
+										<label style="font-size: 24px;">제목 :  </label>
 										<input type="text" id="titletext">
 										<hr>
 										</div>
