@@ -1,7 +1,5 @@
 package com.yamco.user.model.service;
 
-import java.util.List;
-
 import com.yamco.user.model.vo.Member_VO;
 
 public interface Member_Service {	
@@ -9,5 +7,5 @@ public interface Member_Service {
 	public int getMemberJoin(Member_VO mvo);
 	
 	// 멤버 전체보기
-	public List<Member_VO> getMemberList();
+	public int getMemberIdChk(String m_id);
 }

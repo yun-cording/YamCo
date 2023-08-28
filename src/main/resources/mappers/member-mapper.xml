@@ -13,7 +13,7 @@
 	</insert>
 	
 	<!-- 아이디 중복 검사 -->
-	<select id="idChk" resultType="mvo">
-		select m_id from member
+	<select id="idChk" parameterType="String" resultType="int">
+		select count(*) from member where m_id = #{m_id}
 	</select>
 </mapper>

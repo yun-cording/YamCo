@@ -19,7 +19,7 @@ public class Member_ServiceImpl implements Member_Service{
 	}
 
 	@Override
-	public List<Member_VO> getMemberList() {
-		return member_DAO.getMemberList();
+	public int getMemberIdChk(String m_id) {
+		return member_DAO.getMemberIdChk(m_id);
 	}
 }

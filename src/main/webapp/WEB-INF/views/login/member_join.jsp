@@ -16,32 +16,37 @@ function memberinfoagree() {
 }
 
 function memberJoin_go(f) {
+	if()
 	f.action = "/member_join.do";
 	f.submit();
 }
-
 </script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
 		$("#m_id").keyup(function() {
-			$.ajax({
-				url : "/go_memberList.do",
-				method : "post",
-				dataType : "text",
-				data : "m_id="+$("#m_id").val(),
-				async : false,
-				success : function(data) {
-					if(data>=1){
-						$(".idDoubleChk").text("중복된 아이디입니다.").css("color", "red");			
-					}else{
-						$(".idDoubleChk").text("사용 가능한 아이디입니다.").css("color", "green");
+		var chk = $("#m_id").val();
+		var txt = $(".idDoubleChk");
+			if(chk === ''){
+				txt.text("");
+			}else{
+				$.ajax({
+					url : "/go_memberIdChk.do",
+					method : "post",
+					dataType : "text",
+					data : "m_id=" + $("#m_id").val(),
+					async : false,
+					success : function(result) {
+						if(result >= 1){
+							$(".idDoubleChk").text("중복된 아이디입니다.").css("color", "red");			
+						}else{
+							$(".idDoubleChk").text("사용 가능한 아이디입니다.").css("color", "green");
+						}
+					},
+					error : function() {
 					}
-				},
-				error : function() {
-					alert("읽기 실패");
-				}
-			});
+				});
+			}
 		});
 	});
 </script>
@@ -53,7 +58,7 @@ function memberJoin_go(f) {
 	<div id="mydiv">
 	
 	<div class="middleform">
-	<input type="text" placeholder="아이디(이메일) " class="middletext" name="m_id" id="m_id">
+	<input type="text" placeholder="아이디(이메일)" class="middletext" name="m_id" id="m_id">
 	<div class="idline"></div>
 	<span class="idDoubleChk"></span>
 	</div>
