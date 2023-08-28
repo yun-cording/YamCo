@@ -1,17 +1,28 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
-<style type="text/css">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>냠냠레시피 관리자</title>
+    <!-- Custom fonts for this template-->
+    <link href="/resources/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+    <!-- Custom styles for this template-->
+    <link href="/resources/css/sb-admin-2.min.css" rel="stylesheet">
+
+ <style type="text/css">
 .banner_size{
 	width: 450px;
-	height: 150px;
+	height: 300px;
 	border: none;
 }
 .banner_left{
@@ -45,114 +56,175 @@
 	background-color: rgba(25, 135, 84);
 	color: white;
 }
-
+.btn-group:active{
+	background-color: white;
+	color: white;
+}
+.btn-comp.active {
+  background-color: #17a2b8; /* 선택된 버튼의 배경색을 변경 */
+  color: white; /* 선택된 버튼의 글자색을 변경 */
+}
+/* 라디오 버튼을 시각적으로 감추는 클래스 */
+  .visually-hidden {
+    position: absolute;
+    clip: rect(0, 0, 0, 0);
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    border: 0;
+    overflow: hidden;
+    white-space: nowrap;
+}
+/* 라디오 버튼의 크기 조정 */
+ .btn-check.btn-comp:checked + .btn {
+   padding: 20px 30px; /* 버튼의 패딩을 조정하여 크기 변경 */
+   font-size: 16px; /* 글자 크기 변경 */
+ }
 </style>
+
+   
+
 </head>
-<body>
-<!-- body div -->
-<div>
-	<!-- 라운드버튼 2개 -->
-	<div class="row">
-		<div class="card" style="width: 8rem;">
-		  <img src="resources/images/java2.png" class="card-img-top stats" alt="...">
-		  <div class="card-body">
-		    <h5 class="card-title">Card title</h5>
-		    <p class="card-text">content.</p>
-		  </div>
-		</div>
-		<div class="card" style="width: 8rem;">
-		  <img src="resources/images/java2.png" class="card-img-top stats" alt="...">
-		  <div class="card-body">
-		    <h5 class="card-title">Card title</h5>
-		    <p class="card-text"> content.</p>
-		  </div>
-		</div>
-	</div>
-	
-	<!-- 상단 메뉴 탭 3개 -->
-	<div>
-		<ul class="nav nav-pills">
-	  <li class="nav-item">
-	    <!-- <a class="nav-link active btn_color_temp" aria-current="page" href="#">Active</a> -->
-	  </li>
-	  <li class="nav-item">
-	    <a class="nav-link btn_color_temp" href="#">Link</a>
-	  </li>
-	  <li class="nav-item">
-	    <a class="nav-link btn_color_temp" href="#">Link</a>
-	  </li>
-	  <li class="nav-item">
-	    <a class="nav-link btn_color_temp" href="#">Disabled</a>
-	  </li>
-		</ul>
-	</div>
+<body id="page-top">
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+		<jsp:include page="admin_sidebar.jsp" />
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
 
-	<!-- 상단 버튼 세개 => 관리 탭들 + 오왼 이동버튼 -->
-	<div>
-		<button type="button" class="btn btn-success">공지사항 관리</button>
-		<button type="button" class="btn btn-success">광고 관리</button>
-		<button type="button" class="btn btn-success">재료 이미지 관리</button>
-		<button type="button" class="btn btn-success float-right"> &lt; </button>
-		<button type="button" class="btn btn-success float-right"> > </button>
-	</div>
-	<!-- 공지사항 넣는 부분 -->
-    <div>
-	<%-- 	<div id="banner_card" class="card banner_size banner_left banner_top">
-		  <img src="resources/images/notice_exam.png" class="card-img-top" alt="...">
-		  <div class="card-body">
-		    <h5 class="card-title">${nvo.notice_title}공지사항6</h5>
-		    <p class="card-text">${nvo.notice_date}2023/08/15</p>
-		  </div>
-		</div> --%>
-	<%-- 	<div class="card banner_size banner_right banner_top" style="margin-top: -50px;">
-		  <img src="resources/images/notice_exam.png" class="card-img-top" alt="...">
-		  <div class="card-body">
-		    <h5 class="card-title">${nvo.notice_title}공지사항6</h5>
-		    <p class="card-text">${nvo.notice_date}2023/08/15</p>
-		  </div>
-		</div> --%>
-	</div> 
-	<div id="bannerContainer">
-	<div class="row">
-    <%-- <c:forEach var="nvo" items="${noticeList}" varStatus="status"> --%>
-    <c:forEach begin="1" end="6" step="1" varStatus="status">
-        <c:set var="isOdd" value="${status.index % 2 == 1}" />
-        <c:choose>
-	        <c:when test="${status.index <= 6}">
-		        <div id="banner_card_${status.index}" class="card col-md-6 banner_size banner_${isOdd ? 'left' : 'left'} banner_top">
-		            <img src="resources/images/notice_exam.png" class="card-img-top" alt="...">
-		            <div class="card-body">
-		                <h5 class="card-title">${nvo.notice_title} 공지사항 ${status.index}</h5>
-		                <p class="card-text">${nvo.notice_date} 2023/08/15</p>
-		            </div>
-		        </div>
-	        </c:when>
-	        
-	        <c:otherwise>
-				<div id="banner_card_${status.index}" class="card col-md-6 banner_size banner_${isOdd ? 'right' : 'right'} banner_top">
-		            <img src="resources/images/notice_exam.png" class="card-img-top" alt="...">
-		            <div class="card-body">
-		                <h5 class="card-title">${nvo.notice_title} 공지사항 ${status.index}</h5>
-		                <p class="card-text">${nvo.notice_date} 2023/08/15</p>
-		            </div>
-	        	</div>		        
-	        </c:otherwise>
-        </c:choose>
-        
-    </c:forEach>
-    </div>
+            <!-- Main Content -->
+            <div id="content">
+				<jsp:include page="admin_header.jsp" />
+                
+                <div class="container-fluid">
+                    <h1 class="ml-5 mt-5 font-weight-bold">공지사항 배너등록</h1>
+                    <hr>
+
+                    <!-- 여기에서 작업하시면 됩니다. -->
+                    <!-- <h2>여기에서 작업하시면됩니다.</h2> -->
+                    <!-- 작업 시작!! -->
+                    <div>
+                    
+                    <!-- 버튼그룹 -->
+						<div class="btn-group btn-comp ml-5 mt-5" role="group" aria-label="Basic radio toggle button group" style="margin-top: 100px;">
+						  <input type="radio" class="btn-check btn-comp visually-hidden" name="btnradio" id="btnradio1" autocomplete="off" checked>
+						  <label class="btn btn-outline-primary btn-group btn-comp" for="btnradio1">공지사항 관리</label>
+						
+						  <input type="radio" class="btn-check btn-comp visually-hidden" name="btnradio" id="btnradio2" autocomplete="off">
+						  <label class="btn btn-outline-primary btn-group btn-comp" for="btnradio2">광고 관리</label>
+						
+						  <input type="radio" class="btn-check btn-comp visually-hidden" name="btnradio" id="btnradio3" autocomplete="off">
+						  <label class="btn btn-outline-primary btn-group btn-comp" for="btnradio3">재료이미지 관리</label>
+						</div>
+                    </div>
+                    
+				    <!-- 공지사항 넣는 부분 -->
+					<div id="bannerContainer" style="margin-left: 100px; margin-bottom: 100px;">
+					    <%-- <c:forEach var="nvo" items="${noticeList}" varStatus="status"> --%>
+					  <%--   <c:forEach begin="1" end="6" step="1" varStatus="status">
+					        <c:set var="isOdd" value="${status.index % 2 == 1}" />
+					        <c:choose>
+						        <c:when test="${status.index <= 6}">
+							        <div id="banner_card_${status.index}" class="row card banner_size banner_${isOdd ? 'left' : 'left'} banner_top">
+							            <img src="resources/images/notice_exam.png" class="card-img-top" alt="...">
+							            <div class="card-body">
+							                <h5 class="card-title">${nvo.notice_title} 공지사항 ${status.index}</h5>
+							                <p class="card-text">${nvo.notice_date} 2023/08/15</p>
+							            </div>
+						        	</div>
+						        </c:when>
+						        
+						        <c:otherwise>
+									<div id="banner_card_${status.index}" class="row card banner_size banner_${isOdd ? 'right' : 'right'} banner_top">
+							            <img src="resources/images/notice_exam.png" class="card-img-top" alt="...">
+							            <div class="card-body">
+							                <h5 class="card-title">${nvo.notice_title} 공지사항 ${status.index}</h5>
+							                <p class="card-text">${nvo.notice_date} 2023/08/15</p>
+							            </div>
+						        	</div>		        
+						        </c:otherwise>
+					        </c:choose>
+					        
+					   	 </c:forEach> --%>
+					   	 
+					   	 
+					<!-- 끝 -->
+						<c:forEach begin="1" end="6" step="1" varStatus="status" var="k">
+							 <div id="banner_card_${status.index}" class="row card banner_size banner_${isOdd ? 'left' : 'left'} banner_top" style="float: left; margin-bottom: -50px;">
+								<input type="radio" id="radio_btn_${status.index}" class="btn-check btn-comp" name="btnradio" id="btnradio1" autocomplete="off" checked style="float: left; position: relative; top: 25px; left: -250px;">
+					            <img src="resources/images/notice_exam.png" class="card-img-top" alt="...">
+					                <h5 class="card-title">${nvo.notice_title} 공지사항 ${status.index}</h5>
+					                <p class="card-text">${nvo.notice_date} 2023/08/15</p>
+					                
+<!-- 					            <div class="card-body">
+					            </div>
+ -->				        	</div>
+						  
+						</c:forEach>
+							   	 
+				    </div>
     
-    <!-- 하단 버튼 세개 -->
-    <div style="margin-top: 100px;">
-    	<button type="button" class="btn btn-success">삭제된 게시글</button>
-		<button type="button" class="btn btn-success">등록</button>
-		<button type="button" class="btn btn-success gray_btn">삭제</button>
+				    <!-- 하단 버튼 세개 -->
+				    <div style="float: left; margin-left: -1200px;">
+				    	<button type="button" class="btn btn-success">삭제된 게시글</button>
+						<button type="button" class="btn btn-success">등록</button>
+						<button type="button" class="btn btn-success gray_btn">삭제</button>
+				    </div>
+                    
+                    <!-- 여기까지 작업하시면됩니다. -->
+
+
+                </div>
+            </div>
+        </div>
+        <!-- End of Content Wrapper -->
     </div>
-    
-</div>
+    <!-- End of Page Wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+    <!-- Logout Modal-->
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">로그아웃 하시겠습니까?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">취소</button>
+                    <a class="btn btn-danger" href="login.html">로그아웃</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="/resources/vendor/jquery/jquery.min.js"></script>
+    <script src="/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="/resources/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="/resources/js/sb-admin-2.min.js"></script>
 	
-
-
-</div>
+	<!-- 버튼 클릭 시 색상변경  -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+	<script type="text/javascript">
+	$(document).ready(function(){
+	  $(".btn-comp").click(function(){
+	    /* $(".btn-comp").removeClass("active"); // 모든 버튼에서 active 클래스 제거 */
+	    $(this).addClass("active"); // 선택된 버튼에 active 클래스 추가
+	  });
+	});
+	</script>
 </body>
+
 </html>

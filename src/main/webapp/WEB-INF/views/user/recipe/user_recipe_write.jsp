@@ -5,8 +5,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>유저레시피 상세페이지</title>
+<title>유저레시피 작성페이지</title>
 <link rel="stylesheet" href="resources/css/summernote-lite.css">
+<link rel="stylesheet"
+	href="https://cdn.korzh.com/metroui/v4/css/metro-all.min.css">
+<link rel="stylesheet" href="resources/css/user/award.css?after">
 
 
 
@@ -41,24 +44,20 @@ ss
     background-color: yellow;
     float: left;
     width: 15.625%;
-    height: 5000px;
 }
 
 #sidebar-left {
     background-color: yellow;
     width: 15.625%;
     float: left;
-    height: 5000px;
 
 }
 
 #content {
     width: 68.75%;
-    height: 100%;
     float: left;
     margin-top: 0px;
     background: white;
-    height: 5000px;
 }
 
 
@@ -174,8 +173,12 @@ ss
 .left_margin{
 	margin-left: 100px;
 }
+
 .left_margin_70{
 	margin-left: 70px;
+}
+.left_margin_80{
+	margin-left: 80px;
 }
 
 .font_32{
@@ -187,12 +190,31 @@ ss
   width: 350px;
   height: 50px;
   border: 2px solid tomato; /* Set border color to tomato */
+  outline-color: tomato;
   border-radius: 5px;
-  font-size: 20px;
-  color: tomato; 
+  font-size: 15px;
+  color: black; 
   text-align: center;
   position: relative;
   top: -5px;
+}
+
+.input_green{
+  width: 350px;
+  height: 50px;
+  border: 2px solid #21730B; /* Set border color to tomato */
+  outline-color: #21730B;
+  border-radius: 5px;
+  font-size: 15px;
+  color: black; 
+  text-align: center;
+  position: relative;
+  top: -5px;
+}
+
+
+#content-textarea{
+  outline-color: tomato;
 }
 
 .vertical-line {
@@ -357,11 +379,9 @@ ss
 				
 				<!-- 냠냠 키워드 -->
 				<div>
-					<span class="font_32" style="float: left; margin-left: 100px;">냠냠 키워드</span>
-					<br><br><br>
-					<p></p>
-					<div>
-						<span class="font_32" style="color:#606060; float: left; margin-left: 60px;">#</span>
+					<span class="font_32" style="margin-left: 100px; margin-bottom: 30px;">냠냠 키워드</span>
+					<div style="margin-top: 30px;">
+						<span class="font_32" style="color:#606060; float: left; margin-left: 60px; margin-top: -5px;">#</span>
 						<input type="text" class="input_tomato" style="margin-left: 20px;" placeholder="해시태그를 입력해주세요.">					
 					</div>
 				</div>
@@ -389,7 +409,7 @@ ss
 						<div style="margin-top: 50px;">
 							<form style="margin-top: -20px;" action="/action_page.php">
 							  <textarea id="content-textarea" class="left_margin" placeholder="해당 요리에 대한 간단한 설명이나 Tip을 적어주세요." style="width: 1120px; height: 180px; 
-							  border-radius: 5px; border-width: 3px; font-size: 20px; border-color: tomato; resize: none;"></textarea>
+							  border-radius: 5px; border-width: 3px; font-size: 15px; border-color: tomato; resize: none;"></textarea>
 							</form>
 						</div>
 					</div>
@@ -424,6 +444,7 @@ ss
 				</div>
 				
 <script type="text/javascript">
+	/* 재료를 입력해주세요 두부 1모 추가 */
 	var fieldCount = 0;
 
 	document.addEventListener("DOMContentLoaded", function() {
@@ -442,12 +463,13 @@ ss
 	        var input = document.createElement("input");
 	        input.type = "text";
 	        input.id = "ing_box" + fieldCount;
-	        input.className = "input_tomato left_margin";
-	        input.style = "border-color: #21730B; width: 510px; height: 50px;";
+	        input.className = "input_green left_margin_80";
+	        input.style = "width: 510px; height: 50px;";
 	        input.placeholder = "ex) 두부 1모 " + fieldCount;
+	        input.style.color = "black";
 
 	        if (fieldCount % 2 === 1) {
-	            /* input.style.float = "left"; */
+	            /* input.style.float = "left";  */
 	            input.style.marginBottom = "15px";
 	        } else {
 	            input.style.float = "right";
@@ -457,6 +479,20 @@ ss
 	        ingredientsContainer.appendChild(input);
 	    }
 	}
+</script>
+
+<script type="text/javascript">
+document.addEventListener("DOMContentLoaded", function() {
+    var textarea = document.getElementById("content-textarea");
+    
+    textarea.addEventListener("focus", function() {
+        textarea.style.borderColor = "tomato"; // Set the desired border color when focused
+    });
+    
+    textarea.addEventListener("blur", function() {
+        textarea.style.borderColor = "tomato"; // Set the original border color when focus is lost
+    });
+});
 </script>
 				
 				
@@ -478,7 +514,7 @@ ss
 				</div>
 				<div>
 				<!-- 썸머노트 버튼 -->
-				<div style="margin-top: 50px;">
+				<div style="margin-top: 50px; margin-bottom: 100px;">
 					<button class="summer_btn left_margin">취소</button>
 					<button class="summer_btn" style="background-color: tomato; float: right; margin-right: 100px;">글쓰기</button>
 					<button class="summer_btn" style="float: right; ">임시저장</button>
