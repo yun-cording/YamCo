@@ -146,12 +146,17 @@
 								<h6
 									class="card-header bg-light text-black-50 fw-bold small text-start">
 									검색 조건</h6>
+
+									<!-- form start -->
+									<form action="/go_admin_memberchk.do" method="post">
+									
 								<ul class="list-group list-group-flush">
+									
 									<li class="list-group-item">
 										<div class="row justify-content-around align-items-center">
 											<div class="col-auto col-sm-4 col-xl-auto fw-bold text-nowrap">검색어</div>
 											<div class="col col-xl-auto mx-auto">
-												<select class="form-select text-center"
+												<select name="keyword_category" class="form-select text-center"
 													aria-label="keyword select">
 													<option value="1">아이디</option>
 													<option value="2">닉네임</option>
@@ -163,22 +168,22 @@
 											<div class="col-auto ps-0">
 												<div class="form-check form-check-inline m-0">
 													<input class="form-check-input" type="radio"
-														name="flexRadioDefault" id="flexRadioDefault1"> <label
-														class="form-check-label" for="flexRadioDefault1">
+														name="keyword_type" id="keyword_type_like" value="like"> <label
+														class="form-check-label" for="keyword_type_like">
 														포함 </label>
 												</div>
 												<div class="form-check form-check-inline m-0">
 													<input class="form-check-input" type="radio"
-														name="flexRadioDefault" id="flexRadioDefault2" checked>
-													<label class="form-check-label" for="flexRadioDefault2">
+														name="keyword_type" id="keyword_type_equal" value="equal" checked>
+													<label class="form-check-label" for="keyword_type_equal">
 														일치 </label>
 												</div>
 											</div>
 											<div class="col-12 mt-2 col-xl mt-xl-0 mx-auto">
 												<div class="input-group">
-													<input type="text" class="form-control" aria-label="input"
+													<input type="text" name="keyword" class="form-control" aria-label="input"
 														aria-describedby="inputGroup-sizing-default">
-													<button type="button" class="btn btn-outline-secondary">
+													<button type="button" class="btn btn-outline-secondary" onclick="goSubmit(this.form)">
 														<i class="fa-solid fa-magnifying-glass"></i>
 													</button>
 												</div>
@@ -190,18 +195,18 @@
 											<div class="col-4 col-xl-auto fw-bold text-nowrap">기간
 												조건</div>
 											<div class="col-8 col-xxl">
-												<select class="form-select text-center"
+												<select name="period_category" class="form-select text-center"
 													aria-label="period select">
 													<option value="1">가입일</option>
 													<option value="2">탈퇴일</option>
 												</select>
 											</div>
-											<div class="col-6 mt-2 pe-1 col-xxl mt-xxl-0">
-												<input type="date" id="input_startday" name="start_date" data-placeholder="시작일"
+											<div class="col-6 mt-2 pe-1 col-xxl mt-xxl-0 input-date-wrapper">
+												<input type="date" id="input_startday" name="start_date" data-placeholder="시작일" required aria-required="true"
 													class="btn btn-outline-secondary text-center rounded w-100 fw-bold">
 											</div>
 											<div class="col-6 mt-2 ps-1 col-xxl mt-xxl-0">
-												<input type="date" id="input_endday" name="start_date" data-placeholder="종료일"
+												<input type="date" id="input_endday" name="end_date" data-placeholder="종료일" required aria-required="true"
 													class="btn btn-outline-secondary text-center rounded w-100 fw-bold">
 											</div>
 											<div class="col-4 mt-2 pe-1 col-xxl-auto mt-xxl-0">
@@ -223,52 +228,73 @@
 											<div class="col-12 col-xxl-auto text-xxl-start fw-bold">회원
 												분류</div>
 											<div class="col-6 order-1 p-1 col-sm-4 mt-2 col-xxl m-xxl-0">
-												<button type="button" class="btn btn-primary w-100 fw-bold">전체회원</button>
+												
+													<input class="form-check-input d-none member_type" type="radio"
+														name="member_type" id="member_type_all" value="all" checked>
+														<label
+														class="btn btn-outline-primary w-100 m-0 fw-bold" for="member_type_all">
+														전체회원</label>
 											</div>
 											<div class="col-6 order-3 p-1 col-sm-4 mt-2 col-xxl m-xxl-0">
-												<button type="button"
-													class="btn btn-outline-primary w-100 fw-bold">자체가입</button>
+													<input class="form-check-input d-none member_type" type="radio"
+														name="member_type" id="member_type_self" value="self">
+														<label
+														class="btn btn-outline-primary w-100 m-0 fw-bold" for="member_type_self">
+														자체가입</label>
 											</div>
 											<div
 												class="col-6 order-3 p-1 col-sm-4 mt-2 offset-xxl-1 col-xxl m-xxl-0">
-												<button type="button"
-													class="btn btn-outline-primary w-100 fw-bold">소셜가입</button>
+													<input class="form-check-input d-none member_type" type="radio"
+														name="member_type" id="member_type_social" value="social">
+														<label
+														class="btn btn-outline-primary w-100 m-0 fw-bold" for="member_type_social">
+														소셜가입</label>
 											</div>
 											<div class="col-6 order-3 p-1 col-sm-4 mt-2 col-xxl m-xxl-0">
-												<button type="button"
-													class="btn btn-outline-danger w-100 fw-bold">잠김회원</button>
+													<input class="form-check-input d-none member_lock" type="checkbox"
+														name="member_lock" id="member_lock">
+														<label
+														class="btn btn-outline-danger w-100 m-0 fw-bold" for="member_lock">
+														잠김회원</label>
 											</div>
 											<div
 												class="col-6 order-3 p-1 col-sm-4 mt-2 offset-xxl-1 col-xxl m-xxl-0">
-												<button type="button" class="btn btn-danger w-100 fw-bold">금지회원</button>
+													<input class="form-check-input d-none member_ban" type="checkbox"
+														name="member_ban" id="member_ban">
+														<label
+														class="btn btn-outline-danger w-100 m-0 fw-bold" for="member_ban">
+														금지회원</label>
 											</div>
 											<div
 												class="col-6 order-2 p-1 col-sm-4 order-sm-4 mt-2 col-xxl m-xxl-0">
-												<button type="button"
-													class="btn btn-secondary w-100 fw-bold">탈퇴회원</button>
+													<input class="form-check-input d-none member_dropout" type="checkbox"
+														name="member_dropout" id="member_dropout">
+														<label
+														class="btn btn-outline-secondary w-100 m-0 fw-bold" for="member_dropout">
+														탈퇴회원</label>
 											</div>
 										</div>
 									</li>
-									<li class="list-group-item">
-										<div class="row justify-content-between align-items-center">
-											<div class="col-auto"></div>
-											<div class="col-auto">
-												<div class="row">
-													<div class="col-auto">
-														<button type="button"
-															class="btn btn-outline-primary w-100 fw-bold">
-															조건 초기화 <i class="fa-solid fa-arrow-rotate-right"></i>
-														</button>
-													</div>
-													<div class="col-auto">
-														<button type="button"
-															class="btn btn-primary w-100 fw-bold">검색</button>
-													</div>
+										<li class="list-group-item">
+											<div class="row justify-content-end align-items-center">
+														<div class="col-auto">
+															<input type="reset"
+																class="btn btn-outline-primary w-100 fw-bold"
+																value="조건 초기화" />
+														</div>
+														<div class="col-auto">
+															<button type="button"
+																class="btn btn-primary w-100 fw-bold"
+																onclick="goSubmit(this.form)">검색</button>
 												</div>
 											</div>
-										</div>
-									</li>
-								</ul>
+										</li>
+
+									</ul>
+									
+									</form>
+									<!-- End of form -->
+									
 							</div>
 						</div>						
 						<!-- End of col for 검색조건 card -->
@@ -470,9 +496,9 @@
  	<script src="https://cdn.datatables.net/searchpanes/2.2.0/js/dataTables.searchPanes.min.js"></script>
  	<script src="https://cdn.datatables.net/select/1.7.0/js/dataTables.select.min.js"></script>
  	
-	<script src="resources/js/admin/memberchk/admin_memberchk_datatable.js"></script>
+	<script src="resources/js/admin/memberchk/admin_memberchk_datatable.js?after"></script>
 	
-	<script src="resources/js/admin/memberchk/admin_memberchk_btnevent.js"></script>
+	<script src="resources/js/admin/memberchk/admin_memberchk_btnevent.js?after"></script>
 </body>
 
 </html>
