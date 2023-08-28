@@ -28,7 +28,7 @@ function memberinfoagree() {
 	<div id="detail"></div> <!-- 중복된 닉네임입니다. 사용가능한 닉네임 입니다. 표시용 -->
 	
 	<div style="margin-top:200px;">
-	<input type="text" placeholder="닉네임 : " id="textfiled" required>
+	<input type="text" value="${vo.nickname }" id="textfiled" required>
 	<div id="idline"></div>
 	</div>
 	
