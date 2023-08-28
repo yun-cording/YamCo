@@ -16,7 +16,6 @@ function memberinfoagree() {
 }
 
 function memberJoin_go(f) {
-	if()
 	f.action = "/member_join.do";
 	f.submit();
 }
@@ -25,10 +24,17 @@ function memberJoin_go(f) {
 <script type="text/javascript">
 	$(document).ready(function() {
 		$("#m_id").keyup(function() {
-		var chk = $("#m_id").val();
+		var chk = $("#m_id").val();		
+		function checkValidSomeThing(param) {
+			  var myRe = /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/;
+			  return myRe.test(param);
+			}
+
 		var txt = $(".idDoubleChk");
 			if(chk === ''){
 				txt.text("");
+			}else if(!checkValidSomeThing(chk)){
+				txt.text("이메일 형식으로 입력해주세요.").css("color", "red");			
 			}else{
 				$.ajax({
 					url : "/go_memberIdChk.do",
@@ -99,7 +105,7 @@ function memberJoin_go(f) {
 	
 	<div style="text-align:center; margin-top:30px;">
 	<input type="hidden" name="gender">
-	<button class="buttons" style="background:gray;" onclick="memberJoin_go(this.form)" disabled><span>회원가입</span></button>
+	<button class="buttons" style="background:gray;" onclick="memberJoin_go(this.form)"><span>회원가입</span></button>
 	<button type="button" class="buttons" style="background: gray"><span>돌아가기</span></button>
 	</div>
 	</div>
