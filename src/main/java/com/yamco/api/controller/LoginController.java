@@ -22,7 +22,7 @@ public class LoginController {
 	@RequestMapping("/naver_login.do")
 	public ModelAndView naverLoginGo(String code, String state, HttpSession session ) {
 		ModelAndView mv = new ModelAndView();
-
+		
 		try {
 			String clientId = "YvbCvm24gWq60XdG4a8G";// 애플리케이션 클라이언트 아이디값";
 			String clientSecret = "Zg7E_cBoml";// 애플리케이션 클라이언트 시크릿값";
