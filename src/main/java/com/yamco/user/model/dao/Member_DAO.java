@@ -1,7 +1,5 @@
 package com.yamco.user.model.dao;
 
-import java.util.List;
-
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -19,7 +17,7 @@ public class Member_DAO {
 	}
 	
 	// 멤버 전체보기
-	public List<Member_VO> getMemberList(){
-		return sqlSessionTemplate.selectList("member.list");
+	public int getMemberIdChk(String m_id){
+		return sqlSessionTemplate.selectOne("member.idChk", m_id);
 	}
 }
