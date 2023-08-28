@@ -47,11 +47,15 @@
 	margin: 0;
 	box-sizing: border-box;
 }
+@font-face {
+    font-family: 'Yeongdeok_TTF';
+    src: url('../resources/fonts/Yeongdeok Blueroad.ttf') format('truetype');
+}
 
  #mydiv{
         width: 1920px;
         margin:  auto;
-		
+		 font-family: 'Yeongdeok_TTF';
     }
     
  #sidebar-right {
@@ -179,32 +183,7 @@ clear: both;
 }
 
 </style>
-<script type="text/javascript">
-document.addEventListener("DOMContentLoaded", function() {
-	var gifContainer = document.getElementById("gif-container");
-    var gifImage = document.getElementById("gif-image");
-    var inputStack = document.getElementById("input-stack");
-    var hiddenInputs = inputStack.querySelectorAll(".hidden");
-    var clickCount = 0;
-		
-    
-	 // 1. 클릭 시에만 GIF 재생
-    gifContainer.addEventListener("click", function() {
-             gifImage.src = "/resources/images/move_refrige.gif"; 
-                 hiddenInputs[clickCount].style.opacity = "1";
-             clickCount++
-    });      
- 	
-    // 페이지 이탈 시 클릭 횟수 및 이미지 초기화
-    window.addEventListener("beforeunload", function() {
-        clickCount = 0;
 
-        for (var i = 0; i < hiddenInputs.length; i++) {
-            hiddenInputs[i].style.display = "none"; // 이미지 숨김
-        }
-    });
-});
-</script>
 </head>
 <body>
 	<div id="mydiv">
@@ -289,6 +268,31 @@ document.addEventListener("DOMContentLoaded", function() {
 			</aside>
 		<div id="footer"><jsp:include page="../../footer.jsp" /></div>
 	</div>
+<script type="text/javascript">
+document.addEventListener("DOMContentLoaded", function() {
+	var gifContainer = document.getElementById("gif-container");
+    var gifImage = document.getElementById("gif-image");
+    var inputStack = document.getElementById("input-stack");
+    var hiddenInputs = inputStack.querySelectorAll(".hidden");
+    var clickCount = 0;
+		
+    
+	 // 1. 클릭 시에만 GIF 재생
+    gifContainer.addEventListener("click", function() {
+             gifImage.src = "/resources/images/move_refrige.gif"; 
+                 hiddenInputs[clickCount].style.opacity = "1";
+             clickCount++
+    });      
+ 	
+    // 페이지 이탈 시 클릭 횟수 및 이미지 초기화
+    window.addEventListener("beforeunload", function() {
+        clickCount = 0;
 
+        for (var i = 0; i < hiddenInputs.length; i++) {
+            hiddenInputs[i].style.display = "none"; // 이미지 숨김
+        }
+    });
+});
+</script>
 </body>
 </html>
