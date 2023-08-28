@@ -21,11 +21,9 @@
 <!-- Custom styles for this template-->
 <link href="/resources/css/sb-admin-2.min.css" rel="stylesheet">
 <!-- Plugin -->
-
 <link rel="stylesheet"
 	href="https://rawgit.com/enyo/dropzone/master/dist/dropzone.css" />
 <script src="https://rawgit.com/enyo/dropzone/master/dist/dropzone.js"></script>
-
 <style type="text/css">
 body {
 	background: #EEE;
@@ -34,13 +32,12 @@ body {
 
 .dropzone {
 	width: 98%;
-	height:1000px;
+	height:750px;
 	margin: 1%;
 	border: 2px dashed #3498db !important;
 	border-radius: 5px;
 	-webkit-transition: .2s;
 	transition: .2s;
-	multiple: false;
 }
 
 .dropzone.dz-drag-hover {
@@ -57,9 +54,6 @@ body {
 
 span.plus {
 	display: none;
-}
-#dropzone{
-	margin-top: 280px;
 }
 
 .dropzone.dz-started .dz-message {
@@ -84,192 +78,145 @@ span.plus {
 	color: #AAA;
 	line-height: 110px;
 }
-/* 
+
 #titletext{
 	width:1420px;
 	height: 35px;
 	font-size: 28px;
 	outline: none;
-}	 */
+}	
 
 .btn1{
 	float: right;
 }
 .zone_position{
-	margin-top: 350px;
+	margin-top: 220px;
 }
 #titletext{
 	margin-top: 10px;
-	width: 45%;
+	width: 95%;
 }
-.dropzone .dz-preview .dz-image {
-  width: 1200px;
-  height: 500px;
-  position: relative;
-	top: -500px;  
-	left: 100px;
-	border-radius: 10px;
-	text-align: center;
-}
-.dz-preview{
-	height: 0px;
-	position: relative;
-	top: -100px;
-	border-radius: 10px;
-}
-.dz-image{
-	text-align: center;
-	border-radius: 10px;
-	position: relative;
-	left: -150px;
-}
-#demo-upload{
-	height: 800px;
-	border-radius: 10px;
-	text-align: center;
-}
-.dz-details{
-	margin-top: -150px;
-}
-
-img{vertical-align:middle;
-	text-align: center;
-}
-
 /*# sourceMappingURL=ss.css.map */
 </style>
 
-<script>
-/* 여기 빼버리면 ajax 작동 안함! */
-Dropzone.autoDiscover = false;
-/* Dropzone.options.myAwesomeDropzone = {
-		  thumbnailWidth: 550,
-		  thumbnailHeight: 550,
-		} */
+<script type="text/javascript">
+	interface Props {
+	  contentImageState: {
+	    contentImage: File | null;
+	    setContentImage: Function;
+	  };
+	}
+
+	function ImageInputBlock({ contentImageState }: Props) {
+	  const [isDragging, setIsDragging] = useState(false);
+
+	  // 부모 컴포넌트에서 내려준 contentImage state
+	  const { contentImage, setContentImage } = contentImageState;
+
+	  const onDragEnter = (e: React.DragEvent<HTMLDivElement>) => {
+	    e.preventDefault();
+	    e.stopPropagation();
+	    setIsDragging(true);
+	  };
+	  const onDragLeave = (e: React.DragEvent<HTMLDivElement>) => {
+	    e.preventDefault();
+	    e.stopPropagation();
+	    setIsDragging(false);
+	  };
+	  const onDragOver = (e: React.DragEvent<HTMLDivElement>) => {
+	    e.preventDefault();
+	    e.stopPropagation();
+	    if (e.dataTransfer.files) {
+	      setIsDragging(true);
+	    }
+	  };
+	  const onDrop = (e: React.DragEvent<HTMLDivElement>) => {
+	    e.preventDefault();
+	    e.stopPropagation();
+	    setContentImage(e.dataTransfer.files[0]);
+	    setIsDragging(false);
+	  };
+
+	  return (
+	      <DndBox
+	          onDragEnter={onDragEnter}
+	          onDragLeave={onDragLeave}
+	          onDragOver={onDragOver}
+	          onDrop={onDrop}
+
+			  // styled components props
+	          isDragging={isDragging}
+	      >
+	      </DndBox>
+		);
+	}
 </script>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 <script type="text/javascript">
-	$(document).ready(function(){
-		console.log("작동한다!");
-		var myDropzone = new Dropzone(".dropzone", {
-		    /* url: 'http://localhost:8080/', */
-		    method: "post",
-		    autoProcessQueue: false, //자동으로 보내기 방지
-		    /* 나중에 myDropzone.processQueue(); 으로 업로드 */
-		    paramName: 'files',
-		    parallelUploads: 99,
-		    maxFilesize: 10, // MB
-		    uploadMultiple: false,
-		    maxFiles: 1,
-		    createImageThumbnails: true,
-		    thumbnailWidth:1500, // 미리보기 이미지의 가로 크기
-		    thumbnailHeight:500, // 세로 크기
-		    acceptedFiles: ".jpeg,.jpg,.png,.gif",
-		    thumbnailMethod: "contain",
-		    ignoreHiddenFiles: true,
-		    autoQueue: false,
-			 init: function() {
-                this.on("addedfile", function(file) {
-                    // 파일이 추가될 때의 동작
-            		console.log("작동2한다!");
-                    // 비활성화
-                    alert("사진 첨부는 1장만 가능합니다.");
-            		 /* $(".dropzone").attr("disabled", true); 
-            		 clickable: false;  */
-                });
-		    }, 
-		    
-/* 		    headers: {
-		        "Authorization": 'Bearer ' + token //localstorage에 저장된 token
-		    }, */
-		});
-	});
-</script>
-<script type="text/javascript">
-
-
-
-
-
-
-/* var dropzoneFile=new Dropzone("#dropzone-file",{
-    url:'url 설정',
-    maxFilesize:5000000000,
-    parallelUploads:5,    //한번에 올릴 파일 수
-    addRemoveLinks:  true, //업로드 후 삭제 버튼 
-    timeout:300000,	//커넥션 타임아웃 설정 -> 데이터가 클 경우 꼭 넉넉히 설정해주자
-    maxFiles:1,       //업로드 할 최대 파일 수
-    paramName:"file", //파라미터로 넘길 변수명 default는 file
-    autoQueue:true,	//드래그 드랍 후 바로 서버로 전송
-    createImageThumbnails:true,	//파일 업로드 썸네일 생성
-    uploadMultiple:true,	//멀티파일 업로드
-    dictRemoveFile:'삭제',	//삭제 버튼의 텍스트 설정
-    dictDefaultMessage:'PREVIEW', //미리보기 텍스트 설정
-    accept:function(file,done){
-        //validation을 여기서 설정하면 된다.
-        //설정이 끝나고 꼭 done()함수를 호출해야 서버로 전송한다. 
-        done(); 
-    },
-    init:function(){
-        this.on('success',function(file,responseText){
-            var obj = JSON.parse(responseText);
-            //서버로 파일이 전송되면 실행되는 함수이다.
-            //obj 객체를 확인해보면 서버에 전송된 후 response 값을 확인할 수 있다.
-        })
+const onContentImageChange = (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files) {
+      setContentImage(e.target.files[0]);
     }
-    				     
-});
- */
-/*  Dropzone.options.imageUpload = {
+  };
 
-	    maxFilesize:10,
-
-	    maxFiles: 1,
-
-	    
-
-	}; */
- 
-
-		
-		
-	/* 	 var currentFile = null; 
-		  Dropzone.autoDiscover = false;
-		        $('.dropzoneForm').dropzone({
-		            //parameter name value
-		            paramName: "files",
-		            autoProcessQueue: false,
-		            maxFiles: 1,         
-		            addRemoveLinks: true,
-		            dictResponseError: 'Server not Configured',
-		            acceptedFiles: ".png,.jpg,.gif,.bmp,.jpeg",// use this to restrict file type
-		            init: function () {
-		                var submitButton = document.querySelector("#SaveImage");
-		                var dropzoneForm = this;
-
-		                submitButton.addEventListener("click", function () {
-		                    dropzoneForm.processQueue();
-		                });
-		                this.on("addedfile", function (file) {
-		                    if (currentFile) {
-		                        currentFile.previewElement = null;
-		                        this.removeFile(currentFile);
-		                    }
-		                    currentFile = file;
-		                });
-		                this.on("success",
-		                    function (file) {
-		                        var res = eval('(' + file.xhr.responseText + ')');
-		                        dropzoneForm.removeFile(file);
-		                        $("#modalUploadPic").modal('hide');
-		                        window.location = res.newurl;
-		                    });
-		            }
-		        }); */
+  return (
+  		<input
+            type="file"
+            accept=".png,.jpg,.jpeg"
+            id="input-file"
+            style={{ display: "none" }}
+  			aria-hidden
+            onChange={onContentImageChange}
+          />
+         <DndBox
+            onDragEnter={onDragEnter}
+            onDragLeave={onDragLeave}
+            onDragOver={onDragOver}
+            onDrop={onDrop}
+            isDragging={isDragging}
+          >
+             <label htmlFor="input-file" role="button">
+                이미지 가져오기
+             </label>
+         </DndBox>
+  )
 </script>
- 
 
+<script type="text/javascript">
+const [contentImageUrl, setContentImageUrl] = useState<string | null>(null);
+
+const readImage = (image: File) => {
+  const reader = new FileReader();
+  reader.onload = function (e) {
+    setContentImageUrl(String(e.target?.result));
+  };
+  reader.readAsDataURL(image);
+};
+
+const onDrop = (e: React.DragEvent<HTMLDivElement>) => {
+	// ...
+  readImage(e.dataTransfer.files[0]);
+};
+
+const onContentImageChange = (e: ChangeEvent<HTMLInputElement>) => {
+  if (e.target.files) {
+    setContentImage(e.target.files[0]);
+    readImage(e.target.files[0]);
+  }
+};
+
+return (
+ 	 <ImageBox>
+      {contentImageUrl && (
+          <img
+            alt="문제 이미지 미리보기"
+            src={contentImageUrl}
+            onClick={() => onModalStateChange({ state: true })}
+          />
+      )}
+   </ImageBox>
+)
+</script>
 
 
         
@@ -310,7 +257,12 @@ Dropzone.autoDiscover = false;
 						</div>
 						<!-- 라디오 버튼 끝 -->
 						<!-- 드레그앤드랍 부분 시작-->
-					<form action="https://httpbin.org/post" class="dropzone needsclick dropoption"
+						
+						
+						
+						
+						
+					<!-- <form action="https://httpbin.org/post" class="dropzone needsclick dropoption"
 						id="demo-upload">
 						<div id="titletextbox">
 										<label style="size: 35px;">제목 :  </label>
@@ -322,11 +274,10 @@ Dropzone.autoDiscover = false;
 								<span class="text"> <img
 									src="http://www.freeiconspng.com/uploads/------------------------------iconpngm--22.png"
 									alt="Camera" /> 여기를 클릭하거나 업로드할 파일을 끌어다 놓으세요.
-								</span> 
-<!-- 								<span class="plus">+</span> -->
+								</span> <span class="plus">+</span>
 							</div>
 						</div>
-					</form>
+					</form> -->
 						<!-- 드레그앤드랍 부분 끝-->
 					<button type="button" class="btn1 btn-secondary btn-lg">취소</button>
 						<button type="button" class="btn1 btn-success btn-lg">등록</button>

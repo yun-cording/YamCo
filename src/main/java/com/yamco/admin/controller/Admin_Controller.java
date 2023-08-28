@@ -41,9 +41,12 @@ public class Admin_Controller {
 	public ModelAndView simbatest() {
 		return new ModelAndView("user/recipe/search_list");
 	}
-    // 상우 테스트
-	@RequestMapping("/admin_test_sw.do")
+	@RequestMapping("/go_admin_ppl.do")
 	public ModelAndView admin_test_sw() {
-		return new ModelAndView("admin/admin_test_sw");
+		return new ModelAndView("admin/admin_ppl");
+	}
+	@RequestMapping("/go_admin_register.do")
+	public ModelAndView go_admin_register() {
+		return new ModelAndView("admin//admin_register");
 	}
 }

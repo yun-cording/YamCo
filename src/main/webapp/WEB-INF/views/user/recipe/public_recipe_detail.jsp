@@ -15,7 +15,10 @@
 
 <link rel="icon" type="image/x-icon"
 	href="resources/images/icon_tomato.png">
-<style type="text/css">
+<!-- 	<link rel="stylesheet"
+	href="https://cdn.korzh.com/metroui/v4/css/metro-all.min.css">
+<link rel="stylesheet" href="resources/css/user/award.css?after">
+ --><style type="text/css">
 * {
   padding: 0;
   margin: 0;
@@ -35,24 +38,21 @@
     background-color: yellow;
     float: left;
     width: 15.625%;
-    height: 8000px;
 }
 
 #sidebar-left {
     background-color: yellow;
     width: 15.625%;
     float: left;
-    height: 8000px;
 
 }
 
 #content {
     width: 68.75%;
-    height: 100%;
     float: left;
     margin-top: 0px;
     background: white;
-    height: 8000px;
+    /* height: 8000px; */
 }
 
 
@@ -220,18 +220,7 @@
 }
 
 
-@import url(//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css);
-       .rate { display: inline-block;border: 0;margin-right: 15px;}
-.rate > input {display: none;}
-.rate > label {float: right;color: #ddd}
-.rate > label:before {display: inline-block;font-size: 1rem;padding: .3rem .2rem;margin: 0;cursor: pointer;font-family: FontAwesome;content: "\f005 ";}
-.rate .half:before {content: "\f089 "; position: absolute;padding-right: 0;}
-.rate input:checked ~ label, 
-.rate label:hover,.rate label:hover ~ label { color: #f73c32 !important;  } 
-.rate input:checked + .rate label:hover,
-.rate input input:checked ~ label:hover,
-.rate input:checked ~ .rate label:hover ~ label,  
-.rate label:hover ~ input:checked ~ label { color: #f73c32 !important;  }
+
 
 .star-ratings {
   color: #aaa9a9; 
@@ -274,48 +263,57 @@
 }
 
 
-.rate{background: url(https://aldo814.github.io/jobcloud/html/images/user/star_bg02.png) no-repeat;width: 121px;height: 20px;position: relative;}
-.rate span{position: absolute;background: url(https://aldo814.github.io/jobcloud/html/images/user/star02.png);width: auto;height: 20px;}
 
-
-
-#myform input[type=radio]:checked ~ label{
-    text-shadow: 0 0 0 #a00; /* 마우스 클릭 체크 */
+/* 별점 */
+.magnify{
+	transform: scale(2);
 }
 
-#myform fieldset legend{
-    text-align: left;
+.rate {
+    float: left;
+    height: 46px;
+    padding: 0 10px;
+}
+.rate:not(:checked) > input {
+    position:absolute;
+    top:-9999px;
+}
+.rate:not(:checked) > label {
+    float:right;
+    width:1em;
+    overflow:hidden;
+    white-space:nowrap;
+    cursor:pointer;
+    font-size:30px;
+    color:#ccc;
+}
+.rate:not(:checked) > label:before {
+    content: '★ ';
+}
+.rate > input:checked ~ label {
+    color: #ffc700;    
+}
+.rate:not(:checked) > label:hover,
+.rate:not(:checked) > label:hover ~ label {
+    color: #deb217;  
+}
+.rate > input:checked + label:hover,
+.rate > input:checked + label:hover ~ label,
+.rate > input:checked ~ label:hover,
+.rate > input:checked ~ label:hover ~ label,
+.rate > label:hover ~ input:checked ~ label {
+    color: #c59b08;
 }
 
-#myform fieldset{
-/* 하위 별점 이미지들이 있는 영역만 자리를 차지함.*/
-    /* display: inline-block; */ 
-    direction: rtl; /* 이모지 순서 반전 */
-    border: 0; /* 필드셋 테두리 제거 */
-}
-
-#myform label:hover{
-    text-shadow: 0 0 0 #a00; /* 마우스 호버 */
-}
-#myform label:hover ~ label{
-    text-shadow: 0 0 0 #a00; /* 마우스 호버 뒤에오는 이모지들 */
-}
-
-#myform fieldset{
-    display: inline-block; /* 하위 별점 이미지들이 있는 영역만 자리를 차지함.*/
-    border: 0; /* 필드셋 테두리 제거 */
-}
-/* 라디오박스 감춤 */
-#myform input[type=radio]{
-    display: none; 
-}
-#myform label{
-    font-size: 40px; /* 이모지 크기 */
-    color: transparent; /* 기존 이모지 컬러 제거 */
-    text-shadow: 0 0 0 #f0f0f0; /* 새 이모지 색상 부여 */
-}
+/* Modified from: https://github.com/mukulkant/Star-rating-using-pure-css */
 
 </style>
+
+<!-- 별점 사용 위한 script -->
+<!-- <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+<script src="https://cdn.korzh.com/metroui/v4/js/metro.min.js"></script>
+<script src="resources/js/user/award.js"></script> -->
+
 </head>
 <body>
 	<div id="mydiv">
@@ -469,15 +467,15 @@
 				<div style="margin-left:75px; width: 310px; height: 80px; text-align: center;  float: left; font-size: 24px;"><strong>요리이름1</strong></div>
 				</p>
 
-				<div class="horizontal-line_gray" style="margin-top: 10px; position: relative; top: 80px;"></div>
+				<div class="horizontal-line_gray" style="margin-top: 10px; position: relative; top: 70px;"></div>
 				<!-- 댓글 및 리뷰 글자 -->
-				<div style="width: 300px; height: 150px; margin-top: 100px;">
+				<div style="width: 300px; height: 150px; ">
 					<!-- <button class="round_btn"  id="content_review_btn" style="background-color: tomato; margin-left: 30px; margin-top: 130px; color:white; width: 290px; height: 85px; font-size: 32px; border-radius: 15px;"></button> -->
-					<span style="width: 300px; height: 150px; font-size: 32px; color: tomato; position:relative; margin-left: 80px;"><strong>댓글 및 리뷰</strong></span>
+					<span style="width: 300px; height: 150px; font-size: 32px; color: tomato; position:relative; margin-left: 80px; top: 70px;"><strong>댓글 및 리뷰</strong></span>
 				</div>
 					
 				<!-- 별점 -->
-				<div style="margin-left: 25px; margin-top: -55px;">
+				<!-- <div style="margin-left: 25px; margin-top: -55px;">
 					<form name="myform" id="myform" method="post" action="./save">
 					    <fieldset>
 					        <legend></legend>
@@ -488,7 +486,24 @@
 					        <input type="radio" name="rating" value="1" id="rate5"><label for="rate5">⭐</label>
 					    </fieldset>
 					</form>
-				</div>
+				</div> -->
+				
+				<!-- 긁어온 별점 -->
+				 <div class="rate magnify" id="magnify" style="margin-top: 70px; margin-left: 80px;">
+				    <input type="radio" id="star5" name="rate" value="5" />
+				    <label for="star5" title="text">5 stars</label>
+				    <input type="radio" id="star4" name="rate" value="4" />
+				    <label for="star4" title="text">4 stars</label>
+				    <input type="radio" id="star3" name="rate" value="3" />
+				    <label for="star3" title="text">3 stars</label>
+				    <input type="radio" id="star2" name="rate" value="2" />
+				    <label for="star2" title="text">2 stars</label>
+				    <input type="radio" id="star1" name="rate" value="1" />
+				    <label for="star1" title="text">1 star</label>
+				  </div>
+				
+				
+				<!-- 댓글 입력 -->
 				<div>
 					<form style="margin-top: -20px;" action="/action_page.php">
 					  <textarea id="content-textarea" placeholder="댓글을 입력하세요." style="height: 180px;"></textarea>
