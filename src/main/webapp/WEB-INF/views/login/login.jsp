@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -158,6 +159,8 @@ function restorePlaceholder(element, defaultPlaceholder) {
 </script>
 </head>
 <body>
+<c:set var="clientId" value="YvbCvm24gWq60XdG4a8G" />
+<c:set var="redirectURI" value="http://localhost:8090/naver_login.do" />
 	<div id="content"></div>
 	<div id="top_color">
 		<a><img class="center"
@@ -178,14 +181,14 @@ function restorePlaceholder(element, defaultPlaceholder) {
 	<button class="color login_bt">로그인</button>
 	<a id="find_pw" href="/find_pw.go">비밀번호 찾기</a>
 	<div class="social">
-		<a><img class="social_size"	src="/resources/images/naver_login.png"></a> 
-		<a><img	class="social_size margin" src="/resources/images/kakao_login.png"></a>
-		<form style="width: 180px; height: 50px; border-radius: 5px;">
+			<a href="https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${clientId }&redirect_uri=${redirectURI}&state=1">
+			<img class="social_size" src="/resources/images/naver_login.png"></a>
+			<a><img class="social_size margin" src="/resources/images/kakao_login.png"></a>
+			<a><img style="border: 1px solid lightgray" class="social_size margin" src="/resources/images/google_login.png"></a>
 		<div id="g_id_onload" data-client_id="931730291564-rocrnk3v1pph5j9q775qtinavfktiab9.apps.googleusercontent.com" data-callback="handleCredentialResponse" >
-</div>
-<div class="g_id_signin" style="width: 180px; height: 50px; border-radius: 5px;"></div>
+		</div>
+	<div class="g_id_signin" style="width: 180px; height: 50px; border-radius: 5px;"></div>
 <!-- <img class="g_id_signin social_size margin"	src="/resources/images/google_login.png"> -->
-		</form>
 		<script type="text/javascript">
 		function handleCredentialResponse(response) {
 		    // decodeJwtResponse() is a custom function defined by you

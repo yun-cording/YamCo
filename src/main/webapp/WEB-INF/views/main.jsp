@@ -28,7 +28,6 @@
 
 
 #sidebar-left {
-	background-color: yellow;
 	width: 15.625%;
 	float: left;
 	
@@ -41,7 +40,6 @@
 }
 
  #sidebar-right {
-	background-color: yellow;
 	float: left;
 	width: 15.625%;
 	height: 100%;
@@ -267,7 +265,9 @@ color: #21730B;
 <div id="main">
 		
 		<jsp:include page="header.jsp" />
-		<aside id="sidebar-left">왼쪽</aside>
+		<aside id="sidebar-left">
+			<jsp:include page="recentlist.jsp" />
+		</aside>
 		<div id="content">
 		<div class="clear">
 		
@@ -372,7 +372,9 @@ color: #21730B;
 		</div>	
 			
 		</div>
-		<aside id="sidebar-right">오른</aside>
+		<aside id="sidebar-right">
+			<jsp:include page="bestlist.jsp" />
+			</aside>
 		<div id="footer"><jsp:include page="footer.jsp" /></div>
 		</div>
 </body>
