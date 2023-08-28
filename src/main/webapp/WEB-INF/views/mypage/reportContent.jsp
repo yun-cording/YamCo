@@ -289,7 +289,9 @@ button{
 <div id="mydiv">
 <jsp:include page="../header.jsp" />
 		<div id="test">
-		<aside id="sidebar-left">왼쪽</aside>
+		<aside id="sidebar-left">
+			<jsp:include page="../recentlist.jsp" />
+		</aside>
 		<div id="content">
 		<div id="category">
 				<ul>
@@ -357,7 +359,9 @@ button{
 			</div>
 			
 		 </div>
-		<aside id="sidebar-right">오른</aside>
+		<aside id="sidebar-right">
+			<jsp:include page="../bestlist.jsp" />
+		</aside>
 		</div>
 <div id="footer"><jsp:include page="../footer.jsp" /></div>
 		</div>

@@ -16,10 +16,12 @@
 	<typeAliases> <!-- (별칭) vo위치를 별칭으로 지정해주는 역활
 	=> com.ict.model.vo.membersVO 를 mvo 라는 별칭으로 지정해서 불러줌 
 	<typeAlias type="com.ict.model.vo.membersVO" alias="mvo" /> -->
+	<typeAlias type="com.yamco.user.model.vo.Member_VO" alias="mvo" />
 	</typeAliases>
 	
 	<mappers><!-- 매퍼 위치를 쓰기 -->
 		<!-- <mapper resource="mappers/members-mapper.xml" /> -->
+		<mapper resource="mappers/member-mapper.xml" />
 			
 	</mappers>
 	
