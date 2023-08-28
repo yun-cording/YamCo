@@ -10,4 +10,6 @@ public interface Member_Service {
 	
 	// 멤버 전체보기
 	public List<Member_VO> getMemberList();
+	
+	
 }

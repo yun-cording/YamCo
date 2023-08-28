@@ -29,7 +29,7 @@ public class PublicLoginController {
 		int result = 1;
 		String m_id2 = mvo.getM_id(); 
 		if(m_id.equals(m_id2)) {
-			result = 
+		
 		}
 		mv.addObject("result", result);
 		return mv;
