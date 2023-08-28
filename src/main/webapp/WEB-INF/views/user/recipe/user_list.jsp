@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 <title>냠냠레시피</title>
 <link rel="icon" type="image/x-icon"	href="resources/images/icon_tomato.png">
-<link rel="stylesheet" href="resources/css/user/recipe/public_list.css" />
+<link rel="stylesheet" href="resources/css/user/recipe/user_list.css" />
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script src="resources/js/user/sidebar.js"></script>
 </head>
@@ -56,12 +56,12 @@
 			<div class="flexContainer">
 				<c:forEach begin="1" end="12">
 					<div class="recipe_one">
-						<p>
+						<p><a href="/public_recipe_detail.go">
 							<img
 								src="https://mediahub.seoul.go.kr/wp-content/uploads/2020/10/d13ea4a756099add8375e6c795b827ab.jpg"
-								class="recipe_thumbnail">
+								class="recipe_thumbnail"></a>
 						</p>
-						<p>공공레시피명</p>
+						<p>사용자 레시피명</p>
 						<div class="writer">
 							<img
 								src="https://png.pngtree.com/png-vector/20191115/ourmid/pngtree-beautiful-profile-line-vector-icon-png-image_1990469.jpg"

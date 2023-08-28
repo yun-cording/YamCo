@@ -36,9 +36,10 @@ public class Admin_Controller {
 	public ModelAndView go_tableExam() {
 		return new ModelAndView("admin/table");
 	}
+
     @RequestMapping("/simbatest")
 	public ModelAndView simbatest() {
-		return new ModelAndView("admin/admin_index");
+		return new ModelAndView("user/recipe/search_list");
 	}
     // 상우 테스트
 	@RequestMapping("/admin_test_sw.do")

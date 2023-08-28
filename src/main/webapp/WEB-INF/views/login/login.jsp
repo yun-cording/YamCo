@@ -155,14 +155,15 @@ function restorePlaceholder(element, defaultPlaceholder) {
 		<div><input class="border" type="text" placeholder="아이디" onfocus="clearPlaceholder(this)" onblur="restorePlaceholder(this, '아이디')"></div>
 		<div><input class="border" type="text" placeholder="비밀번호" onfocus="clearPlaceholder(this)" onblur="restorePlaceholder(this, '비밀번호')"></div>
 		<button class="color login_bt">로그인</button>
-		<a id="find_pw">비밀번호 찾기</a>
+		<a id="find_pw" href="/find_pw.go">비밀번호 찾기</a>
 		<div class="social">
 			<a><img class="social_size" src="/resources/images/naver_login.png"></a>
 			<a><img class="social_size margin" src="/resources/images/kakao_login.png"></a>
 			<a><img class="social_size margin" src="/resources/images/google_login.png"></a>
 		</div>
-		<button class="color join">회원가입</button>
-	</div>
+		<div>
+			<div class="color join"><a href="/member_join.go">회원가입</a></div>
+		</div>
 
 </body>
 </html>

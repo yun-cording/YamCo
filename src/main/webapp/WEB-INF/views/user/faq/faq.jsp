@@ -127,77 +127,77 @@
 		var i=0;
 		$("#a_1").on("click", function() {
 			if(i++%2 == 0){
-				$(".a1").fadeOut(400);					
+				$("#a1").fadeOut(400);					
 				$("#a_1").attr("src","/resources/images/arrow_down.png");
 			}else{
-				$(".a1").fadeIn({direction : "top"});
-				$('.a1').attr("style", "display : flex;");
+				$("#a1").fadeIn({direction : "top"});
+				$('#a1').attr("style", "display : flex;");
 				$("#a_1").attr("src","/resources/images/arrow_up.png");
 			}			
 		});
 		
 		$("#a_2").on("click", function() {
 			if(i++%2 == 0){
-				$(".a2").fadeOut(400);			
+				$("#a2").fadeOut(400);			
 				$("#a_2").attr("src","/resources/images/arrow_down.png");
 			}else{
-				$(".a2").fadeIn({direction : "top"});	
-				$('.a2').attr("style", "display : flex;");
+				$("#a2").fadeIn({direction : "top"});	
+				$('#a2').attr("style", "display : flex;");
 				$("#a_2").attr("src","/resources/images/arrow_up.png");
 			}			
 		});
 		
 		$("#a_3").on("click", function() {
 			if(i++%2 == 0){
-				$(".a3").fadeOut(400);					
+				$("#a3").fadeOut(400);					
 				$("#a_3").attr("src","/resources/images/arrow_down.png");
 			}else{
-				$(".a3").fadeIn({direction : "top"});	
-				$('.a3').attr("style", "display : flex;");
+				$("#a3").fadeIn({direction : "top"});	
+				$('#a3').attr("style", "display : flex;");
 				$("#a_3").attr("src","/resources/images/arrow_up.png");
 			}			
 		});
 		
 		$("#a_4").on("click", function() {
 			if(i++%2 == 0){
-				$(".a4").fadeOut(400);					
+				$("#a4").fadeOut(400);					
 				$("#a_4").attr("src","/resources/images/arrow_down.png");
 			}else{
-				$(".a4").fadeIn({direction : "top"});	
-				$('.a4').attr("style", "display : flex;");
+				$("#a4").fadeIn({direction : "top"});	
+				$('#a4').attr("style", "display : flex;");
 				$("#a_4").attr("src","/resources/images/arrow_up.png");
 			}			
 		});
 		
 		$("#a_5").on("click", function() {
 			if(i++%2 == 0){
-				$(".a5").fadeOut(400);				
+				$("#a5").fadeOut(400);				
 				$("#a_5").attr("src","/resources/images/arrow_down.png");
 			}else{
-				$(".a5").fadeIn({direction : "top"});	
-				$('.a5').attr("style", "display : flex;");
+				$("#a5").fadeIn({direction : "top"});	
+				$('#a5').attr("style", "display : flex;");
 				$("#a_5").attr("src","/resources/images/arrow_up.png");
 			}			
 		});
 		
 		$("#a_6").on("click", function() {
 			if(i++%2 == 0){
-				$(".a6").fadeOut(400);					
+				$("#a6").fadeOut(400);					
 				$("#a_6").attr("src","/resources/images/arrow_down.png");
 			}else{
-				$(".a6").fadeIn({direction : "top"});	
-				$('.a6').attr("style", "display : flex;");
+				$("#a6").fadeIn({direction : "top"});	
+				$('#a6').attr("style", "display : flex;");
 				$("#a_6").attr("src","/resources/images/arrow_up.png");
 			}			
 		});
 		
 		$("#a_7").on("click", function() {
 			if(i++%2 == 0){
-				$(".a7").fadeOut(400);					
+				$("#a7").fadeOut(400);					
 				$("#a_7").attr("src","/resources/images/arrow_down.png");
 			}else{
-				$(".a7").fadeIn({direction : "top"});	
-				$('.a7').attr("style", "display : flex;");
+				$("#a7").fadeIn({direction : "top"});	
+				$('#a7').attr("style", "display : flex;");
 				$("#a_7").attr("src","/resources/images/arrow_up.png");
 			}			
 		});
@@ -208,7 +208,8 @@
 	<div id="mydiv">		
 		<jsp:include page="../../header.jsp" />
 		<div id="test">
-		<aside id="sidebar-left">왼쪽</aside>
+		<aside id="sidebar-left"><jsp:include page="../../recentlist.jsp" />
+		</aside>
 		<div id="content">
 			<div class="title">
 				<h2>자주묻는 질문</h2>
@@ -273,7 +274,7 @@
 				</span>
 			</div>
 		 </div>
-		<aside id="sidebar-right">오른</aside>
+		<aside id="sidebar-right"><jsp:include page="../../bestlist.jsp" /></aside>
 		</div>
 <div id="footer"><jsp:include page="../../footer.jsp" /></div>
 		</div>

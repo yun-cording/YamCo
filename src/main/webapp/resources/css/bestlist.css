@@ -1,8 +1,15 @@
 @charset "UTF-8";
+@font-face {
+	font-family: 'Yeongdeok_TTF';
+	src: url('/resources/fonts/Yeongdeok Blueroad.ttf') format('truetype');
+}
 * {
 	padding: 0;
 	margin: 0;
 	box-sizing: border-box;
+}
+body{
+	line-height: 1.2;
 }
 .bestlist{
 	font-family: 'Yeongdeok_TTF';
@@ -19,6 +26,7 @@
 }
 
 #bestlist_label span {
+	
 	display: inline-block;
 	height: 30px;
 	border-bottom: 4px solid tomato;
@@ -32,6 +40,7 @@
 }
 
 .bestlist_subject span:nth-child(1) {
+	text-align:center;
 	display: inline-block;
 	width: 10%;
 }

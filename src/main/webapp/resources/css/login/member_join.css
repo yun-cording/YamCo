@@ -1,0 +1,148 @@
+@charset "UTF-8";
+a{
+	text-decoration: none;
+}
+#mydiv {
+	position: relative; 
+  width : 1920px;
+  left : 0px; 
+  top : 0px;
+	margin: auto;
+}
+
+.idline{
+	display:flex;
+	width: 660px;
+	height: 5px;
+	flex-shrink: 0;
+	background:#FF6347;
+	margin: auto;
+	justify-content: row;
+}
+
+.textfiled{
+	display:flex;
+	width: 660px;
+	height: 50px;
+	margin: auto;
+	margin-top: 60px;
+	font-size: 24px;
+	font-family: 'Yeongdeok_TTF';
+}
+
+.buttons{
+	display:inline-block;
+	width: 176px;
+	height: 50px;
+	flex-shrink: 0;
+	justify-content: row;
+	border-radius: 40px;
+	margin: auto;
+	border: none;
+}
+
+.buttons > span{
+	text-align: center;
+	line-height: 50px;
+	height: 50px;
+	width: 176px;
+	font-family: 'Yeongdeok_TTF';
+	font-size: 24px;
+	font-weight: bold;
+	color: white;
+}
+
+@font-face {
+    font-family: 'Yeongdeok_TTF';
+    src: url('../../resources/fonts/Yeongdeok Blueroad.ttf') format('truetype');
+}
+
+#nicknamechk{
+
+
+}
+
+.textchk{
+	display:flex;
+	width: 660px;
+	font-size: 24px;
+	font-weight: bold;
+	justify-content: row;
+	margin: auto;
+}
+
+input[type="text"]{
+	border:none;
+	/* border-radius: 20px; */
+	font-size: 24px;
+	outline: none;
+}
+
+.middleform{
+	display:flex;
+	flex-shrink: 0;
+	margin: auto;
+	width: 660px;
+	justify-content: justify-content;
+	align-items: center;
+	flex-wrap: wrap;
+	margin-top: 60px;
+}
+
+#birthline{
+	background:#FF6347;
+	height: 5px;
+	width: 660px;
+	margin: auto;
+}
+
+.radiobox{
+	height: 50px;
+	line-height: 50px;
+	width: 20px;
+}
+#chkbox{
+	height: 50px;
+	width: 24px;
+	margin-top: 15px;
+}
+
+#chkbox2{
+	height: 50px;
+	width: 24px;
+}
+
+.chktext{
+	height: 50px;
+	line-height: 50px;
+	font-family: 'Yeongdeok_TTF';
+	font-size: 20px;
+}
+
+.middletext{ 
+	width: 520px;
+	height: 40px;
+	font-size: 16px;
+	font-family: 'Yeongdeok_TTF';
+}
+
+.doublechk{
+	width: 96px;
+	height: 30px;
+	flex-shrink: 0;
+	justify-content: row;
+	border-radius: 40px;
+	background:#FF6347;
+	margin: auto;
+	border: none;
+}
+
+.doublechk > span{
+	text-align: center;
+	line-height: 30px;
+	height: 30px;
+	width: 96px;
+	font-family: 'Yeongdeok_TTF';
+	font-size: 18px;
+	color: white;
+}

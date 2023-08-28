@@ -116,4 +116,8 @@ public class User_Controller {
 	public ModelAndView go_searchList() {
 		return new ModelAndView("user/recipe/search_list");
 	}
+	@RequestMapping("/go_drag.do")
+	public ModelAndView go_drag() {
+		return new ModelAndView("admin/draganddrop");
+	}
 }

@@ -38,7 +38,6 @@
 	clear: left;
 }
 .tab-on{
-	border-radius: 30px;
 	font-family: 'Yeongdeok_TTF';
 	line-height: 200%;
 	border: 3px solid tomato;
@@ -47,11 +46,14 @@
 	text-align: center;
 }
 .tab-off{
-	border-radius: 30px;
 	font-family: 'Yeongdeok_TTF';
 	line-height: 200%;
 	border: 3px solid tomato;
 	text-align: center;
+}
+.tab-off:hover{
+	background-color:tomato;
+	color:white;
 }
 .search_subject{
 	font-weight: bold;
