@@ -128,6 +128,9 @@ function go_admin_contentchk() {
 function go_tableExam() {
 		location.href = "/go_tableExam.do";
 }
+function go_drag() {
+		location.href = "/go_drag.do";
+}
 
 
 </script>
@@ -181,10 +184,9 @@ function go_tableExam() {
 	<button onclick="go_admin_notice()">go_admin_notice</button>
 	<button onclick="go_admin_faq()">go_admin_faq</button>
 	<button onclick="go_admin_contentchk()">go_admin_contentchk</button>
-
   <button onclick="go_tableExam()">go_tableExam</button>
-	
 	<button onclick="location.href='/simbatest'">심바테스트중</button>	
+	<button onclick="go_drag()">드레그앤드랍테스트</button>	
 	
 </body>
 </html>

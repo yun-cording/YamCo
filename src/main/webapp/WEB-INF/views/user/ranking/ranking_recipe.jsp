@@ -59,7 +59,7 @@ function select_month() {
 				<dlv id="lsearch" onclick = "search()"><span id="searchtext" >검색어</span></dlv>
 				<div id="topline" >
 				</div>
-		        <div id="search_rankingtext" >검색어랭킹</div>
+		        <div id="search_rankingtext" >레시피랭킹</div>
 				
 				<div id="week" onclick="select_week()"><span id="weektext">주간</span></div>
 				<div id="month" onclick="select_month()"><span id="monthtext">월간</span></div>
