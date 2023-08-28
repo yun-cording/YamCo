@@ -7,293 +7,315 @@
 <title>header</title>
 <style type="text/css">
 /* Header_재훈(완성) */
-
-#header{
-position: relative;
-width: 1920px;
-height: 230px;
-background: #FFFFFF;
+ * {
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+	
 }
 
-
-#mainlogo{
-position: absolute;
-width: 326px;
-height: 90px;
-left: 391px;
-top: 30px;
+@font-face {
+    font-family: 'Yeongdeok_TTF';
+    src: url('../resources/fonts/Yeongdeok Blueroad.ttf') format('truetype');
 }
 
-#search_tf{
-box-sizing: border-box;
-
-position: absolute;
-width: 406px;
-height: 50px;
-left: 757px;
-top: 50px;
-
-border: 3px solid #FF6347;
-border-radius: 9px;
+  #header{
+  width: 1920px;
+  height: 230px;
+  background: #FFFFFF;
+  font-family: 'Yeongdeok_TTF';
+  }
+  .onediv{
+    width: 717px;
+    height: 150px;
+    float: left;
+  }
+  .twodiv{
+    width: 446px;
+    height: 150px;
+    float: left;
+  }
+  .threediv{
+    width: 58px;
+    height: 150px;
+    float: left;
+  }
+  .login{
+    width: 212px;
+    height: 150px;
+    float: left;
+  }
+.rcp_write{
+    width: 487px;
+    height: 150px;
+    float: left;
 }
-#search_tf:focus {
-  outline: none; /* 포커스시 나타나는 외곽선 제거 */
-  box-shadow: none; /* 포커스시 나타나는 그림자 효과 제거 */
+.menu_bar{
+    width: 1920px;
+    height: 80px;
+    float: left;
+    
 }
 
-#search_bt{
-position: absolute;
-width: 58px;
-height: 50px;
-left: 1163px;
-top: 50px;
+.menu{
+    width: 220px;
+    height: 50px;
+    background-color: tomato;
+    float: left;
+    color: #FFFFFF;
+    font-size: 20px;  
+    font-weight: bold;
+    text-align: center;
+    /*  부모 요소의 높이를 맞추게 되면 글자가 가운데로 감(line-height) */
+    line-height: 50px;
+    cursor: pointer;
 
-background: #FF6347;
-border-radius: 10px;
 }
-
-#search_icon{
-position: absolute;
-width: 50px;
-height: 50px;
-left: 1167px;
-top: 50px;
+.menu.active {
+    background-color: #21730B; /* 선택된 탭의 배경색을 변경  재훈그린*/
 }
-
-#login_bt{
-position: absolute;
-width: 100px;
-height: 50px;
-left: 1333px;
-top: 50px;
-background: tomato;
+.tab1{
+  margin-left: 300px;
   border-top-left-radius: 25px;
-    border-bottom-left-radius: 25px;
+  border-bottom-left-radius: 25px;
+}
+.tab6{
+  border-top-right-radius: 25px;
+  border-bottom-right-radius: 25px;
 }
 
-#login_white_circle{
-position: absolute;
-width: 40px;
-height: 40px;
-left: 1338px;
-top: 55px;
-
-border-radius: 20px;
-background: #FFFFFF;
+.mainlogo{
+    width: 326px;
+    height: 90px;
+    margin-top: 30px;
+    float: right;
 }
-
-#rcp_write{
-box-sizing: border-box;
-border-left: 1px solid white;
-position: absolute;
-width: 150px;
-height: 50px;
-left: 1433px;
-top: 50px;
-border-top-right-radius: 25px;
-border-bottom-right-radius: 25px;
-background: tomato;
-color: white ;
-font-weight: bold;
-font-size: 12px;
-padding-left: 10px;
-padding-top: 18px;
+.search_tf{
+    width: 406px;
+    height: 50px;
+    border: 3px solid tomato;
+    margin-top: 50px;
+    float: right;
+    border-radius: 10px;
+    font-size: 16px;
+  
 }
-
-#rcp_write_icon{
-position: absolute;
-width: 50px;
-height: 50px;
-left: 1510px;
-top: 50px;
+.search_tf:focus{ outline: none;}
+.search_bt{
+  width: 58px;
+  height: 50px;
+  margin-top: 50px;
+  background-color: tomato;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+}
+.search_icon{
+  width: 50px;
+  height: 50px;
+  position: relative;
+  top: -53.5px;
+  left: 4px;
+}
+.login_bt{
+  width: 150px;
+  height: 50px;
+  background-color: tomato;
+  border-top-left-radius: 25px;
+  border-bottom-left-radius: 25px;
+  margin-top: 50px;
+  float: right;
+  color: #FFFFFF;
+  font-size: 12px;
+  font-weight: bold;
+  position: relative;
+}
+.login_thumbnail{
+  width: 40px;
+  height: 40px;
+  border-radius: 100%;
+  background-color: white;
+  margin-top: 5px;
+  margin-left: 5px;
+  float: left;
+}
+.login_text{
+  float: left;
+  line-height: 50px;
+  margin-left: 20%;
+  
+}
+.rcp_write_bt{
+  width: 150px;
+  height: 50px;
+  background-color: tomato;
+  margin-top: 50px;
+  border-left: 1px solid white;
+  border-bottom-right-radius: 25px;
+  border-top-right-radius: 25px;
+}
+.rcp_write_text{
+  color: white;
+  font-size: 12px;
+  font-weight: bold;
+  float: left;
+  margin-left: 7px;
+  line-height: 50px;
+}
+.rcp_write_icon{
+  width: 50px;
+  height: 50px;
+  margin-left: 5px;
+  float: left;
+}
+.clear{
+  clear: both;
+}
+#user_Id{
+    display: none; 
+  position: absolute;
+  top: 18px;
+  color: white;
+  left: 60px;
+  width: 80px;
+  
 
 }
-
-#login_text{
-position: absolute;
-width: 42px;
-height: 18px;
-left: 1384px;
-top: 66px;
-
-color: white ;
-font-family: 'Inter';
-font-style: normal;
-font-weight: 700;
-font-size: 12px;
-line-height: 20px;
+a{
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+} 
+.popup{
+  width: 150px;
+  height: 46px;
+  border-radius: 8px;
+  background-color:  #21730B;
+  position: absolute;
+  top: 52px;
+  
 }
-
-/* Group 18237 */
-#menu_bar{
-position: absolute;
-width: 1320px;
-height: 50px;
-left: 300px;
-top: 150px;
-border-radius: 20px;
-background: tomato;
+#popup{
+  display: none;
 }
-
-
-/* 냠냠공식레시피 */
-#p_rcp{
-position: absolute;
-width: 180px;
-height: 40px;
-left: 331px;
-top: 155px;
-
-font-family: 'Inter';
-font-style: normal;
-font-weight: 700;
-font-size: 24px;
-line-height: 29px;
-display: flex;
-align-items: center;
-text-align: center;
-
-color: #FFFFFF;
+.pop_bt{
+  width: 71px;
+  height: 40px;
+  border: none;
+  float: left;
+  margin-top: 3px;
+  background-color: #FFFFFF;
+  color: #21730B ;
+  
 }
-
-
-/* 냠냠’s쉐프레시피 */
-#chef_rcp{
-position: absolute;
-width: 220px;
-height: 40px;
-left: 551px;
-top: 155px;
-
-font-family: 'Inter';
-font-style: normal;
-font-weight: 700;
-font-size: 24px;
-line-height: 29px;
-display: flex;
-align-items: center;
-text-align: center;
-
-color: #FFFFFF;
+.myPage{
+  margin-left: 3px;
+  border-top-left-radius: 8px ;
+  border-bottom-left-radius: 8px ;
 }
-
-
-/* 랭킹 */
-#rank{
-position: absolute;
-width: 60px;
-height: 29px;
-left: 839px;
-top: 161px;
-
-font-family: 'Inter';
-font-style: normal;
-font-weight: 700;
-font-size: 24px;
-line-height: 29px;
-display: flex;
-align-items: center;
-text-align: center;
-
-color: #FFFFFF;
+.logout{
+  margin-left: 3px;
+  border-top-right-radius: 8px ;
+  border-bottom-right-radius:  8px;
 }
-
-
-/* 냉장고를열어봐 */
-#open_ref{
-position: absolute;
-width: 200px;
-height: 29px;
-left: 1004px;
-top: 161px;
-
-font-family: 'Inter';
-font-style: normal;
-font-weight: 700;
-font-size: 24px;
-line-height: 29px;
-display: flex;
-align-items: center;
-text-align: center;
-
-color: #FFFFFF;
-}
-
-
-
-/* 명예의전당 */
-#grade{
-position: absolute;
-width: 155px;
-height: 29px;
-left: 1246px;
-top: 161px;
-
-font-family: 'Inter';
-font-style: normal;
-font-weight: 700;
-font-size: 24px;
-line-height: 29px;
-display: flex;
-align-items: center;
-text-align: center;
-
-color: #FFFFFF;
-}
-
-
-/* FAQ */
-#faq{
-position: absolute;
-width: 180px;
-height: 40px;
-left: 1497px;
-top: 154px;
-
-font-family: 'Inter';
-font-style: normal;
-font-weight: 700;
-font-size: 24px;
-line-height: 29px;
-display: flex;
-align-items: center;
-text-align: center;
-
-color: #FFFFFF;
-}
-
- #faq a {
-    color: white; /* FAQ 원래 색상인 흰색으로 변경 */
-  }
-
 </style>
-<script>
-  // 다른 링크를 클릭할 때 색상을 원래대로 되돌립니다.
-  function resetColor() {
-    document.querySelector("#faq a").style.color = originalColor;
-  }
-</script>
+
 </head>
 <body>
 	<form action="">
-	<div id="header">
-		<a href="/home.go"><img id="mainlogo" src ="/resources/images/logo.png"></a>
-		<input type="text" id="search_tf" name="search_tf" value="">
-		<div id="search_bt"></div>
-		<img id="search_icon" src ="/resources/images/search_icon_white.png">
-		<div id="login_bt"></div>
-		<div id="login_white_circle"></div>
-		<div id="rcp_write"><a href="/user_recipe_write.go">레시피 작성</a></div>
-		<img id="rcp_write_icon" src ="/resources/images/secret_recipe_icon.png">
-		<span id="login_text"><a href="/login.go">로그인</a></span>
-		<div id="menu_bar"></div>
-		<span id="p_rcp"><a href="/public_list.go">냠냠공식레시피</a></span>
-		<span id="chef_rcp"><a href="/user_list.go">냠냠's쉐프레시피</a></span>
-		<span id="rank"><a href="/ranking_recipe.go">랭킹</a></span>
-		<span id="open_ref"><a href="/plz.go">냉장고를열어봐</a></span>
-		<span id="grade"><a href="/award.go">명예의전당</a></span>
-		<span id="faq"><a href="/faq.go">FAQ</a></span>
-	</div>
-	</form>	
+	<div id="header" class="clear">
+		<div class="onediv">
+           <a href="/main.go"><img class="mainlogo" src ="/resources/images/logo.png"></a>
+        </div>
+		<div class="twodiv">
+           <input type="text" class="search_tf" name="search_tf" value="" />
+        </div>
+        <div class="threediv">
+            <button class="search_bt"></button>
+            <img class="search_icon" src ="/resources/images/search_icon_white.png">
+        </div>
+        
+        <div class="login">
+                <div class="login_bt" onclick="togglePop()">
+                  <a id="login_link" href="/login.go">
+                <div class="login_thumbnail"><img id="user_thumbnail" src="" onclick=""></div>
+                <span id="login_text" class="login_text">로 그 인</span></a>
+                <div><span id="user_Id" class="user_Id">누구누구</span></div>
+                <div class="popup" id="popup">
+                  <button class="pop_bt myPage" onclick="myPage_go(this.form)">마이페이지</button>
+                  <button class="pop_bt logout" onclick="logOut_go(this.form)">로그아웃</button>
+                </div>
+                </div>
+              </div>
+        <div class="rcp_write">
+                <div class="rcp_write_bt">
+                  <a href="/user_recipe_write.go"><span class="rcp_write_text">레시피 작성</span>
+                <img class="rcp_write_icon" src ="/resources/images/secret_recipe_icon.png"></a>
+                </div>
+            </div>
+        
+        <div class="menu_bar">
+                <a href="/public_list.go"><div class="menu tab1"><span id="p_rcp">냠냠공식레시피</span></div></a>
+                <a href="/user_list.go"><div class="menu tab2"><span id="chef_rcp">냠냠's쉐프레시피</span></div></a>
+                <a href="/ranking_recipe.go"><div class="menu tab3"><span id="rank">랭킹</span></div></a>
+                <a href="/plz.go"><div class="menu tab4"><span id="open_ref">냉장고를열어봐</span></div></a>
+                <a href="/award.go"><div class="menu tab5"><span id="grade">명예의전당</span></div></a>
+                <a href="/faq.go"><div class="menu tab6"><span id="faq">FAQ</span></div></a>
+              </div>
+        </div>
+        </form>
+        <script type="text/javascript">
+        function myPage_go(f) {
+    		f.action="/myinfo.go";
+    		f.submit();
+    	}
+        function logOut_go(f) {
+    		f.action="/logOut_go";
+    		f.submit();
+    	}
+        </script>
+	<script type="text/javascript">
+          // 로그인 확인 여부
+
+          var loginChk = false ; // 예시, 나중에 로그인 인터셉터에서 세션으로 값을 가져와야함
+          if(loginChk){
+            var userId = "사용자아이디";
+            var userThumbnail = "사용자썸네일URL";
+
+            document.getElementById("login_text").style.display = "none"; // 로그인 글자를 숨기기
+            document.getElementById("user_Id").textContent  = userId; // 유저 아이디 띄우기
+            document.getElementById("user_Id").style.display = "block"; // 아이디 보이게 하기
+            document.getElementById("login_link").setAttribute("href", "#"); // 로그인 링크를 비활성화
+            document.getElementById("user_thumbnail").src = userThumbnail; // 사용자의 썸네일을 적용
+            // 레시피 작성도 평소엔 로그인 페이지로 이동하게 하고 로그인 되었다면 작성페이지로 이동하게 만들어주기
+
+            // 로그인시 로그인쪽 클릭하면 로그아웃, 파이페이지 팝업 띄우기 
+            var popupOpen = false;
+            function togglePop() {
+              if(!popupOpen){
+                document.getElementById("popup").style.display = "flex";
+              }else{
+                 // 팝업 닫기
+                document.getElementById("popup").style.display = "none";
+              }
+              popupOpen = !popupOpen;
+              }
+            
+              
+          
+          }else{
+            //로그인 페이지
+          }
+          // tab클릭시 색상 변경
+          var tabs = document.querySelectorAll('.menu');
+          
+          tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                  // 다른 링크를 클릭할 때 색상을 원래대로 되돌리기
+                    tabs.forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                });
+          });
+          </script>
 </body>
 </html>
