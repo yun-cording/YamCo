@@ -228,47 +228,43 @@
 											<div class="col-12 col-xxl-auto text-xxl-start fw-bold">회원
 												분류</div>
 											<div class="col-6 order-1 p-1 col-sm-4 mt-2 col-xxl m-xxl-0">
-												
-													<input class="form-check-input d-none member_type" type="radio"
-														name="member_type" id="member_type_all" value="all" checked>
-														<label
-														class="btn btn-outline-primary w-100 m-0 fw-bold" for="member_type_all">
-														전체회원</label>
-											</div>
-											<div class="col-6 order-3 p-1 col-sm-4 mt-2 col-xxl m-xxl-0">
-													<input class="form-check-input d-none member_type" type="radio"
-														name="member_type" id="member_type_self" value="self">
-														<label
-														class="btn btn-outline-primary w-100 m-0 fw-bold" for="member_type_self">
-														자체가입</label>
-											</div>
-											<div
-												class="col-6 order-3 p-1 col-sm-4 mt-2 offset-xxl-1 col-xxl m-xxl-0">
-													<input class="form-check-input d-none member_type" type="radio"
-														name="member_type" id="member_type_social" value="social">
-														<label
-														class="btn btn-outline-primary w-100 m-0 fw-bold" for="member_type_social">
-														소셜가입</label>
-											</div>
-											<div class="col-6 order-3 p-1 col-sm-4 mt-2 col-xxl m-xxl-0">
-													<input class="form-check-input d-none member_lock" type="checkbox"
-														name="member_lock" id="member_lock">
+														<input type="radio" class="btn-check" name="member_type"
+															id="member_type_all" autocomplete="off" checked>
+														<label class="btn btn-outline-primary w-100 m-0 fw-bold"
+															for="member_type_all">전체회원</label>
+												</div>
+												<div class="col-6 order-3 p-1 col-sm-4 mt-2 col-xxl m-xxl-0">
+														<input type="radio" class="btn-check" name="member_type"
+															id="member_type_self" autocomplete="off">
+														<label class="btn btn-outline-primary w-100 m-0 fw-bold"
+															for="member_type_self">자체가입</label>
+												</div>
+												<div
+													class="col-6 order-3 p-1 col-sm-4 mt-2 offset-xxl-1 col-xxl m-xxl-0">
+														<input type="radio" class="btn-check" name="member_type"
+															id="member_type_social" autocomplete="off">
+														<label class="btn btn-outline-primary m-0 w-100 fw-bold rounded"
+															for="member_type_social">소셜가입</label>
+												</div>
+												<div class="col-6 order-3 p-1 col-sm-4 mt-2 col-xxl m-xxl-0">
+													<input class="btn-check member_lock" type="checkbox"
+														name="member_lock" id="member_lock" autocomplete="off">
 														<label
 														class="btn btn-outline-danger w-100 m-0 fw-bold" for="member_lock">
 														잠김회원</label>
 											</div>
 											<div
 												class="col-6 order-3 p-1 col-sm-4 mt-2 offset-xxl-1 col-xxl m-xxl-0">
-													<input class="form-check-input d-none member_ban" type="checkbox"
-														name="member_ban" id="member_ban">
+													<input class="btn-check member_ban" type="checkbox"
+														name="member_ban" id="member_ban" autocomplete="off">
 														<label
 														class="btn btn-outline-danger w-100 m-0 fw-bold" for="member_ban">
 														금지회원</label>
 											</div>
 											<div
 												class="col-6 order-2 p-1 col-sm-4 order-sm-4 mt-2 col-xxl m-xxl-0">
-													<input class="form-check-input d-none member_dropout" type="checkbox"
-														name="member_dropout" id="member_dropout">
+													<input class="btn-check member_dropout" type="checkbox"
+														name="member_dropout" id="member_dropout" autocomplete="off">
 														<label
 														class="btn btn-outline-secondary w-100 m-0 fw-bold" for="member_dropout">
 														탈퇴회원</label>
