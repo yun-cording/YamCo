@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -148,6 +149,8 @@ function restorePlaceholder(element, defaultPlaceholder) {
 </script>
 </head>
 <body>
+<c:set var="clientId" value="YvbCvm24gWq60XdG4a8G" />
+<c:set var="redirectURI" value="http://localhost:8090/naver_login.do" />
 	<div id="content">
 		<div id="top_color"><a><img class="center" src="/resources/images/logo_white_yamyam.png"></a></div>
 		<div id="top_pattern"></div>
@@ -157,9 +160,10 @@ function restorePlaceholder(element, defaultPlaceholder) {
 		<button class="color login_bt">로그인</button>
 		<a id="find_pw" href="/find_pw.go">비밀번호 찾기</a>
 		<div class="social">
-			<a><img class="social_size" src="/resources/images/naver_login.png"></a>
+		<a href="https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${clientId }&redirect_uri=${redirectURI}&state=1">
+			<img class="social_size" src="/resources/images/naver_login.png"></a>
 			<a><img class="social_size margin" src="/resources/images/kakao_login.png"></a>
-			<a><img class="social_size margin" src="/resources/images/google_login.png"></a>
+			<a><img style="border: 1px solid lightgray" class="social_size margin" src="/resources/images/google_login.png"></a>
 		</div>
 		<div>
 			<div class="color join"><a href="/member_join.go">회원가입</a></div>
