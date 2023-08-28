@@ -22,8 +22,9 @@
  <style type="text/css">
 .banner_size{
 	width: 450px;
-	height: 300px;
+	height: 230px;
 	border: none;
+	margin-left: -80px;
 }
 .banner_left{
 	margin-left: 150px;
@@ -33,7 +34,7 @@
 	float: right;
 }
 .banner_top{
-	margin-top: 150px;
+	margin-top: 100px;
 }
 .gray_btn{
 	background-color: gray;
@@ -81,6 +82,34 @@
    padding: 20px 30px; /* 버튼의 패딩을 조정하여 크기 변경 */
    font-size: 16px; /* 글자 크기 변경 */
  }
+ 
+   #below_btns {
+      position: absolute;
+      left: 290px;
+      bottom: calc(14%); /* 반응형으로 top 위치 조정 */
+      /* transform: translateY(calc(100px + max(0px, -370px - 100px))); /* 최소 top 위치 제한 */ */
+      /* 나머지 스타일 설정 */
+      background-color: lightgray;
+    }
+    
+.margin_right_left{
+	margin-left: 500px;
+	margin-right: 500px;
+}
+
+.below_btns_c{
+      display: flex;
+      align-items: center; /* 요소들을 수직 가운데 정렬합니다 */
+      padding: 10px;
+    }
+    #below_btns_r{
+   	  position: absolute;
+      right: 130px;
+      bottom: calc(1%); /* 반응형으로 top 위치 조정 */
+      /* transform: translateY(calc(100px + max(0px, -370px - 100px))); /* 최소 top 위치 제한 */ */
+      /* 나머지 스타일 설정 */
+    }
+    
 </style>
 
    
@@ -100,14 +129,57 @@
                 <div class="container-fluid">
                     <h1 class="ml-5 mt-5 font-weight-bold">공지사항 배너등록</h1>
                     <hr>
-
+			
                     <!-- 여기에서 작업하시면 됩니다. -->
                     <!-- <h2>여기에서 작업하시면됩니다.</h2> -->
                     <!-- 작업 시작!! -->
-                    <div>
+                   <div style="height: 150px;">
+                   <div class="row mb-5 margin_right_left">
+						<!-- 조회수 카드 -->
+						<div class="col">
+							<div class="card border-left-success shadow h-100 py-2">
+								<div class="card-body">
+									<div class="row no-gutters align-items-center">
+										<div class="col mr-2">
+											<div
+												class="text-xs font-weight-bold text-success text-uppercase mb-1">
+												<span class="font-weight-bold font">공지사항 등록 현황</span>
+											</div>
+											<div class="h5 mb-0 font-weight-bold text-gray-800">75</div>
+										</div>
+										<div class="col-auto">
+											<img src="/resources/images/notice.png" alt=""
+												width="40px;">
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- 총 방문자수 -->
+						<div class="col">
+							<div class="card border-left-success shadow h-100 py-2">
+								<div class="card-body">
+									<div class="row no-gutters align-items-center">
+										<div class="col mr-2">
+											<div
+												class="text-xs font-weight-bold text-success text-uppercase mb-1">
+												<span class="font-weight-bold font">광고 등록 현황</span>
+											</div>
+											<div class="h5 mb-0 font-weight-bold text-gray-800">75</div>
+										</div>
+										<div class="col-auto">
+											<img src="/resources/images/advertisement.png" alt=""
+												width="40px;">
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+                   
                     
                     <!-- 버튼그룹 -->
-						<div class="btn-group btn-comp ml-5 mt-5" role="group" aria-label="Basic radio toggle button group" style="margin-top: 100px;">
+						<div class="btn-group btn-comp ml-5 mt-5" role="group" aria-label="Basic radio toggle button group" style="margin-top: -50px; position:relative; top: -80px;">
 						  <input type="radio" class="btn-check btn-comp visually-hidden" name="btnradio" id="btnradio1" autocomplete="off" checked>
 						  <label class="btn btn-outline-primary btn-group btn-comp" for="btnradio1">공지사항 관리</label>
 						
@@ -120,7 +192,7 @@
                     </div>
                     
 				    <!-- 공지사항 넣는 부분 -->
-					<div id="bannerContainer" style="margin-left: 100px; margin-bottom: 100px;">
+					<div id="bannerContainer" style="height: 90%; margin-top : -30px; margin-left: -130px; margin-bottom: 200px; background-color: white;">
 					    <%-- <c:forEach var="nvo" items="${noticeList}" varStatus="status"> --%>
 					  <%--   <c:forEach begin="1" end="6" step="1" varStatus="status">
 					        <c:set var="isOdd" value="${status.index % 2 == 1}" />
@@ -128,7 +200,7 @@
 						        <c:when test="${status.index <= 6}">
 							        <div id="banner_card_${status.index}" class="row card banner_size banner_${isOdd ? 'left' : 'left'} banner_top">
 							            <img src="resources/images/notice_exam.png" class="card-img-top" alt="...">
-							            <div class="card-body">
+							            <div class="card-body">	
 							                <h5 class="card-title">${nvo.notice_title} 공지사항 ${status.index}</h5>
 							                <p class="card-text">${nvo.notice_date} 2023/08/15</p>
 							            </div>
@@ -149,10 +221,9 @@
 					   	 </c:forEach> --%>
 					   	 
 					   	 
-					<!-- 끝 -->
 						<c:forEach begin="1" end="6" step="1" varStatus="status" var="k">
-							 <div id="banner_card_${status.index}" class="row card banner_size banner_${isOdd ? 'left' : 'left'} banner_top" style="float: left; margin-bottom: -50px;">
-								<input type="radio" id="radio_btn_${status.index}" class="btn-check btn-comp" name="btnradio" id="btnradio1" autocomplete="off" checked style="float: left; position: relative; top: 25px; left: -250px;">
+							 <div id="banner_card_${status.index}" class="row card banner_size banner_${isOdd ? 'left' : 'left'} banner_top" style="float: left; margin-bottom: -50px; margin-left: 80px; right: -100px;">
+								<input type="radio" id="radio_btn_${status.index}" class="btn-check btn-comp" name="btnradio" id="btnradio1" autocomplete="off" checked style="float: left; position: relative; top: -20px; left: 0px; width: 15px;">
 					            <img src="resources/images/notice_exam.png" class="card-img-top" alt="...">
 					                <h5 class="card-title">${nvo.notice_title} 공지사항 ${status.index}</h5>
 					                <p class="card-text">${nvo.notice_date} 2023/08/15</p>
@@ -166,12 +237,13 @@
 				    </div>
     
 				    <!-- 하단 버튼 세개 -->
-				    <div style="float: left; margin-left: -1200px;">
+				    <div id="below_btns" class="below_btns_c" style="margin-bottom: -150px;">
 				    	<button type="button" class="btn btn-success">삭제된 게시글</button>
+				    </div>
+				    <div id="below_btns_r">
 						<button type="button" class="btn btn-success">등록</button>
 						<button type="button" class="btn btn-success gray_btn">삭제</button>
 				    </div>
-                    
                     <!-- 여기까지 작업하시면됩니다. -->
 
 

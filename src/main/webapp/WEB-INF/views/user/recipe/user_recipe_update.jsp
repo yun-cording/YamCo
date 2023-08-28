@@ -499,7 +499,7 @@
     			lang : 'ko-KR',
     			height : 800,
     			disableResizeEditor: true,
-    			focus : true,
+    			// focus : true,
     			callbacks : {
     				onImageUpload :  function(files, editor){
     					for (var i = 0; i < files.length; i++) {

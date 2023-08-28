@@ -100,8 +100,8 @@
 	function user_recipe_update() {
 		location.href = "/go_userUpdate.do";
 	}
-	function admin_test_sw() {
-		location.href = "/admin_test_sw.do";
+	function go_admin_ppl() {
+		location.href = "/go_admin_ppl.do";
 	}
 	
 </script>
@@ -131,6 +131,9 @@ function go_tableExam() {
 function go_drag() {
 		location.href = "/go_drag.do";
 }
+function go_admin_register() {
+		location.href = "/go_admin_register.do";
+}
 
 
 </script>
@@ -157,7 +160,6 @@ function go_drag() {
 	<button onclick="public_recipe_det()">public_recipe_det</button>
 	<button onclick="user_recipe_write()">user_recipe_write</button>
 	<button onclick="user_recipe_update()">user_recipe_update</button>
-	<button onclick="admin_test_sw()">admin_test_sw</button>
 	<hr>
 	<h4>login관련</h4>
 	<button onclick="go_find_pw()">go_find_pw</button>
@@ -184,6 +186,9 @@ function go_drag() {
 	<button onclick="go_admin_notice()">go_admin_notice</button>
 	<button onclick="go_admin_faq()">go_admin_faq</button>
 	<button onclick="go_admin_contentchk()">go_admin_contentchk</button>
+	<button onclick="go_admin_ppl()">go_admin_ppl</button>
+	<button onclick="go_admin_register()">go_admin_register</button>
+	
   <button onclick="go_tableExam()">go_tableExam</button>
 	<button onclick="location.href='/simbatest'">심바테스트중</button>	
 	<button onclick="go_drag()">드레그앤드랍테스트</button>	

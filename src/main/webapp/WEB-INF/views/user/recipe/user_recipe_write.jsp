@@ -37,7 +37,6 @@ ss
         width: 1920px;
         margin:  auto;
         /* height: 5000px; */
-
  }
 
  #sidebar-right {
@@ -67,17 +66,15 @@ ss
     clear: left;
 }
 
-	
 #test {
 	width: 100%;
 	height: 1500px;
 }
 
-
-
 #upper{
 	margin-top: 100px;
 }
+
 .text_center{
 	text-align:center;
 	justify-content: center; /* 가로 가운데 정렬 */
@@ -295,8 +292,24 @@ ss
           total_btn.textContent = count;
       });
 </script> -->
+<script type="text/javascript">
+document.addEventListener("DOMContentLoaded", function() {
+	  // 페이지가 로드될 때 스크롤을 맨 위로 이동시키는 함수
+	  function scrollToTop() {
+	    window.scrollTo({ top: 0, behavior: 'smooth' });
+	  }
+
+	  // 페이지가 로드되면 맨 위로 스크롤
+	  scrollToTop();
+	});
+</script>
 </head>
 <body>
+
+	<!-- 페이지 로드 시 스크롤이 맨위로 -->
+	  <script src="scrollToTop.js"></script> <!-- Include your JavaScript file -->
+	
+
 	<div id="mydiv">
 		<jsp:include page="../../header.jsp" />
 		<div id="test">
@@ -544,7 +557,7 @@ document.addEventListener("DOMContentLoaded", function() {
     			lang : 'ko-KR',
     			height : 800,
     			disableResizeEditor: true,
-    			focus : true,
+    			// focus : true,
     			callbacks : {
     				onImageUpload :  function(files, editor){
     					for (var i = 0; i < files.length; i++) {
