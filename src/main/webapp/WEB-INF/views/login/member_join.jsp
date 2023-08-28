@@ -15,15 +15,13 @@ function memberinfoagree() {
 	alert("개인정보 수집 및 이용 동의");
 }
 
-function go_memberJoin(f) {
-	location.href = "/member_join.do";
-}
+
 </script>
 </head>
 <body>
 	<jsp:include page="member_header.jsp" />
 	
-	<form action="post">
+	<form action="">
 	<div id="mydiv">
 	
 	<div class="middleform">
@@ -32,11 +30,11 @@ function go_memberJoin(f) {
 	<div class="idline"></div>
 	</div>
 	<div >
-	<input type="password" placeholder="비밀번호" class="textfiled">
+	<input type="text" placeholder="비밀번호" class="textfiled">
 	<div class="idline"></div>
 	</div>
 	<div >
-	<input type="password" placeholder="비밀번호 확인 " class="textfiled">
+	<input type="text" placeholder="비밀번호 확인 " class="textfiled">
 	<div class="idline"></div>
 	</div>
 	<div class="middleform">
@@ -68,7 +66,7 @@ function go_memberJoin(f) {
 	
 	<div style="text-align:center; margin-top:30px;">
 	<button class="buttons" style="background:#FF6347;"><span>회원가입</span></button>
-	<button type="button" class="buttons" style="background: gray" onclick="go_memberJoin(this.form)"><span>돌아가기</span></button>
+	<button type="button" class="buttons" style="background: gray" onclick="location.href='/login.go'"><span>돌아가기</span></button>
 	</div>
 	</div>
 	</form>
