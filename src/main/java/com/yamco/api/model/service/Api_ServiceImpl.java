@@ -15,4 +15,9 @@ public class Api_ServiceImpl implements Api_Service {
 	public Public_VO getDetailedInfo() {
 		return api_DAO.getDetailedInfo();
 	}
+	
+	@Override
+	public boolean getIdChk(String id) {
+		return api_DAO.getIdChk(id);
+	}
 }

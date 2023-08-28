@@ -15,4 +15,10 @@ public class Api_DAO {
 	public Public_VO getDetailedInfo() {
 		return (Public_VO) sqlSessionTemplate.selectList("api.detailedlist");
 	}
+	// 소셜로그인 고유 id 체크 (db에 있는지 없는지)
+	public boolean getIdChk(String m_id) {
+		int res = sqlSessionTemplate.selectOne("api.idChk",m_id);
+		
+		return res==1;
+	}
 }

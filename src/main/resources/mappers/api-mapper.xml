@@ -6,4 +6,7 @@
 	<select id="detailedlist" resultType="avo">
 		SELECT * from p_recipe 
 	</select>
+	<select id="idChk" parameterType="String" resultType="int">
+		SELECT COUNT(*) FROM member WHERE m_id = #{m_id}
+	</select>
 </mapper>

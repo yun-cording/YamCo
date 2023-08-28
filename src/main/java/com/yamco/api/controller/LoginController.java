@@ -11,14 +11,19 @@ import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.yamco.api.model.service.Api_Service;
 import com.yamco.api.model.vo.Naver_VO;
 
 @Controller
 public class LoginController {
+	@Autowired
+	private Api_Service api_Service;
+	
 	@RequestMapping("/naver_login.do")
 	public ModelAndView naverLoginGo(String code, String state, HttpSession session ) {
 		ModelAndView mv = new ModelAndView();
@@ -85,7 +90,7 @@ public class LoginController {
 					String email = response.get("email").toString();
 					String mobile = response.get("mobile").toString();
 					String birthday = response.get("birthday").toString();
-//					String birthyear = response.get("birthyear").toString();
+					String birthyear = response.get("birthyear").toString();
 					
 					
 					Naver_VO vo = new Naver_VO();
@@ -97,13 +102,16 @@ public class LoginController {
 					vo.setEmail(email);
 					vo.setMobile(mobile);
 					vo.setBirthday(birthday);
-//					vo.setBirthyear(birthyear);
+					vo.setBirthyear(birthyear);
 					
 					// DB다녀와서 고유id 있는지 체크하기
-					// 있으면 세션에 로그인 변수저장후 홈페이지로
-//					mv.setViewName("/user/home");
-					session.setAttribute("login", "ok");
-					session.setAttribute("id", id);
+					boolean idChk = api_Service.getIdChk(id);
+					if(idChk) {
+						// 있으면 세션에 로그인 변수저장후 홈페이지로
+						mv.setViewName("/user/home");
+						session.setAttribute("loginChk", "ok");
+						session.setAttribute("m_id", id);
+					}
 					
 					// 없으면 닉네임 기입창으로
 					mv.setViewName("/login/social_join");
