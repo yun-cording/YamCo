@@ -7,9 +7,9 @@
 	<!-- 자체 회원가입 insert -->
 	<insert id="join" parameterType="mvo">
 		insert into member(m_id, m_pw, m_phone, m_gender, m_birthday, m_nick, m_regdate, m_status, 
-					m_fail_count, m_out_date, m_login_type, m_uid, m_token, m_t_time, m_image)
+					m_fail_count, m_out_date, m_login_type, m_token, m_t_time, m_image)
 		values(#{m_id}, #{m_pw}, #{m_phone}, #{m_gender}, #{m_birthday}, #{m_nick}, sysdate(), 1, 
-				#{m_fail_count}, #{m_out_date}, 1, #{m_uid}, #{m_token}, #{m_t_time}, #{m_image})
+				#{m_fail_count}, #{m_out_date}, 1, #{m_token}, #{m_t_time}, #{m_image})
 	</insert>
 	
 	<!-- 아이디 중복 검사 -->
