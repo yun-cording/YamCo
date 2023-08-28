@@ -53,12 +53,12 @@
 	padding-top: 300px;
 }
 
-.category{
+#category{
 	margin-top: 25px;
 	font-size: 15px;
 }
 
-.category li:hover{
+#category li:hover{
 	background-color: #E53A1B;
 }
 
@@ -291,9 +291,11 @@ ol.paging li a:hover {
 <div id="mydiv">
 <jsp:include page="../header.jsp" />
 		<div id="test">
-		<aside id="sidebar-left">왼쪽</aside>
+		<aside id="sidebar-left">
+			<jsp:include page="../recentlist.jsp" />
+		</aside>
 		<div id="content">
-			<div class="category">
+			<div id="category">
 				<ul>
 					<a href="/myinfo.go"><li id="info_first">내 정보</li></a>
 					<a href="/mywishlist.go"><li id="info">찜 목록</li></a>
@@ -354,7 +356,9 @@ ol.paging li a:hover {
 				</ol>
 			</div>
 		 </div>
-		<aside id="sidebar-right">오른</aside>
+		<aside id="sidebar-right">
+			<jsp:include page="../bestlist.jsp" />
+		</aside>
 		</div>
 <div id="footer"><jsp:include page="../footer.jsp" /></div>
 		</div>
