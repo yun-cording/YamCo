@@ -38,5 +38,7 @@
 				alt="" width="12px"> 4.9</span>
 		</div>
 	</div>
+	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+	<script src="resources/js/user/sidebar.js"></script>
 </body>
 </html>

@@ -20,11 +20,15 @@
     margin: 5px;
 }
     
-    .date_size{
-    	width: 300px;
-    	height: 30px;
-    }	
-    </style>
+.date_size{
+   	width: 300px;
+   	height: 30px;
+}	
+   
+select option[value=""][disabled] {
+	display: none;
+}
+</style>
    
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom fonts for this template-->
@@ -48,44 +52,42 @@
             <div id="content">
 				<jsp:include page="admin_header.jsp" />
 
-				<div class="container-fluid">
+				<div class="container-fluid m-5">
 					<h1 class="ml-5 mt-5 font-weight-bold">사용자 게시물 관리</h1>
 					<hr>
 
-					<!-- 여기에서 작업하시면 됩니다. -->
-					<div
-						class="col-12 mt-4 p-3 col-lg mt-lg-0 text-center rounded shadow">
-						<div class="card h-100">
-							<h6
-								class="card-header bg-light text-black-50 fw-bold small text-start">
-								검색 조건</h6>
+					<!-- 여기에서 작업하시면 됩니다. -->		
+					<div class="row justify-content-between">			
+						<div
+							class="col-8 mt-4 p-3 text-center rounded shadow w-75">
+							<div class="card h-100">
+								<h6
+									class="card-header bg-light text-black-50 fw-bold small text-start">
+									검색 조건</h6>
 							<ul class="list-group list-group-flush">
 								<li class="list-group-item">
 									<div class="row justify-content-around align-items-center">
 										<div class="col-auto fw-bold text-nowrap">검색어</div>
 										<div class="col col-lg-auto mx-auto">
 											<div class="dropdown">
-												<button class="btn btn-light dropdown-toggle" type="button"
-													data-bs-toggle="dropdown" aria-expanded="false">
-													카테고리</button>
-												<ul class="dropdown-menu">
-													<li><button class="dropdown-item" type="button">1인분</button></li>
-													<li><button class="dropdown-item" type="button">채식</button></li>
-													<li><button class="dropdown-item" type="button">국물류</button></li>
-													<li><button class="dropdown-item" type="button">돈까스,
-															일식</button></li>
-													<li><button class="dropdown-item" type="button">고기,
-															구이</button></li>
-													<li><button class="dropdown-item" type="button">해산물</button></li>
-													<li><button class="dropdown-item" type="button">분식</button></li>
-													<li><button class="dropdown-item" type="button">면류</button></li>
-													<li><button class="dropdown-item" type="button">죽</button></li>
-													<li><button class="dropdown-item" type="button">술안주</button></li>
-													<li><button class="dropdown-item" type="button">반찬</button></li>
-													<li><button class="dropdown-item" type="button">후식</button></li>
-													<li><button class="dropdown-item" type="button">기타</button></li>
-												</ul>
-
+												<select class="btn-light form-select">
+													<option value="" disabled selected>카테고리</option>
+													<option value="1">1인분</option>
+													<option value="2">채식</option>
+													<option value="3">국물류</option>
+													<option class="dropdown-item"  value="4">돈까스,
+															일식</option>
+													<option class="dropdown-item" value="5">고기,
+															구이</option>
+													<option class="dropdown-item" value="6">해산물</option>
+													<option class="dropdown-item" value="7">분식</option>
+													<option class="dropdown-item" value="8">면류</option>
+													<option class="dropdown-item" value="9">죽</option>
+													<option class="dropdown-item" value="10">술안주</option>
+													<option class="dropdown-item" value="11">반찬</option>
+													<option class="dropdown-item" value="12">후식</option>
+													<option class="dropdown-item" value="13">기타</option>
+											</select>
 											</div>
 										</div>
 										<div class="col-12 mt-2 col-lg mt-lg-0 mx-auto">
@@ -100,16 +102,15 @@
 									<div class="row justify-content-around align-items-center">
 										<div class="col-4 col-xxl-auto fw-bold text-nowrap">기간
 											조건</div>
-										<div class="col-8 col-xxl"></div>
-										<div class="card-body">
+										<div class="col-8 col-xxl">
 											<div class="row px-4 mt-3">
-												<div class="col-md-6 pl-0 pr-0 pr-md-2 mb-2">
-													<input type="date" name="start-date" class="date_size">
+												<div class="col pl-0 pr-0 pr-md-2 mb-2">
+													<input type="date" name="start-date" class="btn btn-outline-secondary text-center rounded w-100 fw-bold">
 												</div>
-												<div class="col-md-6 pl-0 pl-md-2 pr-0">
-													<input type="date" name="end-date" class="date_size">
+												<div class="col pl-0 pl-md-2 pr-0">
+													<input type="date" name="end-date" class="btn btn-outline-secondary text-center rounded w-100 fw-bold">
 												</div>
-											</div>
+										<div class="col">
 											<div class="btn_group" role="group"
 												aria-label="Basic radio toggle button group">
 												<div class="btn_empty">
@@ -128,6 +129,8 @@
 														class="btn btn-outline-success" for="btnradio3">1개월</label>
 												</div>
 											</div>
+										</div>
+											</div>											
 										</div>
 									</div>
 								</li>
@@ -165,14 +168,50 @@
 									</div>
 								</li>
 							</ul>
+							</div>
+						</div> 
+						<div class="col-4 mt-4" style="padding-right: 4%; padding-left: 4%;">
+						<div class="row">
+							<div class="card border-left-success shadow h-100 py-2">
+								<div class="card-body">
+									<div class="row no-gutters align-items-center">
+										<div class="col mr-2">
+											<div
+												class="text-xs font-weight-bold text-success text-uppercase mb-1">
+												<span class="font-weight-bold font">총 조회수</span>
+											</div>
+											<div class="h5 mb-0 font-weight-bold text-gray-800">75</div>
+										</div>
+										<div class="col-auto">
+											<img src="/resources/images/search 1.png" alt=""
+												width="40px;">
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="card border-left-success shadow h-100 py-2 mt-5">
+								<div class="card-body">
+									<div class="row no-gutters align-items-center">
+										<div class="col mr-2">
+											<div
+												class="text-xs font-weight-bold text-success text-uppercase mb-1">
+												<span class="font-weight-bold font">신규 등록 레시피</span>
+											</div>
+											<div class="h5 mb-0 font-weight-bold text-gray-800">153</div>
+										</div>
+										<div class="col-auto">
+											<img src="/resources/images/blogger 1.png" alt=""
+												width="40px;">
+										</div>
+									</div>
+								</div>
+							</div>
+							</div>
 						</div>
 					</div>
 				</div>
-
-
 				<!-- Page Wrapper -->
     <div id="wrapper">
-
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
 
@@ -185,7 +224,7 @@
                     <div class="card shadow mb-4">
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                <table class="table table-bordered" id="dataTable" style="width:100%;" cellspacing="0">
                                     <thead>
                                         <tr>
                                             <th>게시물 번호</th>
@@ -353,12 +392,10 @@
 
                 </div>
                 <!-- /.container-fluid -->
-
             </div>
             <!-- End of Main Content -->
         </div>
         <!-- End of Content Wrapper -->
-
     </div>
                     
                     <!-- 여기까지 작업하시면됩니다. -->

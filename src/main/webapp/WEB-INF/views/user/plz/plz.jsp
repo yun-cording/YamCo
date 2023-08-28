@@ -10,7 +10,6 @@
 	href="resources/images/icon_tomato.png">
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 <link rel="icon" type="image/x-icon" href="resources/images/icon_tomato.png">
-<link rel="stylesheet" href="resources/css/user/recipe/search_list.css?after" />
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script src="resources/js/user/sidebar.js?after"></script>
 <script src="resources/js/user/recipe/search_list.js"></script>
@@ -48,11 +47,15 @@
 	margin: 0;
 	box-sizing: border-box;
 }
+@font-face {
+    font-family: 'Yeongdeok_TTF';
+    src: url('../resources/fonts/Yeongdeok Blueroad.ttf') format('truetype');
+}
 
  #mydiv{
         width: 1920px;
         margin:  auto;
-		
+		 font-family: 'Yeongdeok_TTF';
     }
     
  #sidebar-right {
@@ -180,32 +183,7 @@ clear: both;
 }
 
 </style>
-<script type="text/javascript">
-document.addEventListener("DOMContentLoaded", function() {
-	var gifContainer = document.getElementById("gif-container");
-    var gifImage = document.getElementById("gif-image");
-    var inputStack = document.getElementById("input-stack");
-    var hiddenInputs = inputStack.querySelectorAll(".hidden");
-    var clickCount = 0;
-		
-    
-	 // 1. 클릭 시에만 GIF 재생
-    gifContainer.addEventListener("click", function() {
-             gifImage.src = "/resources/images/move_refrige.gif"; 
-                 hiddenInputs[clickCount].style.opacity = "1";
-             clickCount++
-    });      
- 	
-    // 페이지 이탈 시 클릭 횟수 및 이미지 초기화
-    window.addEventListener("beforeunload", function() {
-        clickCount = 0;
 
-        for (var i = 0; i < hiddenInputs.length; i++) {
-            hiddenInputs[i].style.display = "none"; // 이미지 숨김
-        }
-    });
-});
-</script>
 </head>
 <body>
 	<div id="mydiv">
@@ -290,6 +268,31 @@ document.addEventListener("DOMContentLoaded", function() {
 			</aside>
 		<div id="footer"><jsp:include page="../../footer.jsp" /></div>
 	</div>
+<script type="text/javascript">
+document.addEventListener("DOMContentLoaded", function() {
+	var gifContainer = document.getElementById("gif-container");
+    var gifImage = document.getElementById("gif-image");
+    var inputStack = document.getElementById("input-stack");
+    var hiddenInputs = inputStack.querySelectorAll(".hidden");
+    var clickCount = 0;
+		
+    
+	 // 1. 클릭 시에만 GIF 재생
+    gifContainer.addEventListener("click", function() {
+             gifImage.src = "/resources/images/move_refrige.gif"; 
+                 hiddenInputs[clickCount].style.opacity = "1";
+             clickCount++
+    });      
+ 	
+    // 페이지 이탈 시 클릭 횟수 및 이미지 초기화
+    window.addEventListener("beforeunload", function() {
+        clickCount = 0;
 
+        for (var i = 0; i < hiddenInputs.length; i++) {
+            hiddenInputs[i].style.display = "none"; // 이미지 숨김
+        }
+    });
+});
+</script>
 </body>
 </html>

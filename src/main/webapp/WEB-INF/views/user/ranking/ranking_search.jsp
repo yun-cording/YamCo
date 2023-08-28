@@ -54,9 +54,9 @@
 			</aside>
 			
 			<div id="content">
-				<div id="lrecipe" onclick="recipe()">
+				<a href="/ranking_recipe.go"><div id="lrecipe" onclick="recipe()">
 					<span id="recipetext">레시피</span>
-				</div>
+				</div></a>
 				<dlv id="lsearch" onclick="search()">
 				<span id="searchtext">검색어</span></dlv>
 				<div id="topline"></div>

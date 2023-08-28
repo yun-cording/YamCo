@@ -48,8 +48,7 @@
 			<jsp:include page="../../recentlist.jsp" />
 		</aside>
 		<div id="content">
-			<div class="container">
-				<div class="row me-1">
+				<div class="row mx-5">
 					<div class="col-9">
 						<span class="search_subject">냠냠 레시피는 총</span> <span class="search_count">???</span> <span class="search_subject">개</span>
 					</div>
@@ -62,9 +61,7 @@
 					<div class="col-1 tab-off">
 						<span>평점순</span>
 					</div>
-					
 				</div>
-			</div>
 			<!-- 레시피 출력 -->
 			<!-- 콘텐츠공간 -->
 			<div id="flexContainer">
@@ -106,6 +103,8 @@
 			<jsp:include page="../../footer.jsp" />
 		</div>
 	</div>
+	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+	<script src="resources/js/user/sidebar.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 </body>
 </html>

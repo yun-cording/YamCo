@@ -66,7 +66,7 @@ function memberinfoagree() {
 	
 	<div style="text-align:center; margin-top:30px;">
 	<button class="buttons" style="background:#FF6347;"><span>회원가입</span></button>
-	<button class="buttons" style="background: gray"><span>돌아가기</span></button>
+	<button type="button" class="buttons" style="background: gray" onclick="location.href='/login.go'"><span>돌아가기</span></button>
 	</div>
 	</div>
 	</form>

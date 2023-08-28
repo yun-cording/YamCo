@@ -12,7 +12,7 @@
 	}
 	
 	.up{
-		margin-top: 150px;		
+		margin-top: 100px;		
 	}
 	
 	.down{
