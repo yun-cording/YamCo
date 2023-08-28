@@ -100,7 +100,6 @@ public class Member_VO {
 		this.m_login_type = m_login_type;
 	}
 
-
 	public String getM_token() {
 		return m_token;
 	}

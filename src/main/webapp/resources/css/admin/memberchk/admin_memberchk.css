@@ -1,15 +1,13 @@
 @charset "UTF-8";
 
 input[type='date']::before {
-	/* 
-	<input type="date" data-placeholder="시작일" ... >
-	input 태그에 정해놓은 data-placeholder를 placeholder로 띄워줍니다.
-	 */
+	/* 	<input type="date" data-placeholder="시작일" required aria-required="true" ... > */
+	/*  required aria-required="true" 가 없을 시 before이 적용되지 않는 사례가 있음 */
+	/* 	input 태그에 정해놓은 data-placeholder를 placeholder로 띄워줍니다. */
 	content: attr(data-placeholder);
 	width: 100%;
 }
 
-input[type='date']:focus::before,
-input[type='date']:valid::before {
-  display: none;
+input[type='date']:focus::before, input[type='date']:valid::before {
+	display: none;
 }

@@ -125,7 +125,6 @@ public class LoginController {
 			System.out.println(e);
 			return new ModelAndView("error404");
 		}
-		return new ModelAndView("error");
+		return new ModelAndView("error404");
 	}
-	@
 }
