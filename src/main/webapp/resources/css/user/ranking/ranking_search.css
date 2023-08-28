@@ -74,7 +74,7 @@
 	width: 110px;
 	height: 54px;
 	border: 2px solid #FF6347;
-	left: 539px;
+	left: 430px;
 	top: 375px;
 	z-index: 2;
 }
@@ -90,6 +90,8 @@
 	background: #FF6347;
 	border: 2px solid #FF6347;
 	z-index: 2;
+	left: 539px;
+	top: 375px;
 }
 
 #toptext {
