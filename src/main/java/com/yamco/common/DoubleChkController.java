@@ -21,7 +21,6 @@ public class DoubleChkController{
 		int result = 1;
 		if(m_id != null && m_id.length() > 0) {
 			result = member_Service.getMemberIdChk(m_id);
-			System.out.println(result);
 		}
 		return String.valueOf(result);
 	}

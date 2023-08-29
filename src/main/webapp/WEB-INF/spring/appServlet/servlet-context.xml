@@ -35,11 +35,12 @@
 	<context:component-scan
 		base-package="com.yamco.*" />
 
-	<!-- 인터셉터 사용할시 해제후 작성하고 주석 달아 둘 것 
+	<!-- 인터셉터 사용할시 해제후 작성하고 주석 달아 둘 것--> 
 	<beans:bean id="log_inter" class="com.yamco.common.LoginInterceptor" />
-	<interceptors>
-		<interceptor>
-			<mapping path="/board_insertForm.do" />
-		</interceptor>
-	</interceptors> -->
-</beans:beans>
+		<interceptors>
+			<interceptor>
+				<mapping path="/user_recipe_write.go" />
+				<beans:ref bean="log_inter"/>
+			</interceptor>
+		</interceptors>
+	</beans:beans>

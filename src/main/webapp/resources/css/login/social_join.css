@@ -81,3 +81,9 @@ input[type="text"]{
 	width: 24px;
 	margin-top: 15px;
 }
+#detail{
+	width: 660px;
+	display:flex;
+	justify-content: row;
+	margin: auto;
+}
