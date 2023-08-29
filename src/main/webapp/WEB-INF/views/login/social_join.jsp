@@ -46,7 +46,7 @@ function memberinfoagree() {
 </head>
 <body>
 	<jsp:include page="member_header.jsp" />
-	<form action="/">
+	<form action="/setNick.do">
 	<div id="mydiv">
 	
 	<div style="width:1100px; margin: auto; margin-top:240px; text-align: center;">
@@ -56,7 +56,7 @@ function memberinfoagree() {
 	</div>
 	
 	<div style="margin-top:200px;">
-	<input type="text" value="${m_vo.m_nick }" id="textfiled" required>
+	<input type="text" name="m_nick" value="${m_nick }" id="textfiled" required>
 	<div id="idline"></div>
 	<div id="detail"></div>
 	</div>
@@ -72,9 +72,9 @@ function memberinfoagree() {
 	
 	<div style="text-align:center; margin-top:120px;">
 	<button type="submit" class="buttons" style="background:#FF6347;"><span>회원가입</span></button>
-	<button class="buttons" style="background:gray;"><span>돌아가기</span></button>
+	<button type="button" class="buttons" style="background:gray;" onclick="history.go(-1)"><span>돌아가기</span></button>
 	</div>
-	<input type="hidden" value="${m_vo }" name="m_vo">
+	<input type="hidden" value="${m_id }" name="m_id">
 	</div>
 	</form>
 </body>
