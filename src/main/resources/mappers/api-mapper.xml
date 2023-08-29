@@ -9,4 +9,8 @@
 	<select id="idChk" parameterType="String" resultType="mvo">
 		SELECT * FROM member WHERE m_id = #{m_id}
 	</select>
+	<!-- 닉네임체크 -->
+	<select id="nickChk" parameterType="String" resultType="int">
+		select count(*) from member where m_nick = #{m_nick}
+	</select>
 </mapper>

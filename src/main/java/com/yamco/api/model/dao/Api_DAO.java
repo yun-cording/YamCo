@@ -20,4 +20,8 @@ public class Api_DAO {
 	public Member_VO getIdChk(String m_id) {
 		return sqlSessionTemplate.selectOne("api.idChk",m_id); 
 	}
+	// 닉네임체크
+	public int getNickChk(String m_nick) {
+		return sqlSessionTemplate.selectOne("api.nickChk", m_nick);
+	}
 }

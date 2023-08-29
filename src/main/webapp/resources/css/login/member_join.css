@@ -1,12 +1,17 @@
 @charset "UTF-8";
+@font-face {
+    font-family: 'Yeongdeok_TTF';
+    src: url('../../fonts/Yeongdeok Blueroad.ttf') format('truetype');
+}
 a{
 	text-decoration: none;
 }
 #mydiv {
+	font-family:'Yeongdeok_TTF';
 	position: relative; 
-  width : 1920px;
-  left : 0px; 
-  top : 0px;
+  	width : 1920px;
+  	left : 0px; 
+  	top : 0px;
 	margin: auto;
 }
 
@@ -52,13 +57,7 @@ a{
 	color: white;
 }
 
-@font-face {
-    font-family: 'Yeongdeok_TTF';
-    src: url('../../resources/fonts/Yeongdeok Blueroad.ttf') format('truetype');
-}
-
 #nicknamechk{
-
 
 }
 
