@@ -15,7 +15,7 @@ $(document).ready(function () {
 		searchPanes: {
 			viewTotal: true,
 			layout: 'columns-6', //searchPanes 내에서 한 줄에 나오는 열 개수 지정
-			columns: [0, 7, 9, 10, 12, 14] //searchPanes에서 사용할 DataTable 열
+			columns: [0, 7, 10, 11, 13, 15] //searchPanes에서 사용할 DataTable 열
 		},
 		dom: 'Plfrtip', //Plfrtip이면 searchPanes가 table 위에 노출됨, frtipP이면 아래
 		columnDefs: [ //열 대한 속성 정의
@@ -25,12 +25,12 @@ $(document).ready(function () {
 			},
 			{
 				className: 'align-middle text-nowrap',
-				targets: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
+				targets: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
 			},
 			{
 				orderable: false, //정렬 화살표 노출 안 함
 				className: 'text-center', //해당 열의 th, td에 클래스를 추가할 수 있음
-				targets: [0, 2, 7, 9, 10, 11, 12, 13, 14, 15]  //몇번째 열에 대한 것인지 표시함
+				targets: [0, 2, 7, 10, 11, 12, 13, 14, 15, 16]  //몇번째 열에 대한 것인지 표시함
 			},
 			{
 				className: 'select-checkbox',
@@ -74,7 +74,7 @@ $(document).ready(function () {
 						}
 					] */
 				},
-				targets: [0, 7, 9, 10, 12, 14]
+				targets: [0, 7, 10, 11, 13, 15]
 			}
 		],
 		select: {

@@ -1,14 +1,17 @@
 package com.yamco.user.model.service;
 
+import java.time.LocalDate;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.yamco.user.model.dao.Member_DAO;
+import com.yamco.user.model.vo.Member_Search_VO;
 import com.yamco.user.model.vo.Member_VO;
 
 @Service
-public class Member_ServiceImpl implements Member_Service{
+public class Member_ServiceImpl implements Member_Service {
 	@Autowired
 	private Member_DAO member_DAO;
 
@@ -21,18 +24,100 @@ public class Member_ServiceImpl implements Member_Service{
 	public int getMemberIdChk(String m_id) {
 		return member_DAO.getMemberIdChk(m_id);
 	}
+
+	// 회원 검색
+	@Override
+	public List<Member_VO> getMemberList(Member_Search_VO msvo) {
+		String keyword = msvo.getKeyword();
+		if (!keyword.isBlank()) {
+			if (msvo.getKeyword_type().equalsIgnoreCase("like")) { // 키워드 포함
+				switch (msvo.getKeyword_category()) {
+				case "1":
+					msvo.setLike_id(keyword);
+					break;
+				case "2":
+					msvo.setLike_nick(keyword);
+					break;
+				case "3":
+					msvo.setLike_phone(keyword);
+					break;
+				case "4":
+					msvo.setLike_birthday(keyword);
+					break;
+				}
+			} else { // 키워드 일치
+				switch (msvo.getKeyword_category()) {
+				case "1":
+					msvo.setM_id(keyword);
+					break;
+				case "2":
+					msvo.setM_nick(keyword);
+					break;
+				case "3":
+					msvo.setM_phone(keyword);
+					break;
+				case "4":
+					msvo.setM_birthday(keyword);
+					break;
+				}
+			}
+		}
+
+		String start_date = msvo.getStart_date();
+		String end_date = msvo.getEnd_date();
+
+		if (!start_date.isBlank()) {
+			if (msvo.getPeriod_category().equals("1")) { // 가입일 기준
+				msvo.setRegdate_start(start_date);
+			} else { // 탈퇴일 기준
+				msvo.setOut_date_start(start_date);
+			}
+		}
+
+		if (!end_date.isBlank()) {
+			LocalDate end = LocalDate.parse(end_date);
+			end = end.plusDays(1);
+			end_date = end.toString();
+			if (msvo.getPeriod_category().equals("1")) { // 가입일 기준
+				msvo.setRegdate_end(end_date);
+			} else { // 탈퇴일 기준
+				msvo.setOut_date_end(end_date);
+			}
+		}
+
+		String member_type = msvo.getMember_type();
+		if (member_type.equalsIgnoreCase("self")) {
+			msvo.setM_login_type("1"); // 1 자체가입 계정
+		} else if (member_type.equalsIgnoreCase("social")) {
+			msvo.setM_login_type("2"); // 2 ~ 4 소셜가입 계정
+		}
+
+		String member_state = msvo.getMember_state();
+		if (member_state == null) {
+			msvo.setM_status("1"); // 일반사용자
+		} else {
+			if (member_state.equalsIgnoreCase("ban")) {
+				msvo.setM_status("4"); // 작성금지회원
+			} else if (member_state.equalsIgnoreCase("dropout")) {
+				msvo.setM_status("3"); // 탈퇴회원
+			}
+		}
+
+		return member_DAO.getMemberList(msvo);
+	}
+
 	// 성훈 작업 시작
 	@Override
 	public Member_VO gloginchk(String m_id) {
 		return member_DAO.gloginchk(m_id);
 	}
-	
+
 	@Override
 	public int glogin_join(Member_VO mvo) {
 		return member_DAO.gloginjoin(mvo);
 	}
 	// 성훈 작업 끝
-	
+
 	// 닉네임 설정하기
 	@Override
 	public int setNick(Member_VO m_vo) {
