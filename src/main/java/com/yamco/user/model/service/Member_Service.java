@@ -16,4 +16,6 @@ public interface Member_Service {
 	// 구글 회원가입 db 정보등록
 	public int glogin_join(Member_VO mvo);
 	// 성훈 작업 끝
+	// 닉네임 설정하기
+	public int setNick(Member_VO m_vo);
 }

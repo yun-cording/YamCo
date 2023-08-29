@@ -32,4 +32,10 @@ public class Member_ServiceImpl implements Member_Service{
 		return member_DAO.gloginjoin(mvo);
 	}
 	// 성훈 작업 끝
+	
+	// 닉네임 설정하기
+	@Override
+	public int setNick(Member_VO m_vo) {
+		return member_DAO.setNick(m_vo);
+	}
 }

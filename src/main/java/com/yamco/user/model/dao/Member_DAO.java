@@ -30,4 +30,9 @@ public class Member_DAO {
 		return sqlSessionTemplate.insert("member.gloginjoin",mvo);
 	}
 	// 성훈 작업 끝
+	
+	// 닉네임 설정하기
+	public int setNick(Member_VO m_vo) {
+		return sqlSessionTemplate.update("member.upNick",m_vo);
+	}
 }
