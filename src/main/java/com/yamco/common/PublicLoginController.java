@@ -21,7 +21,7 @@ public class PublicLoginController {
 	// 자체 회원가입 insert
 	@PostMapping("/member_join.do")
 	public ModelAndView getMemberJoin(Member_VO mvo, @RequestParam("gender")String gender) {
-		ModelAndView mv = new ModelAndView("login/login");
+		ModelAndView mv = new ModelAndView("login/social_join");
 		try {
 			mvo.setM_pw(passwordEncoder.encode(mvo.getM_pw()));
 			 System.out.println(gender);
