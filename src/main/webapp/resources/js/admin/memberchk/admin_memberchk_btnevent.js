@@ -4,50 +4,6 @@ function goSubmit(f) {
 }
 
 $(document).ready(function () {
-    // 처음에 전체회원 버튼의 라벨이 선택된 것으로 표시되게 한다.
-    $(".member_type[value='all']").siblings("label").removeClass("btn-outline-primary").addClass("btn-primary");
-
-    //reset 버튼을 누르면 라벨들의 클래스를 초기화한다.
-    $('input[type="reset"]').on("click", function () {
-        $(".member_type").each(function () {
-            $(this).siblings("label").removeClass("btn-primary").addClass("btn-outline-primary");
-        });
-        $(".member_type[value='all']").siblings("label").removeClass("btn-outline-primary").addClass("btn-primary");
-
-        $(".member_lock, .member_ban").each(function () {
-            $(this).siblings("label").removeClass("btn-danger").addClass("btn-outline-danger");
-        });
-        $(".member_dropout").siblings("label").removeClass("btn-secondary").addClass("btn-outline-secondary");
-    });
-
-    //member_type 라디오 버튼 중 하나가 선택되면 라벨들의 클래스를 변경한다.
-    $(".member_type").on("change", function () {
-        $(".member_type").each(function () {
-            $(this).siblings("label").removeClass("btn-primary").addClass("btn-outline-primary");
-        });
-        if ($(this).is(":checked")) {
-            $(this).siblings("label").removeClass("btn-outline-primary").addClass("btn-primary");
-        }
-    });
-
-    //member_lock, member_ban 체크박스 버튼이 선택되면 라벨의 클래스를 변경한다.
-    $(".member_lock, .member_ban").on("change", function () {
-        if ($(this).is(":checked")) {
-            $(this).siblings("label").removeClass("btn-outline-danger").addClass("btn-danger");
-        } else {
-            $(this).siblings("label").removeClass("btn-danger").addClass("btn-outline-danger");
-        }
-    });
-
-    //member_dropout 체크박스 버튼이 선택되면 라벨의 클래스를 변경한다.
-    $(".member_dropout").on("change", function () {
-        if ($(this).is(":checked")) {
-            $(this).siblings("label").removeClass("btn-outline-secondary").addClass("btn-secondary");
-        } else {
-            $(this).siblings("label").removeClass("btn-secondary").addClass("btn-outline-secondary");
-        }
-    });
-
     // 1일 버튼 클릭시
     $("#btn_1day").on("click", function () {
         var inputStartday = $("#input_startday");

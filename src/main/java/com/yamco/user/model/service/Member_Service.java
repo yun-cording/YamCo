@@ -6,7 +6,7 @@ public interface Member_Service {
 	// 자체 회원가입
 	public int getMemberJoin(Member_VO mvo);
 	
-	// 멤버 전체보기
+	// 아이디 중복검사
 	public int getMemberIdChk(String m_id);
 	
 	// 성훈 작업 시작

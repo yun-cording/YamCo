@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import com.yamco.api.model.dao.Api_DAO;
 import com.yamco.api.model.vo.Public_VO;
+import com.yamco.user.model.vo.Member_VO;
 
 @Service
 public class Api_ServiceImpl implements Api_Service {
@@ -14,5 +15,16 @@ public class Api_ServiceImpl implements Api_Service {
 	@Override
 	public Public_VO getDetailedInfo() {
 		return api_DAO.getDetailedInfo();
+	}
+	
+	// 소셜로그인 id있는지 확인
+	@Override
+	public Member_VO getIdChk(String id) {
+		return api_DAO.getIdChk(id);
+	}
+	// 닉네임 체크
+	@Override
+	public int getNickChk(String m_nick) {
+		return api_DAO.getNickChk(m_nick);
 	}
 }

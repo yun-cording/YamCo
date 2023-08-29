@@ -21,6 +21,7 @@
 	
 	<mappers><!-- 매퍼 위치를 쓰기 -->
 		<!-- <mapper resource="mappers/members-mapper.xml" /> -->
+		<mapper resource="mappers/api-mapper.xml" />
 		<mapper resource="mappers/member-mapper.xml" />
 			
 	</mappers>
