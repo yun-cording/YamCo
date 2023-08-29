@@ -161,6 +161,8 @@ function restorePlaceholder(element, defaultPlaceholder) {
 <body>
 <c:set var="clientId" value="YvbCvm24gWq60XdG4a8G" />
 <c:set var="redirectURI" value="http://localhost:8090/naver_login.do" />
+<c:set var="REST_API_KEY" value="aab498f24417783525d7f40dcb83e5e6"></c:set>
+<c:set var="REDIRECT_URI" value="http://localhost:8090/kakaologin.do"></c:set>
 	<div id="content"></div>
 	<div id="top_color">
 		<a><img class="center"
@@ -183,7 +185,8 @@ function restorePlaceholder(element, defaultPlaceholder) {
 	<div class="social">
 			<a href="https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${clientId }&redirect_uri=${redirectURI}&state=1">
 			<img class="social_size" src="/resources/images/naver_login.png"></a>
-			<a><img class="social_size margin" src="/resources/images/kakao_login.png"></a>
+			<a href="https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}">
+			<img class="social_size margin" src="/resources/images/kakao_login.png"></a>
 			<!-- <a><img style="border: 1px solid lightgray" class="social_size margin" src="/resources/images/google_login.png"></a> -->
 		<div id="g_id_onload" data-client_id="931730291564-rocrnk3v1pph5j9q775qtinavfktiab9.apps.googleusercontent.com" data-callback="handleCredentialResponse" ></div>
 		<div class="g_id_signin" style="width: 180px; height: 50px; border-radius: 5px;"></div>

@@ -17,7 +17,7 @@
 		,m_status 
 		<if test="m_fail_count != null">,m_fail_count </if>
 		<if test="m_out_date != null">,m_out_date </if>
-		,m_login_type 
+		<if test="m_login_type != null">,m_login_type </if>
 		 <if test="m_token != null">,m_token </if>
 		 <if test="m_t_time != null">,m_t_time </if>
 		 <if test="m_image != null">,m_image</if>)
@@ -31,10 +31,10 @@
 		,sysdate(), 1
 		<if test="m_fail_count != null">	,#{m_fail_count}</if>
 		<if test="m_out_date != null"> ,#{m_out_date}</if>
-		 ,1
+		 <if test="m_login_type != null">,#{m_login_type}</if>
 		 <if test="m_token != null"> ,#{m_token}</if>
 		 <if test="m_t_time != null"> ,#{m_t_time}</if>
-		 <if test="m_image != null"> ,#{m_image})</if>
+		 <if test="m_image != null"> ,#{m_image}</if>)
 	</insert>
 	<!-- 아이디 중복 검사 -->
 	<select id="idChk" parameterType="String" resultType="int">
