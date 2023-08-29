@@ -21,6 +21,17 @@ public class Member_ServiceImpl implements Member_Service{
 	public int getMemberIdChk(String m_id) {
 		return member_DAO.getMemberIdChk(m_id);
 	}
+	// 성훈 작업 시작
+	@Override
+	public Member_VO gloginchk(String m_id) {
+		return member_DAO.gloginchk(m_id);
+	}
+	
+	@Override
+	public int glogin_join(Member_VO mvo) {
+		return member_DAO.gloginjoin(mvo);
+	}
+	// 성훈 작업 끝
 	
 	// 닉네임 설정하기
 	@Override
