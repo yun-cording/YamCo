@@ -4,16 +4,48 @@
  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="member">
 	
-	<!-- 자체 회원가입 insert -->
+	<!-- 회원가입 insert -->
 	<insert id="join" parameterType="mvo">
-		insert into member(m_id, m_pw, m_phone, m_gender, m_birthday, m_nick, m_regdate, m_status, 
-					m_fail_count, m_out_date, m_login_type, m_token, m_t_time, m_image)
-		values(#{m_id}, #{m_pw}, #{m_phone}, #{m_gender}, #{m_birthday}, #{m_nick}, sysdate(), 1, 
-				#{m_fail_count}, #{m_out_date}, 1, #{m_token}, #{m_t_time}, #{m_image})
+		insert into member
+		(m_id 
+		<if test="m_pw != null">,m_pw</if>
+		<if test="m_phone != null">,m_phone</if> 
+		<if test="m_gender != null">,m_gender </if>
+		<if test="m_birthday != null">,m_birthday </if>
+		<if test="m_nick != null">,m_nick </if>
+		,m_regdate 
+		,m_status 
+		<if test="m_fail_count != null">,m_fail_count </if>
+		<if test="m_out_date != null">,m_out_date </if>
+		,m_login_type 
+		 <if test="m_token != null">,m_token </if>
+		 <if test="m_t_time != null">,m_t_time </if>
+		 <if test="m_image != null">,m_image</if>)
+		values(
+		#{m_id}
+		<if test="m_pw != null">,#{m_pw}</if>
+		<if test="m_phone != null">,#{m_phone}</if> 
+		<if test="m_gender != null">,#{m_gender}</if> 
+		<if test="m_birthday != null">,#{m_birthday}</if>
+		<if test="m_nick != null"> ,#{m_nick}</if> 
+		,sysdate(), 1
+		<if test="m_fail_count != null">	,#{m_fail_count}</if>
+		<if test="m_out_date != null"> ,#{m_out_date}</if>
+		 ,1
+		 <if test="m_token != null"> ,#{m_token}</if>
+		 <if test="m_t_time != null"> ,#{m_t_time}</if>
+		 <if test="m_image != null"> ,#{m_image})</if>
 	</insert>
-	
 	<!-- 아이디 중복 검사 -->
 	<select id="idChk" parameterType="String" resultType="int">
 		select count(*) from member where m_id = #{m_id}
 	</select>
+	<!-- 닉네임 중복 검사 -->
+	<select id="nickChk" parameterType="String" resultType="mvo">
+		select count(*) from member where m_nick = #{m_nick}
+	</select>
+	<!-- 닉네임 설정하기 -->
+	<update id="upNick" parameterType="mvo">
+		update member set m_nick = #{m_nick} where m_id = #{m_id}
+	</update>
 </mapper>

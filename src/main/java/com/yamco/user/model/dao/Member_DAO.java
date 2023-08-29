@@ -20,4 +20,8 @@ public class Member_DAO {
 	public int getMemberIdChk(String m_id){
 		return sqlSessionTemplate.selectOne("member.idChk", m_id);
 	}
+	// 닉네임 설정하기
+	public int setNick(Member_VO m_vo) {
+		return sqlSessionTemplate.update("member.upNick",m_vo);
+	}
 }

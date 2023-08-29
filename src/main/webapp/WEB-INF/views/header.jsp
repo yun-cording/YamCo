@@ -178,8 +178,11 @@
   color: white;
   left: 60px;
   width: 80px;
-  
-
+}
+#user_thumbnail{
+	width: 40px;
+	height: 40px;
+	border-radius: 20px;
 }
 a{
   cursor: pointer;
@@ -238,7 +241,7 @@ a{
         <div class="login">
                 <div class="login_bt" onclick="togglePop()">
                   <a id="login_link" href="/login.go">
-                <div class="login_thumbnail"><img id="user_thumbnail" src="" onclick=""></div>
+                <div class="login_thumbnail"><img id="user_thumbnail" src=""></div>
                 <span id="login_text" class="login_text">로 그 인</span></a>
                 <div><span id="user_Id" class="user_Id">누구누구</span></div>
                 <div class="popup" id="popup">
@@ -277,10 +280,10 @@ a{
 	<script type="text/javascript">
           // 로그인 확인 여부
 
-          var loginChk = false ; // 예시, 나중에 로그인 인터셉터에서 세션으로 값을 가져와야함
+          var loginChk = '${loginChk}' ; // 예시, 나중에 로그인 인터셉터에서 세션으로 값을 가져와야함
           if(loginChk){
-            var userId = "사용자아이디";
-            var userThumbnail = "사용자썸네일URL";
+            var userId = '${m_nick }';
+            var userThumbnail = '${m_image}';
 
             document.getElementById("login_text").style.display = "none"; // 로그인 글자를 숨기기
             document.getElementById("user_Id").textContent  = userId; // 유저 아이디 띄우기
@@ -304,7 +307,7 @@ a{
               
           
           }else{
-            //로그인 페이지
+        	  document.getElementById("user_thumbnail").style.display = 'none';
           }
           // tab클릭시 색상 변경
           var tabs = document.querySelectorAll('.menu');
