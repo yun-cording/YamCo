@@ -21,4 +21,10 @@ public class Member_ServiceImpl implements Member_Service{
 	public int getMemberIdChk(String m_id) {
 		return member_DAO.getMemberIdChk(m_id);
 	}
+	
+	// 닉네임 설정하기
+	@Override
+	public int setNick(Member_VO m_vo) {
+		return member_DAO.setNick(m_vo);
+	}
 }
