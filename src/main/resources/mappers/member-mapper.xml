@@ -33,8 +33,22 @@
 	</select>
 	<!-- 구글로그인 회원가입 -->
 	<insert id="gloginjoin" parameterType="mvo">
-	insert into member(m_id , m_nick , m_image , m_regdate , m_status , m_login_type )
-	values(#{m_id} , #{m_nick} , #{m_image} , sysdate() , 1 , 4)
+	insert into member(m_id, m_pw, m_phone, m_gender, m_birthday, m_nick, m_regdate, m_status, 
+					m_fail_count, m_out_date, m_login_type, m_token, m_t_time, m_image)
+		values(
+		#{m_id},
+		<if test="m_pw != null">#{m_pw},</if>
+		<if test="m_phone != null">#{m_phone},</if> 
+		<if test="m_gender != null">#{m_gender},</if> 
+		<if test="m_birthday != null">#{m_birthday},</if>
+		<if test="m_nick != null"> #{m_nick},</if> 
+		sysdate(), 1,
+		<if test="m_fail_count != null">#{m_fail_count},</if>
+		<if test="m_out_date != null"> #{m_out_date},</if>
+		 4,
+		 <if test="m_token != null"> #{m_token},</if>
+		 <if test="m_t_time != null"> #{m_t_time},</if>
+		 <if test="m_image != null"> #{m_image})</if>
 	</insert>
 
 	<!-- 닉네임 중복 검사 -->

@@ -34,9 +34,8 @@ public class GoogleLoginController {
 		// 1차로 db에 m_id에 해당하는 값이 있는지 확인
 		Member_VO mvo = member_Service.gloginchk(m_id);
 		// db에 값이 저장되어 있는경우 즉, 이미 회원가입이 되어있는경우 바로 메인페이지로 이동
-		if(mvo.getM_id() != null ) {
+		if(mvo!= null) {
 		mv.setViewName("/recipe/public_list");
-		
 		session.setAttribute("login", "ok");
 		session.setAttribute("id", m_id);
 		
