@@ -239,15 +239,23 @@ public class LoginController {
 					String birthday = kakao_account.get("birthday").toString();
 					
 					// DB보낼것들(m_id,프로필 사진 주소,성별(M,F),생일) 
-					
+					Member_VO mvo = new Member_VO();
+					mvo.setM_id(id);
+					mvo.setM_status("1");
+					mvo.setM_login_type("2");
+					mvo.setM_image(profile_image);
+					mvo.setM_gender(gender);
+					mvo.setM_birthday(birthday);
 					// 파싱하고 나서 DB에 insert하기 
 					
-					// m_id , 닉네임 mvo에 담아서 jsp에 보내기 
+					
+					
+					// m_id , m_nick mvo에 담아서 jsp에 보내기 
 					
 					
 					
-					mv.addObject("nickName", nickName);
-					mv.addObject("profile_image", profile_image);
+					mv.addObject("m_nick", nickName);
+					mv.addObject("m_id",id);
 				}
 			}
 			return mv ;
