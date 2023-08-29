@@ -184,10 +184,9 @@ function restorePlaceholder(element, defaultPlaceholder) {
 			<a href="https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${clientId }&redirect_uri=${redirectURI}&state=1">
 			<img class="social_size" src="/resources/images/naver_login.png"></a>
 			<a><img class="social_size margin" src="/resources/images/kakao_login.png"></a>
-			<a><img style="border: 1px solid lightgray" class="social_size margin" src="/resources/images/google_login.png"></a>
-		<div id="g_id_onload" data-client_id="931730291564-rocrnk3v1pph5j9q775qtinavfktiab9.apps.googleusercontent.com" data-callback="handleCredentialResponse" >
-		</div>
-	<div class="g_id_signin" style="width: 180px; height: 50px; border-radius: 5px;"></div>
+			<!-- <a><img style="border: 1px solid lightgray" class="social_size margin" src="/resources/images/google_login.png"></a> -->
+		<div id="g_id_onload" data-client_id="931730291564-rocrnk3v1pph5j9q775qtinavfktiab9.apps.googleusercontent.com" data-callback="handleCredentialResponse" ></div>
+		<div class="g_id_signin" style="width: 180px; height: 50px; border-radius: 5px;"></div>
 <!-- <img class="g_id_signin social_size margin"	src="/resources/images/google_login.png"> -->
 		<script type="text/javascript">
 		function handleCredentialResponse(response) {
@@ -203,10 +202,10 @@ function restorePlaceholder(element, defaultPlaceholder) {
 		    console.log("Email: " + responsePayload.email);
 		    /* var vo = [responsePayload]; */
 		    var fullname = responsePayload.name;
-		  	var id = responsePayload.sub;
-		  	var image = responsePayload.picture;
-		  	var email = responsePayload.email;
-		    location.href="/gglogin_go?name="+fullname+"&m_id="+id;
+		  	var m_nick = responsePayload.sub;
+		  	var m_image = responsePayload.picture;
+		  	var m_id = responsePayload.email; 
+		    location.href="/gglogin_go?m_image="+m_image+"&m_id="+m_id+"&m_nick="+m_nick; //이렇게 값하나하나씩해서 컨트롤러로 옮기기
 		};
 		function parseJwt (token) {
 		    var base64Url = token.split('.')[1];

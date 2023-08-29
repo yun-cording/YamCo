@@ -16,4 +16,13 @@
 	<select id="idChk" parameterType="String" resultType="int">
 		select count(*) from member where m_id = #{m_id}
 	</select>
+	
+	<select id="gloginchk" parameterType="String" resultType="mvo">
+	select * from member where m_id = #{m_id}
+	</select>
+	
+	<insert id="gloginjoin" parameterType="mvo">
+	insert into member(m_id , m_nick , m_image , m_regdate , m_status , m_login_type )
+	values(#{m_id} , #{m_nick} , #{m_image} , sysdate() , 1 , 4)
+	</insert>
 </mapper>
