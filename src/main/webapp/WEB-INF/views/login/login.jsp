@@ -151,6 +151,8 @@ function restorePlaceholder(element, defaultPlaceholder) {
 <body>
 <c:set var="clientId" value="YvbCvm24gWq60XdG4a8G" />
 <c:set var="redirectURI" value="http://localhost:8090/naver_login.do" />
+<c:set var="REST_API_KEY" value="aab498f24417783525d7f40dcb83e5e6"></c:set>
+<c:set var="REDIRECT_URI" value="http://localhost:8090/kakaologin.do"></c:set>
 	<div id="content">
 		<div id="top_color"><a><img class="center" src="/resources/images/logo_white_yamyam.png"></a></div>
 		<div id="top_pattern"></div>
@@ -162,7 +164,8 @@ function restorePlaceholder(element, defaultPlaceholder) {
 		<div class="social">
 		<a href="https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${clientId }&redirect_uri=${redirectURI}&state=1">
 			<img class="social_size" src="/resources/images/naver_login.png"></a>
-			<a><img class="social_size margin" src="/resources/images/kakao_login.png"></a>
+			<a href="https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}">
+			<img class="social_size margin" src="/resources/images/kakao_login.png"></a>
 			<a><img style="border: 1px solid lightgray" class="social_size margin" src="/resources/images/google_login.png"></a>
 		</div>
 		<div>
