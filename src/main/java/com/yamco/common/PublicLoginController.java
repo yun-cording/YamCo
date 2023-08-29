@@ -1,12 +1,9 @@
 package com.yamco.common;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -21,20 +18,6 @@ public class PublicLoginController {
 	private BCryptPasswordEncoder passwordEncoder;
 	
 	// TODO 채림 자체회원가입 작업 시작
-	// 멤버 전체 보기
-	@RequestMapping("/go_memberList.do")
-	public ModelAndView memberList(@RequestParam("m_id")String m_id) {
-		ModelAndView mv = new ModelAndView("redirect:/");
-		Member_VO mvo = (Member_VO) member_Service.getMemberList();
-		int result = 1;
-		String m_id2 = mvo.getM_id(); 
-		if(m_id.equals(m_id2)) {
-		
-		}
-		mv.addObject("result", result);
-		return mv;
-	}
-	
 	// 자체 회원가입 insert
 	@PostMapping("/member_join.do")
 	public ModelAndView getMemberJoin(Member_VO mvo, @RequestParam("gender")String gender) {

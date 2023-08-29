@@ -19,29 +19,40 @@ function memberJoin_go(f) {
 	f.action = "/member_join.do";
 	f.submit();
 }
-
 </script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
 		$("#m_id").keyup(function() {
-			$.ajax({
-				url : "/go_memberList.do",
-				method : "post",
-				dataType : "text",
-				data : "m_id="+$("#m_id").val(),
-				async : false,
-				success : function(data) {
-					if(data>=1){
-						$(".idDoubleChk").text("중복된 아이디입니다.").css("color", "red");			
-					}else{
-						$(".idDoubleChk").text("사용 가능한 아이디입니다.").css("color", "green");
+		var chk = $("#m_id").val();		
+		function checkValidSomeThing(param) {
+			  var myRe = /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/;
+			  return myRe.test(param);
+			}
+
+		var txt = $(".idDoubleChk");
+			if(chk === ''){
+				txt.text("");
+			}else if(!checkValidSomeThing(chk)){
+				txt.text("이메일 형식으로 입력해주세요.").css("color", "red");			
+			}else{
+				$.ajax({
+					url : "/go_memberIdChk.do",
+					method : "post",
+					dataType : "text",
+					data : "m_id=" + $("#m_id").val(),
+					async : false,
+					success : function(result) {
+						if(result >= 1){
+							$(".idDoubleChk").text("중복된 아이디입니다.").css("color", "red");			
+						}else{
+							$(".idDoubleChk").text("사용 가능한 아이디입니다.").css("color", "green");
+						}
+					},
+					error : function() {
 					}
-				},
-				error : function() {
-					alert("읽기 실패");
-				}
-			});
+				});
+			}
 		});
 	});
 </script>
@@ -53,7 +64,7 @@ function memberJoin_go(f) {
 	<div id="mydiv">
 	
 	<div class="middleform">
-	<input type="text" placeholder="아이디(이메일) " class="middletext" name="m_id" id="m_id">
+	<input type="text" placeholder="아이디(이메일)" class="middletext" name="m_id" id="m_id">
 	<div class="idline"></div>
 	<span class="idDoubleChk"></span>
 	</div>
@@ -94,7 +105,7 @@ function memberJoin_go(f) {
 	
 	<div style="text-align:center; margin-top:30px;">
 	<input type="hidden" name="gender">
-	<button class="buttons" style="background:gray;" onclick="memberJoin_go(this.form)" disabled><span>회원가입</span></button>
+	<button class="buttons" style="background:gray;" onclick="memberJoin_go(this.form)"><span>회원가입</span></button>
 	<button type="button" class="buttons" style="background: gray"><span>돌아가기</span></button>
 	</div>
 	</div>

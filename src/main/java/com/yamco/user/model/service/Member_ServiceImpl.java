@@ -1,6 +1,5 @@
 package com.yamco.user.model.service;
 
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,7 +18,7 @@ public class Member_ServiceImpl implements Member_Service{
 	}
 
 	@Override
-	public List<Member_VO> getMemberList() {
-		return member_DAO.getMemberList();
+	public int getMemberIdChk(String m_id) {
+		return member_DAO.getMemberIdChk(m_id);
 	}
 }
