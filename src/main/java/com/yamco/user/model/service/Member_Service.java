@@ -8,4 +8,7 @@ public interface Member_Service {
 	
 	// 아이디 중복검사
 	public int getMemberIdChk(String m_id);
+	
+	// 닉네임 설정하기
+	public int setNick(Member_VO m_vo);
 }

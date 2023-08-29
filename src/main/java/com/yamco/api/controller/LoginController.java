@@ -16,12 +16,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.yamco.api.model.service.Api_Service;
+import com.yamco.user.model.service.Member_Service;
 import com.yamco.user.model.vo.Member_VO;
 
 @Controller
 public class LoginController {
 	@Autowired
 	private Api_Service api_Service;
+	@Autowired
+	private Member_Service member_Service;
 	
 	@RequestMapping("/naver_login.do")
 	public ModelAndView naverLoginGo(String code, String state, HttpSession session ) {
@@ -80,7 +83,6 @@ public class LoginController {
 					}
 					br2.close();
 					json =(JSONObject) parser.parse(sb2.toString());
-					System.out.println(json);
 					JSONObject response = (JSONObject) json.get("response");
 					String id = response.get("id").toString();
 					String nickname = response.get("nickname").toString();
@@ -88,7 +90,6 @@ public class LoginController {
 					String gender = response.get("gender").toString();
 					String mobile = response.get("mobile").toString();
 					String birthday = response.get("birthday").toString();
-					String birthyear = response.get("birthyear").toString();
 					
 					
 					Member_VO m_vo = new Member_VO();
@@ -99,25 +100,27 @@ public class LoginController {
 					m_vo.setM_nick(nickname);
 					m_vo.setM_image(profile_image);
 					m_vo.setM_gender(gender);
-					m_vo.setM_phone(mobile);
-					String str = birthyear+birthday;
-					str = str.replaceAll("-", "");
-					m_vo.setM_birthday(str);
+					m_vo.setM_phone(mobile.replaceAll("-", ""));
+					m_vo.setM_birthday(birthday.replaceAll("-", ""));
+					
 					
 					// DB다녀와서 고유id 있는지 체크하기
 					Member_VO m_vo2 = api_Service.getIdChk(id);
 					if(m_vo2!=null) {
 						// 있으면 세션에 로그인 변수저장후 홈페이지로
-						mv.setViewName("/user/home");
-						session.setAttribute("loginChk", "ok");
+						mv.setViewName("main");
+						session.setAttribute("loginChk", true);
 						session.setAttribute("m_nick", nickname);
 						session.setAttribute("m_idx", m_vo2.getM_idx());
+						session.setAttribute("m_image", m_vo2.getM_image());
+					}else {
+						// 없으면 DB에 닉네임 null로 저장후 닉네임 받으러
+						m_vo.setM_nick(null);//db에 저장할 닉네임 null
+						member_Service.getMemberJoin(m_vo); //db에 저장
+						mv.setViewName("/login/social_join"); // 닉네임받는곳
+						mv.addObject("m_id",id); // 소셜로그인 고유id
+						mv.addObject("m_nick",nickname); // 소셜로그인내부 nick네임
 					}
-					
-					// 없으면 닉네임 기입창으로
-					session.setAttribute("str", str);
-					mv.setViewName("/login/social_join");
-					mv.addObject("m_vo",m_vo);
 					return mv;
 				}
 			}
