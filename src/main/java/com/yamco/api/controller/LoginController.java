@@ -144,7 +144,7 @@ public class LoginController {
 	// response_type=code&client_id=aab498f24417783525d7f40dcb83e5e6&
 	// redirect_uri=http://localhost:8090/kakaologin.do
 	@RequestMapping("/kakaologin.do")
-	public ModelAndView kakaoLogin(String code) {
+	public ModelAndView kakaoLogin(String code, HttpSession session) {
 		ModelAndView mv = new ModelAndView();
 		
 		// 1. 토큰 받기
@@ -217,6 +217,7 @@ public class LoginController {
 					// 개인 사용자 정보
 					// System.out.println(res.toString());
 					json = (JSONObject)pars.parse(res.toString());
+					System.out.println(json);
 					JSONObject props = (JSONObject)json.get("properties");
 					// 0) 고유 아이디 DB의 m_id 에 보내야함 
 					String id = json.get("id").toString();
@@ -251,20 +252,44 @@ public class LoginController {
 					mvo.setM_birthday(birthday);
 					// 파싱하고 나서 DB에 insert하기 
 					
-					
-					
-					// m_id , m_nick mvo에 담아서 jsp에 보내기 
-					
-					
-					
-					mv.addObject("m_nick", nickName);
-					mv.addObject("m_id",id);
+					// DB다녀와서 고유id 있는지 체크하기
+					Member_VO m_vo2 = api_Service.getIdChk(id);
+					System.out.println("m_vo2 : "+ m_vo2);
+					if(m_vo2!=null) {
+						// 있으면 세션에 로그인 변수저장후 홈페이지로
+						if (m_vo2.getM_nick() !=null) {
+							// 닉네임 널이 아니라면
+							mv.setViewName("main");
+							session.setAttribute("loginChk", true);
+							session.setAttribute("m_nick", nickName);
+							session.setAttribute("m_idx", m_vo2.getM_idx());
+							session.setAttribute("m_image", m_vo2.getM_image());
+						} else {
+							mvo.setM_nick(null);
+							mv.setViewName("/login/social_join"); // 닉네임받는곳
+							mv.addObject("m_id",id); // 소셜로그인 고유id
+							mv.addObject("m_nick",nickName); // 소셜로그인내부 nick네임
+						}
+						
+					}else {
+						// 없으면 DB에 닉네임 null로 저장후 닉네임 받으러
+						mvo.setM_nick(null);//db에 저장할 닉네임 null
+						member_Service.getMemberJoin(mvo); //db에 저장
+						mv.setViewName("/login/social_join"); // 닉네임받는곳
+						mv.addObject("m_id",id); // 소셜로그인 고유id
+						mv.addObject("m_nick",nickName); // 소셜로그인내부 nick네임
+					}
 				}
 			}
+			
 			return mv ;
+			
+			
 		} catch (Exception e) {
-			return null ;
+			System.out.println(e);
+			return new ModelAndView("error404");
 		}
+		
 	}
 	
 	// TODO 카카오 로그인 끝
