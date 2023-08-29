@@ -208,24 +208,39 @@ public class LoginController {
 					// 개인 사용자 정보
 					// System.out.println(res.toString());
 					json = (JSONObject)pars.parse(res.toString());
-					System.out.println(json);
-					
 					JSONObject props = (JSONObject)json.get("properties");
-					// 닉네임
-					String nickName = (String)props.get("nickname");
-					// 프로필 사진 사이즈(640x640.jpg)
-					String profile_image = (String)props.get("proflie_image");
+					// 0) 고유 아이디 DB의 m_id 에 보내야함 
+					String id = json.get("id").toString();
+					// 1) 닉네임 받음 DB안보내고 DB엔 NULL로 보냄 그리고 jsp에 보내야함
+					String nickName = props.get("nickname").toString();
+					// 2) DB보냄 프로필 사진 주소 , 사이즈(640x640.jpg)
+					String profile_image = props.get("profile_image").toString();
+					
 					
 					
 					JSONObject kakao_account = (JSONObject)json.get("kakao_account");
-					// 이메일
-					String email = (String)kakao_account.get("email");
+					// 3) DB보냄 성별 male은 M으로 저장 fmale 은 F로 저장
+					String gen = kakao_account.get("gender").toString();
+					String gender = "" ;
+					// 성별 if문
+					if (gen.equals("male")) {
+						gender = "M" ;
+					}else {
+						gender = "F" ;
+					}
 					
+					// 4) DB보냄 생일
+					String birthday = kakao_account.get("birthday").toString();
+					
+					// DB보낼것들(m_id,프로필 사진 주소,성별(M,F),생일) 
+					
+					// 파싱하고 나서 DB에 insert하기 
+					
+					// m_id , 닉네임 mvo에 담아서 jsp에 보내기 
 					
 					
 					
 					mv.addObject("nickName", nickName);
-					mv.addObject("email", email);
 					mv.addObject("profile_image", profile_image);
 				}
 			}
