@@ -12,7 +12,7 @@
 	<form action="">
 	<div id="mydiv">
 	
-	<div style="width:990px; margin: auto; margin-top:240px; text-align: center;">
+	<div style="width:1120px; margin: auto; margin-top:240px; text-align: center;">
 	<img src="/resources/images/icon_tomato_ver2_1.png" style="width:80px;">
 	<span id="maintext">가입하실 때 입력하신 <span style="color:tomato">핸드폰 번호</span>를 입력해 주세요.</span>
 	<img src="/resources/images/icon_tomato_ver2_2.png" style="width:80px;">

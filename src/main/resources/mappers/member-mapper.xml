@@ -40,12 +40,45 @@
 	<select id="idChk" parameterType="String" resultType="int">
 		select count(*) from member where m_id = #{m_id}
 	</select>
+	<!-- 구글로그인 idchk -->
+	<select id="gloginchk" parameterType="String" resultType="mvo">
+	select * from member where m_id = #{m_id}
+	</select>
+	<!-- 구글로그인 회원가입 -->
+	<insert id="gloginjoin" parameterType="mvo">
+	insert into member
+		(m_id 
+		<if test="m_pw != null">,m_pw</if>
+		<if test="m_phone != null">,m_phone</if> 
+		<if test="m_gender != null">,m_gender </if>
+		<if test="m_birthday != null">,m_birthday </if>
+		<if test="m_nick != null">,m_nick </if>
+		,m_regdate 
+		,m_status 
+		<if test="m_fail_count != null">,m_fail_count </if>
+		<if test="m_out_date != null">,m_out_date </if>
+		,m_login_type 
+		 <if test="m_token != null">,m_token </if>
+		 <if test="m_t_time != null">,m_t_time </if>
+		 <if test="m_image != null">,m_image</if>)
+		values(
+		#{m_id}
+		<if test="m_pw != null">,#{m_pw}</if>
+		<if test="m_phone != null">,#{m_phone}</if> 
+		<if test="m_gender != null">,#{m_gender}</if> 
+		<if test="m_birthday != null">,#{m_birthday}</if>
+		<if test="m_nick != null"> ,#{m_nick}</if> 
+		,sysdate(), 1
+		<if test="m_fail_count != null">	,#{m_fail_count}</if>
+		<if test="m_out_date != null"> ,#{m_out_date}</if>
+		 ,4
+		 <if test="m_token != null"> ,#{m_token}</if>
+		 <if test="m_t_time != null"> ,#{m_t_time}</if>
+		 <if test="m_image != null"> ,#{m_image})</if>
+	</insert>
+
 	<!-- 닉네임 중복 검사 -->
 	<select id="nickChk" parameterType="String" resultType="mvo">
 		select count(*) from member where m_nick = #{m_nick}
 	</select>
-	<!-- 닉네임 설정하기 -->
-	<update id="upNick" parameterType="mvo">
-		update member set m_nick = #{m_nick} where m_id = #{m_id}
-	</update>
 </mapper>
