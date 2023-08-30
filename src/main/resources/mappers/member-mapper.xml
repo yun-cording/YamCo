@@ -147,4 +147,9 @@
 		select
 		count(*) from member where m_nick = #{m_nick}
 	</select>
+	
+	<!-- 닉네임 설정하기 -->
+	<update id="upNick" parameterType="mvo">
+		update member set m_nick = #{m_nick} where m_id = #{m_id}
+	</update>
 </mapper>
