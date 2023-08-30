@@ -106,14 +106,20 @@ public class LoginController {
 
 					// DB다녀와서 고유id 있는지 체크하기
 					Member_VO m_vo2 = api_Service.getIdChk(id);
-					if (m_vo2 != null) {
-						// 있으면 세션에 로그인 변수저장후 홈페이지로
-						mv.setViewName("main");
-						session.setAttribute("loginChk", true);
-						session.setAttribute("m_nick", nickname);
-						session.setAttribute("m_idx", m_vo2.getM_idx());
-						session.setAttribute("m_image", m_vo2.getM_image());
-					} else {
+					if(m_vo2!=null) {
+						if (m_vo2.getM_nick() !=null) {
+							// 닉네임 널이 아니라면
+							mv.setViewName("main");
+							session.setAttribute("loginChk", true);
+							session.setAttribute("m_nick", nickname);
+							session.setAttribute("m_idx", m_vo2.getM_idx());
+							session.setAttribute("m_image", m_vo2.getM_image());
+						} else {
+							mv.setViewName("/login/social_join"); // 닉네임받는곳
+							mv.addObject("m_id",id); // 소셜로그인 고유id
+							mv.addObject("m_nick",nickname); // 소셜로그인내부 nick네임
+						}
+					}else {
 						// 없으면 DB에 닉네임 null로 저장후 닉네임 받으러
 						m_vo.setM_nick(null);// db에 저장할 닉네임 null
 						member_Service.getMemberJoin(m_vo); // db에 저장
@@ -255,7 +261,6 @@ public class LoginController {
 							session.setAttribute("m_idx", m_vo2.getM_idx());
 							session.setAttribute("m_image", m_vo2.getM_image());
 						} else {
-							mvo.setM_nick(null);
 							mv.setViewName("/login/social_join"); // 닉네임받는곳
 							mv.addObject("m_id", id); // 소셜로그인 고유id
 							mv.addObject("m_nick", nickName); // 소셜로그인내부 nick네임
