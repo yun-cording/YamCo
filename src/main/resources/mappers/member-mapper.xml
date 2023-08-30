@@ -113,6 +113,5 @@
 	   <!-- 닉네임 설정하기 -->
     <update id="upNick" parameterType="mvo">
         update member set m_nick = #{m_nick} where m_id = #{m_id}
-    </update>
-    
+    </update>    
 </mapper>

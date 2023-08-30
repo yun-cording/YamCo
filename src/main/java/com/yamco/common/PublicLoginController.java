@@ -32,6 +32,9 @@ public class PublicLoginController {
 			}
 			mvo.setM_login_type("1");
 			member_Service.getMemberJoin(mvo);
+			String m_id = mvo.getM_id();
+			mv.addObject("m_id", m_id);
+			// System.out.println("m_id 쏴 : " +m_id);
 			return mv;			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -40,15 +43,46 @@ public class PublicLoginController {
 	}
 	
 	@PostMapping("/member_nick.do")
-	public ModelAndView setNick(Member_VO mvo) {
+	public ModelAndView setNick(Member_VO mvo, @RequestParam("m_id")String m_id) {
 		ModelAndView mv = new ModelAndView("login/login");
 		try {
-			member_Service.setNick(mvo);
+			int res = member_Service.getMemberIdChk(m_id);
+			// System.out.println("받았냐 : " + m_id);
+			if(res > 0) {
+				member_Service.setNick(mvo);
 			return mv;
+			}
 		} catch (Exception e) {
 			mv.setViewName("error404");
 		}
 		return mv;
 	}
 	// TODO 채림 자체회원가입 작업 끗
+	// TODO 채림 자체회월 로그인 작업 시작
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	// TODO 채림 자체회월 로그인 작업 끗
 }

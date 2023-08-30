@@ -45,8 +45,7 @@
 							status = 0;
 						}else{
 							txt.text("사용 가능한 아이디입니다.").css("color", "green");
-							status = 1;
-							
+							status = 1;							
 						}
 					},
 					error : function() {
@@ -59,7 +58,7 @@
 </head>
 <body>
 	<jsp:include page="member_header.jsp" />
-	<form action="/setNick.do">
+	<form action="/setNick.do" method="post">
 	<div id="mydiv">
 	
 	<div style="width:1100px; margin: auto; margin-top:150px; text-align: center;">
@@ -75,7 +74,7 @@
 	</div>
 			
 	<div style="text-align:center; margin-top:120px;">
-	<button type="submit" class="buttons" style="background:gray;" onclick="socialJoin_go(this.form)" disabled><span>회원가입</span></button>
+	<button type="submit" class="buttons" style="background:tomato;" onclick="socialJoin_go(this.form)"><span>회원가입</span></button>
 	<button type="button" class="buttons" style="background:gray;" onclick="history.go(-1)"><span>돌아가기</span></button>
 	</div>
 	<input type="hidden" value="${m_id }" name="m_id">
