@@ -6,8 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>냠냠레시피</title>
-<link rel="icon" type="image/x-icon"
-	href="resources/images/icon_tomato.png">
+	<link rel="stylesheet" href="resources/css/user/recipe/search_list.css?after" />
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 <link rel="icon" type="image/x-icon" href="resources/images/icon_tomato.png">
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
@@ -72,9 +71,7 @@
 #content {
 	width: 68.75%;
 	float: left;
-	/* Rectangle 77 */
 	margin-top: 0px;
-	background: snow;
 }
 
 
@@ -104,7 +101,7 @@
 	border-top-width: 40px;
 	border-bottom-width: 40px;
 	width: 1120px;
-	height: 1140px;
+	height: 1000px;
 	margin-left: 100px;
 }
 .arrow{
@@ -127,7 +124,7 @@
 clear: both;
 }
 .guide{
-	margin-left: 200px;
+	margin-left: 320px;
 	float: left;
 	color: lightgray;
 }
@@ -197,7 +194,8 @@ clear: both;
 			<div class="margin"><span class="text">아래 냉장고를 클릭해서 우리집 냉장고에 있는 재료를 입력하세요!</span></div>
 			<div class="margin box">
 				<div class="clean"><div class="ref_top"><img class="arrow" src="/resources/images/arrow_tomato.png"><span class="click">Click!</span></div>
-				<div class="guide"><span>※최대 3개의 재료까지 등록 가능합니다</span></div></div>
+				</div>
+				<div class="guide"><span>※최대 3개의 재료까지 등록 가능합니다</span></div>
 				<div id="gif-container"><img class="ref" id="gif-image" src="/resources/images/move_refrige.gif"></div>
 				<div id="input-stack">
 					<div class="clean">
