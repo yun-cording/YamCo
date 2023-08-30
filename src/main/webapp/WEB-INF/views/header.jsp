@@ -92,6 +92,7 @@
 }
 .search_tf{
     width: 406px;
+    padding-left: 10px;
     height: 50px;
     border: 3px solid tomato;
     margin-top: 50px;
@@ -114,8 +115,6 @@
   width: 50px;
   height: 50px;
   position: relative;
-  top: -53.5px;
-  left: 4px;
 }
 .login_bt{
   width: 150px;
@@ -235,8 +234,8 @@ a{
            <input type="text" class="search_tf" name="search_text" value="" />
         </div>
         <div class="threediv">
-            <button type="submit" class="search_bt"></button>
-            <img class="search_icon" src ="/resources/images/search_icon_white.png">
+            <button type="submit" class="search_bt">
+            <img class="search_icon" src ="/resources/images/search_icon_white.png"></button>
         </div>
         </form>
         <div class="login">
