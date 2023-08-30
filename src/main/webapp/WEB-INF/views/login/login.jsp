@@ -210,7 +210,7 @@ function restorePlaceholder(element, defaultPlaceholder) {
 		  	var m_nick = responsePayload.sub;
 		  	var m_image = responsePayload.picture;
 		  	var m_id = responsePayload.email; 
-		    location.href="/gglogin_go?m_image="+m_image+"&m_id="+m_id+"&m_nick="+m_nick; //이렇게 값하나하나씩해서 컨트롤러로 옮기기
+		    location.href="/google_login_do?m_image="+m_image+"&m_id="+m_id; //이렇게 값하나하나씩해서 컨트롤러로 옮기기
 		};
 		function parseJwt (token) {
 		    var base64Url = token.split('.')[1];
