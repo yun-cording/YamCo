@@ -61,8 +61,14 @@
 input[type="text"]::placeholder {
 	color: lightgray;
 }
+input[type="password"]::placeholder {
+	color: lightgray;
+}
 
 input[type="text"]:focus {
+	outline: none;
+}
+input[type="password"]:focus {
 	outline: none;
 }
 

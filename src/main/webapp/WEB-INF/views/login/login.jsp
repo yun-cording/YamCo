@@ -33,6 +33,9 @@ function restorePlaceholder(element, defaultPlaceholder) {
     }
   }
 </script>
+<style type="text/css">
+
+</style>
 </head>
 <body>
 <c:set var="clientId" value="YvbCvm24gWq60XdG4a8G" />
@@ -52,7 +55,7 @@ function restorePlaceholder(element, defaultPlaceholder) {
 			onblur="restorePlaceholder(this, '아이디')">
 	</div>
 	<div>
-		<input class="border" type="text" placeholder="비밀번호"
+		<input class="border" type="password" placeholder="비밀번호"
 			onfocus="clearPlaceholder(this)"
 			onblur="restorePlaceholder(this, '비밀번호')">
 	</div>
@@ -64,12 +67,19 @@ function restorePlaceholder(element, defaultPlaceholder) {
 			<a href="https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}">
 			<div class="socialkakao margin"><img class="social_size" src="/resources/images/kakao_login.png"></div></a>
 			<!-- <a><img style="border: 1px solid lightgray" class="social_size margin" src="/resources/images/google_login.png"></a> -->
-			<div style="width: 180px; height: 50px; border-radius: 5px;">
 		<div id="g_id_onload" data-client_id="931730291564-rocrnk3v1pph5j9q775qtinavfktiab9.apps.googleusercontent.com" data-callback="handleCredentialResponse" ></div>
 		<div class="g_id_signin margin"></div>
-
 <!-- <img class="g_id_signin social_size margin"	src="/resources/images/google_login.png"> -->
-		<script type="text/javascript">
+	</div>
+	<div>
+		<a href="/member_join.go">
+		<div class="color join">
+			회원가입
+		</div>
+		</a>
+	</div>
+</div>	
+<script type="text/javascript">
 		function handleCredentialResponse(response) {
 		    // decodeJwtResponse() is a custom function defined by you
 		    // to decode the credential response.
@@ -97,12 +107,5 @@ function restorePlaceholder(element, defaultPlaceholder) {
 		    return JSON.parse(jsonPayload);
 		};
 		</script>
-	</div>
-	<div>
-		<a href="/member_join.go"><div class="color join">
-			회원가입
-		</div></a>
-	</div>
-
 </body>
 </html>
