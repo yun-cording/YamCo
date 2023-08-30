@@ -92,6 +92,7 @@
 }
 .search_tf{
     width: 406px;
+    padding-left: 10px;
     height: 50px;
     border: 3px solid tomato;
     margin-top: 50px;
@@ -114,8 +115,6 @@
   width: 50px;
   height: 50px;
   position: relative;
-  top: -53.5px;
-  left: 4px;
 }
 .login_bt{
   width: 150px;
@@ -125,7 +124,7 @@
   border-bottom-left-radius: 25px;
   margin-top: 50px;
   float: right;
-  color: #FFFFFF;
+  color: #FFFFFF; !important;
   font-size: 12px;
   font-weight: bold;
   position: relative;
@@ -141,6 +140,7 @@
 }
 .login_text{
   float: left;
+   color: #FFFFFF; !important;
   line-height: 50px;
   margin-left: 20%;
   
@@ -178,8 +178,11 @@
   color: white;
   left: 60px;
   width: 80px;
-  
-
+}
+#user_thumbnail{
+	width: 40px;
+	height: 40px;
+	border-radius: 20px;
 }
 a{
   cursor: pointer;
@@ -222,23 +225,23 @@ a{
 
 </head>
 <body>
-	<form action="">
+	<form action="/search.go">
 	<div id="header" class="clear">
 		<div class="onediv">
            <a href="/main.go"><img class="mainlogo" src ="/resources/images/logo.png"></a>
         </div>
 		<div class="twodiv">
-           <input type="text" class="search_tf" name="search_tf" value="" />
+           <input type="text" class="search_tf" name="search_text" value="" />
         </div>
         <div class="threediv">
-            <button class="search_bt"></button>
-            <img class="search_icon" src ="/resources/images/search_icon_white.png">
+            <button type="submit" class="search_bt">
+            <img class="search_icon" src ="/resources/images/search_icon_white.png"></button>
         </div>
-        
+        </form>
         <div class="login">
                 <div class="login_bt" onclick="togglePop()">
                   <a id="login_link" href="/login.go">
-                <div class="login_thumbnail"><img id="user_thumbnail" src="" onclick=""></div>
+                <div class="login_thumbnail"><img id="user_thumbnail" src=""></div>
                 <span id="login_text" class="login_text">로 그 인</span></a>
                 <div><span id="user_Id" class="user_Id">누구누구</span></div>
                 <div class="popup" id="popup">
@@ -263,7 +266,6 @@ a{
                 <a href="/faq.go"><div class="menu tab6"><span id="faq">FAQ</span></div></a>
               </div>
         </div>
-        </form>
         <script type="text/javascript">
         function myPage_go(f) {
     		f.action="/myinfo.go";
@@ -277,10 +279,10 @@ a{
 	<script type="text/javascript">
           // 로그인 확인 여부
 
-          var loginChk = false ; // 예시, 나중에 로그인 인터셉터에서 세션으로 값을 가져와야함
+          var loginChk = '${loginChk}' ; 
           if(loginChk){
-            var userId = "사용자아이디";
-            var userThumbnail = "사용자썸네일URL";
+            var userId = '${m_nick }';
+            var userThumbnail = '${m_image}';
 
             document.getElementById("login_text").style.display = "none"; // 로그인 글자를 숨기기
             document.getElementById("user_Id").textContent  = userId; // 유저 아이디 띄우기
@@ -304,7 +306,7 @@ a{
               
           
           }else{
-            //로그인 페이지
+        	  document.getElementById("user_thumbnail").style.display = 'none';
           }
           // tab클릭시 색상 변경
           var tabs = document.querySelectorAll('.menu');

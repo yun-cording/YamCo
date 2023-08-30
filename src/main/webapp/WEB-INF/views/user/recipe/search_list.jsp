@@ -50,7 +50,7 @@
 		<div id="content">
 				<div class="row mx-5">
 					<div class="col-9">
-						<span class="search_subject">냠냠 레시피는 총</span> <span class="search_count">???</span> <span class="search_subject">개</span>
+						<span class="search_subject">냠냠 레시피는 총</span> <span class="search_count">${list.size()}</span> <span class="search_subject">개</span>
 					</div>
 					<div class="col-1 tab-on">
 						<span>정확순</span>

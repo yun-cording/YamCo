@@ -18,122 +18,152 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.yamco.user.model.service.U_recipe_Service;
+import com.yamco.user.model.vo.U_recipe_meta_VO;
 
 @Controller
 public class User_Controller {
     @Autowired
     private ServletContext servletContext;
 
-	
+	@Autowired
+	U_recipe_Service u_recipe_Service;
+
 	@GetMapping("/go_home.do")
 	public ModelAndView go_home() {
-		ModelAndView mv = new ModelAndView("/home"); 
-		return mv ;
+		ModelAndView mv = new ModelAndView("/home");
+		return mv;
 	}
+
 	@RequestMapping("go_ranking_search.do")
 	public ModelAndView go_ranking_search() {
 		return new ModelAndView("user/ranking/ranking_search");
 	}
+
 	@RequestMapping("go_ranking_recipe.do")
 	public ModelAndView go_ranking_recipe() {
-		return new ModelAndView("user/ranking/ranking_recipe");
+		ModelAndView mv = new ModelAndView("user/ranking/ranking_recipe");
+		List<U_recipe_meta_VO> result = u_recipe_Service.getU_recipeRankListRecipe();
+		mv.addObject("lank_list_recipe", result);
+
+		return mv;
 	}
+
 	@RequestMapping("go_plz.do")
 	public ModelAndView go_plz() {
 		return new ModelAndView("user/plz/plz");
 	}
+
 	@RequestMapping("go_faq.do")
 	public ModelAndView go_faq() {
 		return new ModelAndView("user/faq/faq");
 	}
+
 	@RequestMapping("go_award.do")
 	public ModelAndView go_award() {
 		return new ModelAndView("user/award/award");
 	}
+
 	@RequestMapping("go_admin.do")
 	public ModelAndView go_admin() {
 		return new ModelAndView("admin/admin_index");
 	}
+
 	@RequestMapping("/go_user_list.do")
 	public ModelAndView goUserList() {
 		return new ModelAndView("user/recipe/user_list");
 	}
-//	@RequestMapping("/go_public_list.do")
-//	public ModelAndView goPublicList() {
-//		return new ModelAndView("user/recipe/public_list");
-//	}
+
 	@RequestMapping("go_main.do")
 	public ModelAndView go_main() {
 		return new ModelAndView("/main");
 	}
+
 	@RequestMapping("go_error404.do")
 	public ModelAndView go_error404() {
 		return new ModelAndView("/error404");
 	}
+
 	@RequestMapping("go_error500.do")
 	public ModelAndView go_error500() {
 		return new ModelAndView("/error500");
 	}
+
 	@RequestMapping("go_find_pw.do")
 	public ModelAndView go_find_pw() {
 		return new ModelAndView("login/find_pw");
 	}
+
 	@RequestMapping("go_login.do")
 	public ModelAndView go_login() {
 		return new ModelAndView("login/login");
 	}
+
 	@RequestMapping("go_member_join.do")
 	public ModelAndView go_member_join() {
 		return new ModelAndView("login/member_join");
 	}
+
 	@RequestMapping("go_new_pw.do")
 	public ModelAndView go_new_pw() {
 		return new ModelAndView("login/new_pw");
 	}
+
 	@RequestMapping("go_social_join.do")
 	public ModelAndView go_social_join() {
 		return new ModelAndView("login/social_join");
 	}
+
 	@RequestMapping("go_changeMyinfo.do")
 	public ModelAndView go_changeMyinfo() {
 		return new ModelAndView("mypage/changeMyinfo");
 	}
+
 	@RequestMapping("go_changeMypw.do")
 	public ModelAndView go_changeMypw() {
 		return new ModelAndView("mypage/changeMypw");
 	}
+
 	@RequestMapping("go_myComment.do")
 	public ModelAndView go_myComment() {
 		return new ModelAndView("mypage/myComment");
 	}
+
 	@RequestMapping("go_myContent.do")
 	public ModelAndView go_myContent() {
 		return new ModelAndView("mypage/myContent");
 	}
+
 	@RequestMapping("go_myinfo.do")
 	public ModelAndView go_myinfo() {
 		return new ModelAndView("mypage/myinfo");
 	}
+
 	@RequestMapping("go_myWishList.do")
 	public ModelAndView go_myWishList() {
 		return new ModelAndView("mypage/myWishList");
 	}
+
 	@RequestMapping("go_reportComment.do")
 	public ModelAndView go_reportComment() {
 		return new ModelAndView("mypage/reportComment");
 	}
+
 	@RequestMapping("go_reportContent.do")
 	public ModelAndView go_reportContent() {
 		return new ModelAndView("mypage/reportContent");
 	}
+
 	@RequestMapping("go_leaveMember.do")
 	public ModelAndView go_leaveMember() {
 		return new ModelAndView("mypage/leaveMember");
 	}
+
 	@RequestMapping("/go_search.do")
 	public ModelAndView go_searchList() {
 		return new ModelAndView("user/recipe/search_list");
 	}
+
 	@RequestMapping("/go_drag.do")
 	public ModelAndView go_drag() {
 		return new ModelAndView("admin/draganddrop");
@@ -156,6 +186,7 @@ public class User_Controller {
 		 try {
 	            ObjectMapper objectMapper = new ObjectMapper();
 	            File jsonFile = new File(servletContext.getRealPath("/resources/data/api_data.json"));
+
 
 	            // File jsonFile = new File("src\\main\\webapp\\resources\\data\\api_data.json"); // JSON 파일 경로
 	            // src/main/webapp 안의 리소스 폴더는 웹 애플리케이션 컨텍스트 경로의 일부이기 때문에 상대경로로 
@@ -191,60 +222,11 @@ public class User_Controller {
 		return mv;
 	
 	}
+}
 	// TODO 상우 공공데이터 파싱 => 목록 띄우기
 	
-	// TODO 상우 공공데이터 상세페이지
-//	@RequestMapping("/go_publicDet.do")
-//	public ModelAndView go_publicDet(HttpServletRequest request,
-//			@RequestParam String rcp_seq) {
-//		ModelAndView mv = new ModelAndView("user/recipe/public_recipe_detail");
-//		System.out.println("레시피 고유번호 : " + rcp_seq);
-//		
-//		try {
-////			List<JsonNode> all_list = parsing_all();		
-//			
-//			List<JsonNode> detail_list = new ArrayList<>();
-//			for (JsonNode jsonNode : all_list) {
-//				String rcp_seq_api = jsonNode.get("RCP_SEQ").asText();
-//				if (rcp_seq.equals(rcp_seq_api)) {
-//					detail_list.add(jsonNode);
-//				}
-//			}
-//			System.out.println(detail_list);
-//			mv.addObject("detail_list", detail_list);
-//			
-//			return mv;
-//		} catch (Exception e) {
-//		    while(true) {
-//		    	try {
-//					
-//					List<JsonNode> detail_list = new ArrayList<>();
-//					for (JsonNode jsonNode : all_list) {
-//						String rcp_seq_api = jsonNode.get("RCP_SEQ").asText();
-//						if (rcp_seq.equals(rcp_seq_api)) {
-//							detail_list.add(jsonNode);
-//						}
-//					}
-//					System.out.println(detail_list);
-//					mv.addObject("detail_list", detail_list);
-//					
-//					return mv;
-//				} catch (Exception e2) {
-//					mv = new ModelAndView("error500");
-//					return null;
-//				}
-//		    }
-//		}
-//	}
 	
 	// TODO 상우 공공데이터 자료 전체 받아서 반환하기
 	
 	
-	    
-	    
-
-
-	
-	
 	// TODO 상우 작업부분
-}
