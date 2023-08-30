@@ -25,12 +25,12 @@ public class Api_Controller {
 	}
 	
 	// 공공레시피 상세페이지
-	@RequestMapping("/go_publicDet.do")
-	public ModelAndView go_publicDet() {
-		ModelAndView mv = new ModelAndView("user/recipe/public_recipe_detail");
-		
-		return mv;
-	}
+//	@RequestMapping("/go_publicDet.do")
+//	public ModelAndView go_publicDet() {
+//		ModelAndView mv = new ModelAndView("user/recipe/public_recipe_detail");
+//		
+//		return mv;
+//	}
 	
 	// 사용자레시피 작성페이지
 	@RequestMapping("/go_userWrite.do")

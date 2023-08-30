@@ -1,13 +1,16 @@
 package com.yamco.user.controller;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
+import java.io.File;
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
+import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,6 +21,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Controller
 public class User_Controller {
+    @Autowired
+    private ServletContext servletContext;
+
 	
 	@GetMapping("/go_home.do")
 	public ModelAndView go_home() {
@@ -52,10 +58,10 @@ public class User_Controller {
 	public ModelAndView goUserList() {
 		return new ModelAndView("user/recipe/user_list");
 	}
-	@RequestMapping("/go_public_list.do")
-	public ModelAndView goPublicList() {
-		return new ModelAndView("user/recipe/public_list");
-	}
+//	@RequestMapping("/go_public_list.do")
+//	public ModelAndView goPublicList() {
+//		return new ModelAndView("user/recipe/public_list");
+//	}
 	@RequestMapping("go_main.do")
 	public ModelAndView go_main() {
 		return new ModelAndView("/main");
@@ -133,61 +139,112 @@ public class User_Controller {
 		return new ModelAndView("admin/draganddrop");
 	}
 	
-	// TODO 상우 공공데이터 파싱
-	@RequestMapping("/getplist.do")
-	public ModelAndView test(HttpServletRequest request) {
-		ModelAndView mv = new ModelAndView("test/test");
+	// TODO 상우 작업부분
+	// TODO 상우 공공데이터 파싱 => 목록 띄우기
+	@RequestMapping("/go_public_list.do")
+	public ModelAndView go_public_list(HttpServletRequest request, HttpServletResponse response) throws ServletException {
+		System.out.println("공공레시피 가즈아");
+		ModelAndView mv = new ModelAndView("user/recipe/public_list");
 		
-		String apiKey = "157eb67278c64819b531"; // 성훈 API key
-        String apiUrl = "https://openapi.foodsafetykorea.go.kr/api/" + apiKey + "/COOKRCP01/json/1/1000";
+//		최근본레시피 용
+//		jsp에서 rcp_idx, u_idx(idx), 썸네일용 main 어쩌구 이미지(src), 
+//		카테고리(cate), 작성자(writer) => 공공데이터는 writer를 "냠냠레시피"
+//		세션추가만
+		  // JSON 파일을 읽어올 리소스 경로
+		
+//	    // JsonNode는 JSON 데이터의 노드를 나타내는 클래스로, 직접적으로 데이터 클래스의 역할을 대신할 수 없습니다.
+		 try {
+	            ObjectMapper objectMapper = new ObjectMapper();
+	            File jsonFile = new File(servletContext.getRealPath("/resources/data/api_data.json"));
 
-        try {
-            URL url = new URL(apiUrl);
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            connection.setRequestMethod("GET");
+	            // File jsonFile = new File("src\\main\\webapp\\resources\\data\\api_data.json"); // JSON 파일 경로
+	            // src/main/webapp 안의 리소스 폴더는 웹 애플리케이션 컨텍스트 경로의 일부이기 때문에 상대경로로 
+	            // 직접 참조할 수 없습니다. 대신 ServletContext를 사용하여 리소스에 접근해야 합니다.
 
-            BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+	            JsonNode rootNode = objectMapper.readTree(jsonFile);
 
-            StringBuilder jsonContent = new StringBuilder();
-            String line;
-            while ((line = reader.readLine()) != null) {
-                jsonContent.append(line);
-            }
+	            if (rootNode != null && rootNode.isObject()) {
+	            	// row 안의 자료들 전체를 담음
+	    	    	JsonNode recipeDataNode = rootNode.path("COOKRCP01").path("row");
+	    	    	System.out.println(recipeDataNode.isNull());
+	    	    	// 전체 자료 출력
+	    	    	// System.out.println(recipeDataNode);
+	    	    	// 자료형은 ArrayNode임
+	    	    	System.out.println("자료형은 : " + recipeDataNode.getClass().getName());
+	    	    	List<JsonNode> rowList = new ArrayList<>();
 
-            ObjectMapper objectMapper = new ObjectMapper();
-            JsonNode rootNode = objectMapper.readTree(jsonContent.toString());
-            
-            // 전체 path 안으로 들어감.
-            JsonNode rowNode = rootNode.path("COOKRCP01").path("row");
-            int count = 0;
-            if (rowNode.isArray()) {
-            	ArrayList<String> rcpPat2Values = new ArrayList<>();
-                for (JsonNode itemNode : rowNode) {
-                	// 조리법 1 (\n 제거, ● 방울토마토 : 이런 value 전체 제거)
-                    String rcpPat2Value = itemNode.path("RCP_PARTS_DTLS").asText().replaceAll("\\n", "");
-                    	if (rcpPat2Value.contains("●") || rcpPat2Value.contains("•") || rcpPat2Value.contains("재료") || rcpPat2Value.startsWith(".")) {
-                    }else {
-                    	count++;
-                        rcpPat2Values.add(rcpPat2Value);
-                    	System.out.println(rcpPat2Value);
-                    	System.out.println();
-                    }
-                }
-                request.setAttribute("rcpPat2Values", rcpPat2Values);
-                request.setAttribute("count", count);
-                System.out.println("자료 갯수는 : " + count);
-                // 동그라미 특문 2개 뺐을 때 자료갯수는 925개.
-                
-                // 특문 2개(●, •) + 재료 or 주재료로 시작하는 자료 + . 으로만 된 자료까지 뺐을 때 갯수는 793개 
-                
-            }
-        
-            connection.disconnect();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-	    return mv;
-	}
-	// TODO 상우 공공데이터 파싱 끝
+	    	    	if (recipeDataNode != null) {
+	    	    	    Iterator<JsonNode> iterator = recipeDataNode.elements();
+	    	    	    while (iterator.hasNext()) {
+	    	    	        JsonNode recipeNode = iterator.next();
+	    	    	        rowList.add(recipeNode);
+	    	    	    }
+	    	    	}
+
+	    	    	request.setAttribute("rowList", rowList);
+	    	    	
+	            }
+		 }catch (Exception e) {
+			System.out.println(e);
+		}
+		
+		return mv;
 	
+	}
+	// TODO 상우 공공데이터 파싱 => 목록 띄우기
+	
+	// TODO 상우 공공데이터 상세페이지
+//	@RequestMapping("/go_publicDet.do")
+//	public ModelAndView go_publicDet(HttpServletRequest request,
+//			@RequestParam String rcp_seq) {
+//		ModelAndView mv = new ModelAndView("user/recipe/public_recipe_detail");
+//		System.out.println("레시피 고유번호 : " + rcp_seq);
+//		
+//		try {
+////			List<JsonNode> all_list = parsing_all();		
+//			
+//			List<JsonNode> detail_list = new ArrayList<>();
+//			for (JsonNode jsonNode : all_list) {
+//				String rcp_seq_api = jsonNode.get("RCP_SEQ").asText();
+//				if (rcp_seq.equals(rcp_seq_api)) {
+//					detail_list.add(jsonNode);
+//				}
+//			}
+//			System.out.println(detail_list);
+//			mv.addObject("detail_list", detail_list);
+//			
+//			return mv;
+//		} catch (Exception e) {
+//		    while(true) {
+//		    	try {
+//					
+//					List<JsonNode> detail_list = new ArrayList<>();
+//					for (JsonNode jsonNode : all_list) {
+//						String rcp_seq_api = jsonNode.get("RCP_SEQ").asText();
+//						if (rcp_seq.equals(rcp_seq_api)) {
+//							detail_list.add(jsonNode);
+//						}
+//					}
+//					System.out.println(detail_list);
+//					mv.addObject("detail_list", detail_list);
+//					
+//					return mv;
+//				} catch (Exception e2) {
+//					mv = new ModelAndView("error500");
+//					return null;
+//				}
+//		    }
+//		}
+//	}
+	
+	// TODO 상우 공공데이터 자료 전체 받아서 반환하기
+	
+	
+	    
+	    
+
+
+	
+	
+	// TODO 상우 작업부분
 }
