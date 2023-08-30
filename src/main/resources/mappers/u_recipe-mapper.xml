@@ -12,6 +12,13 @@
 	
 	<!-- 검색어로 결과 rcp_idx 가져오기 -->
 	<select id="recipeSearch" parameterType="String" resultType="String">
-		select rcp_idx from u_recipe where u_rcp_title like %#{search}% or u_rcp_category like %#{search}% or u_rcp_ing lick %#{search}%
+		select rcp_idx from u_recipe where u_rcp_title like CONCAT('%',#{search},'%') or u_rcp_category like CONCAT('%',#{search},'%') or u_rcp_ing like CONCAT('%',#{search},'%')
+	</select>
+	
+	<!-- rcp_idx로 metadata 가져와서 검색결과 띄우기 -->
+	<select id="metaData" parameterType="String" resultType="urmvo">
+		select * from
+		u_recipe_metadata
+		where rcp_idx=#{k}
 	</select>
 </mapper>
