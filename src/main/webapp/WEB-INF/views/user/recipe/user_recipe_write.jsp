@@ -7,25 +7,10 @@
 <meta charset="UTF-8">
 <title>유저레시피 작성페이지</title>
 <link rel="stylesheet" href="resources/css/summernote-lite.css">
-<link rel="stylesheet"
-	href="https://cdn.korzh.com/metroui/v4/css/metro-all.min.css">
+<link rel="stylesheet" href="https://cdn.korzh.com/metroui/v4/css/metro-all.min.css">
 <link rel="stylesheet" href="resources/css/user/award.css?after">
 
-
-
-<!-- 
-
-상우 메모장
-ㅁㅁㅁ
-ss
-
-
- -->
-
-
-
-<link rel="icon" type="image/x-icon"
-	href="resources/images/icon_tomato.png">
+<link rel="icon" type="image/x-icon" href="resources/images/icon_tomato.png">
 <style type="text/css">
 * {
   padding: 0;
@@ -40,13 +25,11 @@ ss
  }
 
  #sidebar-right {
-    background-color: yellow;
     float: left;
     width: 15.625%;
 }
 
 #sidebar-left {
-    background-color: yellow;
     width: 15.625%;
     float: left;
 
@@ -58,7 +41,6 @@ ss
     margin-top: 0px;
     background: white;
 }
-
 
 #footer {
     left: 0px;
@@ -280,7 +262,7 @@ ss
 	clear: both;
 }
 </style>
-<!-- <script type="text/javascript">
+<script type="text/javascript">
       // HTML 요소 가져오기
       var total_btn = document.getElementById("total_btn");
       var increaseButton = document.getElementById("increase_ing");
@@ -291,7 +273,7 @@ ss
           count++;
           total_btn.textContent = count;
       });
-</script> -->
+</script>
 <script type="text/javascript">
 document.addEventListener("DOMContentLoaded", function() {
 	  // 페이지가 로드될 때 스크롤을 맨 위로 이동시키는 함수
@@ -313,7 +295,9 @@ document.addEventListener("DOMContentLoaded", function() {
 	<div id="mydiv">
 		<jsp:include page="../../header.jsp" />
 		<div id="test">
-		<aside id="sidebar-left">왼쪽</aside>
+		<aside id="sidebar-left">
+		<jsp:include page="../../recentlist.jsp"/>
+		</aside>
 		<div id="content">
 			<!-- 레시피 제목 -->
 			<div class="left_margin" style="margin-top: 60px; float: left;">
@@ -325,7 +309,7 @@ document.addEventListener("DOMContentLoaded", function() {
 			<div style="margin-left: 100px; margin-top: 200px;">
 				<div>
 					<span class="font_32">대표사진 등록 </span> 
-					<button class="input_tomato" style="margin-left: 50px; color: white; width: 200px; background-color: tomato; height: 50px;">사진첨부하기 + </button>
+					<button class="input_tomato" style="margin-left: 50px; color: white; width: 200px; background-color: tomato; height: 50px;" onclick="">사진첨부하기 + </button>
 					<div>
 						<img src="resources/images/public_sample1.png" style="margin-top: 35px;">
 					</div>
@@ -506,8 +490,7 @@ document.addEventListener("DOMContentLoaded", function() {
         textarea.style.borderColor = "tomato"; // Set the original border color when focus is lost
     });
 });
-</script>
-				
+</script>				
 				
 				<!-- 자유롭게 입력 -->
 				<div style="margin-top: 100px; ">
@@ -539,15 +522,15 @@ document.addEventListener("DOMContentLoaded", function() {
 		<!-- content 끝 -->		
 		</div>
 		
-		<aside id="sidebar-right">오른</aside>
+		<aside id="sidebar-right">
+		<jsp:include page="../../bestlist.jsp"/>
+		</aside>
 		<div id="footer">
 			<jsp:include page="../../footer.jsp" />
 		</div>
 		</div>
 	</div>
-	
-	
-	
+		
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js" crossorigin="anonymous"></script>
     	<script src="resources/js/summernote-lite.js"></script>
     	<script src="resources/js/lang/summernote-ko-KR.js"></script>
