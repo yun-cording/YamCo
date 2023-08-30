@@ -11,7 +11,7 @@
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 	<!-- google login -->
-<script src="https://accounts.google.com/gsi/client" async defer></script>
+ <script src="https://accounts.google.com/gsi/client" async defer></script>
 	
 <style type="text/css">
 * {
@@ -185,8 +185,10 @@ function restorePlaceholder(element, defaultPlaceholder) {
 			<img class="social_size" src="/resources/images/naver_login.png"></a>
 			<a><img class="social_size margin" src="/resources/images/kakao_login.png"></a>
 			<!-- <a><img style="border: 1px solid lightgray" class="social_size margin" src="/resources/images/google_login.png"></a> -->
+			<div style="width: 180px; height: 50px; border-radius: 5px;">
 		<div id="g_id_onload" data-client_id="931730291564-rocrnk3v1pph5j9q775qtinavfktiab9.apps.googleusercontent.com" data-callback="handleCredentialResponse" ></div>
-		<div class="g_id_signin" style="width: 180px; height: 50px; border-radius: 5px;"></div>
+		<div class="g_id_signin"></div>
+		</div>
 <!-- <img class="g_id_signin social_size margin"	src="/resources/images/google_login.png"> -->
 		<script type="text/javascript">
 		function handleCredentialResponse(response) {
@@ -215,7 +217,6 @@ function restorePlaceholder(element, defaultPlaceholder) {
 		    }).join(''));
 		    return JSON.parse(jsonPayload);
 		};
-		
 		</script>
 	</div>
 	<div>

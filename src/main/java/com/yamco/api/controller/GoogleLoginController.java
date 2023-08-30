@@ -45,6 +45,7 @@ public class GoogleLoginController {
 			mvo.setM_id(m_id);
 			mvo.setM_nick(m_nick);
 			mvo.setM_image(m_image);
+			mvo.setM_login_type("4");
 			int result = member_Service.glogin_join(mvo);
 			
 			session.setAttribute("login", "ok");
