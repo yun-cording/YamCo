@@ -9,4 +9,9 @@
 		u_recipe_metadata
 		order by u_rcp_hit desc LIMIT 30
 	</select>
+	
+	<!-- 검색어로 결과 rcp_idx 가져오기 -->
+	<select id="recipeSearch" parameterType="String" resultType="String">
+		select rcp_idx from u_recipe where u_rcp_title like %#{search}% or u_rcp_category like %#{search}% or u_rcp_ing lick %#{search}%
+	</select>
 </mapper>

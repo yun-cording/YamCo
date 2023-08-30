@@ -1,14 +1,39 @@
 package com.yamco.user.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.yamco.user.model.vo.RecentList_VO;
+import com.yamco.user.model.vo.U_recipe_VO;
+
 @Controller
 public class User_Controller2 {
+	
 	@RequestMapping("/main.go")
-	public ModelAndView homeGo() {
+	public ModelAndView homeGo(HttpSession session) {
 		ModelAndView mv = new ModelAndView("/main");
+		List<RecentList_VO> recent = new ArrayList<RecentList_VO>();
+		RecentList_VO vo = new RecentList_VO();
+		vo.setIdx("10001");
+		vo.setCate("분식");
+		vo.setImg("https://mediahub.seoul.go.kr/wp-content/uploads/2020/10/d13ea4a756099add8375e6c795b827ab.jpg");
+		vo.setWriter("김심바");
+		recent.add(vo);
+		RecentList_VO vo2 = new RecentList_VO();
+		vo2.setIdx("153");
+		vo2.setCate("분식");
+		vo2.setImg("https://mediahub.seoul.go.kr/wp-content/uploads/2020/10/d13ea4a756099add8375e6c795b827ab.jpg");
+		vo2.setWriter("냠냠레시피");
+		recent.add(vo);
+		recent.add(vo2);
+		session.setAttribute("recent",recent);
 		return mv;
 	}
 	@RequestMapping("/public_list.go")
@@ -105,8 +130,18 @@ public class User_Controller2 {
 	@RequestMapping("/public_recipe_detail.go")
 	public ModelAndView publicRecipeDetailGo() {
 		ModelAndView mv = new ModelAndView("/user/recipe/public_recipe_detail");
+		
 		// 레시피 번호받아와서 상세정보 출력하기
 		return mv;
 	}
+	@RequestMapping("/search.go")
+	public ModelAndView searchGo(String search_text) {
+		ModelAndView mv = new ModelAndView("/user/recipe/search_list");
+		// 검색어로 DB다녀오기
+		
+		
+		return mv;
+	}
+	
 	
 }
