@@ -1,5 +1,7 @@
 package com.yamco.common;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -58,7 +60,14 @@ public class PublicLoginController {
 		return mv;
 	}
 	// TODO 채림 자체회원가입 작업 끗
-	// TODO 채림 자체회월 로그인 작업 시작
+	// TODO 채림 자체회원 로그인 작업 시작
+	@PostMapping("/member_login.do")
+	public ModelAndView getMemberLogin(
+			@RequestParam("m_id")String m_id,
+			@RequestParam("m_pw")String m_pw,
+			HttpSession session) {
+		return null;
+	}
 	
 	
 	
@@ -84,5 +93,5 @@ public class PublicLoginController {
 	
 	
 	
-	// TODO 채림 자체회월 로그인 작업 끗
+	// TODO 채림 자체회원 로그인 작업 끗
 }
