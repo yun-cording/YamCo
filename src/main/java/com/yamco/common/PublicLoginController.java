@@ -30,12 +30,25 @@ public class PublicLoginController {
 			}else if(gender.equals("여자,")) {
 				mvo.setM_gender("F");
 			}
+			mvo.setM_login_type("1");
 			member_Service.getMemberJoin(mvo);
 			return mv;			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return null;
+	}
+	
+	@PostMapping("/member_nick.do")
+	public ModelAndView setNick(Member_VO mvo) {
+		ModelAndView mv = new ModelAndView("login/login");
+		try {
+			member_Service.setNick(mvo);
+			return mv;
+		} catch (Exception e) {
+			mv.setViewName("error404");
+		}
+		return mv;
 	}
 	// TODO 채림 자체회원가입 작업 끗
 }
