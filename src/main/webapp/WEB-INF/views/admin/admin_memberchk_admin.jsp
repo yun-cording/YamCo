@@ -66,26 +66,14 @@
 					</div>
 
 					<!-- 사용자 정보관리 / 관리자 정보관리 버튼 -->
-					<div class="row mb-3">
-						<div class="col">
-							<div class="btn-toolbar" role="toolbar"
-								aria-label="Toolbar with button groups">
-								<div class="btn-group btn-group-lg" role="group"
-									aria-label="Large button group">
-									<input type="radio" class="btn-check" name="btnradio"
-										id="btnradio1" autocomplete="off"> <label
-										class="btn btn-outline-success m-0 rounded" for="btnradio1">사용자
-										정보관리</label>
-								</div>
-
-								<div class="btn-group btn-group-lg" role="group"
-									aria-label="Large button group">
-									<input type="radio" class="btn-check" name="btnradio"
-										id="btnradio2" autocomplete="off" checked> <label
-										class="btn btn-outline-success m-0 rounded" for="btnradio2">관리자
-										정보관리</label>
-								</div>
-							</div>
+					<div class="row mb-3 justify-content-start">
+						<div class="col-auto p-0">
+							<a class="btn btn-lg btn-outline-success" href="/go_admin_memberchk.do"
+								role="button">사용자 정보관리</a>
+						</div>
+						<div class="col-auto p-0">
+							<a class="btn btn-lg btn-success"
+								href="/go_admin_memberchk_admin.do" role="button">관리자 정보관리</a>
 						</div>
 					</div>
 
@@ -157,9 +145,6 @@
 														aria-label="keyword select">
 														<option value="1">아이디</option>
 														<option value="2">닉네임</option>
-														<option value="3">휴대전화</option>
-														<option value="4">생년월일</option>
-														<option value="5">성별</option>
 													</select>
 												</div>
 												<div class="col-auto ps-0">
@@ -356,8 +341,8 @@
 														</div>
 													</div>
 												</div>
-												<div class="col-auto ms-auto mt-2 mt-xxl-0 text-end">
-													<input type="submit" class="btn btn-primary w-100 fw-bold"
+												<div class="col-auto ms-auto mt-2 col-xxl-1 mt-xxl-0 text-end">
+													<input type="submit" class="btn btn-primary fw-bold"
 														value="추가">
 												</div>
 											</div>
