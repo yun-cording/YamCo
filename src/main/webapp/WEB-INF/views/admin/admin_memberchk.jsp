@@ -384,7 +384,7 @@
 
 										<tbody>
 											<c:choose>
-												<!-- search_result이 있는 경우 반복문으로 데이터 행 출력 -->
+												<%-- search_result이 있는 경우 반복문으로 데이터 행 출력 --%>
 												<c:when test="${not empty search_result }">
 													<c:forEach var="k" items="${search_result}">
 														<tr class="align-middle">
