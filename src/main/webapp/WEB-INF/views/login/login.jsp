@@ -11,7 +11,7 @@
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 	<!-- google login -->
-<script src="https://accounts.google.com/gsi/client" async defer></script>
+ <script src="https://accounts.google.com/gsi/client" async defer></script>
 	
 <style type="text/css">
 * {
@@ -188,8 +188,10 @@ function restorePlaceholder(element, defaultPlaceholder) {
 			<a href="https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}">
 			<img class="social_size margin" src="/resources/images/kakao_login.png"></a>
 			<!-- <a><img style="border: 1px solid lightgray" class="social_size margin" src="/resources/images/google_login.png"></a> -->
+			<div style="width: 180px; height: 50px; border-radius: 5px;">
 		<div id="g_id_onload" data-client_id="931730291564-rocrnk3v1pph5j9q775qtinavfktiab9.apps.googleusercontent.com" data-callback="handleCredentialResponse" ></div>
-		<div class="g_id_signin" style="width: 180px; height: 50px; border-radius: 5px;"></div>
+		<div class="g_id_signin"></div>
+		</div>
 <!-- <img class="g_id_signin social_size margin"	src="/resources/images/google_login.png"> -->
 		<script type="text/javascript">
 		function handleCredentialResponse(response) {
@@ -208,7 +210,7 @@ function restorePlaceholder(element, defaultPlaceholder) {
 		  	var m_nick = responsePayload.sub;
 		  	var m_image = responsePayload.picture;
 		  	var m_id = responsePayload.email; 
-		    location.href="/gglogin_go?m_image="+m_image+"&m_id="+m_id+"&m_nick="+m_nick; //이렇게 값하나하나씩해서 컨트롤러로 옮기기
+		    location.href="/google_login_do?m_image="+m_image+"&m_id="+m_id; //이렇게 값하나하나씩해서 컨트롤러로 옮기기
 		};
 		function parseJwt (token) {
 		    var base64Url = token.split('.')[1];
@@ -218,7 +220,6 @@ function restorePlaceholder(element, defaultPlaceholder) {
 		    }).join(''));
 		    return JSON.parse(jsonPayload);
 		};
-		
 		</script>
 	</div>
 	<div>
