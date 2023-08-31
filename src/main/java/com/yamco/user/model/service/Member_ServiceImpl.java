@@ -111,4 +111,14 @@ public class Member_ServiceImpl implements Member_Service {
 	public int setNick(Member_VO m_vo) {
 		return member_DAO.setNick(m_vo);
 	}
+	// idx로 멤버정보 가져오기
+	@Override
+	public Member_VO getMemberOne(String m_idx) {
+		return member_DAO.getMemberOne(m_idx);
+	}
+	// 내 정보 변경
+	@Override
+	public int changeMyInfo(Member_VO mvo) {
+		return member_DAO.changeMyInfo(mvo);
+	}
 }

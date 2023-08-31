@@ -33,4 +33,12 @@ public class Member_DAO {
 	public int setNick(Member_VO m_vo) {
 		return sqlSessionTemplate.update("member.upNick", m_vo);
 	}
+
+	public Member_VO getMemberOne(String m_idx) {
+		return sqlSessionTemplate.selectOne("member.getOne", m_idx);
+	}
+
+	public int changeMyInfo(Member_VO mvo) {
+		return sqlSessionTemplate.update("member.changeMyInfo", mvo);
+	}
 }

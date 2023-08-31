@@ -229,6 +229,9 @@ input::-webkit-inner-spin-button {
 	border-radius: 30px 30px 30px 30px;
 	float: left;
 }
+#btn_save:hover{
+	cursor: pointer;
+}
 
 #btn_exit{
 	width: 175px;
@@ -274,22 +277,21 @@ input::-webkit-inner-spin-button {
 			<div id="title_line"></div>
 			<div id="title">내 정보 변경</div>
 			<div class="clear">
+			<form>
 			<div id="profile">
-					<img id="pro_pic" src="/resources/images/jongjongka.jpg">
+					<img id="pro_pic" src="${mvo.m_image }">
 				<div class="info_all">
-					<div id="info_content">닉네임 : <input type="text" name="nickname"><button id="btn_double">중복 확인</button></div>
-					<div id="info_content">휴대폰 : <input  type="number" name="phone"></div>
-					<div id="info_content">생년월일 :<input  type="number" placeholder="ex) 981016" name="birth"></div>
-					<div id="info_content">성별 : &nbsp;&nbsp;&nbsp;
-						<input type="radio" name="gender">&nbsp;&nbsp;여성&nbsp;&nbsp;&nbsp;
-						<input type="radio" name="gender">&nbsp;&nbsp;남성
-					</div>
+					<div id="info_content">닉네임 : <input type="text" name="m_nick" value="${mvo.m_nick }"></div>
+					<div id="info_content">휴대폰 : <input  type="number" name="m_phone" value="${mvo.m_phone }"></div>
+					<div id="info_content">생년월일 : ${mvo.m_birthday }</div>
+					<div id="info_content">성별 :  ${mvo.m_gender }</div>
 				</div>
 			</div>
 			<div class="btn">
-				<button id="btn_save">저장</button>
+				<button type="button" id="btn_save" onclick="changeMyInfoDo(this.form)">저장</button>
 				<button id="btn_exit">돌아가기</button>
 			</div>
+			</form>
 			</div>
 		</div>		 
 	<aside id="sidebar-right">
@@ -298,5 +300,16 @@ input::-webkit-inner-spin-button {
 	</div>
 	<div id="footer"><jsp:include page="../footer.jsp" /></div>
 </div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+<script type="text/javascript">
+	$(function() {
+		function changeMyInfoDo(f) {
+			f.action = "/changeMyInfo.do"
+			f.sumbit()
+		}
+		
+	})
+
+</script>
 </body>
 </html>

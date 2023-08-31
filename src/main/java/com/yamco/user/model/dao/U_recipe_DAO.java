@@ -1,6 +1,7 @@
 package com.yamco.user.model.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,11 +19,9 @@ public class U_recipe_DAO {
 		return sqlSessionTemplate.selectList("u_recipe.rankListRecipe");
 	}
 
-	public List<String> getSearch(String search_text) {
-		return sqlSessionTemplate.selectList("u_recipe.recipeSearch", search_text);
+	public List<U_recipe_meta_VO> getSearch(Map<String, String> map) {
+		return sqlSessionTemplate.selectList("u_recipe.recipeSearch", map);
 	}
+	
 
-	public U_recipe_meta_VO getSearchData(String k) {
-		return sqlSessionTemplate.selectOne("u_recipe.metaData", k);
-	}
 }

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -219,6 +220,10 @@ button{
 	float: left;
 }
 
+#btn_change:hover{
+	cursor: pointer;
+}
+
 #btn_ch_pw{
 	width: 175px;
 	height: 53px;
@@ -265,18 +270,20 @@ button{
 			<div class="title">로그인 정보</div>
 			<div class="clear">
 			<div class="profile">
-				<img id="pro_pic" src="/resources/images/jongjongka.jpg">
-					<span id="nickname">닉네임</span>
+				<img id="pro_pic" src="${mvo.m_image}">
+					<span id="nickname">${mvo.m_nick }</span>
 					<div id="nick_line"></div>
 					<div class="info_all">
-						<div id="info_content">아이디(이메일) : gkdlfn@naver.com</div>
-						<div id="info_content">핸드폰 번호 : 010-0000-0000</div>
-						<div id="info_content">생년월일 : 981016</div>
-						<div id="info_content">성별 : 여성</div>
+						<div id="info_content">
+							아이디(이메일) : ${mvo.m_id }	
+						</div>
+						<div id="info_content">핸드폰 번호 : ${mvo.m_phone }</div>
+						<div id="info_content">생년월일 : ${mvo.m_birthday }</div>
+						<div id="info_content">성별 : ${mvo.m_gender }</div>
 					</div>
 				</div>
 				<div class="btn">
-					<button id="btn_change">정보 변경</button>
+					<button id="btn_change" onclick="changeMyInfo_go()">정보 변경</button>
 					<button id="btn_ch_pw">비밀번호 변경</button>
 					<button id="btn_exit">탈퇴하기</button>
 				</div>
@@ -286,7 +293,12 @@ button{
 			<jsp:include page="../bestlist.jsp" />
 		</aside>
 		</div>
-<div id="footer"><jsp:include page="../footer.jsp" /></div>
+			<div id="footer"><jsp:include page="../footer.jsp" /></div>
 		</div>
+		<script type="text/javascript">
+			function changeMyInfo_go() {
+				location.href="/changeMyInfo.go"
+			}
+		</script>
 </body>
 </html>
