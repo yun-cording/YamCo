@@ -33,6 +33,21 @@ public class Member_DAO {
 	public int setNick(Member_VO m_vo) {
 		return sqlSessionTemplate.update("member.upNick", m_vo);
 	}
+	
+	// 자체 로그인
+	public Member_VO getMemberLogin(Member_VO mvo) {
+		return sqlSessionTemplate.selectOne("member.login", mvo);
+	}
+	
+	// 틀린 횟수 업데이트
+	public int getFailCountUp(Member_VO mvo) {
+		return sqlSessionTemplate.update("member.failCountUp", mvo);
+	}
+	
+	// 비밀번호 변경
+	public int getChangePw(Member_VO mvo) {
+		return sqlSessionTemplate.update("member.changePw", mvo);
+	}
 
 	public Member_VO getMemberOne(String m_idx) {
 		return sqlSessionTemplate.selectOne("member.getOne", m_idx);
@@ -40,5 +55,6 @@ public class Member_DAO {
 
 	public int changeMyInfo(Member_VO mvo) {
 		return sqlSessionTemplate.update("member.changeMyInfo", mvo);
+
 	}
 }

@@ -14,12 +14,10 @@ body{
   	left : 0px; 
   	top : 0px;
 	margin: auto;
-	font-family: 'Yeongdeok_TTF';
 }
 
 #maintext{
 	font-size: 40px;
-	font-family: 'Yeongdeok_TTF';
 }
 
 #textfiled{
@@ -44,17 +42,16 @@ input[type="text"]{
 	/* border-radius: 20px; */
 	font-size: 24px;
 	outline: none;
-	font-family: 'Yeongdeok_TTF';
 }
 
 .buttons{
-
 	width: 176px;
 	height: 50px;
 	flex-shrink: 0;
 	border-radius: 40px;
 	margin: auto;
 	border: none;
+	font-family: 'Yeongdeok_TTF';
 }
 
 .buttons > span{
@@ -65,7 +62,6 @@ input[type="text"]{
 	font-size: 24px;
 	font-weight: bold;
 	color: white;
-	font-family: 'Yeongdeok_TTF';
 }
 
 .textchk{
@@ -73,7 +69,6 @@ input[type="text"]{
 	font-size: 24px;
 	font-weight: bold;
 	margin: auto;
-	font-family: 'Yeongdeok_TTF';
 }
 
 .chkbox{

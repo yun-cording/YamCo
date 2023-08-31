@@ -32,12 +32,15 @@ function restorePlaceholder(element, defaultPlaceholder) {
       element.style.color = 'lightgray';
     }
   }
+  
+  function public_login(f) {
+	f.action="/member_login.do";
+	f.submit();
+}
 </script>
-<style type="text/css">
-
-</style>
 </head>
 <body>
+	${alert}
 <form method="post">
 <c:set var="clientId" value="YvbCvm24gWq60XdG4a8G" />
 <c:set var="redirectURI" value="http://localhost:8090/naver_login.do" />
@@ -51,17 +54,16 @@ function restorePlaceholder(element, defaultPlaceholder) {
 	<div id="top_pattern"></div>
 	<div class="login_text">로 그 인</div>
 	<div>
-		<input class="border" id="m_id" type="text" placeholder="아이디"
+		<input class="border" id="m_id" name="m_id" type="text" placeholder="아이디"
 			onfocus="clearPlaceholder(this)"
-			onblur="restorePlaceholder(this, '아이디')">
+			onblur="restorePlaceholder(this, '아이디')" required>
 	</div>
 	<div>
-		<input class="border" id="m_pw" type="password" placeholder="비밀번호"
+		<input class="border" id="m_pw" name="m_pw" type="password" placeholder="비밀번호"
 			onfocus="clearPlaceholder(this)"
-			onblur="restorePlaceholder(this, '비밀번호')">
+			onblur="restorePlaceholder(this, '비밀번호')" required>
 	</div>
-
-	<a href="/member_login.do"><button class="color login_bt">로그인</button></a>
+	<button class="color login_bt" onclick="public_login(this.form)">로그인</button>
 	<a id="find_pw" href="/find_pw.go">비밀번호 찾기</a>
 	<div class="social">
 			<a href="https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${clientId }&redirect_uri=${redirectURI}&state=1">
