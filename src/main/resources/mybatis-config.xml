@@ -19,6 +19,7 @@
 	<typeAlias type="com.yamco.user.model.vo.Member_Search_VO" alias="msvo" />
 	<typeAlias type="com.yamco.user.model.vo.U_recipe_VO" alias="urvo" />
 	<typeAlias type="com.yamco.user.model.vo.U_recipe_meta_VO" alias="urmvo" />
+	<typeAlias type="com.yamco.api.model.vo.P_recipe_VO" alias="prvo" />
 	<typeAlias type="com.yamco.user.model.vo.User_log_VO" alias="ulvo" />
 	<typeAlias type="com.yamco.user.model.vo.User_log_Search_VO" alias="ulsvo" />
 	</typeAliases>
@@ -29,6 +30,7 @@
 		<mapper resource="mappers/member-mapper.xml" />
 		<mapper resource="mappers/u_recipe-mapper.xml" />
 		<mapper resource="mappers/user_log-mapper.xml" />
+		<mapper resource="mappers/p_recipe-mapper.xml" />
 	</mappers>
 
 </configuration>

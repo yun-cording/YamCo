@@ -21,6 +21,11 @@
     float: left;
 
 }
+
+#detailed_info{
+	float: left;
+	margin-left: -1000px;
+}
 #content {
     width: 68.75%;
     float: left;
@@ -34,6 +39,7 @@
 	margin-top: 500px; 
 	font-size: 20px;
 }
+
 .ing_det{
 	color:#929292; 
 	font-size: 16px; 
@@ -122,9 +128,8 @@
 #cook_det_img{
 	width:196px; 
 	position: relative; 
-	margin-left: 565px; 
 	top: -300px;
-	
+	float: left;
 }
 #cook_category{
 	margin-left: 250px; 
