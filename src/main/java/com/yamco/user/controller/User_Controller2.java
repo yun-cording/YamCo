@@ -10,16 +10,14 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.yamco.user.model.service.Member_Service;
 import com.yamco.user.model.service.U_recipe_Service;
-import com.yamco.user.model.vo.Member_Search_VO;
 import com.yamco.user.model.vo.Member_VO;
 import com.yamco.user.model.vo.RecentList_VO;
-import com.yamco.user.model.vo.U_recipe_VO;
 import com.yamco.user.model.vo.U_recipe_meta_VO;
 
 @Controller
@@ -154,8 +152,12 @@ public class User_Controller2 {
 	}
 	
 	@RequestMapping("/public_recipe_detail.go")
-	public ModelAndView publicRecipeDetailGo(String rcp_seq) {
+	public ModelAndView publicRecipeDetailGo(@RequestParam("rcp_idx") String rcp_idx, @RequestParam("m_idx") String m_idx) {
 		ModelAndView mv = new ModelAndView("/user/recipe/public_recipe_detail");
+		
+		//조회수 상승
+		int result = u_recipe_Service.getHitUp(rcp_idx, m_idx);
+		System.out.println("result : " + result);
 		
 		// 레시피 번호받아와서 상세정보 출력하기
 		return mv;

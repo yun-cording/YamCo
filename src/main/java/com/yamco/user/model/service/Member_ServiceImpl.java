@@ -29,7 +29,7 @@ public class Member_ServiceImpl implements Member_Service {
 	@Override
 	public List<Member_VO> getMemberList(Member_Search_VO msvo) {
 		String keyword = msvo.getKeyword();
-		if (!keyword.isBlank()) {
+		if (keyword != null && !keyword.isBlank()) {
 			if (msvo.getKeyword_type().equalsIgnoreCase("like")) { // 키워드 포함
 				switch (msvo.getKeyword_category()) {
 				case "1":
@@ -66,7 +66,7 @@ public class Member_ServiceImpl implements Member_Service {
 		String start_date = msvo.getStart_date();
 		String end_date = msvo.getEnd_date();
 
-		if (!start_date.isBlank()) {
+		if (start_date != null && !start_date.isBlank()) {
 			if (msvo.getPeriod_category().equals("1")) { // 가입일 기준
 				msvo.setRegdate_start(start_date);
 			} else { // 탈퇴일 기준
@@ -74,7 +74,7 @@ public class Member_ServiceImpl implements Member_Service {
 			}
 		}
 
-		if (!end_date.isBlank()) {
+		if (end_date != null && !end_date.isBlank()) {
 			LocalDate end = LocalDate.parse(end_date);
 			end = end.plusDays(1);
 			end_date = end.toString();
@@ -86,10 +86,12 @@ public class Member_ServiceImpl implements Member_Service {
 		}
 
 		String member_type = msvo.getMember_type();
-		if (member_type.equalsIgnoreCase("self")) {
-			msvo.setM_login_type("1"); // 1 자체가입 계정
-		} else if (member_type.equalsIgnoreCase("social")) {
-			msvo.setM_login_type("2"); // 2 ~ 4 소셜가입 계정
+		if (member_type != null) {
+			if (member_type.equalsIgnoreCase("self")) {
+				msvo.setM_login_type("1"); // 1 자체가입 계정
+			} else if (member_type.equalsIgnoreCase("social")) {
+				msvo.setM_login_type("2"); // 2 ~ 4 소셜가입 계정
+			}
 		}
 
 		String member_state = msvo.getMember_state();
