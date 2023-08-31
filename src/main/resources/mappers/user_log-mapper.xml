@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="user_log">
+	<!-- m_idx 회원의 ul_status 로그 현재시각으로 기록 -->
+	<insert id="insert" parameterType="ulvo">
+		insert into user_log(
+		ul_logtime, ul_status
+
+		<if test="m_idx != null">
+			, m_idx
+		</if>
+		<if test="s_name != null">
+			, s_name
+		</if>
+		<if test="rcp_idx != null">
+			, rcp_idx
+		</if>
+		)
+		values(
+		sysdate(), #{ul_status}
+		<if test="m_idx != null">
+			,#{m_idx}
+		</if>
+		<if test="s_name != null">
+			, #{s_name}
+		</if>
+		<if test="rcp_idx != null">
+			, #{rcp_idx}
+		</if>
+		)
+	</insert>
+
+	<!-- ulsvo로 user_log 테이블에서 검색(조건이 없으면 모두 가져옴) -->
+	<select id="selectListBySearchVO" parameterType="ulsvo"
+		resultType="ulvo">
+		select * from user_log
+		<where>
+			<if test="ul_idx != null">
+				ul_idx = #{ul_idx}
+			</if>
+			<if test="m_idx != null">
+				and m_idx = #{m_idx}
+			</if>
+			<if test="s_name != null">
+				and s_name = #{s_name}
+			</if>
+			<if test="rcp_idx != null">
+				and rcp_idx = #{rcp_idx}
+			</if>
+			<if test="ul_logtime != null">
+				and ul_logtime = #{ul_logtime}
+			</if>
+			<if test="ul_status != null">
+				and ul_status = #{ul_status}
+			</if>
+			<if test="start_time != null">
+				and ul_logtime <![CDATA[>=]]>
+				#{start_time}
+			</if>
+			<if test="end_time != null">
+				and ul_logtime <![CDATA[<=]]>
+				#{end_time}
+			</if>
+		</where>
+	</select>
+
+	<!-- ulsvo로 user_log 테이블에서 개수 구하기(조건이 없으면 모두 가져옴) -->
+	<select id="countBySearchVO" parameterType="ulsvo"
+		resultType="int">
+		select count(*) from user_log
+		<where>
+			<if test="ul_idx != null">
+				ul_idx = #{ul_idx}
+			</if>
+			<if test="m_idx != null">
+				and m_idx = #{m_idx}
+			</if>
+			<if test="s_name != null">
+				and s_name = #{s_name}
+			</if>
+			<if test="rcp_idx != null">
+				and rcp_idx = #{rcp_idx}
+			</if>
+			<if test="ul_logtime != null">
+				and ul_logtime = #{ul_logtime}
+			</if>
+			<if test="ul_status != null">
+				and ul_status = #{ul_status}
+			</if>
+			<if test="start_time != null">
+				and ul_logtime <![CDATA[>=]]>
+				#{start_time}
+			</if>
+			<if test="end_time != null">
+				and ul_logtime <![CDATA[<=]]>
+				#{end_time}
+			</if>
+		</where>
+	</select>
+</mapper>
