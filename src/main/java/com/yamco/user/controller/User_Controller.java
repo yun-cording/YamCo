@@ -1,8 +1,5 @@
 package com.yamco.user.controller;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.ServletContext;
@@ -17,33 +14,40 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.yamco.api.model.service.P_recipe_Service;
 import com.yamco.user.model.service.U_recipe_Service;
 import com.yamco.user.model.vo.U_recipe_meta_VO;
 
 @Controller
 public class User_Controller {
-    @Autowired
-    private ServletContext servletContext;
-
+    
 	@Autowired
 	U_recipe_Service u_recipe_Service;
-
+	
 	@GetMapping("/go_home.do")
 	public ModelAndView go_home() {
 		ModelAndView mv = new ModelAndView("/home");
 		return mv;
 	}
 
-	@RequestMapping("go_ranking_search.do")
+	@RequestMapping("/go_ranking_search.do")
 	public ModelAndView go_ranking_search() {
 		return new ModelAndView("user/ranking/ranking_search");
 	}
 
-	@RequestMapping("go_ranking_recipe.do")
+	@RequestMapping("/go_ranking_recipe.do")
 	public ModelAndView go_ranking_recipe() {
 		ModelAndView mv = new ModelAndView("user/ranking/ranking_recipe");
-		List<U_recipe_meta_VO> result = u_recipe_Service.getU_recipeRankListRecipe();
+		List<U_recipe_meta_VO> result = u_recipe_Service.getU_recipeRankListRecipe1Month();
+		mv.addObject("lank_list_recipe", result);
+
+		return mv;
+	}
+
+	@RequestMapping("/go_ranking_recipe_7day.do")
+	public ModelAndView go_ranking_recipe_7Days() {
+		ModelAndView mv = new ModelAndView("user/ranking/ranking_recipe_7day");
+		List<U_recipe_meta_VO> result = u_recipe_Service.getU_recipeRankListRecipe7Days();
 		mv.addObject("lank_list_recipe", result);
 
 		return mv;
@@ -168,65 +172,4 @@ public class User_Controller {
 	public ModelAndView go_drag() {
 		return new ModelAndView("admin/draganddrop");
 	}
-	
-	// TODO 상우 작업부분
-	// TODO 상우 공공데이터 파싱 => 목록 띄우기
-	@RequestMapping("/go_public_list.do")
-	public ModelAndView go_public_list(HttpServletRequest request, HttpServletResponse response) throws ServletException {
-		System.out.println("공공레시피 가즈아");
-		ModelAndView mv = new ModelAndView("user/recipe/public_list");
-		
-//		최근본레시피 용
-//		jsp에서 rcp_idx, u_idx(idx), 썸네일용 main 어쩌구 이미지(src), 
-//		카테고리(cate), 작성자(writer) => 공공데이터는 writer를 "냠냠레시피"
-//		세션추가만
-		  // JSON 파일을 읽어올 리소스 경로
-		
-//	    // JsonNode는 JSON 데이터의 노드를 나타내는 클래스로, 직접적으로 데이터 클래스의 역할을 대신할 수 없습니다.
-		 try {
-	            ObjectMapper objectMapper = new ObjectMapper();
-	            File jsonFile = new File(servletContext.getRealPath("/resources/data/api_data.json"));
-
-
-	            // File jsonFile = new File("src\\main\\webapp\\resources\\data\\api_data.json"); // JSON 파일 경로
-	            // src/main/webapp 안의 리소스 폴더는 웹 애플리케이션 컨텍스트 경로의 일부이기 때문에 상대경로로 
-	            // 직접 참조할 수 없습니다. 대신 ServletContext를 사용하여 리소스에 접근해야 합니다.
-
-	            JsonNode rootNode = objectMapper.readTree(jsonFile);
-
-	            if (rootNode != null && rootNode.isObject()) {
-	            	// row 안의 자료들 전체를 담음
-	    	    	JsonNode recipeDataNode = rootNode.path("COOKRCP01").path("row");
-	    	    	System.out.println(recipeDataNode.isNull());
-	    	    	// 전체 자료 출력
-	    	    	// System.out.println(recipeDataNode);
-	    	    	// 자료형은 ArrayNode임
-	    	    	System.out.println("자료형은 : " + recipeDataNode.getClass().getName());
-	    	    	List<JsonNode> rowList = new ArrayList<>();
-
-	    	    	if (recipeDataNode != null) {
-	    	    	    Iterator<JsonNode> iterator = recipeDataNode.elements();
-	    	    	    while (iterator.hasNext()) {
-	    	    	        JsonNode recipeNode = iterator.next();
-	    	    	        rowList.add(recipeNode);
-	    	    	    }
-	    	    	}
-
-	    	    	request.setAttribute("rowList", rowList);
-	    	    	
-	            }
-		 }catch (Exception e) {
-			System.out.println(e);
-		}
-		
-		return mv;
-	
-	}
 }
-	// TODO 상우 공공데이터 파싱 => 목록 띄우기
-	
-	
-	// TODO 상우 공공데이터 자료 전체 받아서 반환하기
-	
-	
-	// TODO 상우 작업부분

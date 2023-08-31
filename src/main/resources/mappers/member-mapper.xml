@@ -132,7 +132,6 @@
     <update id="upNick" parameterType="mvo">
         update member set m_nick = #{m_nick} where m_id = #{m_id}
     </update>   
-    
     <!-- 자체 로그인 --> 
    <select id="login" parameterType="mvo" resultType="mvo">
    		select * from member where m_id = #{m_id}
@@ -147,4 +146,14 @@
    <update id="changePw" parameterType="mvo">
    		update member set m_pw = #{m_pw} where m_id = #{m_id}
    </update>
+    <!-- idx로 mvo가져오기 -->
+    <select id="getOne" parameterType="String" resultType="mvo">
+    	select * from member where m_idx=#{m_idx}
+    </select>
+    <!-- 내정보변경 -->
+    <update id="changeMyInfo" parameterType="mvo">
+    	update member set m_nick=#{m_nick}, m_phone = #{m_phone} where m_idx = #{m_idx}
+    </update>
+    
+
 </mapper>

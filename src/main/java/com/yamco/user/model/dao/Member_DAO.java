@@ -48,4 +48,13 @@ public class Member_DAO {
 	public int getChangePw(Member_VO mvo) {
 		return sqlSessionTemplate.update("member.changePw", mvo);
 	}
+
+	public Member_VO getMemberOne(String m_idx) {
+		return sqlSessionTemplate.selectOne("member.getOne", m_idx);
+	}
+
+	public int changeMyInfo(Member_VO mvo) {
+		return sqlSessionTemplate.update("member.changeMyInfo", mvo);
+
+	}
 }

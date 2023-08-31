@@ -26,4 +26,9 @@ public interface Member_Service {
 	
 	// 비밀번호 변경
 	public int getChangePw(Member_VO mvo);
+
+	public Member_VO getMemberOne(String m_idx);
+
+	public int changeMyInfo(Member_VO mvo);
+
 }

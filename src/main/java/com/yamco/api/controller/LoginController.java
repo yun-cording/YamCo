@@ -88,9 +88,15 @@ public class LoginController {
 					JSONObject response = (JSONObject) json.get("response");
 					String id = response.get("id").toString();
 					String nickname = response.get("nickname").toString();
-					String profile_image = response.get("profile_image").toString();
+					String profile_image = "";
+					if(response.get("profile_image")!=null) {
+						profile_image = response.get("profile_image").toString();
+					}
 					String gender = response.get("gender").toString();
-					String mobile = response.get("mobile").toString();
+					String mobile = "";
+					if(response.get("mobile")!=null) {
+						mobile = response.get("mobile").toString();
+					}
 					String birthday = response.get("birthday").toString();
 
 					Member_VO m_vo = new Member_VO();
@@ -226,7 +232,10 @@ public class LoginController {
 
 					JSONObject kakao_account = (JSONObject) json.get("kakao_account");
 					// 3) DB보냄 성별 male은 M으로 저장 fmale 은 F로 저장
-					String gen = kakao_account.get("gender").toString();
+					String gen = "" ;
+					if (kakao_account.get("gender") != null) {
+						gen = kakao_account.get("gender").toString();
+					}
 					String gender = "";
 					// 성별 if문
 					if (gen.equals("male")) {
@@ -236,7 +245,10 @@ public class LoginController {
 					}
 
 					// 4) DB보냄 생일
-					String birthday = kakao_account.get("birthday").toString();
+					String birthday = "" ;
+					if (kakao_account.get("birthday") != null) {
+						birthday = kakao_account.get("birthday").toString();
+					}
 
 					// DB보낼것들(m_id,프로필 사진 주소,성별(M,F),생일)
 					Member_VO mvo = new Member_VO();
