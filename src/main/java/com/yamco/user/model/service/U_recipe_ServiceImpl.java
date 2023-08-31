@@ -1,6 +1,7 @@
 package com.yamco.user.model.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,13 +27,8 @@ public class U_recipe_ServiceImpl implements U_recipe_Service {
 	}
 
 	@Override
-	public List<String> getSearch(String search_text) {
-		return u_recipe_DAO.getSearch(search_text);
-	}
-
-	@Override
-	public U_recipe_meta_VO getSearchData(String rcp_idx) {
-		return u_recipe_DAO.getSearchData(rcp_idx);
+	public List<U_recipe_meta_VO> getSearch(Map<String, String> map) {
+		return u_recipe_DAO.getSearch(map);
 	}
 
 	// 조회수 상승
@@ -40,4 +36,5 @@ public class U_recipe_ServiceImpl implements U_recipe_Service {
 	public int getHitUp(String rcp_idx, String m_idx) {
 		return u_recipe_DAO.getHitUp(rcp_idx, m_idx);
 	}
+	
 }

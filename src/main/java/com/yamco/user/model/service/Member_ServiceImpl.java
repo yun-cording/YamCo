@@ -104,7 +104,6 @@ public class Member_ServiceImpl implements Member_Service {
 				msvo.setM_status("3"); // 탈퇴회원
 			}
 		}
-
 		return member_DAO.getMemberList(msvo);
 	}
 
@@ -112,5 +111,32 @@ public class Member_ServiceImpl implements Member_Service {
 	@Override
 	public int setNick(Member_VO m_vo) {
 		return member_DAO.setNick(m_vo);
+	}
+
+	// 자체 로그인
+	@Override
+	public Member_VO getMemberLogin(Member_VO mvo) {
+		return member_DAO.getMemberLogin(mvo);
+	}
+
+	// 틀린 횟수 업데이트
+	@Override
+	public int getFailCountUp(Member_VO mvo) {
+		return member_DAO.getFailCountUp(mvo);
+	}
+	
+	@Override
+	public int getChangePw(Member_VO mvo) {
+		return member_DAO.getChangePw(mvo);
+	}
+	// idx로 멤버정보 가져오기
+	@Override
+	public Member_VO getMemberOne(String m_idx) {
+		return member_DAO.getMemberOne(m_idx);
+	}
+	// 내 정보 변경
+	@Override
+	public int changeMyInfo(Member_VO mvo) {
+		return member_DAO.changeMyInfo(mvo);
 	}
 }

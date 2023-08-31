@@ -1,6 +1,7 @@
 package com.yamco.user.model.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,9 +32,10 @@ public class U_recipe_DAO {
 		return sqlSessionTemplate.selectList("u_recipe.rankListRecipe1Month");
 	}
 
-	public List<String> getSearch(String search_text) {
-		return sqlSessionTemplate.selectList("u_recipe.recipeSearch", search_text);
+	public List<U_recipe_meta_VO> getSearch(Map<String, String> map) {
+		return sqlSessionTemplate.selectList("u_recipe.recipeSearch", map);
 	}
+	
 
 	public U_recipe_meta_VO getSearchData(String rcp_idx) {
 		return sqlSessionTemplate.selectOne("u_recipe.metaData", rcp_idx);
@@ -48,7 +50,6 @@ public class U_recipe_DAO {
 
 		try {
 			result += sqlSessionTemplate.update("u_recipe.hitUp", rcp_idx);
-			System.out.println("조회수 상승 성공");
 			User_log_VO ulvo = new User_log_VO();
 			ulvo.setRcp_idx(rcp_idx);
 			if (m_idx != null && !m_idx.isBlank()) {
@@ -56,12 +57,10 @@ public class U_recipe_DAO {
 			}
 			ulvo.setUl_status("3"); // 3 : 조회
 			result += sqlSessionTemplate.insert("user_log.insert", ulvo);
-			System.out.println("로그 기록 성공");
 			transactionManager.commit(status);
 		} catch (Exception e) {
 			e.printStackTrace();
 			transactionManager.rollback(status);
-			System.out.println("오류발생, 조회수, 로그 취소");
 		}
 
 		return result;

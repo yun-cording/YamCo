@@ -74,7 +74,7 @@
 	</div>
 	
 	<div style="margin-top:100px;">
-	<input type="text" name="m_nick" value="${m_nick }" id="textfiled" required>
+	<input type="text" name="m_nick" id="textfiled" required>
 	<div id="idline"></div>
 	<div id="detail"></div>
 	</div>
