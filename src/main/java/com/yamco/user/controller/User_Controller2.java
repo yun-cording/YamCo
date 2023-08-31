@@ -10,11 +10,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.yamco.user.model.service.U_recipe_Service;
 import com.yamco.user.model.vo.RecentList_VO;
 import com.yamco.user.model.vo.U_recipe_VO;
+import com.yamco.user.model.vo.U_recipe_meta_VO;
 
 @Controller
 public class User_Controller2 {
+	@Autowired
+	private U_recipe_Service u_recipe_Service;
 	
 	@RequestMapping("/main.go")
 	public ModelAndView homeGo(HttpSession session) {
@@ -128,7 +132,7 @@ public class User_Controller2 {
 	}
 	
 	@RequestMapping("/public_recipe_detail.go")
-	public ModelAndView publicRecipeDetailGo() {
+	public ModelAndView publicRecipeDetailGo(String rcp_seq) {
 		ModelAndView mv = new ModelAndView("/user/recipe/public_recipe_detail");
 		
 		// 레시피 번호받아와서 상세정보 출력하기
@@ -138,8 +142,12 @@ public class User_Controller2 {
 	public ModelAndView searchGo(String search_text) {
 		ModelAndView mv = new ModelAndView("/user/recipe/search_list");
 		// 검색어로 DB다녀오기
-		
-		
+		List<String> idx_list = u_recipe_Service.getSearch(search_text);
+		List<U_recipe_meta_VO> search_list = new ArrayList<U_recipe_meta_VO>();
+		for (String k : idx_list) {
+			search_list.add(u_recipe_Service.getSearchData(k));
+		}
+		mv.addObject("list",search_list);
 		return mv;
 	}
 	

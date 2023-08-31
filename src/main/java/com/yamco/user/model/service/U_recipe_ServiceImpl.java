@@ -17,4 +17,12 @@ public class U_recipe_ServiceImpl implements U_recipe_Service {
 	public List<U_recipe_meta_VO> getU_recipeRankListRecipe() {
 		return u_recipe_DAO.getU_recipeRankListRecipe();
 	}
+	@Override
+	public List<String> getSearch(String search_text) {
+		return u_recipe_DAO.getSearch(search_text);
+	}
+	@Override
+	public U_recipe_meta_VO getSearchData(String k) {
+		return u_recipe_DAO.getSearchData(k);
+	}
 }
