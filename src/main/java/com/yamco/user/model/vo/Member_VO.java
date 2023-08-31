@@ -2,7 +2,9 @@ package com.yamco.user.model.vo;
 
 public class Member_VO {
 	private String m_idx, m_id, m_pw, m_phone, m_gender, m_birthday, m_nick, m_regdate, m_status, 
-					m_fail_count, m_out_date, m_login_type, m_token, m_t_time, m_image;
+					 m_out_date, m_login_type, m_token, m_t_time, m_image;
+	
+	private int m_fail_count;
 
 	public String getM_regdate() {
 		return m_regdate;
@@ -76,11 +78,11 @@ public class Member_VO {
 		this.m_status = m_status;
 	}
 
-	public String getM_fail_count() {
+	public int getM_fail_count() {
 		return m_fail_count;
 	}
 
-	public void setM_fail_count(String m_fail_count) {
+	public void setM_fail_count(int m_fail_count) {
 		this.m_fail_count = m_fail_count;
 	}
 

@@ -3,14 +3,13 @@
  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
  "https://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
-	
-	<!-- MyBais에서 쿼리에 매핑되는 파라미터에 NULL 값이 있는 경우 에러 발생
-	 => 해결 <setting name="jdbcTypeForNull" value="NULL"/> -->
-	 <!-- MyBatis cache 사용 여부 
-	 => <setting name="cacheEnabled" value="false"/> -->
+
+	<!-- MyBais에서 쿼리에 매핑되는 파라미터에 NULL 값이 있는 경우 에러 발생 => 해결 <setting name="jdbcTypeForNull" 
+		value="NULL"/> -->
+	<!-- MyBatis cache 사용 여부 => <setting name="cacheEnabled" value="false"/> -->
 	<settings>
-		<setting name="jdbcTypeForNull" value="NULL"/>
-		<setting name="cacheEnabled" value="false"/>
+		<setting name="jdbcTypeForNull" value="NULL" />
+		<setting name="cacheEnabled" value="false" />
 	</settings>
 	
 	<typeAliases> <!-- (별칭) vo위치를 별칭으로 지정해주는 역활
@@ -18,13 +17,20 @@
 	<typeAlias type="com.ict.model.vo.membersVO" alias="mvo" /> -->
 	<typeAlias type="com.yamco.user.model.vo.Member_VO" alias="mvo" />
 	<typeAlias type="com.yamco.user.model.vo.Member_Search_VO" alias="msvo" />
+	<typeAlias type="com.yamco.user.model.vo.U_recipe_VO" alias="urvo" />
+	<typeAlias type="com.yamco.user.model.vo.U_recipe_meta_VO" alias="urmvo" />
+	<typeAlias type="com.yamco.api.model.vo.P_recipe_VO" alias="prvo" />
+	<typeAlias type="com.yamco.user.model.vo.User_log_VO" alias="ulvo" />
+	<typeAlias type="com.yamco.user.model.vo.User_log_Search_VO" alias="ulsvo" />
 	</typeAliases>
-	
+
 	<mappers><!-- 매퍼 위치를 쓰기 -->
 		<!-- <mapper resource="mappers/members-mapper.xml" /> -->
 		<mapper resource="mappers/api-mapper.xml" />
 		<mapper resource="mappers/member-mapper.xml" />
-			
+		<mapper resource="mappers/u_recipe-mapper.xml" />
+		<mapper resource="mappers/user_log-mapper.xml" />
+		<mapper resource="mappers/p_recipe-mapper.xml" />
 	</mappers>
-	
+
 </configuration>

@@ -44,29 +44,32 @@
 			<!-- 레시피 출력 -->
 			<!-- 콘텐츠공간 -->
 			<div class="flexContainer">
-				<c:forEach begin="1" end="12">
+				<c:forEach var="k" items="${listSummary}">
 					<div class="recipe_one">
 						<p>
-						<a href="/public_recipe_detail.go">
-							<img
-								src="https://mediahub.seoul.go.kr/wp-content/uploads/2020/10/d13ea4a756099add8375e6c795b827ab.jpg"
-								class="recipe_thumbnail"></a>
+						<!-- 메인이미지 클릭 시 해당 게시글 상세페이지로 이동 -->
+						<%-- <a href="/go_publicDet.do?rcp_seq=${k.get("RCP_SEQ").asText()}"> --%>
+						<a href="/go_publicDet.do?rcp_seq=${k.rcpSeq}">
+							<img src="${k.attFileNoMain}" class="recipe_thumbnail">
 						</p>
-						<p>공공레시피명</p>
-						<div class="writer">
-							<img
-								src="https://png.pngtree.com/png-vector/20191115/ourmid/pngtree-beautiful-profile-line-vector-icon-png-image_1990469.jpg"
-								class="profile"> <span>공공레시피 제공</span>
-						</div>
-						<div class="like" style="text-align: right;">
-							<img class="icon"
-								src="https://img.medicalreport.kr/resources/2019/07/23/o0vYNCXzJDWRPejw.jpg"
-								alt=""> <span>4.9</span> <img class="icon"
-								src="https://cdn-icons-png.flaticon.com/512/8316/8316018.png"
-								alt=""> <span>42</span> <img class="icon"
-								src="https://cdn-icons-png.flaticon.com/512/2415/2415461.png"
-								alt=""> <span>7만</span>
-						</div>
+						<p>
+							${k.rcpNm}
+						</p>
+							<div class="writer">
+								<img
+									src="https://png.pngtree.com/png-vector/20191115/ourmid/pngtree-beautiful-profile-line-vector-icon-png-image_1990469.jpg"
+									class="profile"> <span>냠냠레시피</span>
+							</div>
+							<div class="like" style="text-align: right;">
+							    <img class="icon" src="https://img.medicalreport.kr/resources/2019/07/23/o0vYNCXzJDWRPejw.jpg" alt="">
+							    <span>${empty k.avg_c_grade ? 0 : k.avg_c_grade}</span>
+							    <img class="icon" src="https://cdn-icons-png.flaticon.com/512/8316/8316018.png" alt="">
+							    <span>${empty k.total_comments ? 0 : k.total_comments}</span>
+							    <img class="icon" src="https://cdn-icons-png.flaticon.com/512/2415/2415461.png" alt="">
+							    <span>${empty k.p_rcp_hit ? 0 : k.p_rcp_hit}</span>
+							</div>
+							
+						</a>
 					</div>
 				</c:forEach>
 			</div>

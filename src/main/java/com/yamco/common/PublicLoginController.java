@@ -1,9 +1,12 @@
 package com.yamco.common;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -30,12 +33,115 @@ public class PublicLoginController {
 			}else if(gender.equals("여자,")) {
 				mvo.setM_gender("F");
 			}
+			mvo.setM_login_type("1");
 			member_Service.getMemberJoin(mvo);
+			String m_id = mvo.getM_id();
+			mv.addObject("m_id", m_id);
+			// System.out.println("m_id 쏴 : " +m_id);
 			return mv;			
 		} catch (Exception e) {
 			e.printStackTrace();
+			mv.setViewName("error404");
 		}
 		return null;
 	}
+	
+	// 닉네임 설정
+	@PostMapping("/member_nick.do")
+	public ModelAndView setNick(Member_VO mvo, @RequestParam("m_id")String m_id) {
+		ModelAndView mv = new ModelAndView("login/login");
+		try {
+			int res = member_Service.getMemberIdChk(m_id);
+			// System.out.println("받았냐 : " + m_id);
+			if(res > 0) {
+				member_Service.setNick(mvo);
+			return mv;
+			}
+		} catch (Exception e) {
+			mv.setViewName("error404");
+		}
+		return mv;
+	}
 	// TODO 채림 자체회원가입 작업 끗
+	// TODO 채림 자체회원 로그인 작업 시작
+	@RequestMapping("/member_login.do")
+	public ModelAndView getMemberLogin(HttpSession session, Member_VO mvo) {
+		ModelAndView mv = new ModelAndView("login/login");
+		String alert = "";
+		try {
+			Member_VO m_vo = member_Service.getMemberLogin(mvo);
+			int fail_count = m_vo.getM_fail_count();
+			if(m_vo.getM_status().equals("5")) {
+				alert = "<script>alert('로그인 실패 5번 이상이므로 비밀번호 찾기를 이용해주세요.');</script>";
+			}
+			
+			if(!passwordEncoder.matches(mvo.getM_pw(), m_vo.getM_pw())) {
+				alert = "<script>alert('비밀번호가 일치하지 않습니다.');</script>";
+				System.out.println("안 됨");				
+				m_vo.setM_fail_count(fail_count + 1);
+				// mapper 갔다오기 (틀린횟수 업데이트)
+				member_Service.getFailCountUp(m_vo);
+				System.out.println("틀린 횟수" + m_vo.getM_fail_count());
+				mv.addObject("alert", alert);
+				if(fail_count >= 5) {
+					alert = "<script>alert('로그인 실패 5번 이상이므로 비밀번호 찾기를 이용해주세요.');</script>;";
+					System.out.println("5번 틀림");
+					mv.addObject("alert", alert);
+				}
+				return mv;
+			}else {
+				if(fail_count >= 5) {
+					alert = "<script>alert('로그인 실패 5번 이상이므로 비밀번호 찾기를 이용해주세요.');</script>;";
+					System.out.println("5번 틀림");
+					mv.addObject("alert", alert);
+					return mv;
+				}
+				session.setAttribute("m_idx", m_vo.getM_idx());
+				session.setAttribute("m_nick", m_vo.getM_nick());
+				session.setAttribute("loginChk", true);
+				session.setAttribute("m_image", m_vo.getM_image());
+				alert = "<script>alert('로그인 성공.');</script>";
+				mv.addObject("alert", alert);
+				return new ModelAndView("main");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			mv.setViewName("error404");
+		}
+		return null;
+	}
+	// TODO 채림 자체회원 로그인 작업 끗	
+	// TODO 채림 비밀번호 변경 작업 시작
+	@RequestMapping("/member_findPw.do")
+	public ModelAndView getFindPw(Member_VO mvo) {
+		ModelAndView mv = new ModelAndView("login/new_pw");
+		Member_VO m_vo = member_Service.getMemberLogin(mvo);
+		mv.addObject("m_id", m_vo);
+		System.out.println(m_vo.getM_id());
+		return mv;
+	}
+	
+	@RequestMapping("/member_changPw.do")
+	public ModelAndView getChangePw(Member_VO mvo) {
+		ModelAndView mv = new ModelAndView("login");
+		System.out.println("왜");
+		try {
+			Member_VO m_vo = member_Service.getMemberLogin(mvo);
+			System.out.println("안");
+			System.out.println("받은 id : " + m_vo.getM_id());
+			m_vo.setM_pw(passwordEncoder.encode(m_vo.getM_pw()));
+			System.out.println("돼");
+			m_vo.setM_fail_count(0);
+			member_Service.getChangePw(m_vo);
+			System.out.println("제");
+			member_Service.getFailCountUp(m_vo);
+			System.out.println("발");
+			return mv;
+		} catch (Exception e) {
+			e.printStackTrace();
+			mv.setViewName("error404");
+		}
+		return null;
+	}
+	// TODO 채림 비밀번호 변경 작업 끗		
 }

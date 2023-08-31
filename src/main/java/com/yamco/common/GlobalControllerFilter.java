@@ -11,6 +11,7 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+// TODO 상우 세션 생성될 때마다 count하는 코드
 public class GlobalControllerFilter implements Filter {
 
     @Override
@@ -18,8 +19,7 @@ public class GlobalControllerFilter implements Filter {
             throws IOException, ServletException {
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         HttpSession session = httpRequest.getSession(false); // 이미 생성된 세션이 있는 경우만 가져옴
-        //System.out.println("세션 있는지 여부 체크 : (GlobalControllerFilter.java파일에서 찍고 있어용)" + session);
-        
+        //System.out.println("세션 있는지 여부 체크 : (common패키지 안 GlobalControllerFilter.java파일에서 찍고 있어용)" + session);
         
         // 세션이 null이 아니고, 실행이 안 되었을 때
         if (session != null && session.getAttribute("filterExecuted") == null) {
@@ -37,11 +37,10 @@ public class GlobalControllerFilter implements Filter {
             // 필터가 실행되었음을 표시하기 위해 세션에 속성 추가
             session.setAttribute("filterExecuted", true);
         }
-
         // 다음 필터 or 컨트롤러로 진행
         chain.doFilter(request, response);
     }
-
+    
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {
 	}
@@ -49,5 +48,5 @@ public class GlobalControllerFilter implements Filter {
 	@Override
 	public void destroy() {
 	}
-
+// TODO 상우 세션 생성될 때마다 count하는 코드
 }

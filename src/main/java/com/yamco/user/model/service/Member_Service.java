@@ -17,4 +17,18 @@ public interface Member_Service {
 	
 	// 닉네임 설정하기
 	public int setNick(Member_VO m_vo);
+	
+	// 자체 로그인
+	public Member_VO getMemberLogin(Member_VO mvo);
+	
+	// 틀린 횟수 업데이트
+	public int getFailCountUp(Member_VO mvo);
+	
+	// 비밀번호 변경
+	public int getChangePw(Member_VO mvo);
+
+	public Member_VO getMemberOne(String m_idx);
+
+	public int changeMyInfo(Member_VO mvo);
+
 }
