@@ -57,4 +57,8 @@ public class Member_DAO {
 		return sqlSessionTemplate.update("member.changeMyInfo", mvo);
 
 	}
+
+	public int leaveMember(Member_VO mvo) {
+		return sqlSessionTemplate.update("member.leave", mvo);
+	}
 }

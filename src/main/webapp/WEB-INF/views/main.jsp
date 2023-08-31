@@ -377,5 +377,6 @@ color: #21730B;
 			</aside>
 		<div id="footer"><jsp:include page="footer.jsp" /></div>
 		</div>
+		${alert }
 </body>
 </html>
