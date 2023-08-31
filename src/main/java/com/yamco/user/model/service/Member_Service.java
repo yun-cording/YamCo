@@ -17,4 +17,8 @@ public interface Member_Service {
 	
 	// 닉네임 설정하기
 	public int setNick(Member_VO m_vo);
+
+	public Member_VO getMemberOne(String m_idx);
+
+	public int changeMyInfo(Member_VO mvo);
 }
