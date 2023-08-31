@@ -29,8 +29,13 @@ function memberinfoagree() {
 }
 
 function memberJoin_go(f) {
-	f.action = "/member_join.do";
-	f.submit();
+	if(status1==1 && status2==1 && status3==1 && status4==1 && status5==1 && status6==1){
+		f.action = "/member_join.do";
+		f.submit();
+	}else{
+		document.getElementById('join_chk').disabled=true;
+		alert("전부 입력해주세요.");
+	}
 }
 
 function pwChk_go() {
@@ -89,7 +94,7 @@ function birthChk_go() {
 	var birth = document.getElementById('m_birthday').value;
 
 	function checkValidSomeThing(param) {
-		var birthNum = /^[0-9]{4}$/;
+		var birthNum = /^(0[1-9]|1[0-2])(0[1-9]|[12][0-9]|3[01])$/;
 		  return birthNum.test(param);
 		}
 	if(birth == null || birth == ''){
@@ -192,7 +197,7 @@ function birthChk_go() {
 	<div style="text-align:center; margin-top:30px;">
 	<input type="hidden" name="gender">
 	<button class="buttons" style="background:gray;" id="join_chk" onclick="memberJoin_go(this.form)" disabled><span>회원가입</span></button>
-	<button type="button" class="buttons" style="background: gray"><span>돌아가기</span></button>
+	<button type="button" class="buttons" style="background: gray" onclick="history.go(-1)"><span>돌아가기</span></button>
 	</div>
 	</div>
 	</form>

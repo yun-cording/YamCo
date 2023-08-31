@@ -17,4 +17,12 @@ public class U_recipe_DAO {
 	public List<U_recipe_meta_VO> getU_recipeRankListRecipe() {
 		return sqlSessionTemplate.selectList("u_recipe.rankListRecipe");
 	}
+
+	public List<String> getSearch(String search_text) {
+		return sqlSessionTemplate.selectList("u_recipe.recipeSearch", search_text);
+	}
+
+	public U_recipe_meta_VO getSearchData(String k) {
+		return sqlSessionTemplate.selectOne("u_recipe.metaData", k);
+	}
 }

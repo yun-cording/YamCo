@@ -1,16 +1,20 @@
 @charset "UTF-8";
 
-#mydiv {
-	position: relative; 
-  width : 1920px;
-  left : 0px; 
-  top : 0px;
-	margin: auto;
-}
-
 @font-face {
     font-family: 'Yeongdeok_TTF';
-    src: url('../../resources/fonts/Yeongdeok Blueroad.ttf') format('truetype');
+    src: url('../../fonts/Yeongdeok Blueroad.ttf') format('truetype');
+}
+
+body{
+	font-family: 'Yeongdeok_TTF';
+}
+
+#mydiv {
+  	width : 1920px;
+  	left : 0px; 
+  	top : 0px;
+	margin: auto;
+	font-family: 'Yeongdeok_TTF';
 }
 
 #maintext{
@@ -19,23 +23,20 @@
 }
 
 #textfiled{
-	display:flex;
+	display: flex;
 	width: 660px;
 	height: 50px;
 	margin: auto;
-	margin-top: 60px;
 	font-size: 24px;
 	font-family: 'Yeongdeok_TTF';
 }
 
 #idline{
-	display:flex;
 	width: 660px;
-	height: 5px;
+	height: 3px;
 	flex-shrink: 0;
 	background:#FF6347;
 	margin: auto;
-	justify-content: row;
 }
 
 input[type="text"]{
@@ -43,14 +44,14 @@ input[type="text"]{
 	/* border-radius: 20px; */
 	font-size: 24px;
 	outline: none;
+	font-family: 'Yeongdeok_TTF';
 }
 
 .buttons{
-	display:inline-block;
+
 	width: 176px;
 	height: 50px;
 	flex-shrink: 0;
-	justify-content: row;
 	border-radius: 40px;
 	margin: auto;
 	border: none;
@@ -61,19 +62,18 @@ input[type="text"]{
 	line-height: 50px;
 	height: 50px;
 	width: 176px;
-	font-family: 'Yeongdeok_TTF';
 	font-size: 24px;
 	font-weight: bold;
 	color: white;
+	font-family: 'Yeongdeok_TTF';
 }
 
 .textchk{
-	display:flex;
 	width: 660px;
 	font-size: 24px;
 	font-weight: bold;
-	justify-content: row;
 	margin: auto;
+	font-family: 'Yeongdeok_TTF';
 }
 
 .chkbox{
@@ -83,7 +83,5 @@ input[type="text"]{
 }
 #detail{
 	width: 660px;
-	display:flex;
-	justify-content: row;
 	margin: auto;
 }
