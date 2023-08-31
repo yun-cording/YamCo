@@ -31,4 +31,6 @@ public interface Member_Service {
 
 	public int changeMyInfo(Member_VO mvo);
 
+	public int leaveMember(Member_VO mvo);
+
 }

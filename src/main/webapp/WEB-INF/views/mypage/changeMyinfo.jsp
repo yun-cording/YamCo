@@ -302,11 +302,11 @@ input::-webkit-inner-spin-button {
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 <script type="text/javascript">
+	function changeMyInfoDo(f) {
+		f.action = "/changeMyInfo.do"
+		f.submit()
+	}
 	$(function() {
-		function changeMyInfoDo(f) {
-			f.action = "/changeMyInfo.do"
-			f.sumbit()
-		}
 		
 	})
 

@@ -27,7 +27,7 @@ public class LoginController {
 	private Api_Service api_Service;
 	@Autowired
 	private Member_Service member_Service;
-
+	// TODO 희준의 작업공간 시작
 	@RequestMapping("/naver_login.do")
 	public ModelAndView naverLoginGo(String code, String state, HttpSession session) {
 		ModelAndView mv = new ModelAndView();
@@ -142,6 +142,17 @@ public class LoginController {
 		}
 		return new ModelAndView("error404");
 	}
+	
+	@RequestMapping("/logOut_go")
+	public ModelAndView logoutDo(HttpSession session) {
+		session.removeAttribute("loginChk");
+		session.removeAttribute("m_nick");
+		session.removeAttribute("m_idx");
+		session.removeAttribute("m_image");
+		return new ModelAndView("main");
+	}
+	
+	// TODO 희준의 작업공간 끝
 
 	// TODO 재훈 시작
 	// TODO 카카오 로그인시작

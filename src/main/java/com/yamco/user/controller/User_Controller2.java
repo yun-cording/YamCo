@@ -8,6 +8,8 @@ import java.util.Map;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.scrypt.SCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,6 +28,8 @@ public class User_Controller2 {
 	private U_recipe_Service u_recipe_Service;
 	@Autowired
 	private Member_Service member_Service;
+	@Autowired
+	private BCryptPasswordEncoder passwordEncoder;
 	
 	@RequestMapping("/main.go")
 	public ModelAndView homeGo(HttpSession session) {
@@ -189,16 +193,61 @@ public class User_Controller2 {
 	}
 	@RequestMapping("/changeMyInfo.do")
 	public ModelAndView changeMyInfoDo( HttpSession session, Member_VO mvo) {
-		ModelAndView mv =new ModelAndView("redirect:/changeMyinfo.go");
+		ModelAndView mv =new ModelAndView("redirect:/myinfo.go");
 		String m_idx = (String)session.getAttribute("m_idx");
 		mvo.setM_idx(m_idx);
 		int res = member_Service.changeMyInfo(mvo);
-		if(mvo.getM_gender().equals("M")) {
-			mvo.setM_gender("남성");
-		}else if(mvo.getM_gender().equals("F")) {
-			mvo.setM_gender("여성");
-		}
 		mv.addObject("mvo",mvo);
+		return mv;
+	}
+	@RequestMapping("/leaveMember.go")
+	public ModelAndView leaveMemberGo( HttpSession session ) {
+		ModelAndView mv = new ModelAndView("/mypage/leaveMember"); 
+		String m_idx = (String)session.getAttribute("m_idx");
+		Member_VO mvo = member_Service.getMemberOne(m_idx);
+		if(mvo.getM_login_type().equals("2") || mvo.getM_login_type().equals("3") || mvo.getM_login_type().equals("4")) {
+			mv.addObject("social", true);
+			if(mvo.getM_gender().equals("M")) {
+				mvo.setM_gender("남성");
+			}else if(mvo.getM_gender().equals("F")) {
+				mvo.setM_gender("여성");
+			}
+			mvo.setM_id("소셜로그인 회원입니다.");
+			mv.addObject("mvo", mvo);
+			mv.setViewName("mypage/myinfo");
+		}
+		return mv;
+	}
+	@RequestMapping("/leaveMember.do")
+	public ModelAndView leaveMemberDo( HttpSession session, String pw, boolean social) {
+		ModelAndView mv= new ModelAndView("main");
+		String m_idx = (String)session.getAttribute("m_idx");
+		Member_VO mvo = member_Service.getMemberOne(m_idx);
+		if(social) {
+			int res = member_Service.leaveMember(mvo);
+			String alert="<script>alert('탈퇴가 완료되었습니다. 이용해주셔서 감사합니다.')</script>";
+			session.removeAttribute("loginChk");
+			session.removeAttribute("m_nick");
+			session.removeAttribute("m_idx");
+			session.removeAttribute("m_image");
+			mv.addObject("alert",alert);
+			return mv;
+		}
+		boolean pwChk = passwordEncoder.matches(pw, mvo.getM_pw());
+		if(pwChk) {
+			int res = member_Service.leaveMember(mvo);
+			String alert="<script>alert('탈퇴가 완료되었습니다. 이용해주셔서 감사합니다.')</script>";
+			session.removeAttribute("loginChk");
+			session.removeAttribute("m_nick");
+			session.removeAttribute("m_idx");
+			session.removeAttribute("m_image");
+			mv.addObject("alert",alert);
+		}else {
+			String alert="<script>alert('비밀번호가 틀렸습니다.')</script>";
+			mv.addObject("alert", alert);
+			mv.setViewName("/mypage/leaveMember");
+		}
+		
 		return mv;
 	}
 	
