@@ -85,7 +85,7 @@
 						</p>
 						<p style="margin-top: 10px;">
 						<div style="width: 100px; height: 40px; margin-left: -30px; text-align: center; margin-top: 10px;">
-							<p id="writer_nick" class="lower_text">${uvo.m_nick}닉네임이고아무리추가해도모양은예쁘지롱하하하하하</p>
+							<p id="writer_nick" class="lower_text">냠냠레시피</p>
 						</div>
 						<div style="width: 100px; height: 40px; margin-left: 26px; text-align: center; margin-top: 10px;">
 							<c:forEach var="item" items="${detail_list}">
@@ -129,15 +129,15 @@
 						<img src="resources/images/cooking.png" style="width:135px; height:135px; position: relative; margin-left: 565px; top:-550px; margin-top: 600px;">
 						<span style="font-size:32px; position: relative; top: -500px; left-margin: -100px; left: -142px;"><strong>조리 과정</strong></span>
 						<div style="text-align:center; margin-top: 500px;">
-							<c:forEach var="k" begin="1" end="5">
+							<%-- <c:forEach var="k" begin="1" end="5">
 								<div style="margin-top: -100px; position:relative; left: -500px;">
 									<img id="cook_det_img" src="MANUAL_IMG0${k}">
 									<!-- 조리방법 -->
 									<div style="margin-left: 1100px; position: relative; top: -400px; width: 470px; height: 200px;">
 									<c:forEach var="item" items="${detail_list}" varStatus="loop">
-									        <c:if test="${not empty item['MANUAL0' + loop.index]}">
-									            <p style="font-size: 14px;">${item.get('MANUAL0' + k).asText()}</p>
-									        </c:if>
+									        <c:if test="${not empty item['MANUAL' + (loop.index < 10 ? '0' + loop.index : loop.index)]}">
+									            <p style="font-size: 14px;">${item.get('MANUAL0' + String.valueOf(k)).asText()}</p>
+										    </c:if>
 									</c:forEach>
 									
 										<c:if test="${k == 3}">
@@ -145,8 +145,41 @@
 										</c:if>
 										<div class="horizontal-line_gray" style="position: relative; top: 380px;"></div>
 									</div>
+										
+									</c:forEach>
+									
+										<c:if test="${k == 3}">
+										
+										</c:if> --%>
+										<%-- <img id="cook_det_img" src="MANUAL_IMG0${k}"> --%>
+										
+								<div id="detailed_info">
+									<div style="margin-left: 1300px; margin-bottom: 200px; position: relative; top: -600px; width: 470px; height: 200px; left: -1500px; ">
+										<div style="font-size: 14px;"><img id="cook_det_img" src="${pDetailVO.manualImg01}" /></div>
+										<div style="font-size: 14px; position: relative; top: -400px; left:800px;">${pDetailVO.manual01}</p>
+									</div>
+									<div style="margin-left: 1100px; margin-bottom: 200px; position: relative; top: 100px; width: 470px; height: 200px; left: -1100px; ">
+										<div style="font-size: 14px;"><img id="cook_det_img" src="${pDetailVO.manualImg02}" /></p>
+										<div style="font-size: 14px; position: relative; top: -400px; left:900px; text-align:center;">${pDetailVO.manual02}</p>
+									</div>
+									<div style="margin-left: 1100px; position: relative; top: 50px; left: -900px; width: 470px; height: 200px;">
+										<p style="font-size: 14px;"><img id="cook_det_img" src="${pDetailVO.manualImg03}" /></p>
+										<p style="font-size: 14px; position: relative; top: -400px; left:900px; ">${pDetailVO.manual03}</p>
+									<div style="margin-left: 1100px; position: relative; top: -400px; width: 470px; height: 200px;">
+										<p style="font-size: 14px;"><img id="cook_det_img" src="${pDetailVO.manualImg04}" /></p>
+										<p style="font-size: 14px;">${pDetailVO.manual04}</p>
+									<div style="margin-left: 1100px; position: relative; top: -400px; width: 470px; height: 200px;">
+										<p style="font-size: 14px;"><img id="cook_det_img" src="${pDetailVO.manualImg05}" /></p>
+										<p style="font-size: 14px;">${pDetailVO.manual05}</p>
+									</div>
+										
+										<div class="horizontal-line_gray" style="position: relative; top: 380px;"></div>
+									</div>
 								</div>
-							</c:forEach>
+							</div>
+							<%-- </c:forEach> --%>
+							
+														
 						</div> 
 					</div>
 					<!-- 주의 문구 -->
