@@ -10,7 +10,7 @@
 <link rel="icon" type="image/x-icon"
 	href="resources/images/icon_tomato.png">
 <link rel="stylesheet"
-	href="resources/css/user/ranking/ranking_recipe.css" />
+	href="resources/css/user/ranking/ranking_recipe_7day.css" />
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script src="resources/js/user/sidebar.js"></script>
 <script type="text/javascript">
@@ -36,8 +36,6 @@
 
 		document.getElementById("month").style.cssText = 'background-color:white';
 		document.getElementById("monthtext").style.color = 'black';
-
-		location.href = "/go_ranking_recipe_7day.do";
 	}
 
 	function select_month() {
@@ -46,6 +44,8 @@
 
 		document.getElementById("week").style.cssText = 'background-color:white';
 		document.getElementById("weektext").style.color = 'black';
+
+		location.href = "/go_ranking_recipe.do";
 	}
 </script>
 </head>
@@ -77,7 +77,7 @@
 					<c:when test="${not empty lank_list_recipe }">
 						<c:forEach var="k" items="${lank_list_recipe }" varStatus="vs">
 							<c:choose>
-								<c:when test="${not empty k.hit_1mon}">
+								<c:when test="${not empty k.hit_7day}">
 									<div class="recipe_one">
 										<p>
 											<%-- ** 추후에 m_idx도 확인하고 넣어줘야함 --%>
@@ -136,7 +136,7 @@
 												src="https://cdn-icons-png.flaticon.com/512/8316/8316018.png"
 												alt=""> <span>${k.c_count}</span> <img class="icon"
 												src="https://cdn-icons-png.flaticon.com/512/2415/2415461.png"
-												alt=""> <span>${k.hit_1mon}</span>
+												alt=""> <span>${k.hit_7day}</span>
 										</div>
 									</div>
 								</c:when>

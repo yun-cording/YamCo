@@ -1,8 +1,8 @@
 package com.yamco.user.model.vo;
 
 public class Member_VO {
-	private String m_idx, m_id, m_pw, m_phone, m_gender, m_birthday, m_nick, m_regdate, m_status, 
-					m_fail_count, m_out_date, m_login_type, m_token, m_t_time, m_image;
+	private String m_idx, m_id, m_pw, m_phone, m_gender, m_birthday, m_nick, m_regdate, m_status, m_fail_count,
+			m_out_date, m_login_type, m_token, m_t_time, m_image;
 
 	public String getM_regdate() {
 		return m_regdate;
