@@ -17,4 +17,8 @@ public class P_recipe_DAO {
 	public List<P_recipe_VO> article_summary() {
 		return sqlSessionTemplate.selectList("p_recipe.article_summary");
 	}
+	// view에서 상세게시물 평점 받아오기
+	public String article_rating(String rcp_idx) {
+		return sqlSessionTemplate.selectOne("p_recipe.article_rating", rcp_idx);
+	}
 }

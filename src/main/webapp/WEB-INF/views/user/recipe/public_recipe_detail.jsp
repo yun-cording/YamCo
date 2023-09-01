@@ -27,7 +27,7 @@
 						</span>
 					</c:forEach>
 				<img src="resources/images/icon_tomato_ver2_1.png" style="width:30px; height:30px; margin-right:760px; position: relative; top: 35px; left: 30px;">
-				<span id="rcp_score" class="text_center" style="color:#929292; margin-right: 850px; font-size: 20px; float:right;">${rcp_score}4.9</span>
+				<span id="rcp_score" class="text_center" style="color:#929292; margin-right: 850px; font-size: 20px; float:right;">${avg_rating}</span>
 				<br>
 					<c:forEach var="item" items="${detail_list}">
 						<img id="main_img" src="${item.get("ATT_FILE_NO_MAIN").asText()}" >
@@ -80,7 +80,7 @@
 							</div>
 				
 						<p style="margin-top: 20px;">
-							<img class="lower_images" src="resources/images/icon_tomato_white_ver2_1.png"  style="margin-left: 138px;">
+							<img class="lower_images" src="resources/images/icon_tomato_ver2_1.png"  style="margin-left: 138px;">
 							<img class="lower_images" src="resources/images/steam.png"  style="margin-left: 45px;">
 						</p>
 						<p style="margin-top: 10px;">
@@ -203,6 +203,7 @@
 				
 				<!-- 추천 게시물 -->
 				<img class="left_arrow" style="margin-top: -200px; margin-left: 30px; position: relative; top: -130px;" src="resources/images/arrow_down.png">
+				<!-- 추천 게시물 검색해서 받아오자 -->
 				<img class="how_about_imgs" src="resources/images/public_sample2.png">
 				<img class="how_about_imgs" src="resources/images/public_sample2.png">
 				<img class="how_about_imgs" src="resources/images/public_sample2.png">

@@ -70,8 +70,17 @@ public class P_recipe_ServiceImpl implements P_recipe_Service {
 	            }
 		 }catch (Exception e) {
 			System.out.println(e);
-			
+			return null;
 		}
-		return null;
+		 return null;
 	}
+	
+	// DB 가서 평점 받기
+	public String article_rating(String rcpSeq) {
+		return p_recipe_DAO.article_rating(rcpSeq);
+	}
+	
+	// 세션에서 m_idx 받아오기
+	// 1. 해당 m_idx가 이 게시물을 좋아요했는지 확인
+	
 }

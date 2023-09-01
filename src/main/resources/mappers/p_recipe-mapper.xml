@@ -7,4 +7,7 @@
 	<select id="article_summary" resultType="prvo">
 		SELECT * FROM p_recipe_comment_summary
 	</select>
+	<select id="article_rating" resultType="String" parameterType="String">
+		SELECT avg_c_grade FROM comment_avg_c_grade WHERE rcp_idx = #{rcp_idx}
+	</select>
 </mapper>

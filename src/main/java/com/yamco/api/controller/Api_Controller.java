@@ -47,6 +47,9 @@ public class Api_Controller {
 		// 공공리스트 전체 리스트 받아오자
 		List<JsonNode> rowList = p_recipe_Service.go_public_list();
 		// 그중에서 rcpSeq가 받아온 값과 일치하는 녀석만 정보를 빼오자.
+		System.out.println(rowList.size());
+		
+		
 		
 		// 필터링
 		List<JsonNode> detail_list = new ArrayList<>();
@@ -91,6 +94,34 @@ public class Api_Controller {
 	           }
 		    }
 		}
+
+		
+		
+		int targetIndex = -1; // 일치하는 인덱스를 찾을 때 초기값 설정
+	    int rcp_idx = 0;
+
+		for (int i = 0; i < rowList.size(); i++) {
+		    JsonNode jsonNode = rowList.get(i);
+		    JsonNode rcpSeqNode = jsonNode.get("RCP_SEQ"); // RCP_SEQ 키의 값
+
+		    if (rcpSeqNode != null && rcpSeqNode.isTextual() && rcpSeqNode.asText().equals(rcpSeq)) {
+		        targetIndex = i;
+		        break; // 일치하는 인덱스를 찾았으므로 루프 종료
+		    }
+		}
+
+		if (targetIndex != -1) {
+			rcp_idx = targetIndex + 1;
+		    System.out.println("일치하는 인덱스 + 1: " + rcp_idx);
+		} else {
+		    System.out.println("일치하는 값이 없습니다.");
+		}
+
+		// DB 가서 평점 받아오자 (rcpSeq를 기반으로 idx + 1 숫자를 뽑아와서 ㄱ  
+		String avg_rating = p_recipe_Service.article_rating(String.valueOf(rcp_idx));
+		// System.out.println("평점은" + avg_rating);
+		
+		
 		
     	P_recipe_VO vo = new P_recipe_VO();
     	vo.setManual01(manual01);
@@ -103,12 +134,7 @@ public class Api_Controller {
     	vo.setManualImg03(manual_img03);
     	vo.setManualImg04(manual_img04);
     	vo.setManualImg05(manual_img05);
-    
-//    	System.out.println(vo.getManual01());
-//    	System.out.println(vo.getManual02());
-//    	System.out.println(vo.getManual03());
-//    	System.out.println(vo.getManual04());
-//    	System.out.println(vo.getManual05());
+
 		
 		// Map으로 해도 오류 
 //		Map<String, String> manualMap = new HashMap<>();
@@ -125,18 +151,57 @@ public class Api_Controller {
 //			}
 //		}
 		
-		
 
 		
 //		String rcpSeq = k.get("RCP_SEQ").asText();
 //		String attFileNoMain = k.get("ATT_FILE_NO_MAIN").asText();
 //		String rcpNm = k.get("RCP_NM").asText();
+    	
+    	
+    	
+    	
+    	// 이런 레시피는 어떠세요??? 
+    	// 전체 자료에서 
+    	
+    	// RCP_WAY2 조리방법
+    	// RCP_PARTS_DTLS 레시피
+    	// RCP_PAT2 카테고리
+//    	 List<Integer> matchingRcpSeqValues = new ArrayList<>();
+//
+//         for (JsonNode detail : detail_list) {
+//             // detail_list의 각 항목에 대해 RCP_SEQ 값 가져오기 (int 변환)
+//             int detailRcpSeq = detail.get("RCP_SEQ").asInt();
+//
+//             // rowList에서 RCP_SEQ와 일치하는 항목을 찾습니다.
+//             for (JsonNode row : rowList) {
+//                 int rowRcpSeq = row.get("RCP_SEQ").asInt();
+//                 
+//                 // RCP_SEQ가 일치하면 해당 값을 matchingRcpSeqValues에 추가합니다.
+//                 if (detailRcpSeq == rowRcpSeq) {
+//                     matchingRcpSeqValues.add(rowRcpSeq);
+//                     break; // 이미 찾았으므로 다음 detail 항목으로 이동합니다.
+//                 }
+//             }
+//         }
+//
+//         // 결과 출력
+//         System.out.println("Matching RCP_SEQ values:");
+//         for (int rcpSeq : matchingRcpSeqValues) {
+//             System.out.println(rcpSeq);
+//         }
+//    	
+    	
+    	// wishlist 여부 받아오기
+    	
+//    	rcp_idx
+    	
+    	// 전체 onelist 뽑기
+    	System.out.println(detail_list);
 		mv.addObject("detail_list", detail_list);
 		mv.addObject("pDetailVO", vo);
+		mv.addObject("avg_rating", avg_rating);
 //		mv.addObject("manualMap", manualMap);
 		System.out.println("detail list 갔다!");
-		// 전체 리스트
-		System.out.println(detail_list);
 		
 				
 		return mv;

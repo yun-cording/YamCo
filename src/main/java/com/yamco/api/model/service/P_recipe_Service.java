@@ -12,6 +12,8 @@ public interface P_recipe_Service {
 	
 	// DB view 다녀오기
 	public List<P_recipe_VO> article_summary();
+
+	public String article_rating(String result);
 	
 	// TODO 상우 
 }
