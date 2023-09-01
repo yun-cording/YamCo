@@ -1,5 +1,8 @@
 package com.yamco.user.controller;
 
+
+import org.springframework.beans.factory.annotation.Autowired;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -10,11 +13,16 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.scrypt.SCryptPasswordEncoder;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+
+
+import com.yamco.user.model.service.RandomService;
+import com.yamco.user.model.vo.Random_VO;
 
 import com.yamco.user.model.service.Member_Service;
 import com.yamco.user.model.service.U_recipe_Service;
@@ -22,19 +30,35 @@ import com.yamco.user.model.vo.Member_VO;
 import com.yamco.user.model.vo.RecentList_VO;
 import com.yamco.user.model.vo.U_recipe_meta_VO;
 
+
 @Controller
 public class User_Controller2 {
+
+	
+	@Autowired
+	private RandomService randomService;
+
 	@Autowired
 	private U_recipe_Service u_recipe_Service;
 	@Autowired
 	private Member_Service member_Service;
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
+
 	
 	@RequestMapping("/main.go")
 	public ModelAndView homeGo(HttpSession session) {
+	ModelAndView mv = new ModelAndView("/main");
+			// TODO 재훈 메인 시작
+			// TODO 재훈 랜덤 재료(자정 초기화) 시작
+			 Random_VO selectedFile = randomService.getSelectedFile();
+			 System.out.println("윽");
+			 System.out.println("selectedFile : " +selectedFile.getFood_img());
+			 mv.addObject("selectedFile", selectedFile);
+			 // TODO 재훈 랜덤 재료(자정 초기화) 끝
+			// TODO 재훈 메인 끝
+
 		// TODO 희준 최근리스트 세션저장용 시작
-		ModelAndView mv = new ModelAndView("/main");
 		List<RecentList_VO> recent = new ArrayList<RecentList_VO>();
 		RecentList_VO vo = new RecentList_VO();
 		vo.setIdx("10001");
@@ -51,8 +75,11 @@ public class User_Controller2 {
 		recent.add(vo2);
 		session.setAttribute("recent",recent);
 		// TODO 희준 최근리스트 세션저장용 끝
+
 		return mv;
 	}
+
+	
 	@RequestMapping("/public_list.go")
 	public ModelAndView publicListGo() {
 		ModelAndView mv = new ModelAndView("/user/recipe/public_list");
