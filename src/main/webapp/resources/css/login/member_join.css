@@ -17,6 +17,10 @@ a{
 	margin: auto;
 }
 
+button :hover{
+	cursor: pointer;
+}
+
 .idline{
 	display:flex;
 	width: 660px;

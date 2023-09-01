@@ -20,7 +20,7 @@ body{
 	font-size: 40px;
 }
 
-#textfiled{
+.textfiled{
 	display:flex;
 	width: 660px;
 	height: 50px;
@@ -30,6 +30,7 @@ body{
 }
 
 #idline{
+	display:flex;
 	width: 660px;
 	height: 3px;
 	flex-shrink: 0;
@@ -44,6 +45,17 @@ input[type="text"]{
 	outline: none;
 }
 
+.chk{
+	margin: auto;
+	width: 660px;
+	align-items: center;
+	flex-wrap: wrap;
+	margin-top: 60px;
+}
+
+button :hover{
+	cursor: pointer;
+}
 .buttons{
 	width: 176px;
 	height: 50px;

@@ -124,9 +124,10 @@ public class Member_ServiceImpl implements Member_Service {
 	public int getFailCountUp(Member_VO mvo) {
 		return member_DAO.getFailCountUp(mvo);
 	}
-	
+	// 비밀번호 변경
 	@Override
 	public int getChangePw(Member_VO mvo) {
+		System.out.println("1");
 		return member_DAO.getChangePw(mvo);
 	}
 	// idx로 멤버정보 가져오기
