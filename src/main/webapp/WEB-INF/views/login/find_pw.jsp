@@ -19,7 +19,7 @@
 	</div>
 	
 	<div style="margin-top:200px;">
-	<input type="text" placeholder="아이디(이메일)" id="textfiled" name="m_id" required>
+	<input type="text" placeholder="아이디(이메일)" id="textfiled m_id" name="m_id" required>
 	<div id="idline"></div>
 	</div>
 	<div style="text-align:center; margin-top:120px;">
