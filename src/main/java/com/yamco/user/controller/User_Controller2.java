@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -152,12 +153,13 @@ public class User_Controller2 {
 	}
 	
 	@RequestMapping("/public_recipe_detail.go")
-	public ModelAndView publicRecipeDetailGo(@RequestParam("rcp_idx") String rcp_idx, @RequestParam("m_idx") String m_idx) {
+	public ModelAndView publicRecipeDetailGo(@RequestParam("rcp_idx") String rcp_idx, HttpSession session) {
 		ModelAndView mv = new ModelAndView("/user/recipe/public_recipe_detail");
 		
-		//조회수 상승
+		String m_idx = (String) session.getAttribute("m_idx");
+		
+		//조회수 상승 //추후에 log 기록을 위해서 null 대신 m_idx 넘겨야 함
 		int result = u_recipe_Service.getHitUp(rcp_idx, m_idx);
-		System.out.println("result : " + result);
 		
 		// 레시피 번호받아와서 상세정보 출력하기
 		return mv;
