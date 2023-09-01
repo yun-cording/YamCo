@@ -154,6 +154,10 @@
     <update id="changeMyInfo" parameterType="mvo">
     	update member set m_nick=#{m_nick}, m_phone = #{m_phone} where m_idx = #{m_idx}
     </update>
+    <!-- 회원탈퇴 -->
+    <update id="leave">
+    	update member set m_status=3, m_out_date=CURDATE() where m_idx=#{m_idx}
+    </update>
     
 
 </mapper>
