@@ -22,6 +22,7 @@
 	<typeAlias type="com.yamco.api.model.vo.P_recipe_VO" alias="prvo" />
 	<typeAlias type="com.yamco.user.model.vo.User_log_VO" alias="ulvo" />
 	<typeAlias type="com.yamco.user.model.vo.User_log_Search_VO" alias="ulsvo" />
+	<typeAlias type="com.yamco.user.model.vo.Comment_VO" alias="cvo" />
 	</typeAliases>
 
 	<mappers><!-- 매퍼 위치를 쓰기 -->
