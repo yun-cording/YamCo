@@ -18,11 +18,27 @@ function memberinfochk() {
 	alert("개인 회원 약관에 동의");
 	status5 = 1;
 }
+ function log() {
+// 	console.log("아이디 : " + status1);
+// 	console.log("비번 : " + status2);
+// 	console.log("폰 : " + status3);
+// 	console.log("생일 : " + status4);
+// 	console.log("약관1 : " + status5);
+// 	console.log("약관2 : " + status6);
+	if(status1==1 && status2==1 && status3==1 && status4==1 && status5==1 && status6==1){
+		document.getElementById('join_chk').disabled=false;
+		document.getElementById('join_chk').style.backgroundColor="tomato";
+	} else {
+		document.getElementById('join_chk').disabled=true;
+		document.getElementById('join_chk').style.backgroundColor="gray";
+	}
+}
 
 function memberinfoagree() {
 	alert("개인정보 수집 및 이용 동의");
 	status6 = 1;	
 	if(status1==1 && status2==1 && status3==1 && status4==1 && status5==1 && status6==1){
+		log();
 		document.getElementById('join_chk').style.backgroundColor="tomato";
 		document.getElementById('join_chk').disabled=false;
 	}
@@ -30,10 +46,13 @@ function memberinfoagree() {
 
 function memberJoin_go(f) {
 	if(status1==1 && status2==1 && status3==1 && status4==1 && status5==1 && status6==1){
+		log();
+		document.getElementById('join_chk').disabled=false;
 		f.action = "/member_join.do";
 		f.submit();
 	}else{
 		document.getElementById('join_chk').disabled=true;
+		log();
 		alert("전부 입력해주세요.");
 	}
 }
@@ -49,23 +68,28 @@ function pwChk_go() {
 	if(pw == null || pw == '' || checkValidSomeThing(pw)){
 		document.getElementById('pwTxt').innerHTML='';
 		status2 = 0;
+		log();
 	}else if(!checkValidSomeThing(pw)){
 		document.getElementById('pwTxt').innerHTML=' 최소 8자리 이상 15자리 이하 영문 소문자, 숫자를 사용해주세요.';
 		document.getElementById('pwTxt').style.color="red";
 		status2 = 0;
+		log();
 	}
 	
 	if(pwChk == null || pwChk == ''){
 		document.getElementById('pwDouble').innerHTML='';
 		status2 = 0;
+		log();
 	}else if(pw != pwChk){
 		document.getElementById('pwDouble').innerHTML='비밀번호가 일치하지 않습니다.';
 		document.getElementById('pwDouble').style.color="red";
 		status2 = 0;
+		log();
 	}else{
 		document.getElementById('pwDouble').innerHTML='비밀번호가 일치합니다.';
 		document.getElementById('pwDouble').style.color="green";
 		status2 = 1;
+		log();
 	}
 }
 
@@ -80,13 +104,16 @@ function phoneChk_go() {
 	if(phone == null || phone == ''){
 		document.getElementById('phoneChk').innerHTML='';
 		status3 = 0;
+		log();
 	}else if(!checkValidSomeThing(phone)){
 		document.getElementById('phoneChk').innerHTML='핸드폰 번호 11자리 "-"를 제외하고 모두 입력해주세요.';
 		document.getElementById('phoneChk').style.color="red";
 		status3 = 0;
+		log();
 	}else if(checkValidSomeThing(phone)){
 		document.getElementById('phoneChk').innerHTML='';
 		status3 = 1;
+		log();
 	}
 }
 
@@ -100,13 +127,16 @@ function birthChk_go() {
 	if(birth == null || birth == ''){
 		document.getElementById('birthChk').innerHTML='';
 		status4 = 0;
+		log();
 	}else if(!checkValidSomeThing(birth)){
 		document.getElementById('birthChk').innerHTML='생년은 제외하고 생일 4자리만 입력해주세요.';
 		document.getElementById('birthChk').style.color="red";
 		status4 = 0;
+		log();
 	}else if(checkValidSomeThing(birth)){
 		document.getElementById('birthChk').innerHTML='';
 		status4 = 1;
+		log();
 	}
 }
 </script>
@@ -124,9 +154,11 @@ function birthChk_go() {
 			if(chk === ''){
 				txt.text("");
 				status1 = 0;
+				log();
 			}else if(!checkValidSomeThing(chk)){
 				txt.text("이메일 형식으로 입력해주세요.").css("color", "red");		
 				status1 = 0;
+				log();
 			}else{
 				$.ajax({
 					url : "/go_memberIdChk.do",
@@ -138,9 +170,11 @@ function birthChk_go() {
 						if(result >= 1){
 							$(".idDoubleChk").text("중복된 아이디입니다.").css("color", "red");
 							 status1 = 0;
+							 log();
 						}else{
 							$(".idDoubleChk").text("사용 가능한 아이디입니다.").css("color", "green");
 							status1 = 1;
+							log();
 						}
 					},
 					error : function() {

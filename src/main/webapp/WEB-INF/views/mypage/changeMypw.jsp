@@ -247,7 +247,7 @@ input[type="password"]{
 				</div>
 			<div class="btn">
 					<button id="btn_save">비밀번호 변경</button>
-					<button id="btn_exit">돌아가기</button>
+					<button type="button" id="btn_exit" onclick="history.go(-1)">돌아가기</button>
 				</div>
 			</div>		 
 		 </div>

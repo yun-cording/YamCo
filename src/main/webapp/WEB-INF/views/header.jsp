@@ -9,7 +9,6 @@
 /* Header_재훈(완성) */
  * {
 	padding: 0;
-	margin: 0;
 	box-sizing: border-box;
 	
 }
@@ -94,7 +93,7 @@
     width: 406px;
     padding-left: 10px;
     height: 50px;
-    border: 3px solid tomato;
+    border: 3px solid tomato !important;
     margin-top: 50px;
     float: right;
     border-radius: 10px;
@@ -220,6 +219,12 @@ a{
   margin-left: 3px;
   border-top-right-radius: 8px ;
   border-bottom-right-radius:  8px;
+}
+.myPage:hover{
+	cursor: pointer;
+}
+.logout:hover{
+	cursor: pointer;
 }
 </style>
 

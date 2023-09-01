@@ -30,15 +30,24 @@ public class User_Controller {
 		return mv;
 	}
 
-	@RequestMapping("go_ranking_search.do")
+	@RequestMapping("/go_ranking_search.do")
 	public ModelAndView go_ranking_search() {
 		return new ModelAndView("user/ranking/ranking_search");
 	}
 
-	@RequestMapping("go_ranking_recipe.do")
+	@RequestMapping("/go_ranking_recipe.do")
 	public ModelAndView go_ranking_recipe() {
 		ModelAndView mv = new ModelAndView("user/ranking/ranking_recipe");
-		List<U_recipe_meta_VO> result = u_recipe_Service.getU_recipeRankListRecipe();
+		List<U_recipe_meta_VO> result = u_recipe_Service.getU_recipeRankListRecipe1Month();
+		mv.addObject("lank_list_recipe", result);
+
+		return mv;
+	}
+
+	@RequestMapping("/go_ranking_recipe_7day.do")
+	public ModelAndView go_ranking_recipe_7Days() {
+		ModelAndView mv = new ModelAndView("user/ranking/ranking_recipe_7day");
+		List<U_recipe_meta_VO> result = u_recipe_Service.getU_recipeRankListRecipe7Days();
 		mv.addObject("lank_list_recipe", result);
 
 		return mv;

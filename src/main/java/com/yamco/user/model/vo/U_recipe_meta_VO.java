@@ -3,7 +3,7 @@ package com.yamco.user.model.vo;
 public class U_recipe_meta_VO {
 	private String rcp_idx, m_idx, u_rcp_title, u_rcp_comment, u_rcp_category, u_rcp_ing, u_rcp_main, u_rcp_level,
 			u_rcp_keyword, u_rcp_blind, m_nick, u_rcp_status, u_rcp_hit, u_rcp_ctype, u_rcp_time, u_rcp_img, m_image,
-			c_count, avg_grade;
+			c_count, avg_grade, hit_7day, hit_1mon;
 
 	public String getRcp_idx() {
 		return rcp_idx;
@@ -155,5 +155,21 @@ public class U_recipe_meta_VO {
 
 	public void setAvg_grade(String avg_grade) {
 		this.avg_grade = avg_grade;
+	}
+
+	public String getHit_7day() {
+		return hit_7day;
+	}
+
+	public void setHit_7day(String hit_7day) {
+		this.hit_7day = hit_7day;
+	}
+
+	public String getHit_1mon() {
+		return hit_1mon;
+	}
+
+	public void setHit_1mon(String hit_1mon) {
+		this.hit_1mon = hit_1mon;
 	}
 }
