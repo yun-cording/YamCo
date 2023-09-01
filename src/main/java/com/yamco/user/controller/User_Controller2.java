@@ -1,40 +1,85 @@
 package com.yamco.user.controller;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.scrypt.SCryptPasswordEncoder;
+
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+
 
 import com.yamco.user.model.service.RandomService;
 import com.yamco.user.model.vo.Random_VO;
 
+import com.yamco.user.model.service.Member_Service;
+import com.yamco.user.model.service.U_recipe_Service;
+import com.yamco.user.model.vo.Member_VO;
+import com.yamco.user.model.vo.RecentList_VO;
+import com.yamco.user.model.vo.U_recipe_meta_VO;
+
+
 @Controller
 public class User_Controller2 {
+
 	
-	// TODO 재훈 메인 시작
 	@Autowired
 	private RandomService randomService;
+
+	@Autowired
+	private U_recipe_Service u_recipe_Service;
+	@Autowired
+	private Member_Service member_Service;
+	@Autowired
+	private BCryptPasswordEncoder passwordEncoder;
+
 	
 	@RequestMapping("/main.go")
-	public ModelAndView homeGo() {
-		ModelAndView mv = new ModelAndView("/main"); 
-		// TODO 재훈 랜덤 재료(자정 초기화) 시작
-		 Random_VO selectedFile = randomService.getSelectedFile();
-		 System.out.println("윽");
-		 System.out.println("selectedFile : " +selectedFile.getFood_img());
-		 mv.addObject("selectedFile", selectedFile);
-		 // TODO 재훈 랜덤 재료(자정 초기화) 끝
-		
+	public ModelAndView homeGo(HttpSession session) {
+	ModelAndView mv = new ModelAndView("/main");
+			// TODO 재훈 메인 시작
+			// TODO 재훈 랜덤 재료(자정 초기화) 시작
+			 Random_VO selectedFile = randomService.getSelectedFile();
+			 System.out.println("윽");
+			 System.out.println("selectedFile : " +selectedFile.getFood_img());
+			 mv.addObject("selectedFile", selectedFile);
+			 // TODO 재훈 랜덤 재료(자정 초기화) 끝
+			// TODO 재훈 메인 끝
+
+		// TODO 희준 최근리스트 세션저장용 시작
+		List<RecentList_VO> recent = new ArrayList<RecentList_VO>();
+		RecentList_VO vo = new RecentList_VO();
+		vo.setIdx("10001");
+		vo.setCate("분식");
+		vo.setImg("https://mediahub.seoul.go.kr/wp-content/uploads/2020/10/d13ea4a756099add8375e6c795b827ab.jpg");
+		vo.setWriter("김심바");
+		recent.add(vo);
+		RecentList_VO vo2 = new RecentList_VO();
+		vo2.setIdx("153");
+		vo2.setCate("분식");
+		vo2.setImg("https://mediahub.seoul.go.kr/wp-content/uploads/2020/10/d13ea4a756099add8375e6c795b827ab.jpg");
+		vo2.setWriter("냠냠레시피");
+		recent.add(vo);
+		recent.add(vo2);
+		session.setAttribute("recent",recent);
+		// TODO 희준 최근리스트 세션저장용 끝
+
 		return mv;
 	}
-//	@RequestMapping("/")
-//	public ModelAndView homeGo() {
-//		ModelAndView mv = new ModelAndView("/"); 
-//		// 이건 나중에 메인을 시작 페이지로 할때 쓰일 예정 위에 이동만 바꿔주면됨
-//		return mv;
-//	}
+
 	
-	// TODO 재훈 메인 끝
 	@RequestMapping("/public_list.go")
 	public ModelAndView publicListGo() {
 		ModelAndView mv = new ModelAndView("/user/recipe/public_list");
@@ -101,8 +146,19 @@ public class User_Controller2 {
 		return mv;
 	}
 	@RequestMapping("/myinfo.go")
-	public ModelAndView myinfoGo() {
+	public ModelAndView myinfoGo(HttpSession session) {
 		ModelAndView mv = new ModelAndView("/mypage/myinfo");
+		String m_idx = (String)session.getAttribute("m_idx");
+		Member_VO mvo = member_Service.getMemberOne(m_idx);
+		if(mvo.getM_gender().equals("M")) {
+			mvo.setM_gender("남성");
+		}else if(mvo.getM_gender().equals("F")) {
+			mvo.setM_gender("여성");
+		}
+		if(!mvo.getM_login_type().equals("1")) {
+			mvo.setM_id("소셜로그인 회원입니다.");
+		}
+		mv.addObject("mvo", mvo);
 		return mv;
 	}
 	@RequestMapping("/mywishlist.go")
@@ -127,10 +183,100 @@ public class User_Controller2 {
 	}
 	
 	@RequestMapping("/public_recipe_detail.go")
-	public ModelAndView publicRecipeDetailGo() {
+	public ModelAndView publicRecipeDetailGo(@RequestParam("rcp_idx") String rcp_idx, @RequestParam("m_idx") String m_idx) {
 		ModelAndView mv = new ModelAndView("/user/recipe/public_recipe_detail");
+		
+		//조회수 상승
+		int result = u_recipe_Service.getHitUp(rcp_idx, m_idx);
+		System.out.println("result : " + result);
+		
 		// 레시피 번호받아와서 상세정보 출력하기
 		return mv;
 	}
+	@RequestMapping("/search.go")
+	public ModelAndView searchGo(@ModelAttribute("search_text") String search_text,@ModelAttribute("order")String order) {
+		ModelAndView mv = new ModelAndView("/user/recipe/search_list");
+		// 검색어로 DB다녀오기
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("search", search_text);
+		map.put("order", order);
+		List<U_recipe_meta_VO> search_list = u_recipe_Service.getSearch(map);
+		mv.addObject("u_list",search_list);
+		return mv;
+	}
+	
+	@RequestMapping("/changeMyInfo.go")
+	public ModelAndView changeMyInfoGo( HttpSession session ) {
+		ModelAndView mv =new ModelAndView("mypage/changeMyinfo");
+		String m_idx = (String)session.getAttribute("m_idx");
+		Member_VO mvo = member_Service.getMemberOne(m_idx);
+		if(mvo.getM_gender().equals("M")) {
+			mvo.setM_gender("남성");
+		}else if(mvo.getM_gender().equals("F")) {
+			mvo.setM_gender("여성");
+		}
+		mv.addObject("mvo",mvo);
+		return mv;
+	}
+	@RequestMapping("/changeMyInfo.do")
+	public ModelAndView changeMyInfoDo( HttpSession session, Member_VO mvo) {
+		ModelAndView mv =new ModelAndView("redirect:/myinfo.go");
+		String m_idx = (String)session.getAttribute("m_idx");
+		mvo.setM_idx(m_idx);
+		int res = member_Service.changeMyInfo(mvo);
+		mv.addObject("mvo",mvo);
+		return mv;
+	}
+	@RequestMapping("/leaveMember.go")
+	public ModelAndView leaveMemberGo( HttpSession session ) {
+		ModelAndView mv = new ModelAndView("/mypage/leaveMember"); 
+		String m_idx = (String)session.getAttribute("m_idx");
+		Member_VO mvo = member_Service.getMemberOne(m_idx);
+		if(mvo.getM_login_type().equals("2") || mvo.getM_login_type().equals("3") || mvo.getM_login_type().equals("4")) {
+			mv.addObject("social", true);
+			if(mvo.getM_gender().equals("M")) {
+				mvo.setM_gender("남성");
+			}else if(mvo.getM_gender().equals("F")) {
+				mvo.setM_gender("여성");
+			}
+			mvo.setM_id("소셜로그인 회원입니다.");
+			mv.addObject("mvo", mvo);
+			mv.setViewName("mypage/myinfo");
+		}
+		return mv;
+	}
+	@RequestMapping("/leaveMember.do")
+	public ModelAndView leaveMemberDo( HttpSession session, String pw, boolean social) {
+		ModelAndView mv= new ModelAndView("main");
+		String m_idx = (String)session.getAttribute("m_idx");
+		Member_VO mvo = member_Service.getMemberOne(m_idx);
+		if(social) {
+			int res = member_Service.leaveMember(mvo);
+			String alert="<script>alert('탈퇴가 완료되었습니다. 이용해주셔서 감사합니다.')</script>";
+			session.removeAttribute("loginChk");
+			session.removeAttribute("m_nick");
+			session.removeAttribute("m_idx");
+			session.removeAttribute("m_image");
+			mv.addObject("alert",alert);
+			return mv;
+		}
+		boolean pwChk = passwordEncoder.matches(pw, mvo.getM_pw());
+		if(pwChk) {
+			int res = member_Service.leaveMember(mvo);
+			String alert="<script>alert('탈퇴가 완료되었습니다. 이용해주셔서 감사합니다.')</script>";
+			session.removeAttribute("loginChk");
+			session.removeAttribute("m_nick");
+			session.removeAttribute("m_idx");
+			session.removeAttribute("m_image");
+			mv.addObject("alert",alert);
+		}else {
+			String alert="<script>alert('비밀번호가 틀렸습니다.')</script>";
+			mv.addObject("alert", alert);
+			mv.setViewName("/mypage/leaveMember");
+		}
+		
+		return mv;
+	}
+	
 	
 }

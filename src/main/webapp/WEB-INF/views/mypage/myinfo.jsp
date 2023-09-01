@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -50,7 +51,6 @@
 	color: #fff;
 	width: 100%;
 	clear: left;
-	padding-top: 300px;
 }
 
 #category{
@@ -203,7 +203,7 @@ button{
 	width: 600px;
 	float: left;
 	align-items: center;
-	margin-top: 250px;
+	margin-top: 150px;
 	margin-left: 396px;
 }
 
@@ -217,6 +217,10 @@ button{
 	border: none;
 	border-radius: 30px 30px 30px 30px;
 	float: left;
+}
+
+#btn_change:hover{
+	cursor: pointer;
 }
 
 #btn_ch_pw{
@@ -242,6 +246,29 @@ button{
 	border-radius: 30px 30px 30px 30px;
 	float: left;
 }
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+	position: fixed;
+	top: 35%;
+	left: 35%;
+	width:30%;
+	height: 30%;
+	line-height: 100px;
+	background-color: white;
+	display: inline-block;
+	text-align: center;
+}
 </style>
 </head>
 <body>
@@ -265,20 +292,22 @@ button{
 			<div class="title">로그인 정보</div>
 			<div class="clear">
 			<div class="profile">
-				<img id="pro_pic" src="/resources/images/jongjongka.jpg">
-					<span id="nickname">닉네임</span>
+				<img id="pro_pic" src="${mvo.m_image}">
+					<span id="nickname">${mvo.m_nick }</span>
 					<div id="nick_line"></div>
 					<div class="info_all">
-						<div id="info_content">아이디(이메일) : gkdlfn@naver.com</div>
-						<div id="info_content">핸드폰 번호 : 010-0000-0000</div>
-						<div id="info_content">생년월일 : 981016</div>
-						<div id="info_content">성별 : 여성</div>
+						<div id="info_content">
+							아이디(이메일) : ${mvo.m_id }	
+						</div>
+						<div id="info_content">핸드폰 번호 : ${mvo.m_phone }</div>
+						<div id="info_content">생년월일 : ${mvo.m_birthday }</div>
+						<div id="info_content">성별 : ${mvo.m_gender }</div>
 					</div>
 				</div>
 				<div class="btn">
-					<button id="btn_change">정보 변경</button>
+					<button id="btn_change" onclick="changeMyInfo_go()">정보 변경</button>
 					<button id="btn_ch_pw">비밀번호 변경</button>
-					<button id="btn_exit">탈퇴하기</button>
+					<button id="btn_exit" onclick="leaveMember_go()">탈퇴하기</button>
 				</div>
 			</div>
 		 </div>
@@ -286,7 +315,38 @@ button{
 			<jsp:include page="../bestlist.jsp" />
 		</aside>
 		</div>
-<div id="footer"><jsp:include page="../footer.jsp" /></div>
+			<div id="footer"><jsp:include page="../footer.jsp" /></div>
 		</div>
+		<div id="myModal" class="modal">
+		    <div class="modal-content">
+		    	<span id="closeModalBtn" style="float: right; cursor: pointer;">&times;</span>
+		     	<h2>정말 탈퇴하시겠습니까?</h2> <br>
+		     	<button id="yesBtn" style="width: 100px; height: 30px;">예</button>
+	   			<button id="noBtn" style="width: 100px; height: 30px;">아니오</button>
+		    </div>
+	  	</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+<script type="text/javascript">
+function changeMyInfo_go() {
+	location.href="/changeMyInfo.go"
+}
+function leaveMember_go() {
+	location.href="/leaveMember.go"
+}
+$(function() {
+	if('${social}'){
+		$("#myModal").css('display','block');
+	}
+	$("#yesBtn").on("click",function() {
+		location.href = '/leaveMember.do?social=${social}';
+    });
+	$("#noBtn").on("click",function() {
+		$("#myModal").css("display", "none");
+	});
+	$("#closeModalBtn").on("click",function() {
+		$("#myModal").css("display", "none");
+	});
+})
+</script>
 </body>
 </html>

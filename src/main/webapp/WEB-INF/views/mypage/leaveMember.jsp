@@ -221,6 +221,29 @@ input[type="password"]{
 	outline: none;
 	font-family: 'Yeongdeok_TTF';	
 }
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+	position: fixed;
+	top: 35%;
+	left: 35%;
+	width:30%;
+	height: 30%;
+	line-height: 100px;
+	background-color: white;
+	display: inline-block;
+	text-align: center;
+}
 </style>
 </head>
 <body>
@@ -243,15 +266,13 @@ input[type="password"]{
 			<div class="title_line"></div>
 			<div class="title">회원 탈퇴</div>
 			<div class="title_content">회원님의 <span id="pw_color">비밀번호</span>를 입력해주세요.</div>
-			<div class="clear">			
-			<div class="info_all">
-					<div id="info_content">기존 비밀번호 : <input type="password" name="pw"></div>
+				<div class="info_all">
+					<div id="info_content">기존 비밀번호 : <input type="password" id="pw" name="pw"></div>
 				</div>
 				<div class="btn">
-					<button id="btn_bye">탈퇴하기</button>
-					<button id="btn_exit">돌아가기</button>
+					<button type="button" id="btn_bye">탈퇴하기</button>
+					<button type="button" id="btn_exit" onclick="history.go(-1)">돌아가기</button>
 				</div>
-			</div>		 
 		 </div>
 		<aside id="sidebar-right">
 			<jsp:include page="../bestlist.jsp" />
@@ -259,5 +280,33 @@ input[type="password"]{
 		</div>
 		<div id="footer"><jsp:include page="../footer.jsp" /></div>
 	</div>
+		<div id="myModal" class="modal">
+		    <div class="modal-content">
+		    	<span id="closeModalBtn" style="float: right; cursor: pointer;">&times;</span>
+		     	<h2>정말 탈퇴하시겠습니까?</h2> <br>
+		     	<button id="yesBtn" style="width: 100px; height: 30px;">예</button>
+	   			<button id="noBtn" style="width: 100px; height: 30px;">아니오</button>
+		    </div>
+	  	</div>
+	  	${alert }
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+<script type="text/javascript">
+$(function() {
+	var pw;
+	$("#btn_bye").on("click",function(){
+		$("#myModal").css('display','block');
+	});
+	$("#yesBtn").on("click",function() {
+		pw = $("#pw").val();
+		location.href = '/leaveMember.do?pw='+pw;
+    });
+	$("#noBtn").on("click",function() {
+		$("#myModal").css("display", "none");
+	});
+	$("#closeModalBtn").on("click",function() {
+		$("#myModal").css("display", "none");
+	});
+})
+</script>
 </body>
 </html>
