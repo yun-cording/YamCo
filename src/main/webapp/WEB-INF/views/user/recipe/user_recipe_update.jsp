@@ -37,13 +37,11 @@
  }
 
  #sidebar-right {
-    background-color: yellow;
     float: left;
     width: 15.625%;
 }
 
 #sidebar-left {
-    background-color: yellow;
     width: 15.625%;
     float: left;
 
@@ -281,7 +279,9 @@
 	<div id="mydiv">
 		<jsp:include page="../../header.jsp" />
 		<div id="test">
-		<aside id="sidebar-left">왼쪽</aside>
+		<aside id="sidebar-left">
+			<jsp:include page="../../recentlist.jsp" />
+		</aside>
 		<div id="content">
 			<!-- 레시피 제목 -->
 			<div class="left_margin" style="margin-top: 60px; float: left;">
@@ -481,7 +481,9 @@
 		<!-- content 끝 -->		
 		</div>
 		
-		<aside id="sidebar-right">오른</aside>
+		<aside id="sidebar-right">
+			<jsp:include page="../../bestlist.jsp" />
+			</aside>
 		<div id="footer">
 			<jsp:include page="../../footer.jsp" />
 		</div>

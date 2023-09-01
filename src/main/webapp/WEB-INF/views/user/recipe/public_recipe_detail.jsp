@@ -9,12 +9,15 @@
 <link rel="stylesheet" href="resources/css/user/recipe/public_recipe_detail.css?after" />
 <link rel="icon" type="image/x-icon"
 	href="resources/images/icon_tomato.png">
+
 </head>
 <body>
 	<div id="mydiv">
 		<jsp:include page="../../header.jsp" />
 		<div id="test">
-		<aside id="sidebar-left">왼쪽</aside>
+		<aside id="sidebar-left">
+			<jsp:include page="../../recentlist.jsp" />
+		</aside>
 		<div id="content">
 			<div id="upper">
 			        <c:forEach var="item" items="${detail_list}">
@@ -363,11 +366,16 @@
 					</div>							
 				</div>
 			
-		
+		`
 		<!-- content 끝 -->		
+			</div>
+			</div>
+			</div>
 		</div>
-		
-		<aside id="sidebar-right">오른</aside>
+	
+		<aside id="sidebar-right">
+			<jsp:include page="../../bestlist.jsp" />
+			</aside>
 		<div id="footer">
 			<jsp:include page="../../footer.jsp" />
 		</div>
