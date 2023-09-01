@@ -139,4 +139,9 @@ public class Member_ServiceImpl implements Member_Service {
 	public int changeMyInfo(Member_VO mvo) {
 		return member_DAO.changeMyInfo(mvo);
 	}
+	// 회원 탈퇴
+	@Override
+	public int leaveMember(Member_VO mvo) {
+		return member_DAO.leaveMember(mvo);
+	}
 }
