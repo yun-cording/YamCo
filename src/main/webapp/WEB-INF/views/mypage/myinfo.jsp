@@ -19,7 +19,9 @@
     font-family: 'Yeongdeok_TTF';
     src: url('../resources/fonts/Yeongdeok Blueroad.ttf') format('truetype');
 }
-
+button:hover {
+	cursor: pointer;
+}
 #mydiv{
    width: 1920px;
    margin:  auto;		
@@ -325,6 +327,7 @@ button{
 	   			<button id="noBtn" style="width: 100px; height: 30px;">아니오</button>
 		    </div>
 	  	</div>
+	  	<input type="file" id="fileInput" style="display: none" accept="image/*">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 <script type="text/javascript">
 function changeMyInfo_go() {
