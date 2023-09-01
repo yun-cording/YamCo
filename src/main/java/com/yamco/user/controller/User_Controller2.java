@@ -1,16 +1,40 @@
 package com.yamco.user.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.yamco.user.model.service.RandomService;
+import com.yamco.user.model.vo.Random_VO;
+
 @Controller
 public class User_Controller2 {
+	
+	// TODO 재훈 메인 시작
+	@Autowired
+	private RandomService randomService;
+	
 	@RequestMapping("/main.go")
 	public ModelAndView homeGo() {
-		ModelAndView mv = new ModelAndView("/main");
+		ModelAndView mv = new ModelAndView("/main"); 
+		// TODO 재훈 랜덤 재료(자정 초기화) 시작
+		 Random_VO selectedFile = randomService.getSelectedFile();
+		 System.out.println("윽");
+		 System.out.println("selectedFile : " +selectedFile.getFood_img());
+		 mv.addObject("selectedFile", selectedFile);
+		 // TODO 재훈 랜덤 재료(자정 초기화) 끝
+		
 		return mv;
 	}
+//	@RequestMapping("/")
+//	public ModelAndView homeGo() {
+//		ModelAndView mv = new ModelAndView("/"); 
+//		// 이건 나중에 메인을 시작 페이지로 할때 쓰일 예정 위에 이동만 바꿔주면됨
+//		return mv;
+//	}
+	
+	// TODO 재훈 메인 끝
 	@RequestMapping("/public_list.go")
 	public ModelAndView publicListGo() {
 		ModelAndView mv = new ModelAndView("/user/recipe/public_list");

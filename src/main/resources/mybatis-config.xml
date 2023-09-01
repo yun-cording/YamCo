@@ -18,12 +18,14 @@
 	<typeAlias type="com.ict.model.vo.membersVO" alias="mvo" /> -->
 	<typeAlias type="com.yamco.user.model.vo.Member_VO" alias="mvo" />
 	<typeAlias type="com.yamco.user.model.vo.Member_Search_VO" alias="msvo" />
+	<typeAlias type="com.yamco.user.model.vo.Random_VO" alias="ranvo" />
 	</typeAliases>
 	
 	<mappers><!-- 매퍼 위치를 쓰기 -->
 		<!-- <mapper resource="mappers/members-mapper.xml" /> -->
 		<mapper resource="mappers/api-mapper.xml" />
 		<mapper resource="mappers/member-mapper.xml" />
+		<mapper resource="mappers/image-mapper.xml" />
 			
 	</mappers>
 	

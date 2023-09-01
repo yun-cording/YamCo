@@ -1,0 +1,50 @@
+package com.yamco.user.model.service;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Service;
+import javax.annotation.PostConstruct;
+
+import com.yamco.user.model.dao.Random_DAO;
+import com.yamco.user.model.vo.Random_VO;
+
+@Service
+public class RandomService {
+	 private List<Random_VO> fileList = new ArrayList<Random_VO>();
+	 private Random_VO selectedFile;
+	 
+	 	//@PostConstruct 어노테이션은 Spring Framework에서 빈(Bean) 객체가 초기화될 때 
+	 	// 호출되는 메서드에 붙이는 어노테이션입니다. 빈이 생성되고 의존성 주입이 끝난 후, 
+	 	// 해당 빈이 사용되기 전에 초기화 작업을 수행하기 위해 사용
+	 	@Autowired
+		private Random_DAO random_DAO ;
+	 
+	 
+	 	@PostConstruct
+	    public void initializeFileList() {
+	        // 데이터베이스에서 파일 정보를 가져와 fileList에 저장하는 로직 구현
+	 		fileList = random_DAO.getRandomList();
+	 		 System.out.println("이");
+	 		updateSelectedFile();
+	 		
+	    }
+	    
+	    // 매일 자정에 호출되는 메서드
+	    @Scheduled(cron = "0 0 0 * * ?")
+	    public void updateSelectedFile() {
+	        Random random = new Random();
+	        System.out.println("일");
+	        selectedFile = fileList.get(random.nextInt(fileList.size()));
+	    }
+	    
+	    public Random_VO getSelectedFile() {
+	    	 System.out.println("셋");
+	        return selectedFile;
+	    }
+	    
+	    
+}
