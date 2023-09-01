@@ -2,8 +2,10 @@ package com.yamco.api.model.service;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletContext;
 
@@ -14,6 +16,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.yamco.api.model.dao.P_recipe_DAO;
 import com.yamco.api.model.vo.P_recipe_VO;
+import com.yamco.user.model.vo.Comment_VO;
 
 @Service
 public class P_recipe_ServiceImpl implements P_recipe_Service {
@@ -82,5 +85,17 @@ public class P_recipe_ServiceImpl implements P_recipe_Service {
 	
 	// 세션에서 m_idx 받아오기
 	// 1. 해당 m_idx가 이 게시물을 좋아요했는지 확인
+	// DB에서 좋아요한 목록 받아오기
+	public String liked_ornot(String m_idx, String rcp_idx) {	
+		return p_recipe_DAO.liked_ornot(m_idx, rcp_idx);
+	}
 	
+	public List<Comment_VO> load_comments(String m_nick, String rcp_idx){
+		return p_recipe_DAO.load_comments(m_nick, rcp_idx);
+	}
+	
+	// 게시물에 쓴 댓글 전부 불러오기
+	public List<Comment_VO> load_all_comments(String rcp_idx){
+		return p_recipe_DAO.load_all_comments(rcp_idx);
+	}
 }

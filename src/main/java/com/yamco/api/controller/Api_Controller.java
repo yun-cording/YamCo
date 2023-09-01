@@ -3,13 +3,12 @@ package com.yamco.api.controller;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,11 +19,16 @@ import org.springframework.web.servlet.ModelAndView;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.yamco.api.model.service.P_recipe_Service;
 import com.yamco.api.model.vo.P_recipe_VO;
+import com.yamco.user.model.service.Member_Service;
+import com.yamco.user.model.vo.Comment_VO;
+import com.yamco.user.model.vo.Member_VO;
 
 @Controller
 public class Api_Controller {
-	@Autowired	
+	@Autowired
 	P_recipe_Service p_recipe_Service;
+	@Autowired
+	Member_Service member_Service;
 //	@Autowired
 //	private Paging paging;
 //	@Autowired
@@ -42,7 +46,7 @@ public class Api_Controller {
 	
 	// 공공레시피 상세페이지
 	@RequestMapping("/go_publicDet.do")
-	public ModelAndView go_publicDet(@RequestParam("rcp_seq") String rcpSeq) {
+	public ModelAndView go_publicDet(@RequestParam("rcp_seq") String rcpSeq, HttpSession session) {
 		ModelAndView mv = new ModelAndView("user/recipe/public_recipe_detail");
 		// 공공리스트 전체 리스트 받아오자
 		List<JsonNode> rowList = p_recipe_Service.go_public_list();
@@ -192,9 +196,43 @@ public class Api_Controller {
 //    	
     	
     	// wishlist 여부 받아오기
-    	
-//    	rcp_idx
-    	
+    	String m_idx = (String)session.getAttribute("m_idx");
+    	System.out.println("id는 : " + m_idx);
+    	String liked_ornot = p_recipe_Service.liked_ornot(m_idx, String.valueOf(rcp_idx));
+    	System.out.println("좋아요했는가 : " + liked_ornot);
+    	// 좋아요 안함
+		mv.addObject("liked_ornot", liked_ornot);
+		
+		// 내가 쓴 댓글 목록 받아오기
+		Member_VO mvo = member_Service.getMemberOne(m_idx);
+		List<Comment_VO> comments_list = p_recipe_Service.load_comments(mvo.getM_nick(), String.valueOf(rcp_idx));
+		for (Comment_VO comment_VO : comments_list) {
+//			System.out.println(comment_VO.getC_contents());
+		}
+		
+		// 이 게시물에 들어간 댓글 전체 받아오기
+		List<Comment_VO> comments_list_all = p_recipe_Service.load_all_comments(String.valueOf(rcp_idx));
+		for (Comment_VO comment_VO : comments_list_all) {
+//			System.out.println(comment_VO.getC_contents());
+		}
+		
+		List<Comment_VO> comments_list_mine = new ArrayList<>();
+		
+		// comments_list_all에서 특정 rcp_idx 값을 가진 댓글만 필터링하여 comments_list_mine에 추가
+		for (Comment_VO comment : comments_list_all) {
+		    if (String.valueOf(comment.getRcp_idx()).equals(rcp_idx)) {
+		        comments_list_mine.add(comment);
+		    }
+		}
+		System.out.println("내꺼 갯수 : " + comments_list_mine.size());
+		
+		
+
+		// comments_list_mine에는 특정 rcp_idx 값에 해당하는 댓글만 들어있게 됩니다.
+
+
+		// 댓글 전체리스트
+		mv.addObject("comments_list_all", comments_list_all);
     	// 전체 onelist 뽑기
     	System.out.println(detail_list);
 		mv.addObject("detail_list", detail_list);
