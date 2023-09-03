@@ -3,13 +3,12 @@ package com.yamco.api.controller;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.yamco.api.model.service.P_recipe_Service;
 import com.yamco.api.model.vo.P_recipe_VO;
+import com.yamco.user.model.vo.RecentList_VO;
 
 @Controller
 public class Api_Controller {
@@ -42,7 +42,7 @@ public class Api_Controller {
 	
 	// 공공레시피 상세페이지
 	@RequestMapping("/go_publicDet.do")
-	public ModelAndView go_publicDet(@RequestParam("rcp_seq") String rcpSeq) {
+	public ModelAndView go_publicDet(@RequestParam("rcp_seq") String rcpSeq, HttpSession session ) {
 		ModelAndView mv = new ModelAndView("user/recipe/public_recipe_detail");
 		// 공공리스트 전체 리스트 받아오자
 		List<JsonNode> rowList = p_recipe_Service.go_public_list();
@@ -64,16 +64,21 @@ public class Api_Controller {
 		
 		String[] manual = new String[5];
         String[] manualImg = new String[5];
-		
+		String cate="";
+		String img ="";
+		String title="";
 		for (JsonNode jsonNode : rowList) {
 		    JsonNode rcpSeqNode = jsonNode.get("RCP_SEQ"); // rcpSeq 키의 값 가져오기
 		    // 받아온 하나의 Node
 //		    System.out.println(rcpSeqNode);
-		    
+
 		    if (rcpSeqNode != null && rcpSeqNode.asText().equals(rcpSeq)) {
 		    	detail_list.add(jsonNode); // 조건에 맞는 경우 리스트에 추가
 		    	System.out.println("추가중!");
 		    	for (int i = 1; i < 6; i++) {
+				     cate = jsonNode.get("RCP_PAT2").asText();
+				     img = jsonNode.get("ATT_FILE_NO_MAIN").asText();
+				     title = jsonNode.get("RCP_NM").asText();
 					 manual01 = jsonNode.get("MANUAL01").asText();
 					 manual02 = jsonNode.get("MANUAL02").asText();
 					 manual03 = jsonNode.get("MANUAL03").asText();
@@ -137,8 +142,34 @@ public class Api_Controller {
 		System.out.println("detail list 갔다!");
 		// 전체 리스트
 		System.out.println(detail_list);
+		// TODO 희준 세션에 최근리스트 추가하기 시작
+		List<RecentList_VO> recent = (List<RecentList_VO>) session.getAttribute("recent");
+		RecentList_VO rec_vo = new RecentList_VO();
+		if (recent == null) {
+		    recent = new ArrayList<RecentList_VO>();
+		}
+		boolean found = false;
+		for (RecentList_VO k : recent) {
+		    if (k.getIdx().equals(rcpSeq)) {
+		    	found = true;
+		    }
+		}
+		if(!found) {
+			rec_vo.setIdx(rcpSeq);
+			rec_vo.setCate(cate);
+			rec_vo.setImg(img);
+			rec_vo.setTitle(title);
+			rec_vo.setWriter("공공데이터 제공");
+			recent.add(0, rec_vo);
+			if(recent.size()<4) {
+				recent.subList(0, recent.size()-1);
+			}else {
+				recent = recent.subList(0, 3);
+			}
+	        session.setAttribute("recent", recent);
+		}
+		// TODO 희준 세션에 최근리스트 추가하기 끝
 		
-				
 		return mv;
 	}
 	

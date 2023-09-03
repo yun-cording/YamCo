@@ -11,7 +11,6 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.scrypt.SCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -23,7 +22,6 @@ import org.springframework.web.servlet.ModelAndView;
 import com.yamco.user.model.service.Member_Service;
 import com.yamco.user.model.service.U_recipe_Service;
 import com.yamco.user.model.vo.Member_VO;
-import com.yamco.user.model.vo.RecentList_VO;
 import com.yamco.user.model.vo.U_recipe_meta_VO;
 
 @Controller
@@ -37,24 +35,7 @@ public class User_Controller2 {
 	
 	@RequestMapping("/main.go")
 	public ModelAndView homeGo(HttpSession session) {
-		// TODO 희준 최근리스트 세션저장용 시작
 		ModelAndView mv = new ModelAndView("/main");
-		List<RecentList_VO> recent = new ArrayList<RecentList_VO>();
-		RecentList_VO vo = new RecentList_VO();
-		vo.setIdx("10001");
-		vo.setCate("분식");
-		vo.setImg("https://mediahub.seoul.go.kr/wp-content/uploads/2020/10/d13ea4a756099add8375e6c795b827ab.jpg");
-		vo.setWriter("김심바");
-		recent.add(vo);
-		RecentList_VO vo2 = new RecentList_VO();
-		vo2.setIdx("153");
-		vo2.setCate("분식");
-		vo2.setImg("https://mediahub.seoul.go.kr/wp-content/uploads/2020/10/d13ea4a756099add8375e6c795b827ab.jpg");
-		vo2.setWriter("냠냠레시피");
-		recent.add(vo);
-		recent.add(vo2);
-		session.setAttribute("recent",recent);
-		// TODO 희준 최근리스트 세션저장용 끝
 		return mv;
 	}
 	@RequestMapping("/public_list.go")
