@@ -261,6 +261,14 @@ color: #21730B;
 
 </style>
 </head>
+<script type="text/javascript">
+	function search_go(f) {
+		const form = document.getElementById("myForm");
+		console.log(form)
+		form.action = "/search.go" ;
+		form.submit();
+	}
+</script>
 <body>
 <div id="main">
 		
@@ -276,10 +284,13 @@ color: #21730B;
 			</div>
 				<div id="Recommen"><span style="font-size: 22px;">오늘의 <span class="point_tomato">추천</span> 재료</span></div>
 				<div id="ingredient">
-			<img id="ingredient_img" src="/resources/images/${saveVO.foodsave_img}">
-			<input type="hidden" name="searchWord" value="${saveVO.foodsave_title}">
+			<form method="post" id="myForm">
+			<a ><input type="hidden" name="search_text" value="${saveVO.foodsave_title}">
+			<img id="ingredient_img" src="/resources/images/${saveVO.foodsave_img}" onclick="search_go(this.form)" ></a>
+			</form>
 			</div>
 			</div>
+				
 			
 			<div class="clear">
 			<div class="border new_yamyam">
@@ -357,7 +368,7 @@ color: #21730B;
 				<div><span class="title">냉장고를 열어봐</span></div>
 				<button class="plus ref">냉장고 열러가기</button>
 				<div id="ref_text"><span style="font-size: 40px">우리집 <span class="point_tomato">냉장고</span>의
-				 이런 <span class="point_tomato">재료</span>로 이런 <span class="point_green">요리</span>를???</span></div>
+				<span class="point_tomato">재료</span>로 이런 <span class="point_green">요리</span>를???</span></div>
 			</div>
 		</div>	
 		

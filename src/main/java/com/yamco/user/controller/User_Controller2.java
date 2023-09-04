@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.yamco.user.model.service.Images_Service;
 import com.yamco.user.model.service.Member_Service;
 import com.yamco.user.model.service.RandomService;
 import com.yamco.user.model.service.U_recipe_Service;
@@ -28,6 +29,7 @@ import com.yamco.user.model.vo.Member_VO;
 import com.yamco.user.model.vo.Random_VO;
 import com.yamco.user.model.vo.Random_save_VO;
 import com.yamco.user.model.vo.Member_meta_VO;
+import com.yamco.user.model.vo.Notice_VO;
 import com.yamco.user.model.vo.U_recipe_meta_VO;
 
 @Controller
@@ -35,6 +37,8 @@ public class User_Controller2 {
 
 	@Autowired
 	private RandomService randomService;
+	@Autowired
+	private Images_Service images_Service ;
 
 	@Autowired
 	private U_recipe_Service u_recipe_Service;
@@ -54,6 +58,10 @@ public class User_Controller2 {
 		Random_save_VO saveVO = randomService.getSelectedFile();
 		mv.addObject("saveVO", saveVO);
 		// TODO 재훈 랜덤 재료(자정 초기화) 끝
+		// TODO 재훈 공지,광고 가져오기 시작
+		List<Notice_VO> nvo = images_Service.getNoticeList();
+		
+		// TODO 재훈 공지,광고 가져오기 끝
 		// TODO 재훈 메인 끝
 
 		return mv;
@@ -110,7 +118,7 @@ public class User_Controller2 {
 				U_recipe_meta_VO meta = u_recipe_Service.getSelectOne(rcp_idx);
 				recipeMap.put(count.toString(), u_recipe_Service.getSelectOne(rcp_idx));
 			}
-
+			
 			count++;
 		}
 
