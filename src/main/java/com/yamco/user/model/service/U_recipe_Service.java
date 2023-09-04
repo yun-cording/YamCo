@@ -3,6 +3,7 @@ package com.yamco.user.model.service;
 import java.util.List;
 import java.util.Map;
 
+import com.yamco.user.model.vo.U_recipe_VO;
 import com.yamco.user.model.vo.U_recipe_meta_VO;
 
 public interface U_recipe_Service {
@@ -16,4 +17,7 @@ public interface U_recipe_Service {
 
 	// 조회수 상승
 	public int getHitUp(String rcp_idx, String m_idx);
+	
+	// 레시피 글쓰기
+	public int getWrite(U_recipe_VO uvo);
 }

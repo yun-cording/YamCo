@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.yamco.user.model.dao.U_recipe_DAO;
+import com.yamco.user.model.vo.U_recipe_VO;
 import com.yamco.user.model.vo.U_recipe_meta_VO;
 
 @Service
@@ -37,4 +38,9 @@ public class U_recipe_ServiceImpl implements U_recipe_Service {
 		return u_recipe_DAO.getHitUp(rcp_idx, m_idx);
 	}
 	
+	// 레시피 글쓰기
+	@Override
+	public int getWrite(U_recipe_VO uvo) {
+		return u_recipe_DAO.getWrite(uvo);
+	}
 }

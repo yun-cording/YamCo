@@ -37,4 +37,32 @@
 	<update id="hitUp" parameterType="String">
 		update u_recipe set u_rcp_hit = u_rcp_hit + 1 where rcp_idx = #{rcp_idx}
 	</update>
+	
+	<!-- 레시피 글쓰기 -->
+	<insert id="write" parameterType="urvo">
+	insert into u_recipe(m_idx , u_rcp_title
+	<if test="u_rcp_comment != null">,u_rcp_comment</if>
+	<if test="u_rcp_category != null">,u_rcp_category</if>
+	<if test="u_rcp_ing != null">,u_rcp_ing</if>
+	<if test="u_rcp_main != null">,u_rcp_main</if>
+	<if test="u_rcp_level != null">,u_rcp_level</if>
+	<if test="u_rcp_keyword != null">,u_rcp_keyword</if>
+	<if test="u_rcp_tip != null">,u_rcp_tip</if>
+	,u_rcp_blind ,m_nick,u_rcp_status
+	<if test="u_rcp_hit != null">,u_rcp_hit</if>
+	<if test="u_rcp_ctype != null">,u_rcp_ctype</if>
+	,u_rcp_time	,u_rcp_img)
+	values(	#{m_idx} , #{u_rcp_title}
+	<if test="u_rcp_comment != null">,#{u_rcp_comment}</if>
+	<if test="u_rcp_category != null">,#{u_rcp_category}</if>
+	<if test="u_rcp_ing != null">,#{u_rcp_ing}</if>
+	<if test="u_rcp_main != null">,#{u_rcp_main}</if>
+	<if test="u_rcp_level != null">,#{u_rcp_level}</if>
+	<if test="u_rcp_keyword != null">,#{u_rcp_keyword}</if>
+	<if test="u_rcp_tip != null">,#{u_rcp_tip}</if>
+	,#{u_rcp_blind}	,#{m_nick} ,#{u_rcp_status}
+	<if test="u_rcp_hit != null">,#{u_rcp_hit}</if>
+	<if test="u_rcp_ctype != null">,#{u_rcp_ctype}</if>
+	, sysdate()	,#{u_rcp_img})
+	</insert>
 </mapper>

@@ -11,6 +11,7 @@ import org.springframework.transaction.TransactionDefinition;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
 
+import com.yamco.user.model.vo.U_recipe_VO;
 import com.yamco.user.model.vo.U_recipe_meta_VO;
 import com.yamco.user.model.vo.User_log_VO;
 
@@ -64,5 +65,9 @@ public class U_recipe_DAO {
 		}
 
 		return result;
+	}
+
+	public int getWrite(U_recipe_VO uvo) {
+		return sqlSessionTemplate.insert("u_recipe.write",uvo);
 	}
 }
