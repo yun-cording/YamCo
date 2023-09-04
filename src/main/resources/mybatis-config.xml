@@ -37,6 +37,7 @@
 		<mapper resource="mappers/u_recipe-mapper.xml" />
 		<mapper resource="mappers/user_log-mapper.xml" />
 		<mapper resource="mappers/p_recipe-mapper.xml" />
+		<mapper resource="mappers/comment-mapper.xml" />
 	</mappers>
 
 </configuration>

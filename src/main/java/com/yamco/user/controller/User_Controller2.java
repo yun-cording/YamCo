@@ -1,13 +1,14 @@
 package com.yamco.user.controller;
 
 import java.io.File;
-import java.util.ArrayList;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,12 +25,13 @@ import com.yamco.user.model.service.Images_Service;
 import com.yamco.user.model.service.Member_Service;
 import com.yamco.user.model.service.RandomService;
 import com.yamco.user.model.service.U_recipe_Service;
+import com.yamco.user.model.service.User_Service;
 import com.yamco.user.model.service.User_log_Service;
+import com.yamco.user.model.vo.Comment_VO;
 import com.yamco.user.model.vo.Member_VO;
-import com.yamco.user.model.vo.Random_VO;
-import com.yamco.user.model.vo.Random_save_VO;
 import com.yamco.user.model.vo.Member_meta_VO;
 import com.yamco.user.model.vo.Notice_VO;
+import com.yamco.user.model.vo.Random_save_VO;
 import com.yamco.user.model.vo.U_recipe_meta_VO;
 
 @Controller
@@ -48,6 +50,9 @@ public class User_Controller2 {
 	private User_log_Service user_log_Service;
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
+	@Autowired
+	private User_Service user_Service;
+	
 
 	@RequestMapping("/main.go")
 	public ModelAndView homeGo(HttpSession session) {
@@ -347,5 +352,95 @@ public class User_Controller2 {
 
 		return mv;
 	}
+	
+	// TODO 상우 사용자 댓글작성
+	@RequestMapping("/comment_write.do")
+	public ModelAndView comment_write(@RequestParam(value = "rate", required = true) String rate,
+	        @RequestParam(value = "comment", required = true) String comment,
+	        @RequestParam(value = "image", required = false) MultipartFile image,
+	        HttpSession session, HttpServletRequest request) {
+		
+		
+		
+		try {
+		    String path = request.getSession().getServletContext().getRealPath("/resources/images/comment");
+		    MultipartFile file = image;
+		    if (file.isEmpty()) {
+		    	// 빈 경로
+//		        bv.setF_name("");
+		    } else {
+		        // 같은 이름 없도록 UUID 사용
+		        UUID uuid = UUID.randomUUID();
+		        // 원본 파일명
+		        String originalFilename = image.getOriginalFilename();
+		        // 확장자 추출
+		        String fileExtension = originalFilename.substring(originalFilename.lastIndexOf("."));
+		        // UUID를 포함한 새로운 파일명 생성
+		        String f_name = uuid.toString() + fileExtension;
+//		        bv.setF_name(f_name);
 
+		        // 이미지 저장
+		        byte[] in = image.getBytes();
+		        File out = new File(path, f_name);
+		        FileCopyUtils.copy(in, out);
+		        System.out.println("이미지 저장 성공");
+		    }
+		} catch (Exception e) {
+		    e.printStackTrace();
+		    System.out.println("이미지 저장 실패");
+		}
+
+		
+		
+//		 if (!image.isEmpty()) {
+//	            try {
+//	                // 업로드할 폴더 경로 설정
+//	                // String uploadPath = "resources/images/comment/";
+//	                String uploadPath = "src/main/resources/static/images/comment/"; // resources 폴더 안에 있는 경우
+//
+//	                // 업로드할 파일의 경로 설정
+//	                String originalFilename = image.getOriginalFilename();
+//	                String filePath = uploadPath + originalFilename;
+//	                System.out.println("파일 이름 : " + originalFilename);
+//
+//	                // 파일을 업로드
+//	                File dest = new File(filePath);
+//	                image.transferTo(dest);
+//	                System.out.println("이미지 업로드 했다!");
+//
+//	            } catch (IOException e) {
+//	                e.printStackTrace();
+//	                System.out.println("이미지 업로드 오류");
+//	            }
+//	        } else {
+//	            // 이미지 파일이 비어있는 경우 처리
+//	        	
+//	        }
+	    
+	    
+		String m_idx = (String)session.getAttribute("m_idx");
+	    Member_VO mvo = member_Service.getMemberOne(m_idx);
+	    
+	    Comment_VO cvo = new Comment_VO();
+	    cvo.setM_nick(mvo.getM_nick());
+	    cvo.setC_contents(comment);
+	    cvo.setC_img("resources/images/comment/" + image.getOriginalFilename());
+	    cvo.setC_grade(rate);
+	    
+	    // 여기네 
+	    String s_rcp_idx = (String)session.getAttribute("rcp_idx");
+	    
+	    // System.out.println("자료형은 : " + session.getAttribute("rcp_idx").getClass().getName());
+	    
+	    // System.out.println(s_rcp_idx);
+	    cvo.setRcp_idx(String.valueOf(s_rcp_idx));
+	    
+	    
+	    
+	    int result = user_Service.comment_write(cvo);
+	    
+		return new ModelAndView("user/recipe/public_recipe_detail");
+		
+	}
+	// TODO 상우 사용자 댓글작성
 }

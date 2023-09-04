@@ -8,6 +8,7 @@
 <link rel="stylesheet" href="resources/css/login/new_pw.css?after" />
 </head>
 <body>
+	${mail_alert}
 	<jsp:include page="member_header.jsp" />
 	<form method="post">
 	<div id="mydiv">
@@ -36,6 +37,7 @@
 	
 	</div>
 	</form>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 	<script type="text/javascript">
 	function change_pw2(f) {
 		f.action = "/member_change.do";

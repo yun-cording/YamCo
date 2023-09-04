@@ -1,7 +1,10 @@
 package com.yamco.user.controller;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
+import javax.security.auth.callback.ConfirmationCallback;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -11,11 +14,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.yamco.api.model.service.P_recipe_Service;
+import com.yamco.user.model.service.Member_Service;
 import com.yamco.user.model.service.U_recipe_Service;
+import com.yamco.user.model.vo.Member_VO;
 import com.yamco.user.model.vo.U_recipe_meta_VO;
 
 @Controller
@@ -23,6 +29,8 @@ public class User_Controller {
     
 	@Autowired
 	U_recipe_Service u_recipe_Service;
+	@Autowired
+	private Member_Service member_Service;
 	
 	@GetMapping("/go_home.do")
 	public ModelAndView go_home() {
@@ -109,8 +117,40 @@ public class User_Controller {
 	}
 
 	@RequestMapping("go_new_pw.do")
-	public ModelAndView go_new_pw() {
-		return new ModelAndView("login/new_pw");
+	public ModelAndView go_new_pw(@RequestParam("m_id") String m_id, Member_VO mvo) {
+		ModelAndView mv = new ModelAndView("login/new_pw");
+		
+		mvo.setM_id(m_id);
+		mv.addObject("mvo", mvo);
+		
+		Member_VO m_vo = member_Service.getEmailId(mvo);
+		try {
+			Date now = new Date();
+			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			String date = formatter.format(now);
+			
+			Date t_time = formatter.parse(m_vo.getM_t_time().toString());
+			Date n_time = formatter.parse(date);
+			
+			long s_time = t_time.getTime();
+			long e_time = n_time.getTime();
+			System.out.println(s_time);
+			System.out.println(e_time);
+			
+			long diff = e_time - s_time;
+			long diffMin = diff / (1000*60);
+			System.out.println(diffMin);
+			if(diffMin >= 30) {
+				String mail_alert = "<script>alert('30분이 지나 세션이 만료되었습니다. 비밀번호 변경 페이지로 돌아가 이메일을 다시 입력해주세요.');window.location.href='/go_login.do'</script>";
+				member_Service.getTokenDelete(m_vo);
+				mv.addObject("mail_alert", mail_alert);
+			}
+			return mv;	
+		} catch (Exception e) {
+			e.printStackTrace();
+			mv.setViewName("error404");
+		}
+		return null;	
 	}
 
 	@RequestMapping("go_social_join.do")
