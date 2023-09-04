@@ -33,10 +33,19 @@ public class U_recipe_DAO {
 		return sqlSessionTemplate.selectList("u_recipe.rankListRecipe1Month");
 	}
 
-	public List<U_recipe_meta_VO> getSearch(Map<String, String> map) {
+	public List<U_recipe_meta_VO> getSearch(Map<String, String> map, String m_idx) {
+		User_log_VO ulvo = new User_log_VO();
+		ulvo.setS_name(map.get("search"));
+
+		if (m_idx != null && !m_idx.isBlank()) {
+			ulvo.setM_idx(m_idx);
+		}
+		ulvo.setUl_status("2"); // 2 : 검색
+
+		sqlSessionTemplate.insert("user_log.insert", ulvo);
+
 		return sqlSessionTemplate.selectList("u_recipe.recipeSearch", map);
 	}
-	
 
 	public U_recipe_meta_VO getSearchData(String rcp_idx) {
 		return sqlSessionTemplate.selectOne("u_recipe.metaData", rcp_idx);

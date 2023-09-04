@@ -28,8 +28,8 @@ public class U_recipe_ServiceImpl implements U_recipe_Service {
 	}
 
 	@Override
-	public List<U_recipe_meta_VO> getSearch(Map<String, String> map) {
-		return u_recipe_DAO.getSearch(map);
+	public List<U_recipe_meta_VO> getSearch(Map<String, String> map, String m_idx) {
+		return u_recipe_DAO.getSearch(map, m_idx);
 	}
 
 	// rcp_idx를 포함한 U_recipe_VO로 U_recipe_meta_VO 검색
@@ -49,5 +49,5 @@ public class U_recipe_ServiceImpl implements U_recipe_Service {
 	public int getHitUp(String rcp_idx, String m_idx) {
 		return u_recipe_DAO.getHitUp(rcp_idx, m_idx);
 	}
-	
+
 }

@@ -39,6 +39,26 @@ LEFT JOIN
 LEFT JOIN 
     user_log_recipe_hit_1month ul_1month ON u.rcp_idx = ul_1month.rcp_idx;
 
+#검색어에 대한 일주인간 검색수를 볼 수 있는 뷰
+CREATE VIEW user_log_search_number_7days AS 
+SELECT s_name, COUNT(*) search_number
+FROM user_log
+WHERE
+ul_status = 2
+AND ul_logtime < SYSDATE()
+AND ul_logtime >= DATE_SUB(sysdate(), INTERVAL 7 DAY)
+GROUP BY s_name;
+
+#검색어에 대한 한갈간 검색수를 볼 수 있는 뷰
+CREATE VIEW user_log_search_number_1month AS 
+SELECT s_name, COUNT(*) search_number
+FROM user_log
+WHERE
+ul_status = 2
+AND ul_logtime < SYSDATE()
+AND ul_logtime >= DATE_SUB(sysdate(), INTERVAL 1 MONTH)
+GROUP BY s_name;
+
 #recipe에 대한 일주인간 조회수를 볼 수 있는 뷰
 CREATE VIEW user_log_recipe_hit_7days AS 
 SELECT rcp_idx, COUNT(*) hit

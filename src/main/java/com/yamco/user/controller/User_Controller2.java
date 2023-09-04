@@ -23,6 +23,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.yamco.user.model.service.Member_Service;
 import com.yamco.user.model.service.RandomService;
 import com.yamco.user.model.service.U_recipe_Service;
+import com.yamco.user.model.service.User_log_Service;
 import com.yamco.user.model.vo.Member_VO;
 import com.yamco.user.model.vo.Member_meta_VO;
 import com.yamco.user.model.vo.RecentList_VO;
@@ -38,6 +39,8 @@ public class User_Controller2 {
 	private U_recipe_Service u_recipe_Service;
 	@Autowired
 	private Member_Service member_Service;
+	@Autowired
+	private User_log_Service user_log_Service;
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
 
@@ -84,6 +87,16 @@ public class User_Controller2 {
 	@RequestMapping("/ranking_search.go")
 	public ModelAndView rankingSearchGo() {
 		ModelAndView mv = new ModelAndView("/user/ranking/ranking_search");
+		List<String> result = user_log_Service.getU_recipeRankListSearch1Month();
+		mv.addObject("lank_list_search", result);
+		return mv;
+	}
+
+	@RequestMapping("/ranking_search_7day.go")
+	public ModelAndView rankingSearch7DayGo() {
+		ModelAndView mv = new ModelAndView("/user/ranking/ranking_search_7day");
+		List<String> result = user_log_Service.getU_recipeRankListSearch7Days();
+		mv.addObject("lank_list_search", result);
 		return mv;
 	}
 
@@ -221,13 +234,16 @@ public class User_Controller2 {
 
 	@RequestMapping("/search.go")
 	public ModelAndView searchGo(@ModelAttribute("search_text") String search_text,
-			@ModelAttribute("order") String order) {
+			@ModelAttribute("order") String order, HttpSession session) {
 		ModelAndView mv = new ModelAndView("/user/recipe/search_list");
 		// 검색어로 DB다녀오기
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("search", search_text);
 		map.put("order", order);
-		List<U_recipe_meta_VO> search_list = u_recipe_Service.getSearch(map);
+		
+		String m_idx = (String) session.getAttribute("m_idx");
+		
+		List<U_recipe_meta_VO> search_list = u_recipe_Service.getSearch(map, m_idx);
 		mv.addObject("u_list", search_list);
 		return mv;
 	}
