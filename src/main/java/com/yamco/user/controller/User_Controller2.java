@@ -1,7 +1,6 @@
 package com.yamco.user.controller;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,24 +19,34 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.yamco.user.model.service.Member_Service;
+import com.yamco.user.model.service.RandomService;
 import com.yamco.user.model.service.U_recipe_Service;
 import com.yamco.user.model.vo.Member_VO;
 import com.yamco.user.model.vo.U_recipe_meta_VO;
 
+
 @Controller
 public class User_Controller2 {
+
+	
+	@Autowired
+	private RandomService randomService;
+
 	@Autowired
 	private U_recipe_Service u_recipe_Service;
 	@Autowired
 	private Member_Service member_Service;
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
+
 	
 	@RequestMapping("/main.go")
 	public ModelAndView homeGo(HttpSession session) {
 		ModelAndView mv = new ModelAndView("/main");
 		return mv;
 	}
+
+	
 	@RequestMapping("/public_list.go")
 	public ModelAndView publicListGo() {
 		ModelAndView mv = new ModelAndView("/user/recipe/public_list");

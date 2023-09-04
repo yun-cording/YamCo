@@ -8,5 +8,4 @@ public interface Api_Service {
 	public Member_VO getIdChk(String id);
 	// 닉네임 체크
 	public int getNickChk(String m_nick);
-
 }

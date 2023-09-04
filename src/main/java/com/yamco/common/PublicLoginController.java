@@ -117,20 +117,20 @@ public class PublicLoginController {
 	public ModelAndView getFindPw(Member_VO mvo) {
 		ModelAndView mv = new ModelAndView("login/new_pw");
 		Member_VO m_vo = member_Service.getMemberLogin(mvo);
-		mv.addObject("m_id", m_vo);
-		System.out.println(m_vo.getM_id());
+		mv.addObject("mvo", m_vo);
+		System.out.println(m_vo.getM_id() + "1");
 		return mv;
 	}
 	
-	@RequestMapping("/member_changPw.do")
+	@RequestMapping("/member_change.do")
 	public ModelAndView getChangePw(Member_VO mvo) {
-		ModelAndView mv = new ModelAndView("login");
+		ModelAndView mv = new ModelAndView("login/login");
 		System.out.println("왜");
 		try {
 			Member_VO m_vo = member_Service.getMemberLogin(mvo);
 			System.out.println("안");
 			System.out.println("받은 id : " + m_vo.getM_id());
-			m_vo.setM_pw(passwordEncoder.encode(m_vo.getM_pw()));
+			m_vo.setM_pw(passwordEncoder.encode(mvo.getM_pw()));
 			System.out.println("돼");
 			m_vo.setM_fail_count(0);
 			member_Service.getChangePw(m_vo);

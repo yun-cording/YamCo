@@ -9,13 +9,14 @@
 <link rel="stylesheet" href="resources/css/user/recipe/public_recipe_detail.css?after" />
 <link rel="icon" type="image/x-icon"
 	href="resources/images/icon_tomato.png">
+
 </head>
 <body>
 	<div id="mydiv">
 		<jsp:include page="../../header.jsp" />
 		<div id="test">
 		<aside id="sidebar-left">
-		<jsp:include page="../../recentlist.jsp" />
+			<jsp:include page="../../recentlist.jsp" />
 		</aside>
 		<div id="content">
 			<div id="upper">
@@ -29,7 +30,7 @@
 						</span>
 					</c:forEach>
 				<img src="resources/images/icon_tomato_ver2_1.png" style="width:30px; height:30px; margin-right:760px; position: relative; top: 35px; left: 30px;">
-				<span id="rcp_score" class="text_center" style="color:#929292; margin-right: 850px; font-size: 20px; float:right;">${rcp_score}4.9</span>
+				<span id="rcp_score" class="text_center" style="color:#929292; margin-right: 850px; font-size: 20px; float:right;">${avg_rating}</span>
 				<br>
 					<c:forEach var="item" items="${detail_list}">
 						<img id="main_img" src="${item.get("ATT_FILE_NO_MAIN").asText()}" >
@@ -55,10 +56,14 @@
 					</c:forEach>
 					<div id="lower_images">
 						<img class="lower_images" src="resources/images/hashtag.png" style="margin-left: 138px;">
-						<img class="lower_images" src="resources/images/heart.png" style="margin-left: 45px;">
-						<img class="lower_images" src="resources/images/black_heart.png" style="margin-left: 45px; display:none;">
-						<img class="lower_images" src="resources/images/tableware.png" style="margin-left: 45px;">
 						<!-- 이미지가 검은하트 or 빨간 하트 -->
+						<c:if test="${liked_ornot == null}">
+						    <img class="lower_images" src="resources/images/black_heart.png" style="margin-left: 45px;">
+						</c:if>
+						<c:if test="${liked_ornot == '1'}">
+						    <img class="lower_images" src="resources/images/heart.png" style="margin-left: 45px;">
+						</c:if>
+						<img class="lower_images" src="resources/images/tableware.png" style="margin-left: 45px;">
 						
 							<div style="width: 100px; height: 40px; margin-left: 26px; text-align: center; margin-top: 10px;">
 								<!-- span은 쓰레기다 -->
@@ -82,7 +87,7 @@
 							</div>
 				
 						<p style="margin-top: 20px;">
-							<img class="lower_images" src="resources/images/icon_tomato_white_ver2_1.png"  style="margin-left: 138px;">
+							<img class="lower_images" src="resources/images/icon_tomato_ver2_1.png"  style="margin-left: 138px;">
 							<img class="lower_images" src="resources/images/steam.png"  style="margin-left: 45px;">
 						</p>
 						<p style="margin-top: 10px;">
@@ -205,6 +210,7 @@
 				
 				<!-- 추천 게시물 -->
 				<img class="left_arrow" style="margin-top: -200px; margin-left: 30px; position: relative; top: -130px;" src="resources/images/arrow_down.png">
+				<!-- 추천 게시물 검색해서 받아오자 -->
 				<img class="how_about_imgs" src="resources/images/public_sample2.png">
 				<img class="how_about_imgs" src="resources/images/public_sample2.png">
 				<img class="how_about_imgs" src="resources/images/public_sample2.png">
@@ -262,7 +268,7 @@
 					<br>
 					<button class="best_comment" style="disable: enabled; margin-bottom: 50px; margin-top: 10px; margin-left: 1165px;">정렬순서</button>
 					<div class="horizontal-line_tomato" style="margin-top: -20px; margin-bottom: 20px;"></div>
-					<c:forEach begin="1" end="10">
+					<%-- <c:forEach begin="1" end="10">
 					<div>
 						<p style="margin-left: 80px; font-size: 28px; margin-bottom: 45px; width: 200px; height: 75px; text-align: center;">${urvo.m_nick}이한주 이두주 이세주 이네주 님</p>
 						<p><button class="best_comment" style="margin-left: 115px;">베스트 댓글</button>
@@ -304,20 +310,79 @@
 						</div>
 						<div class="horizontal-line_tomato" style="margin-top : -200px; margin-bottom: 20px;"></div>
 					</div>
+					</c:forEach> --%>
+					
+					
+					
+					<c:forEach items="${comments_list_all}" var="cvo">
+					    <div>
+					        <p style="margin-left: 80px; font-size: 28px; margin-bottom: 45px; width: 200px; height: 75px; text-align: center;">${cvo.m_nick}</p>
+					        <p><button class="best_comment" style="margin-left: 115px;">베스트 댓글</button>
+					        <p style="width: 200px; height: 50px; text-align: center; font-size: 24px; margin-left: 80px; margin-top: 30px;">${cvo.c_time}</p>
+					        <div>
+					            <img class="comment_img" src="resources/images/public_sample1.png">
+					            <div style="float:left; margin-left: 600px; width: 600px; height: 250px; margin-top : -430px; text-align: left;">
+					                <span class="comment_content" style="font-size: 16px; text-align: left;">${cvo.c_contents}</span>						
+					            </div>
+					            <button style="margin-top: -450px; width: 40px; height: 10px; float:right; margin-right : 30px; background-color: #ffffff; color:#ffffff; outline: none; border: none;">
+					                <!-- <img src="resources/images/three_dots.png" style="width: 40px; height: 10px;"> -->
+					            </button>
+					            <p></p>
+					            <br>
+					            <br>
+					            <div>
+					            </div>
+					            <!-- 신고버튼, 따봉 -->
+					            <div style="position: relative; top: -290px; left: 15px;">
+					                <!-- <input type="button" class="report-button" style="float: right; margin-right: 100px; outline:none;" onclick="alert('님 신고!')"> -->
+					                <button style="float: right; position:relative; top: -200px; left: -43px; border: none; background-color: #ffffff;">
+					                    <p style="height: 15px; float: right;  color:#cccccc">신고하기</p>
+					                </button>
+					                <!-- 따봉 버튼 (좋아요) -->
+					                <button style="float: right; width: 44px; height: 44px; border: none; background-color:#ffffff; margin-left: 170px; position: relative; left: -50px;">
+					                    <img src="resources/images/thumbs-up.png" style="width: 44px; height: 44px; ">
+					                </button>
+					                <div style="width: 40px; height: 20px; float: right; margin-right: -2px; ">
+					                    <p style="height: 15px; float: right; color: tomato; font-size: 20px; text-align: center; position:relative; top: 52px; right: -155px;"><strong>${cvo.c_like}</strong></p>
+					                </div>
+					                <div style="margin-bottom: 10px; position:relative; left: 288px;">
+					                    <button class="align_order" style="position: relative; top: 20px;" >수정</button>
+					                </div>
+					                <div style="position: relative; right: 30px; bottom: 30px;"></div>
+					                <div style="margin-bottom: 10px; position:relative;  right: -368px; bottom: -50px;">
+					                    <button class="align_order">삭제</button>
+					                </div>
+					            </div>
+					        </div>
+					        <div class="horizontal-line_tomato" style="margin-top : -200px; margin-bottom: 20px;"></div>
+					    </div>
 					</c:forEach>
+					
+					
+					
 					<!-- 댓글 더보기 -->
 					<div style="margin: auto; text-align: center; margin-top: 20px;">
 						<button class="report_button" style="width: 100px; height: 50px; margin-top: 20px; border:none; border-radius:5px; background-color: tomato; font-size: 24px; color:white; margin: auto;">더보기</button>
 					</div>							
 				</div>
 			
-		
+		`
 		<!-- content 끝 -->		
+			</div>
+			</div>
+			</div>
 		</div>
+<<<<<<< HEAD
 		
 		<aside id="sidebar-right">
 			<jsp:include page="../../bestlist.jsp" />
 		</aside>
+=======
+	
+		<aside id="sidebar-right">
+			<jsp:include page="../../bestlist.jsp" />
+			</aside>
+>>>>>>> refs/heads/master
 		<div id="footer">
 			<jsp:include page="../../footer.jsp" />
 		</div>
