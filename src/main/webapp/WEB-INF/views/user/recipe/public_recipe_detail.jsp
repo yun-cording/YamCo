@@ -7,26 +7,122 @@
 <meta charset="UTF-8">
 <title>공공레시피 상세페이지</title>
 <link rel="stylesheet" href="resources/css/user/recipe/public_recipe_detail.css?after" />
-<link rel="icon" type="image/x-icon"
+<link rel="icon" type="image/x-icon" 
 	href="resources/images/icon_tomato.png">
+<!-- <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script> -->
+
 </head>
+
+
+<!-- JavaScript 코드 -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        // "작성" 버튼 클릭 시 이벤트 핸들러
+        $("#comment_write_do").click(function (e) {
+            e.preventDefault(); // 기본 폼 제출 동작 방지
+            
+            var mNick = '<%= session.getAttribute("m_nick") %>'; // JSP 코드로부터 m_nick 값을 가져옴
+        	
+            // m_nick 값이 없는 경우(alert를 띄워야 하는 경우)
+            if (mNick =="null" || mNick === "null" || mNick == null || mNick === null || mNick === undefined || mNick == undefined || mNick == "" || mNick === "") {
+            	console.log("아디 없다!");
+                var result = confirm("로그인이 필요합니다. 계속하시겠습니까?");
+                if (result) {
+                    window.location.href = "/go_login.do";
+                } else {
+                	
+                }
+            }else{
+            	/* alert("아이디 있고 " + mNick); */
+            }
+
+            // Form 데이터 추출
+            // 세가지 다 넣어야 들어간다.
+            var formData = new FormData();
+            var rateValue = $("input[name='rate']:checked").val();
+            var commentValue = $("#content-textarea").val();
+            var imageFile = $("#imgUpload")[0].files[0];
+            formData.append("rate", $("input[name='rate']:checked").val());
+            formData.append("comment", $("#content-textarea").val());
+            formData.append("image", $("#imgUpload")[0].files[0]); // 파일 업로드
+			
+            // 값 콘솔에 출력
+  		    console.log("rate: " + rateValue);
+            console.log("comment: " + commentValue);
+            console.log("image: ", imageFile);
+
+            // AJAX 요청
+            $.ajax({
+                url: "/comment_write.do", // 컨트롤러 엔드포인트 URL
+                type: "POST", // POST 요청
+                data: formData,
+                processData: false, // 데이터를 처리하지 않음
+                contentType: false, // 컨텐츠 타입 설정하지 않음
+                success: function (response) {
+                    // 성공적으로 처리된 경우
+                    console.log("데이터 전송 성공");
+                    alert("댓글 작성 성공!");
+                    $("#content-textarea").val(""); // textarea 내용을 빈 문자열로 설정
+                },
+                error: function () {
+                    // 오류 발생 시 처리
+                    console.error("데이터 전송 실패");
+                    alert("댓글 작성 실패!");
+                    // 오류 처리 로직 추가
+                },
+            });
+        });
+    });
+</script>
+<script type="text/javascript">
+document.addEventListener("DOMContentLoaded", function () {
+    // 페이지 로드 완료 후에 실행될 코드
+	
+    var contentTextarea = document.getElementById("content-textarea");
+    if (contentTextarea) {
+        contentTextarea.addEventListener("click", function () {
+            // 서버에서 session에서 m_nick 값을 가져오는 방법은 여기서 생략합니다.
+            // 서버에서 가져온 m_nick 값을 변수에 할당합니다. (예시로 "m_nick"이라 가정)
+
+           	console.log("아디 첵");
+            var mNick = '<%= session.getAttribute("m_nick") %>'; // JSP 코드로부터 m_nick 값을 가져옴
+	
+            // m_nick 값이 없는 경우(alert를 띄워야 하는 경우)
+           if (mNick =="null" || mNick === "null" || mNick == null || mNick === null || mNick === undefined || mNick == undefined || mNick == "" || mNick === "") {
+            	console.log("아디 없다!");
+                var result = confirm("로그인이 필요합니다. 계속하시겠습니까?");
+                if (result) {
+                    window.location.href = "/go_login.do";
+                } else {
+                	
+                }
+            }else{
+            	/* alert("아이디 있고 " + mNick); */
+            }
+        });
+    }
+});
+</script>
+
+
+
 <body>
 	<div id="mydiv">
 		<jsp:include page="../../header.jsp" />
 		<div id="test">
-		<aside id="sidebar-left">왼쪽</aside>
+		<aside id="sidebar-left">
+			<jsp:include page="../../recentlist.jsp" />
+		</aside>
 		<div id="content">
 			<div id="upper">
 			        <c:forEach var="item" items="${detail_list}">
-				        <span class="category" class="text_center" style="color:#929292; 
-						margin-left: 158px; 
-						margin-top: 530px; 
-						font-size: 20px;
-						position:relative; top: 25px;">
+				        <span class="category text_center" id="title_field">
 							냠냠 레시피 > ${item.get("RCP_PAT2").asText()}
 						</span>
 					</c:forEach>
-				<img src="resources/images/icon_tomato_ver2_1.png" style="width:30px; height:30px; margin-right:760px; position: relative; top: 35px; left: 30px;">
+				<img src="resources/images/icon_tomato_ver2_1.png" id="little_tomato" style="height: 30px; width: 30px;">
 				<span id="rcp_score" class="text_center" style="color:#929292; margin-right: 850px; font-size: 20px; float:right;">${avg_rating}</span>
 				<br>
 					<c:forEach var="item" items="${detail_list}">
@@ -99,7 +195,7 @@
 					</div>
 					<div id="tip">
 						<img src="resources/images/light-bulb.png" style="width:135px; height:135px; position: absolute; margin-left: 565px; top: 825px;">
-						<span style="margin-left: 574px; font-size:32px; position: relative; top: -200px;"><strong>요리 tip</strong></span>
+						<span style="margin-left: 574px; font-size:32px; position: relative; top: -180px;"><strong>요리 tip</strong></span>
 						<div id="rcp_tip">
 							<c:forEach var="item" items="${detail_list}">
 								<p id="recipe_tip" class="font_size_24">
@@ -112,7 +208,6 @@
 				</div>
 				
 				<!-- 공공데이터 본문 -->
-				<div>
 					<!-- 영양정보 -->
 					<div id="nutrition" style="margin-top: 430px;">
 						<img src="resources/images/nutrition.png" style="width:135px; height:135px; position: relative; margin-left: 565px; top: -300px;">
@@ -126,203 +221,124 @@
 									<p style="font-size: 32px;"><strong>지방 : ${item.get("INFO_FAT").asText()}g</strong></p>
 							</c:forEach>
 						</div>
-						<div class="horizontal-line_gray" style="margin-top: -170px; position: relative; top: 80px; border-top: 2px solid #21730B;"></div>
+						<div class="horizontal-line_green" style="margin-top: -170px; position: relative; top: 80px; border-top: 2px solid #21730B;"></div>
 					</div>
 					<!-- 본문 -->
-					<div style="margin-top: 0px; margin-bottom: 100px;">
 						<img src="resources/images/cooking.png" style="width:135px; height:135px; position: relative; margin-left: 565px; top:-550px; margin-top: 600px;">
 						<span style="font-size:32px; position: relative; top: -500px; left-margin: -100px; left: -142px;"><strong>조리 과정</strong></span>
-						<div style="text-align:center; margin-top: 500px;">
-							<%-- <c:forEach var="k" begin="1" end="5">
-								<div style="margin-top: -100px; position:relative; left: -500px;">
-									<img id="cook_det_img" src="MANUAL_IMG0${k}">
-									<!-- 조리방법 -->
-									<div style="margin-left: 1100px; position: relative; top: -400px; width: 470px; height: 200px;">
-									<c:forEach var="item" items="${detail_list}" varStatus="loop">
-									        <c:if test="${not empty item['MANUAL' + (loop.index < 10 ? '0' + loop.index : loop.index)]}">
-									            <p style="font-size: 14px;">${item.get('MANUAL0' + String.valueOf(k)).asText()}</p>
-										    </c:if>
-									</c:forEach>
-									
-										<c:if test="${k == 3}">
-										
-										</c:if>
-										<div class="horizontal-line_gray" style="position: relative; top: 380px;"></div>
-									</div>
-										
-									</c:forEach>
-									
-										<c:if test="${k == 3}">
-										
-										</c:if> --%>
-										<%-- <img id="cook_det_img" src="MANUAL_IMG0${k}"> --%>
-										
-								<div id="detailed_info">
-									<div style="margin-left: 1300px; margin-bottom: 200px; position: relative; top: -600px; width: 470px; height: 200px; left: -1500px; ">
-										<div style="font-size: 14px;"><img id="cook_det_img" src="${pDetailVO.manualImg01}" /></div>
-										<div style="font-size: 14px; position: relative; top: -400px; left:800px;">${pDetailVO.manual01}</p>
-									</div>
-									<div style="margin-left: 1100px; margin-bottom: 200px; position: relative; top: 100px; width: 470px; height: 200px; left: -1100px; ">
-										<div style="font-size: 14px;"><img id="cook_det_img" src="${pDetailVO.manualImg02}" /></p>
-										<div style="font-size: 14px; position: relative; top: -400px; left:900px; text-align:center;">${pDetailVO.manual02}</p>
-									</div>
-									<div style="margin-left: 1100px; position: relative; top: 50px; left: -900px; width: 470px; height: 200px;">
-										<p style="font-size: 14px;"><img id="cook_det_img" src="${pDetailVO.manualImg03}" /></p>
-										<p style="font-size: 14px; position: relative; top: -400px; left:900px; ">${pDetailVO.manual03}</p>
-									<div style="margin-left: 1100px; position: relative; top: -400px; width: 470px; height: 200px;">
-										<p style="font-size: 14px;"><img id="cook_det_img" src="${pDetailVO.manualImg04}" /></p>
-										<p style="font-size: 14px;">${pDetailVO.manual04}</p>
-									<div style="margin-left: 1100px; position: relative; top: -400px; width: 470px; height: 200px;">
-										<p style="font-size: 14px;"><img id="cook_det_img" src="${pDetailVO.manualImg05}" /></p>
-										<p style="font-size: 14px;">${pDetailVO.manual05}</p>
-									</div>
-										
-										<div class="horizontal-line_gray" style="position: relative; top: 380px;"></div>
-									</div>
-								</div>
-							</div>
-							<%-- </c:forEach> --%>
-							
-														
-						</div> 
-					</div>
-					<!-- 주의 문구 -->
-					<div style="margin-left: 400px; margin-bottom: 50px; color:gray; position: relative; top: -490px; margin: auto; text-align: center;">
-						<span style="text-align: center; margin-bottom: 50px;">(* 표시되는 정보는 식약처에서 제공하는 공공데이터에 근거하며, 일부 자료의 경우 오류가 포함되어 있을 수 있습니다.)</span>
-					</div>
-				</div>
-					
-				<!-- 수정, 삭제버튼, 신고 -->				
-				<div id="revise_delete_btn" style="margin: auto; text-align: center;">
-					<div class="horizontal-line_gray" style="margin-top: -560px; margin-bottom: 20px; position: relative; top: 80px; bottom: -50px;"></div>
-					<!-- 신고하기 -->
-					<p></p>
-				</div>
-				
-				<!-- 이런 레시피는 어떠세요? 추천 -->
-				<div style="text-align: center; margin-top: 125px; margin-bottom: 30px;">
-					<!-- <button class="round_btn" id="howabout" style="background-color: tomato; color:white; width: 600px; height: 100px; font-size: 32px; border-radius: 15px;"></button> -->
-					<span style="color: tomato; font-size: 40px; margin-top: 30px; margin-bottom: 20px;"><strong>이런 레시피는 어떠세요?</strong></span>
-				</div>
-				
-				<!-- 추천 게시물 -->
-				<img class="left_arrow" style="margin-top: -200px; margin-left: 30px; position: relative; top: -130px;" src="resources/images/arrow_down.png">
-				<!-- 추천 게시물 검색해서 받아오자 -->
-				<img class="how_about_imgs" src="resources/images/public_sample2.png">
-				<img class="how_about_imgs" src="resources/images/public_sample2.png">
-				<img class="how_about_imgs" src="resources/images/public_sample2.png">
-				<img class="right_arrow" style="margin-top: -200px; position: relative; top: -150px; margin-left: 1225px;" src="resources/images/arrow_down.png">
-				<p>
-				<div style="margin-left:120px; width: 310px; height: 80px; text-align: center; float: left; font-size: 24px;"><strong>요리이름1</strong></div>
-				<div style="margin-left:75px; width: 310px; height: 80px; text-align: center; float: left; font-size: 24px;"><strong>요리이름1</strong></div>
-				<div style="margin-left:75px; width: 310px; height: 80px; text-align: center;  float: left; font-size: 24px;"><strong>요리이름1</strong></div>
-				</p>
-
-				<div class="horizontal-line_gray" style="margin-top: 10px; position: relative; top: 70px;"></div>
-				<!-- 댓글 및 리뷰 글자 -->
-				<div style="width: 300px; height: 150px; ">
-					<!-- <button class="round_btn"  id="content_review_btn" style="background-color: tomato; margin-left: 30px; margin-top: 130px; color:white; width: 290px; height: 85px; font-size: 32px; border-radius: 15px;"></button> -->
-					<span style="width: 300px; height: 150px; font-size: 32px; color: tomato; position:relative; margin-left: 80px; top: 70px;"><strong>댓글 및 리뷰</strong></span>
-				</div>
-					
-				<!-- 긁어온 별점 -->
-				 <div class="rate magnify" id="magnify" style="margin-top: 70px; margin-left: 80px;">
-				    <input type="radio" id="star5" name="rate" value="5" />
-				    <label for="star5" title="text">5 stars</label>
-				    <input type="radio" id="star4" name="rate" value="4" />
-				    <label for="star4" title="text">4 stars</label>
-				    <input type="radio" id="star3" name="rate" value="3" />
-				    <label for="star3" title="text">3 stars</label>
-				    <input type="radio" id="star2" name="rate" value="2" />
-				    <label for="star2" title="text">2 stars</label>
-				    <input type="radio" id="star1" name="rate" value="1" />
-				    <label for="star1" title="text">1 star</label>
-				  </div>
-				
-				
-				<!-- 댓글 입력 -->
-				<div>
-					<form style="margin-top: -20px;" action="/action_page.php">
-					  <textarea id="content-textarea" placeholder="댓글을 입력하세요." style="height: 180px;"></textarea>
-						<button class="round_btn" style="background-color: tomato; color:white; width: 120px; height: 50px; font-size: 24px; margih-left: 1260px; position: relative; top: -270px;">사진추가</button>
-						<p></p>
-						<button style="background-color: lightgray; width: 120px; height: 120px; font-size: 16px; margin-left: 1175px; position:relative; top: -260px; border:none; border-radius: 5px;">이미지 미리보기</button>
-						<p></p>
-						<button class="round_btn" style="background-color: tomato; color:white; width: 80px; height: 50px; font-size: 24px; margin-left: 980px; position:relative; top: -250px;">작성</button>
-						<p></p>
-						<button class="round_btn" style="background-color: lightgray; color:white; width: 80px; height: 50px; font-size: 24px; margin-left: 1070px; position: relative; top: -300px;">취소</button>
-					  <br>
-					  <!-- <input type="submit" value="Submit" style="top: -50px;"> -->
-					</form>
-				</div>
-				
-				<!-- 댓글 표시 -->
-				<div style="margin-top: -200px;">
-						<button class="align_order">인기순</button>
-						<button class="align_order" style="position: relative; right: -20px;">최신순</button>
-					<div style="margin-bottom: 10px;">
-					</div>
-					<br>
-					<button class="best_comment" style="disable: enabled; margin-bottom: 50px; margin-top: 10px; margin-left: 1165px;">정렬순서</button>
-					<div class="horizontal-line_tomato" style="margin-top: -20px; margin-bottom: 20px;"></div>
-					<%-- <c:forEach begin="1" end="10">
-					<div>
-						<p style="margin-left: 80px; font-size: 28px; margin-bottom: 45px; width: 200px; height: 75px; text-align: center;">${urvo.m_nick}이한주 이두주 이세주 이네주 님</p>
-						<p><button class="best_comment" style="margin-left: 115px;">베스트 댓글</button>
-						<p style="width: 200px; height: 50px; text-align: center; font-size: 24px; margin-left: 80px; margin-top: 30px;">${cvo.c_time}23/08/22 13:22</p>
-						<div>
-							<img class="comment_img" src="resources/images/public_sample1.png">
-							<div style="float:left; margin-left: 600px; width: 600px; height: 250px; margin-top : -430px; text-align: left;">
-								<span class="comment_content" style="font-size: 16px; text-align: left;">${cvo.c_contents}텍스트당텍스트당텍스트당텍스트당텍스트당텍스트당텍스트당텍스트당텍스트당텍스트당텍스트당텍스트당텍스트당텍스트당텍스트당텍스트당텍스트당텍스트당텍스트당텍스트당텍스트당텍스트당텍스트당텍스트당텍스트당텍스트당텍스트당텍스트당텍스트당텍스트당텍스트당텍스트당텍스트당텍스트당텍스트당텍스트당텍스트당텍스트당텍스트당텍스트당텍스트당텍스트당텍스트당텍스트당텍스트당텍스트당텍스트당텍스트당텍스트당텍스트당텍스트당텍스트당텍스트당텍스트당텍스트당텍스트당텍스트당텍스트당텍스트당텍스트당텍스트당텍스트당텍스트당텍스트당텍스트당텍스트당텍스트당텍스트당텍스트당텍스트당텍스트당텍스트당텍스트당텍스트당텍스트당</span>						
-							</div>
-							<button style="margin-top: -450px; width: 40px; height: 10px; float:right; margin-right : 30px; background-color: #ffffff; color:#ffffff; outline: none; border: none;">
-								<!-- <img src="resources/images/three_dots.png" style="width: 40px; height: 10px;"> -->
-							</button>
-							<p></p>
-							<br>
-							<br>
-							<div>
-							</div>
-							<!-- 신고버튼, 따봉 -->
-							<div style="position: relative; top: -290px; left: 15px;">
-								<!-- <input type="button" class="report-button" style="float: right; margin-right: 100px; outline:none;" onclick="alert('님 신고!')"> -->
-								<button style="float: right; position:relative; top: -200px; left: -43px; border: none; background-color: #ffffff;">
-									<p style="height: 15px; float: right;  color:#cccccc">신고하기</p>
-								</button>
-								<!-- 따봉 버튼 (좋아요) -->
-								<button style="float: right; width: 44px; height: 44px; border: none; background-color:#ffffff; margin-left: 170px; position: relative; left: -50px;">
-									<img src="resources/images/thumbs-up.png" style="width: 44px; height: 44px; ">
-								</button>
-								<div style="width: 40px; height: 20px; float: right; margin-right: -2px; ">
-									<p style="height: 15px; float: right; color: tomato; font-size: 20px; text-align: center; position:relative; top: 52px; right: -155px;"><strong>${cvo.c_like}553</strong></p>
-								</div>
-								<div style="margin-bottom: 10px; position:relative; left: 288px;">
-									<button class="align_order" style="position: relative; top: 20px;" >수정</button>
-								</div>
-								<div style="position: relative; right: 30px; bottom: 30px;"></div>
-								<div style="margin-bottom: 10px; position:relative;  right: -368px; bottom: -50px;">
-									<button class="align_order">삭제</button>
+						<!-- 조리과정 -->
+						<div style="text-align:left; position: relative; top: -350px; margin-left: 150px;">
+					        <c:forEach var="item" items="${manual}" varStatus="loop">
+					        	<div class="float_left" style="margin-bottom: 50px;">
+					        	
+						        	<c:if test="${not empty manualImg[loop.index]}">
+							    		<img id="detailed_img" src="${manualImg[loop.index]}" />
+							        </c:if>
+							    	<p id="detail_position">${item}</p>
+									<c:if test="${not empty manualImg[loop.index]}">
+							            <p class="horizontal-line_gray"></p>
+							        </c:if>
+							    </div>
+							</c:forEach>
+    					<!-- 주의 문구 -->
+	 					<div>
+							<span id="gonggong">(* 표시되는 정보는 식약처에서 제공하는 공공데이터에 근거하며, 일부 자료의 경우 오류가 포함되어 있을 수 있습니다.)</span>
+						</div>
+					    <p id="body_endline" class="horizontal-line_gray"></p>
+						</div>	
+						
+						<!-- 수정, 삭제버튼, 신고 -->				
+						<div class="div_margin_width" style="height: 60px; float: left;">
+							<span style="color: lightgray; font-size: 12px; float: right; position: relative; top: 50px; left: -45px;">신고하기</span>
+							<img src="resources/images/alarm.png" style="width: 40px; height: 40px; float: right;">
+						</div>
 								</div>
 							</div>
 						</div>
-						<div class="horizontal-line_tomato" style="margin-top : -200px; margin-bottom: 20px;"></div>
+						
+				<!-- 이런 레시피는 어떠세요? 추천 -->
+				<div style="width: 1320px; height: 100px; float: left; text-align: center; margin-left: 300px;">
+					<span id="howabout_this"><strong>이런 레시피는 어떠세요?</strong></span>
+				</div>
+				
+					<!-- 추천 게시물 -->
+				      <div class="carousel carousel_size">
+				        <img
+				          src="resources/images/public_sample1.png"
+				          alt=""
+				        />
+				        <img
+				          src="resources/images/public_sample1.png"
+				          alt=""
+				        />
+				        <img
+				          src="resources/images/public_sample1.png"
+				          alt=""
+				        />
+				        <div style="margin-top: 20px; text-align: center; height: 40px; margin-left: 540px;">
+				            <button class="prev round_btn" type="button">이전</button>
+					    	<button class="next round_btn" type="button">다음</button>
+				    	</div>
+				      </div>
+				
+
+				<div class="horizontal-line_gray" id="testline2"></div>
+				<!-- 댓글 및 리뷰 글자 -->
+				<div style="width: 300px; height: 150px; float: left; margin-left: 300px;">
+					<span class="tomato_title" style="width: 300px; height: 150px; text-align: center;"><strong>댓글 및 리뷰</strong></span>
+				</div>
+					
+				<form id="comment_write" enctype="multipart/form-data" style="margin-top: -20px; height: 1px;" action="/comment_write.do">
+					<!-- 긁어온 별점 -->
+					 <div class="rate magnify" id="rating">
+					    <input type="radio" id="star5" name="rate" value="5" />
+					    <label for="star5" title="text">5 stars</label>
+					    <input type="radio" id="star4" name="rate" value="4" />
+					    <label for="star4" title="text">4 stars</label>
+					    <input type="radio" id="star3" name="rate" value="3" />
+					    <label for="star3" title="text">3 stars</label>
+					    <input type="radio" id="star2" name="rate" value="2" />
+					    <label for="star2" title="text">2 stars</label>
+					    <input type="radio" id="star1" name="rate" value="1" />
+					    <label for="star1" title="text">1 star</label>
+					  </div>
+					
+				
+					<!-- 댓글 입력 -->
+						  <textarea id="content-textarea" placeholder="댓글을 입력하세요." style="height: 180px; required"></textarea>
+							<div style="height: 60px; width: 200px; position:relative; top: -305px; left: 1200px;">
+								<input class="photo_insert" type="file" id="imgUpload" onchange="previewFile()" style="font-size: 16px; display:none;"></input>
+									<label class="round_btn photo_insert" for="imgUpload">사진 추가</label>
+							</div>
+							<button id="preview_btn">이미지 미리보기</button>
+							<div style="position:relative; float:left;">
+								<button class="round_btn write_cancel_btn" id="comment_write_do" name="comment_write_do">작성</button>
+								<button class="round_btn write_cancel_btn" id="cancel_btn">취소</button>
+							</div>
+					</form>
+					
+					<div class="horizontal-line_gray" id="testline3"></div>
+				
+					<!-- 댓글 표시 -->
+					<div style="float:right;">
+						<button class="align_order">인기순</button>
+						<button class="align_order" style="position: relative; right: -20px;">최신순</button>
+					<div>
+						<button class="best_comment" id="align_order2">정렬순서</button>
 					</div>
-					</c:forEach> --%>
 					
-					
-					
+					<!-- 쓴 댓글 표시 -->
 					<c:forEach items="${comments_list_all}" var="cvo">
 					    <div>
-					        <p style="margin-left: 80px; font-size: 28px; margin-bottom: 45px; width: 200px; height: 75px; text-align: center;">${cvo.m_nick}</p>
-					        <p><button class="best_comment" style="margin-left: 115px;">베스트 댓글</button>
-					        <p style="width: 200px; height: 50px; text-align: center; font-size: 24px; margin-left: 80px; margin-top: 30px;">${cvo.c_time}</p>
+					        <p>${cvo.m_nick}</p>
+					        <p><button class="best_comment" style="margin-left: -150px;">베스트 댓글</button>
+					        <p>${cvo.c_time}</p>
 					        <div>
 					            <img class="comment_img" src="resources/images/public_sample1.png">
-					            <div style="float:left; margin-left: 600px; width: 600px; height: 250px; margin-top : -430px; text-align: left;">
-					                <span class="comment_content" style="font-size: 16px; text-align: left;">${cvo.c_contents}</span>						
+					            <div>
+					                <span class="comment_content">${cvo.c_contents}</span>						
 					            </div>
-					            <button style="margin-top: -450px; width: 40px; height: 10px; float:right; margin-right : 30px; background-color: #ffffff; color:#ffffff; outline: none; border: none;">
-					                <!-- <img src="resources/images/three_dots.png" style="width: 40px; height: 10px;"> -->
+					            <button style="width: 40px; height: 10px; float:right; margin-right : 30px; background-color: #ffffff; color:#ffffff; outline: none; border: none;">
 					            </button>
 					            <p></p>
 					            <br>
@@ -332,26 +348,26 @@
 					            <!-- 신고버튼, 따봉 -->
 					            <div style="position: relative; top: -290px; left: 15px;">
 					                <!-- <input type="button" class="report-button" style="float: right; margin-right: 100px; outline:none;" onclick="alert('님 신고!')"> -->
-					                <button style="float: right; position:relative; top: -200px; left: -43px; border: none; background-color: #ffffff;">
+					                <button style="float: right; border: none; background-color: #ffffff;">
 					                    <p style="height: 15px; float: right;  color:#cccccc">신고하기</p>
 					                </button>
 					                <!-- 따봉 버튼 (좋아요) -->
-					                <button style="float: right; width: 44px; height: 44px; border: none; background-color:#ffffff; margin-left: 170px; position: relative; left: -50px;">
+					                <button style="float: right; width: 44px; height: 44px; border: none; background-color:#ffffff;">
 					                    <img src="resources/images/thumbs-up.png" style="width: 44px; height: 44px; ">
 					                </button>
 					                <div style="width: 40px; height: 20px; float: right; margin-right: -2px; ">
 					                    <p style="height: 15px; float: right; color: tomato; font-size: 20px; text-align: center; position:relative; top: 52px; right: -155px;"><strong>${cvo.c_like}</strong></p>
 					                </div>
-					                <div style="margin-bottom: 10px; position:relative; left: 288px;">
+					                <div style="margin-bottom: 10px;">
 					                    <button class="align_order" style="position: relative; top: 20px;" >수정</button>
 					                </div>
 					                <div style="position: relative; right: 30px; bottom: 30px;"></div>
-					                <div style="margin-bottom: 10px; position:relative;  right: -368px; bottom: -50px;">
+					                <div style="">
 					                    <button class="align_order">삭제</button>
 					                </div>
 					            </div>
 					        </div>
-					        <div class="horizontal-line_tomato" style="margin-top : -200px; margin-bottom: 20px;"></div>
+					        <div class="horizontal-line_tomato""></div>
 					    </div>
 					</c:forEach>
 					
@@ -363,16 +379,15 @@
 					</div>							
 				</div>
 			
-		
+		`
 		<!-- content 끝 -->		
-		</div>
-		
-		<aside id="sidebar-right">오른</aside>
+	
+		<aside id="sidebar-right">
+			<jsp:include page="../../bestlist.jsp" />
+			</aside>
 		<div id="footer">
 			<jsp:include page="../../footer.jsp" />
 		</div>
-		</div>
-	</div>
 </body>
 	
 </html>

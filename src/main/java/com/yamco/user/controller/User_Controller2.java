@@ -1,5 +1,7 @@
 package com.yamco.user.controller;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -9,15 +11,17 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.scrypt.SCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.yamco.user.model.service.Member_Service;
 import com.yamco.user.model.service.U_recipe_Service;
+import com.yamco.user.model.service.User_Service;
+import com.yamco.user.model.vo.Comment_VO;
 import com.yamco.user.model.vo.Member_VO;
 import com.yamco.user.model.vo.RecentList_VO;
 import com.yamco.user.model.vo.U_recipe_meta_VO;
@@ -30,6 +34,8 @@ public class User_Controller2 {
 	private Member_Service member_Service;
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
+	@Autowired
+	private User_Service user_Service;
 	
 	@RequestMapping("/main.go")
 	public ModelAndView homeGo(HttpSession session) {
@@ -251,5 +257,70 @@ public class User_Controller2 {
 		return mv;
 	}
 	
-	
+	// TODO 상우 사용자 댓글작성
+	@RequestMapping("/comment_write.do")
+	public ModelAndView comment_write(@RequestParam(value = "rate", required = true) String rate,
+	        @RequestParam(value = "comment", required = true) String comment,
+	        @RequestParam(value = "image", required = false) MultipartFile image,
+	        HttpSession session) {
+		
+		
+		
+		 if (!image.isEmpty()) {
+	            try {
+	                // 업로드할 폴더 경로 설정
+	                String uploadPath = "resources/images/comment/";
+
+	                // 업로드할 파일의 경로 설정
+	                String originalFilename = image.getOriginalFilename();
+	                String filePath = uploadPath + originalFilename;
+
+	                // 파일을 업로드
+	                File dest = new File(filePath);
+	                image.transferTo(dest);
+
+	            } catch (IOException e) {
+	                e.printStackTrace();
+	                System.out.println("이미지 업로드 오류");
+	            }
+	        } else {
+	            // 이미지 파일이 비어있는 경우 처리
+	        }
+	    
+		
+		
+		
+		System.out.println("사용자 댓글 작성하자!");
+		
+		System.out.println("평점 : " + rate);
+		System.out.println("댓글 : " + comment);
+		
+		System.out.println("평점 : " + rate);
+	    System.out.println("댓글 : " + comment);
+	    if (image != null) {
+	        System.out.println("이미지 : " + image.getOriginalFilename());
+	    }
+	    
+		String m_idx = (String)session.getAttribute("m_idx");
+	    Member_VO mvo = member_Service.getMemberOne(m_idx);
+	    
+	    Comment_VO cvo = new Comment_VO();
+	    cvo.setM_nick(mvo.getM_nick());
+	    cvo.setC_contents(comment);
+	    cvo.setC_img("resources/images/comment/" + image.getOriginalFilename());
+	    cvo.setC_grade(rate);
+	    
+	    // 여기네 
+	    Integer s_rcp_idx = (Integer) session.getAttribute("rcp_idx");
+	    System.out.println(s_rcp_idx);
+	    cvo.setRcp_idx(String.valueOf(s_rcp_idx));
+	    
+	    
+	    
+	    int result = user_Service.comment_write(cvo);
+	    
+		return new ModelAndView("user/recipe/public_recipe_detail");
+		
+	}
+	// TODO 상우 사용자 댓글작성
 }
