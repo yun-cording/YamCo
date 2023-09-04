@@ -33,6 +33,60 @@
 		where rcp_idx=#{rcp_idx}
 	</select>
 	
+	<!-- rcp_idx를 포함한 U_recipe_VO로 U_recipe_meta_VO 검색 -->
+	<select id="selectOneByVO" parameterType="urvo" resultType="urmvo">
+		select * from
+		u_recipe_metadata
+		<where>
+			rcp_idx=#{rcp_idx}
+			<if test="m_idx != null">
+				and m_idx = #{m_idx}
+			</if>
+			<if test="u_rcp_title != null">
+				and u_rcp_title = #{u_rcp_title}
+			</if>
+			<if test="u_rcp_comment != null">
+				and u_rcp_comment = #{u_rcp_comment}
+			</if>
+			<if test="u_rcp_category != null">
+				and u_rcp_category = #{u_rcp_category}
+			</if>
+			<if test="u_rcp_ing != null">
+				and u_rcp_ing = #{u_rcp_ing}
+			</if>
+			<if test="u_rcp_main != null">
+				and u_rcp_main = #{u_rcp_main}
+			</if>
+			<if test="u_rcp_level != null">
+				and u_rcp_level = #{u_rcp_level}
+			</if>
+			<if test="u_rcp_keyword != null">
+				and u_rcp_keyword = #{u_rcp_keyword}
+			</if>
+			<if test="u_rcp_blind != null">
+				and u_rcp_blind = #{u_rcp_blind}
+			</if>
+			<if test="m_nick != null">
+				and m_nick = #{m_nick}
+			</if>
+			<if test="u_rcp_status != null">
+				and u_rcp_status = #{u_rcp_status}
+			</if>
+			<if test="u_rcp_hit != null">
+				and u_rcp_hit = #{u_rcp_hit}
+			</if>
+			<if test="u_rcp_ctype != null">
+				and u_rcp_ctype = #{u_rcp_ctype}
+			</if>
+			<if test="u_rcp_time != null">
+				and u_rcp_time = #{u_rcp_time}
+			</if>
+			<if test="u_rcp_img != null">
+				and u_rcp_img = #{u_rcp_img}
+			</if>
+		</where>
+	</select>
+	
 	<!-- rcp_idx에 해당 하는 레시피 조회수 1 상승 -->
 	<update id="hitUp" parameterType="String">
 		update u_recipe set u_rcp_hit = u_rcp_hit + 1 where rcp_idx = #{rcp_idx}

@@ -463,7 +463,7 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
 </script>
-						<!-- 자유롭게 입력 -->
+				<!-- 자유롭게 입력 -->
 						<div style="margin-top: 100px;">
 							<!-- <div class="horizontal-line_gray" style="margin-top: -20px; margin-bottom: 20px;"></div> -->
 							<p class="font_32 left_margin" style="float: left;">상세 레시피를

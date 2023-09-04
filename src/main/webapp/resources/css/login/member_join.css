@@ -17,6 +17,10 @@ a{
 	margin: auto;
 }
 
+button :hover{
+	cursor: pointer;
+}
+
 .idline{
 	display:flex;
 	width: 660px;
@@ -35,6 +39,7 @@ a{
 	margin-top: 60px;
 	font-size: 24px;
 	font-family: 'Yeongdeok_TTF';
+	background-color: white;
 }
 
 .buttons{

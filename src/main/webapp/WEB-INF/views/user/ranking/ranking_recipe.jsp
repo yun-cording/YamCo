@@ -80,9 +80,7 @@
 								<c:when test="${not empty k.hit_1mon}">
 									<div class="recipe_one">
 										<p>
-											<%-- ** 추후에 m_idx도 확인하고 넣어줘야함 --%>
-											<a
-												href="/public_recipe_detail.go?rcp_idx=${k.rcp_idx }&m_idx=${m_idx }">
+											<a href="/public_recipe_detail.go?rcp_idx=${k.rcp_idx }">
 												<img src="../resources/images/rankingmedal/${vs.count}.png"
 												class="medal"> <c:choose>
 													<%-- u_rcp_img가 없는 경우 기본 이미지 출력 --%>
@@ -148,36 +146,6 @@
 						<p>레시피 데이터가 존재하지 않습니다.</p>
 					</c:otherwise>
 				</c:choose>
-				<%-- 성훈 코드
-				<c:forEach var="k" begin="1" end="30">
-					<div class="recipe_one">
-						<a href="/public_recipe_detail.go">
-							<p>
-								<img src="../resources/images/rankingmedal/${k}.png"
-									class="medal"> <img
-									src="https://mediahub.seoul.go.kr/wp-content/uploads/2020/10/d13ea4a756099add8375e6c795b827ab.jpg"
-									class="recipe_thumbnail">
-							</p>
-						</a>
-						<p>공공레시피명</p>
-						<div class="writer">
-							<img
-								src="https://png.pngtree.com/png-vector/20191115/ourmid/pngtree-beautiful-profile-line-vector-icon-png-image_1990469.jpg"
-								class="profile"> <span>작성자 이름</span>
-						</div>
-						<div class="like" style="text-align: right;">
-							<img class="icon"
-								src="https://img.medicalreport.kr/resources/2019/07/23/o0vYNCXzJDWRPejw.jpg"
-								alt=""> <span>4.9</span> <img class="icon"
-								src="https://cdn-icons-png.flaticon.com/512/8316/8316018.png"
-								alt=""> <span>42</span> <img class="icon"
-								src="https://cdn-icons-png.flaticon.com/512/2415/2415461.png"
-								alt=""> <span>7만</span>
-						</div>
-
-					</div>
-				</c:forEach>
-				--%>
 			</div>
 		</div>
 		<aside id="sidebar-right">

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.yamco.user.model.vo.Member_Search_VO;
 import com.yamco.user.model.vo.Member_VO;
+import com.yamco.user.model.vo.Member_meta_VO;
 
 @Repository
 public class Member_DAO {
@@ -29,6 +30,11 @@ public class Member_DAO {
 		return sqlSessionTemplate.selectList("member.selectListBySearchVO", msvo);
 	}
 
+	// 명예의 전당 가져오기
+	public List<Member_meta_VO> getAwardList() {
+		return sqlSessionTemplate.selectList("member.selectAwardList");
+	}
+
 	// 닉네임 설정하기
 	public int setNick(Member_VO m_vo) {
 		return sqlSessionTemplate.update("member.upNick", m_vo);
@@ -46,6 +52,7 @@ public class Member_DAO {
 	
 	// 비밀번호 변경
 	public int getChangePw(Member_VO mvo) {
+		System.out.println("2");
 		return sqlSessionTemplate.update("member.changePw", mvo);
 	}
 
@@ -56,5 +63,24 @@ public class Member_DAO {
 	public int changeMyInfo(Member_VO mvo) {
 		return sqlSessionTemplate.update("member.changeMyInfo", mvo);
 
+	}
+
+	public int leaveMember(Member_VO mvo) {
+		return sqlSessionTemplate.update("member.leave", mvo);
+	}
+	
+	// 토큰, 날짜 생성
+	public int setMakeToken(Member_VO mvo) {
+		return sqlSessionTemplate.update("member.token", mvo);
+	}
+	
+	// 비밀번호 변경 대상 사용자 검색
+	public Member_VO getEmailId(Member_VO mvo) {
+		return sqlSessionTemplate.selectOne("member.emailId", mvo);
+	}
+	
+	// 비밀번호 변경 후 토큰 삭제
+	public int getTokenDelete(Member_VO mvo) {
+		return sqlSessionTemplate.update("member.tokenDelete", mvo);
 	}
 }

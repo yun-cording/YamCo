@@ -18,6 +18,11 @@
 
 </style>
 <script type="text/javascript">
+function checkValidSomeThing(param) {
+	  var myRe = /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/;
+	  return myRe.test(param);
+	}
+
 function clearPlaceholder(element) {
     // 입력란이 포커스를 받으면 placeholder 내용을 지움
     element.placeholder = '';
@@ -34,6 +39,20 @@ function restorePlaceholder(element, defaultPlaceholder) {
   }
   
   function public_login(f) {
+	  var id = document.getElementById('m_id').value;
+	  var pw = document.getElementById('m_pw').value;
+	  if(id == '' || id == null){
+		  alert("아이디를 입력해주세요.");
+		  return;
+	  }else if(!checkValidSomeThing(id)){
+		  alert("이메일 형식으로 입력해주세요.");
+		  return;
+	  }
+	  
+	  if(pw == '' || pw == null){
+		  alert("비밀번호를 입력해주세요.");
+		  return;
+	  }
 	f.action="/member_login.do";
 	f.submit();
 }

@@ -163,9 +163,13 @@
 	text-decoration: none;
 }
 
-..lank_table a:hover {
+.lank_table a:hover {
 	color: black;
 	text-decoration: none;
+}
+
+.lank_table_row {
+	display: none;
 }
 
 .row_append {
@@ -176,4 +180,5 @@
 	border-radius: 30px;
 	text-align: center;
 	color: tomato;
+	cursor: pointer;
 }

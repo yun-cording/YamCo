@@ -93,7 +93,7 @@
     width: 406px;
     padding-left: 10px;
     height: 50px;
-    border: 3px solid tomato;
+    border: 3px solid tomato !important;
     margin-top: 50px;
     float: right;
     border-radius: 10px;
@@ -123,7 +123,7 @@
   border-bottom-left-radius: 25px;
   margin-top: 50px;
   float: right;
-  color: #FFFFFF; !important;
+  color: #FFFFFF !important;
   font-size: 12px;
   font-weight: bold;
   position: relative;
@@ -139,7 +139,7 @@
 }
 .login_text{
   float: left;
-   color: #FFFFFF; !important;
+  color: #FFFFFF !important;
   line-height: 50px;
   margin-left: 20%;
   
@@ -219,6 +219,12 @@ a{
   margin-left: 3px;
   border-top-right-radius: 8px ;
   border-bottom-right-radius:  8px;
+}
+.myPage:hover{
+	cursor: pointer;
+}
+.logout:hover{
+	cursor: pointer;
 }
 </style>
 
