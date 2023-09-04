@@ -230,7 +230,7 @@ function birthChk_go() {
 	
 	<div style="text-align:center; margin-top:30px;">
 	<input type="hidden" name="gender">
-	<button class="buttons" style="background:gray;" id="join_chk" onclick="memberJoin_go(this.form)" disabled><span>회원가입</span></button>
+	<button type="button" class="buttons" style="background:gray;" id="join_chk" onclick="memberJoin_go(this.form)" disabled><span>회원가입</span></button>
 	<button type="button" class="buttons" style="background: gray" onclick="history.go(-1)"><span>돌아가기</span></button>
 	</div>
 	</div>

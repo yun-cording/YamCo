@@ -6,8 +6,10 @@
 <head>
 <meta charset="UTF-8">
 <title>냠냠레시피</title>
-<link rel="icon" type="image/x-icon"href="resources/images/icon_tomato.png">
-<link rel="stylesheet" href="resources/css/user/ranking/ranking_search.css?after" />
+<link rel="icon" type="image/x-icon"
+	href="resources/images/icon_tomato.png">
+<link rel="stylesheet"
+	href="resources/css/user/ranking/ranking_search.css?after" />
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script src="resources/js/user/sidebar.js"></script>
 <script type="text/javascript">
@@ -33,14 +35,8 @@
 
 		document.getElementById("month").style.cssText = 'background-color:white';
 		document.getElementById("monthtext").style.color = 'black';
-	}
-
-	function select_month() {
-		document.getElementById("month").style.cssText = 'background-color:tomato';
-		document.getElementById("monthtext").style.color = 'white';
-
-		document.getElementById("week").style.cssText = 'background-color:white';
-		document.getElementById("weektext").style.color = 'black';
+		
+		location.href="/ranking_search_7day.go";
 	}
 </script>
 </head>
@@ -52,35 +48,43 @@
 			<aside id="sidebar-left">
 				<jsp:include page="../../recentlist.jsp" />
 			</aside>
-			
+
 			<div id="content">
-				<a href="/ranking_recipe.go"><div id="lrecipe" onclick="recipe()">
-					<span id="recipetext">레시피</span>
-				</div></a>
-				<dlv id="lsearch" onclick="search()">
-				<span id="searchtext">검색어</span></dlv>
+				<a href="/ranking_recipe.go"><div id="lrecipe"
+						onclick="recipe()">
+						<span id="recipetext">레시피</span>
+					</div></a>
+				<dlv id="lsearch" onclick="search()"> <span id="searchtext">검색어</span></dlv>
 				<div id="topline"></div>
 				<div id="search_rankingtext">검색어랭킹</div>
 
 				<div id="week" onclick="select_week()">
 					<span id="weektext">주간</span>
 				</div>
-				<div id="month" onclick="select_month()">
+				<div id="month">
 					<span id="monthtext">월간</span>
 				</div>
 
-
-				<c:forEach var="k" begin="1" end="30">
-					<div id="keywardtext${k }" class="keywardtextclass">
-						<a href="">${k }.</a>
-					</div>
-					<div id="keyward${k }" class="keywardLineClass"></div>
-				</c:forEach>
-
+				<c:choose>
+					<%-- lank_list_search가 비어있지 않은 경우 --%>
+					<c:when test="${not empty lank_list_search }">
+						<c:forEach var="k" items="${lank_list_search }" varStatus="vs">
+							<div id="keywardtext${vs.count }" class="keywardtextclass">
+								<a href="">${vs.count }.${k }</a>
+							</div>
+							<div id="keyward${vs.count }" class="keywardLineClass"></div>
+						</c:forEach>
+					</c:when>
+					<c:otherwise>
+						<%-- 검색어가 1개도 없는 경우, 출력 화면 구성은 추후 다시 확정할 것! --%>
+						<p>검색어 데이터가 존재하지 않습니다.</p>
+					</c:otherwise>
+				</c:choose>
+				
 			</div>
 			<aside id="sidebar-right">
-			<jsp:include page="../../bestlist.jsp" />
-		</aside>
+				<jsp:include page="../../bestlist.jsp" />
+			</aside>
 		</div>
 		<div id="footer">
 			<jsp:include page="../../footer.jsp" />

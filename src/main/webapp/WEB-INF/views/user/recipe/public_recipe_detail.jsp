@@ -381,10 +381,28 @@ document.addEventListener("DOMContentLoaded", function () {
 			
 		`
 		<!-- content 끝 -->		
+<<<<<<< HEAD
 	
 		<aside id="sidebar-right">
 			<jsp:include page="../../bestlist.jsp" />
 			</aside>
+=======
+			</div>
+			</div>
+			</div>
+		</div>
+<<<<<<< HEAD
+		
+		<aside id="sidebar-right">
+			<jsp:include page="../../bestlist.jsp" />
+		</aside>
+=======
+	
+		<aside id="sidebar-right">
+			<jsp:include page="../../bestlist.jsp" />
+			</aside>
+>>>>>>> refs/heads/master
+>>>>>>> refs/heads/master
 		<div id="footer">
 			<jsp:include page="../../footer.jsp" />
 		</div>

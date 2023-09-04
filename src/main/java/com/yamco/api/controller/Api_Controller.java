@@ -19,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.yamco.api.model.service.P_recipe_Service;
 import com.yamco.api.model.vo.P_recipe_VO;
+import com.yamco.user.model.vo.RecentList_VO;
 import com.yamco.user.model.service.Member_Service;
 import com.yamco.user.model.vo.Comment_VO;
 import com.yamco.user.model.vo.Member_VO;
@@ -59,21 +60,21 @@ public class Api_Controller {
 		
 		String[] manual = new String[5];
         String[] manualImg = new String[5];
-		
+		String cate="";
+		String img ="";
+		String title="";
 		for (JsonNode jsonNode : rowList) {
 		    JsonNode rcpSeqNode = jsonNode.get("RCP_SEQ"); // json 파일에서 RCP_SEQ 키 값 가져오기
 		    // 받아온 하나의 Node
-		    System.out.println(rcpSeqNode);
 		    
-		    if (rcpSeqNode != null && rcpSeqNode.asText().equals(rcpSeq)) {
-		    	detail_list.add(jsonNode); // 조건에 맞는 경우 리스트에 추가
-		    	System.out.println("추가중!");
+//		    System.out.println(rcpSeqNode);
+
 	           for (int i = 1; i <= 5; i++) {
 	               manual[i - 1] = jsonNode.get("MANUAL0" + i).asText();
 	               manualImg[i - 1] = jsonNode.get("MANUAL_IMG0" + i).asText();
 	           }
 		    }
-		}
+		
 
 		// RCP_SEQ와 일치하는 rcp_idx 세션에 담기
 		session.setAttribute("rcp_idx", rcpSeq);
@@ -120,8 +121,39 @@ public class Api_Controller {
 		mv.addObject("avg_rating", avg_rating);
 //		mv.addObject("manualMap", manualMap);
 		System.out.println("detail list 갔다!");
+		// 전체 리스트
+		System.out.println(detail_list);
 		
-				
+		
+		
+		// TODO 희준 세션에 최근리스트 추가하기 시작
+		List<RecentList_VO> recent = (List<RecentList_VO>) session.getAttribute("recent");
+		RecentList_VO rec_vo = new RecentList_VO();
+		if (recent == null) {
+		    recent = new ArrayList<RecentList_VO>();
+		}
+		boolean found = false;
+		for (RecentList_VO k : recent) {
+		    if (k.getIdx().equals(rcpSeq)) {
+		    	found = true;
+		    }
+		}
+		if(!found) {
+			rec_vo.setIdx(rcpSeq);
+			rec_vo.setCate(cate);
+			rec_vo.setImg(img);
+			rec_vo.setTitle(title);
+			rec_vo.setWriter("공공데이터 제공");
+			recent.add(0, rec_vo);
+			if(recent.size()<4) {
+				recent.subList(0, recent.size()-1);
+			}else {
+				recent = recent.subList(0, 3);
+			}
+	        session.setAttribute("recent", recent);
+		}
+		// TODO 희준 세션에 최근리스트 추가하기 끝
+		
 		return mv;
 	}
 	

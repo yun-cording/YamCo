@@ -8,8 +8,9 @@
 <link rel="stylesheet" href="resources/css/login/new_pw.css?after" />
 </head>
 <body>
+	${mail_alert}
 	<jsp:include page="member_header.jsp" />
-	<form action="">
+	<form method="post">
 	<div id="mydiv">
 	
 	<div style="width:990px; margin: auto; margin-top:150px; text-align: center;">
@@ -29,14 +30,20 @@
 	<span id="pwDouble"></span>
 	</div>
 	<div style="text-align:center; margin-top:120px;">
-	<input type="hidden" name="m_id" value="${mvo.m_id}"> 
-	<button class="buttons" id="change_pw" style="background:gray;" onclick="change_pw(this.form)" disabled><span>비밀번호 변경</span></button>
-	<button class="buttons" style="background:gray;" onclick="history.go(-1)"><span>돌아가기</span></button>
+	<input type="hidden" name="m_id" id="m_id" value="${mvo.m_id}"> 
+	<button type="button" class="buttons" id="change_pw" style="background:gray;" onclick="change_pw2(this.form)" disabled><span>비밀번호 변경</span></button>
+	<button type="button" class="buttons" style="background:gray;" onclick="history.go(-1)"><span>돌아가기</span></button>
 	</div>
 	
 	</div>
 	</form>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 	<script type="text/javascript">
+	function change_pw2(f) {
+		f.action = "/member_change.do";
+		console.log("3");
+		f.submit();
+	}
 		var status = 0;
 		
 	function log() {
@@ -83,11 +90,6 @@
 			status = 1;
 			log();
 		}
-	}
-	
-	function change_pw(f) {
-		f.action = "/member_changPw.do";
-		f.submit();
 	}
 	</script>
 </body>

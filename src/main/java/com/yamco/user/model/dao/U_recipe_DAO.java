@@ -11,6 +11,7 @@ import org.springframework.transaction.TransactionDefinition;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
 
+import com.yamco.user.model.vo.U_recipe_VO;
 import com.yamco.user.model.vo.U_recipe_meta_VO;
 import com.yamco.user.model.vo.User_log_VO;
 
@@ -32,12 +33,31 @@ public class U_recipe_DAO {
 		return sqlSessionTemplate.selectList("u_recipe.rankListRecipe1Month");
 	}
 
-	public List<U_recipe_meta_VO> getSearch(Map<String, String> map) {
+	public List<U_recipe_meta_VO> getSearch(Map<String, String> map, String m_idx) {
+		User_log_VO ulvo = new User_log_VO();
+		ulvo.setS_name(map.get("search"));
+
+		if (m_idx != null && !m_idx.isBlank()) {
+			ulvo.setM_idx(m_idx);
+		}
+		ulvo.setUl_status("2"); // 2 : 검색
+
+		sqlSessionTemplate.insert("user_log.insert", ulvo);
+
 		return sqlSessionTemplate.selectList("u_recipe.recipeSearch", map);
 	}
-	
 
 	public U_recipe_meta_VO getSearchData(String rcp_idx) {
+		return sqlSessionTemplate.selectOne("u_recipe.metaData", rcp_idx);
+	}
+
+	// rcp_idx를 포함한 U_recipe_VO로 U_recipe_meta_VO 검색
+	public U_recipe_meta_VO getSelectOne(U_recipe_VO urvo) {
+		return sqlSessionTemplate.selectOne("u_recipe.selectOneByVO", urvo);
+	}
+
+	// rcp_idx로 U_recipe_meta_VO 검색
+	public U_recipe_meta_VO getSelectOne(String rcp_idx) {
 		return sqlSessionTemplate.selectOne("u_recipe.metaData", rcp_idx);
 	}
 

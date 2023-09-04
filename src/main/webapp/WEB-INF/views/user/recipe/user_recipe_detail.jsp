@@ -26,6 +26,48 @@
 
 <link rel="icon" type="image/x-icon" href="resources/images/icon_tomato.png">
 <link rel="stylesheet" href="resources/css/user/recipe/public_recipe_detail.css" />
+<style type="text/css">
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+
+
+ #mydiv{
+        width: 1920px;
+        margin:  auto;
+        /* height: 5000px; */
+
+    }
+
+ #sidebar-right {
+    float: left;
+    width: 15.625%;
+}
+
+#sidebar-left {
+    width: 15.625%;
+    float: left;
+
+}
+
+#content {
+    width: 68.75%;
+    float: left;
+    margin-top: 0px;
+    background: white;
+}
+
+
+#footer {
+    left: 0px;
+    width: 100%;
+    clear: left;
+}
+</style>
+
 	
 
 </head>
@@ -33,7 +75,9 @@
 	<div id="mydiv">
 		<jsp:include page="../../header.jsp" />
 		<div id="test">
-		<aside id="sidebar-left">왼쪽</aside>
+		<aside id="sidebar-left">
+			<jsp:include page="../../recentlist.jsp" />
+		</aside>
 		<div id="content">
 			<div id="upper">
 				<span id="category" class="text_center" style="color:#929292; margin-left: 158px; margin-top: 500px; font-size: 20px;">
@@ -258,7 +302,9 @@
 		<!-- content 끝 -->		
 		</div>
 		
-		<aside id="sidebar-right">오른</aside>
+		<aside id="sidebar-right">
+			<jsp:include page="../../bestlist.jsp" />
+			</aside>
 		<div id="footer">
 			<jsp:include page="../../footer.jsp" />
 		</div>
