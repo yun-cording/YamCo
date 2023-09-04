@@ -76,6 +76,31 @@
         });
     });
 </script>
+
+<script type="text/javascript">
+    function previewFile() {
+        var preview = document.getElementById('preview_btn');
+        var fileInput = document.getElementById('imgUpload');
+        
+        var file = fileInput.files[0];
+        var reader = new FileReader();
+        
+        reader.onload = function() {
+            preview.src = reader.result;
+            preview.style.display = 'block'; // 이미지 표시
+        };
+        
+        if (file) {
+            reader.readAsDataURL(file); // 파일을 읽어와서 이미지로 변환
+        }
+    }
+
+    // 이미지 미리보기 버튼 클릭 시 호출
+    document.getElementById('preview_btn').addEventListener('click', function() {
+        previewFile();
+    });
+</script>
+
 <script type="text/javascript">
 document.addEventListener("DOMContentLoaded", function () {
     // 페이지 로드 완료 후에 실행될 코드
@@ -310,7 +335,8 @@ document.addEventListener("DOMContentLoaded", function () {
 								<input class="photo_insert" type="file" id="imgUpload" onchange="previewFile()" style="font-size: 16px; display:none;"></input>
 									<label class="round_btn photo_insert" for="imgUpload">사진 추가</label>
 							</div>
-							<button id="preview_btn">이미지 미리보기</button>
+							<!-- <button id="preview_btn">이미지 미리보기</button> -->
+							<img id="preview_btn" src="#" alt="이미지 미리보기" style="max-width: 120px; max-height: 120px;">
 							<div style="position:relative; float:left;">
 								<button class="round_btn write_cancel_btn" id="comment_write_do" name="comment_write_do">작성</button>
 								<button class="round_btn write_cancel_btn" id="cancel_btn">취소</button>
@@ -321,55 +347,69 @@ document.addEventListener("DOMContentLoaded", function () {
 				
 					<!-- 댓글 표시 -->
 					<div style="float:right;">
-						<button class="align_order">인기순</button>
-						<button class="align_order" style="position: relative; right: -20px;">최신순</button>
+						<button class="popular_new">인기순</button>
+						<button class="popular_new" style="position: relative; right: -20px;">최신순</button>
 					<div>
-						<button class="best_comment" id="align_order2">정렬순서</button>
+						<button class="best_comment popular_new" id="align_order2">정렬순서</button>
 					</div>
 					
 					<!-- 쓴 댓글 표시 -->
-					<c:forEach items="${comments_list_all}" var="cvo">
-					    <div>
-					        <p>${cvo.m_nick}</p>
-					        <p><button class="best_comment" style="margin-left: -150px;">베스트 댓글</button>
-					        <p>${cvo.c_time}</p>
-					        <div>
-					            <img class="comment_img" src="resources/images/public_sample1.png">
-					            <div>
-					                <span class="comment_content">${cvo.c_contents}</span>						
-					            </div>
-					            <button style="width: 40px; height: 10px; float:right; margin-right : 30px; background-color: #ffffff; color:#ffffff; outline: none; border: none;">
-					            </button>
-					            <p></p>
-					            <br>
-					            <br>
-					            <div>
-					            </div>
-					            <!-- 신고버튼, 따봉 -->
-					            <div style="position: relative; top: -290px; left: 15px;">
-					                <!-- <input type="button" class="report-button" style="float: right; margin-right: 100px; outline:none;" onclick="alert('님 신고!')"> -->
-					                <button style="float: right; border: none; background-color: #ffffff;">
-					                    <p style="height: 15px; float: right;  color:#cccccc">신고하기</p>
-					                </button>
-					                <!-- 따봉 버튼 (좋아요) -->
-					                <button style="float: right; width: 44px; height: 44px; border: none; background-color:#ffffff;">
-					                    <img src="resources/images/thumbs-up.png" style="width: 44px; height: 44px; ">
-					                </button>
-					                <div style="width: 40px; height: 20px; float: right; margin-right: -2px; ">
-					                    <p style="height: 15px; float: right; color: tomato; font-size: 20px; text-align: center; position:relative; top: 52px; right: -155px;"><strong>${cvo.c_like}</strong></p>
-					                </div>
-					                <div style="margin-bottom: 10px;">
-					                    <button class="align_order" style="position: relative; top: 20px;" >수정</button>
-					                </div>
-					                <div style="position: relative; right: 30px; bottom: 30px;"></div>
-					                <div style="">
-					                    <button class="align_order">삭제</button>
-					                </div>
-					            </div>
-					        </div>
-					        <div class="horizontal-line_tomato""></div>
-					    </div>
-					</c:forEach>
+					<div id="comments_show">
+						<c:forEach items="${comments_list_all}" var="cvo">
+							<div id="writer_time">
+						        <p class="left_float" style="margin-bottom: 50px;">${cvo.m_nick}</p>
+						        <p><button class="best_comment left_float">베스트 댓글</button>
+						        <p class="left_float">${cvo.c_time}</p>
+						    </div>
+						
+						</c:forEach>
+					</div>
+					
+					
+					<%-- <div id="comments_show">
+						<c:forEach items="${comments_list_all}" var="cvo">
+							<div>
+						        <p class="left_float">${cvo.m_nick}</p>
+						        <p><button class="best_comment left_float">베스트 댓글</button>
+						        <p class="left_float">${cvo.c_time}</p>
+						    </div>
+						        <div>
+						            <img class="comment_img" src="resources/images/public_sample1.png">
+						            <div>
+						                <span class="comment_content">${cvo.c_contents}</span>						
+						            </div>
+						            <button style="width: 40px; height: 10px; background-color: #ffffff; color:#ffffff; outline: none; border: none;">
+						            </button>
+						            <p></p>
+						            <br>
+						            <br>
+						            <div>
+						            </div>
+						            <!-- 신고버튼, 따봉 -->
+						            <div>
+						                <button style="float: right; border: none; background-color: #ffffff;">
+						                    <p style="height: 15px; float: right;  color:#cccccc">신고하기</p>
+						                </button>
+						                <!-- 따봉 버튼 (좋아요) -->
+						                <button style="float: right; width: 44px; height: 44px; border: none; background-color:#ffffff;">
+						                    <img src="resources/images/thumbs-up.png" style="width: 44px; height: 44px; ">
+						                </button>
+						                <div style="width: 40px; height: 20px; float: right; margin-right: -2px; ">
+						                    <p style="height: 15px; float: right; color: tomato; font-size: 20px; text-align: center; position:relative; top: 52px; right: -155px;"><strong>${cvo.c_like}</strong></p>
+						                </div>
+						                <div style="margin-bottom: 10px;">
+						                    <button class="align_order" style="position: relative; top: 20px;" >수정</button>
+						                </div>
+						                <div style="position: relative; right: 30px; bottom: 30px;"></div>
+						                <div style="">
+						                    <button class="align_order">삭제</button>
+						                </div>
+						            </div>
+						        </div>
+						        <div class="horizontal-line_tomato""></div>
+						    </div>
+						</c:forEach>
+					</div> --%>
 					
 					
 					
@@ -381,28 +421,10 @@ document.addEventListener("DOMContentLoaded", function () {
 			
 		`
 		<!-- content 끝 -->		
-<<<<<<< HEAD
 	
 		<aside id="sidebar-right">
 			<jsp:include page="../../bestlist.jsp" />
 			</aside>
-=======
-			</div>
-			</div>
-			</div>
-		</div>
-<<<<<<< HEAD
-		
-		<aside id="sidebar-right">
-			<jsp:include page="../../bestlist.jsp" />
-		</aside>
-=======
-	
-		<aside id="sidebar-right">
-			<jsp:include page="../../bestlist.jsp" />
-			</aside>
->>>>>>> refs/heads/master
->>>>>>> refs/heads/master
 		<div id="footer">
 			<jsp:include page="../../footer.jsp" />
 		</div>

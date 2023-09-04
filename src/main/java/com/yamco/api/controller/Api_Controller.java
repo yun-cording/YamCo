@@ -46,14 +46,13 @@ public class Api_Controller {
 	
 	// 공공레시피 상세페이지
 	@RequestMapping("/go_publicDet.do")
+	// seq인지 idx인지 체크
 	public ModelAndView go_publicDet(@RequestParam("rcp_seq") String rcpSeq, HttpSession session) {
 		ModelAndView mv = new ModelAndView("user/recipe/public_recipe_detail");
 		// 공공리스트 전체 리스트 받아오자
 		List<JsonNode> rowList = p_recipe_Service.go_public_list();
 		// 그중에서 rcpSeq가 받아온 값과 일치하는 녀석만 정보를 빼오자.
-		System.out.println(rowList.size());
-		
-	
+		System.out.println("rowList 사이즈 : " + rowList.size());
 		
 		// 필터링
 		List<JsonNode> detail_list = new ArrayList<>();
@@ -65,21 +64,28 @@ public class Api_Controller {
 		String title="";
 		for (JsonNode jsonNode : rowList) {
 		    JsonNode rcpSeqNode = jsonNode.get("RCP_SEQ"); // json 파일에서 RCP_SEQ 키 값 가져오기
-		    // 받아온 하나의 Node
-		    
-//		    System.out.println(rcpSeqNode);
-
-	           for (int i = 1; i <= 5; i++) {
-	               manual[i - 1] = jsonNode.get("MANUAL0" + i).asText();
-	               manualImg[i - 1] = jsonNode.get("MANUAL_IMG0" + i).asText();
-	           }
+		    // System.out.println(rcpSeqNode);
+		    if (rcpSeqNode != null) {
+		        String rcpSeqValue = rcpSeqNode.asText();
+		        // 하나의 node를 detail_list에 담자!
+		        if (rcpSeqValue.equals(rcpSeq)) {
+		        	detail_list.add(jsonNode); // 일치하는 경우, 해당 jsonNode를 detail_list에 추가
+		        	System.out.println(jsonNode);
+		        	for (int i = 1; i <= 5; i++) {
+		        		manual[i - 1] = jsonNode.get("MANUAL0" + i).asText();
+		        		manualImg[i - 1] = jsonNode.get("MANUAL_IMG0" + i).asText();
+		        	}
+		        }
 		    }
+		}
+		
+		System.out.println("테스트 : " + detail_list);
 		
 
 		// RCP_SEQ와 일치하는 rcp_idx 세션에 담기
+		// 세션에 
 		session.setAttribute("rcp_idx", rcpSeq);
 
-		// DB 가서 평점 받아오자 (rcpSeq를 기반으로 idx + 1 숫자를 뽑아와서 ㄱ  
 		String avg_rating = p_recipe_Service.article_rating(String.valueOf(rcpSeq));
 		// System.out.println("평점은" + avg_rating);
 		
@@ -111,12 +117,13 @@ public class Api_Controller {
 		
 		// 댓글 전체리스트
 		// 이용자 id도 보내주자
+		// 아래 삭제해도 됨 (세션에서 뽑아씀)
 		mv.addObject("m_idx", m_idx);
 		mv.addObject("comments_list_all", comments_list_all);
 		mv.addObject("manual", manual);
 		mv.addObject("manualImg", manualImg);
     	// 전체 onelist 뽑기
-    	System.out.println(detail_list);
+    	// System.out.println(detail_list);
 		mv.addObject("detail_list", detail_list);
 		mv.addObject("avg_rating", avg_rating);
 //		mv.addObject("manualMap", manualMap);
@@ -125,6 +132,7 @@ public class Api_Controller {
 		System.out.println(detail_list);
 		
 		
+		// m_nick, m_idx, loginChk, session 들어감
 		
 		// TODO 희준 세션에 최근리스트 추가하기 시작
 		List<RecentList_VO> recent = (List<RecentList_VO>) session.getAttribute("recent");

@@ -25,6 +25,20 @@
 	margin-left: 300px; 
 	width: 1320px;
     border-top: 3px solid tomato; /* 선 스타일 지정 */
+    position:relative;
+  
+    margin-top: -200px;
+}
+#writer_time{
+	height: 300px;
+	width: 300px;
+	float: left;
+	text-align: center;
+	margin-left: -300px;
+}
+
+#comments_show{
+	width: 1320px;
 }
 
 #sidebar-left {
@@ -48,6 +62,9 @@
 .float_left{
 	float: left;
 	width: 1020px;
+}
+.left_float{
+	float: left;
 }
 #body_endline{
     border-top: 2px solid #21730B; /* 선 스타일 지정 */
@@ -233,7 +250,8 @@
 
 .tomato_title{
 	color: tomato;
-	font-size: 40px;	
+	font-size: 40px;
+	margin-left: 20px;	
 }
 .carousel_size{
 	width: 1320px;
@@ -382,12 +400,14 @@
 	position: relative;
 	float: left;
 }
+
 #align_order2{
 	disable: enabled; 
 	margin-bottom: 50px; 
 	margin-top: 40px;
 	position: relative;
 	float: right;
+	left: -220px;
 	
 }
 
@@ -466,7 +486,7 @@ input[type="file"]::-ms-input-placeholder {
 
 
 .align_order{
-	float: right;
+/* 	float: right;
 	background-color: lightgray;
 	margin-right: 25px;
 	border-radius: 5px;
@@ -475,8 +495,14 @@ input[type="file"]::-ms-input-placeholder {
 	font-size: 14px;
 	color: #F9F9F9;
 	border: none;
+	position:relative; */
+}
+
+.popular_new{
+	float: right;
 	position:relative;
-	
+	top: -300px;
+	left: -300px;
 }
 
 /* 별점 */
@@ -491,7 +517,8 @@ input[type="file"]::-ms-input-placeholder {
     padding: 0 10px;
     position: relative;
    	top: 80px;
-   	left: -270px;
+   	
+   	left: -250px;
     float: left;
 }
 .rate:not(:checked) > input {
