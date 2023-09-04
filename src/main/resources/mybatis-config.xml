@@ -17,6 +17,7 @@
 	<typeAlias type="com.ict.model.vo.membersVO" alias="mvo" /> -->
 	<typeAlias type="com.yamco.user.model.vo.Member_VO" alias="mvo" />
 	<typeAlias type="com.yamco.user.model.vo.Member_Search_VO" alias="msvo" />
+	<typeAlias type="com.yamco.user.model.vo.Member_meta_VO" alias="mmvo" />
 	<typeAlias type="com.yamco.user.model.vo.Random_VO" alias="ranvo" />
 	<typeAlias type="com.yamco.user.model.vo.Random_save_VO" alias="ransvo" />
 	<typeAlias type="com.yamco.user.model.vo.U_recipe_VO" alias="urvo" />

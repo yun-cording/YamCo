@@ -106,6 +106,10 @@
 	z-index:2;
 }
 
+#week:hover{
+	cursor: pointer;
+}
+
 #month {
 	box-sizing: border-box;
 	position: absolute;
