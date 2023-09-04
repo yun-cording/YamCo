@@ -25,8 +25,9 @@ import com.yamco.user.model.service.RandomService;
 import com.yamco.user.model.service.U_recipe_Service;
 import com.yamco.user.model.service.User_log_Service;
 import com.yamco.user.model.vo.Member_VO;
+import com.yamco.user.model.vo.Random_VO;
+import com.yamco.user.model.vo.Random_save_VO;
 import com.yamco.user.model.vo.Member_meta_VO;
-import com.yamco.user.model.vo.RecentList_VO;
 import com.yamco.user.model.vo.U_recipe_meta_VO;
 
 @Controller
@@ -47,22 +48,14 @@ public class User_Controller2 {
 	@RequestMapping("/main.go")
 	public ModelAndView homeGo(HttpSession session) {
 		ModelAndView mv = new ModelAndView("/main");
-		List<RecentList_VO> recent = new ArrayList();
-		RecentList_VO vo = new RecentList_VO();
-		vo.setIdx("10001");
-		vo.setCate("분식");
-		vo.setImg("https://mediahub.seoul.go.kr/wp-content/uploads/2020/10/d13ea4a756099add8375e6c795b827ab.jpg");
-		vo.setWriter("김심바");
-		recent.add(vo);
-		RecentList_VO vo2 = new RecentList_VO();
-		vo2.setIdx("153");
-		vo2.setCate("분식");
-		vo2.setImg("https://mediahub.seoul.go.kr/wp-content/uploads/2020/10/d13ea4a756099add8375e6c795b827ab.jpg");
-		vo2.setWriter("냠냠레시피");
-		recent.add(vo);
-		recent.add(vo2);
-		session.setAttribute("recent", recent);
-		// TODO 희준 최근리스트 세션저장용 끝
+		
+		// TODO 재훈 메인 시작
+		// TODO 재훈 랜덤 재료(자정 초기화) 시작
+		Random_save_VO saveVO = randomService.getSelectedFile();
+		mv.addObject("saveVO", saveVO);
+		// TODO 재훈 랜덤 재료(자정 초기화) 끝
+		// TODO 재훈 메인 끝
+
 		return mv;
 	}
 
