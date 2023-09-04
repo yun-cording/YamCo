@@ -20,19 +20,19 @@
 			<!-- idx가 1만 이상 -->
 				<c:choose>
 					<c:when test="${k.idx>=10000 }">
-						<a href="/사용자레시피?idx=${k.idx }">
+						<a href="/사용자레시피?=${k.idx }">
 							<div class="recent_center">
 								<img	src="${k.img }" 	alt="" >
-								<p class="cate">${k.cate } | 떡볶이</p>
+								<p class="cate">${k.cate } | ${k.title }</p>
 								<p class="writer">작성자 : ${k.writer }</p>
 							</div>
 						</a>
 					</c:when>
 					<c:otherwise>
-						<a href="/공공레시피?idx=${k.idx }">
+						<a href="/go_publicDet.do?rcp_seq=${k.idx }">
 							<div class="recent_center">
 								<img	src="${k.img }" 	alt="" >
-								<p class="cate">${k.cate } | 떡볶이</p>
+								<p class="cate">${k.cate } | ${k.title }</p>
 								<p class="writer">작성자 : ${k.writer }</p>
 							</div>
 						</a>

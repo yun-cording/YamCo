@@ -233,12 +233,13 @@
 								<tr class="lank_table_row">
 									<td>${vs.count}</td>
 									<td>${awardList[vs.index].m_nick }</td>
+									<c:set var="myIndex">${vs.index}</c:set>
 									<c:choose>
-										<c:when test="${not empty recipeMap[vs.index.toString()]}">
+										<c:when test="${not empty recipeMap[myIndex]}">
 											<td><a
-												href="/public_recipe_detail.go?rcp_idx=${recipeMap[vs.index.toString()].rcp_idx}">${recipeMap[vs.index.toString()].u_rcp_title}</a></td>
-											<td>${recipeMap[vs.index.toString()].u_rcp_category}</td>
-											<td>${recipeMap[vs.index.toString()].avg_grade}</td>
+												href="/public_recipe_detail.go?rcp_idx=${recipeMap[myIndex].rcp_idx}">${recipeMap[myIndex].u_rcp_title}</a></td>
+											<td>${recipeMap[myIndex].u_rcp_category}</td>
+											<td>${recipeMap[myIndex].avg_grade}</td>
 										</c:when>
 										<c:otherwise>
 											<td colspan="3">대표 레시피 없음</td>

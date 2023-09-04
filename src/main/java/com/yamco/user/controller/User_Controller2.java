@@ -1,22 +1,27 @@
 package com.yamco.user.controller;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.yamco.user.model.service.Member_Service;
+import com.yamco.user.model.service.RandomService;
 import com.yamco.user.model.service.U_recipe_Service;
 import com.yamco.user.model.vo.Member_VO;
 import com.yamco.user.model.vo.Member_meta_VO;
@@ -25,6 +30,10 @@ import com.yamco.user.model.vo.U_recipe_meta_VO;
 
 @Controller
 public class User_Controller2 {
+
+	@Autowired
+	private RandomService randomService;
+
 	@Autowired
 	private U_recipe_Service u_recipe_Service;
 	@Autowired
@@ -34,9 +43,8 @@ public class User_Controller2 {
 
 	@RequestMapping("/main.go")
 	public ModelAndView homeGo(HttpSession session) {
-		// TODO 희준 최근리스트 세션저장용 시작
 		ModelAndView mv = new ModelAndView("/main");
-		List<RecentList_VO> recent = new ArrayList<RecentList_VO>();
+		List<RecentList_VO> recent = new ArrayList();
 		RecentList_VO vo = new RecentList_VO();
 		vo.setIdx("10001");
 		vo.setCate("분식");
@@ -159,6 +167,9 @@ public class User_Controller2 {
 		ModelAndView mv = new ModelAndView("/mypage/myinfo");
 		String m_idx = (String) session.getAttribute("m_idx");
 		Member_VO mvo = member_Service.getMemberOne(m_idx);
+		if (mvo.getM_birthday() == null || mvo.getM_birthday().equals("")) {
+			mvo.setM_birthday("소셜로그인 회원입니다.");
+		}
 		if (mvo.getM_gender().equals("M")) {
 			mvo.setM_gender("남성");
 		} else if (mvo.getM_gender().equals("F")) {
@@ -236,8 +247,27 @@ public class User_Controller2 {
 	}
 
 	@RequestMapping("/changeMyInfo.do")
-	public ModelAndView changeMyInfoDo(HttpSession session, Member_VO mvo) {
+	public ModelAndView changeMyInfoDo(HttpSession session, Member_VO mvo, MultipartFile file) {
 		ModelAndView mv = new ModelAndView("redirect:/myinfo.go");
+		String path = session.getServletContext().getRealPath("/resources/user_image");
+		String f_name = file.getOriginalFilename();
+		if (file.isEmpty()) {
+
+		} else {
+			UUID uuid = UUID.randomUUID();
+			f_name = uuid.toString() + "_" + file.getOriginalFilename();
+			mvo.setM_image("resources/user_image/" + f_name);
+			session.setAttribute("m_image", mvo.getM_image());
+			System.out.println(mvo.getM_image());
+			try {
+				byte[] in = file.getBytes();
+				File out = new File(path, f_name);
+				FileCopyUtils.copy(in, out);
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
+		}
+
 		String m_idx = (String) session.getAttribute("m_idx");
 		mvo.setM_idx(m_idx);
 		int res = member_Service.changeMyInfo(mvo);
@@ -257,6 +287,9 @@ public class User_Controller2 {
 				mvo.setM_gender("남성");
 			} else if (mvo.getM_gender().equals("F")) {
 				mvo.setM_gender("여성");
+			}
+			if (mvo.getM_birthday() == null || mvo.getM_birthday().equals("")) {
+				mvo.setM_birthday("소셜로그인 회원입니다.");
 			}
 			mvo.setM_id("소셜로그인 회원입니다.");
 			mv.addObject("mvo", mvo);
