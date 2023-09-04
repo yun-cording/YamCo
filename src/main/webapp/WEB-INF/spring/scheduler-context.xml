@@ -9,6 +9,6 @@
     <task:scheduler id="scheduler" pool-size="1" />
 
     <task:scheduled-tasks scheduler="scheduler">
-        <task:scheduled ref="randomService" method="updateSelectedFile" cron="0 0 0 * * ?"/>
+        <task:scheduled ref="randomService" method="updateSelectedFile" cron="0 */3 * * * ?"/>
     </task:scheduled-tasks>
 </beans>

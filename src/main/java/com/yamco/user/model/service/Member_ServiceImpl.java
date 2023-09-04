@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.yamco.user.model.dao.Member_DAO;
 import com.yamco.user.model.vo.Member_Search_VO;
 import com.yamco.user.model.vo.Member_VO;
+import com.yamco.user.model.vo.Member_meta_VO;
 
 @Service
 public class Member_ServiceImpl implements Member_Service {
@@ -106,6 +107,12 @@ public class Member_ServiceImpl implements Member_Service {
 		}
 		return member_DAO.getMemberList(msvo);
 	}
+	
+	// 명예의 전당 가져오기
+	@Override
+	public List<Member_meta_VO> getAwardList() {
+		return member_DAO.getAwardList();
+	} 
 
 	// 닉네임 설정하기
 	@Override

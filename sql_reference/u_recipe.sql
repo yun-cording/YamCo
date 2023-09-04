@@ -9,7 +9,7 @@ JOIN
     member m ON ur.m_idx = m.m_idx;
 
 
-comment_avg_c_grade
+#u_recipe 테이블 정보에 comment테이블의 댓글수와 평점을 더한 뷰
 CREATE VIEW u_recipe_comment_summary AS
 SELECT 
     ur.rcp_idx,
@@ -22,7 +22,7 @@ LEFT JOIN
 GROUP BY 
     ur.rcp_idx;
     
-
+#u_recipe에 부가적인 정보를 더한 뷰
 CREATE VIEW u_recipe_metadata AS
 SELECT 
     u.*,
@@ -39,6 +39,27 @@ LEFT JOIN
 LEFT JOIN 
     user_log_recipe_hit_1month ul_1month ON u.rcp_idx = ul_1month.rcp_idx;
 
+#검색어에 대한 일주인간 검색수를 볼 수 있는 뷰
+CREATE VIEW user_log_search_number_7days AS 
+SELECT s_name, COUNT(*) search_number
+FROM user_log
+WHERE
+ul_status = 2
+AND ul_logtime < SYSDATE()
+AND ul_logtime >= DATE_SUB(sysdate(), INTERVAL 7 DAY)
+GROUP BY s_name;
+
+#검색어에 대한 한갈간 검색수를 볼 수 있는 뷰
+CREATE VIEW user_log_search_number_1month AS 
+SELECT s_name, COUNT(*) search_number
+FROM user_log
+WHERE
+ul_status = 2
+AND ul_logtime < SYSDATE()
+AND ul_logtime >= DATE_SUB(sysdate(), INTERVAL 1 MONTH)
+GROUP BY s_name;
+
+#recipe에 대한 일주인간 조회수를 볼 수 있는 뷰
 CREATE VIEW user_log_recipe_hit_7days AS 
 SELECT rcp_idx, COUNT(*) hit
 FROM user_log
@@ -48,6 +69,7 @@ AND ul_logtime < SYSDATE()
 AND ul_logtime >= DATE_SUB(sysdate(), INTERVAL 7 DAY)
 GROUP BY rcp_idx;
 
+#recipe에 대한 한달간 조회수를 볼 수 있는 뷰
 CREATE VIEW user_log_recipe_hit_1month AS 
 SELECT rcp_idx, COUNT(*) hit
 FROM user_log
@@ -56,7 +78,33 @@ ul_status = 3
 AND ul_logtime < SYSDATE()
 AND ul_logtime >= DATE_SUB(sysdate(), INTERVAL 1 MONTH)
 GROUP BY rcp_idx;
+
+#member가 작성한 recipe의 한달간 조회수 총합과 최고 조회수의 rcp_idx를 볼 수 있는 뷰
+CREATE VIEW member_u_recipe_hit_1month AS
+SELECT 
+    m.m_idx,
+    SUM(ul.hit) AS total_hit_in_1month,
+    MAX(ul.rcp_idx) AS max_hit_rcp_idx
+FROM 
+    member m
+JOIN 
+    u_recipe u ON m.m_idx = u.m_idx
+LEFT JOIN 
+    user_log_recipe_hit_1month ul ON u.rcp_idx = ul.rcp_idx
+GROUP BY 
+    m.m_idx;
     
+#member에 부가적인 정보를 더한 뷰
+CREATE VIEW member_metadata AS
+SELECT 
+    m.*,
+    m_h_1month.total_hit_in_1month AS tot_hit_1mon,
+    m_h_1month.max_hit_rcp_idx AS max_hit_1mon_rcp_idx
+FROM 
+    member m
+LEFT JOIN 
+    member_u_recipe_hit_1month m_h_1month ON m.m_idx = m_h_1month.m_idx;
+
 update u_recipe set u_rcp_hit = u_rcp_hit + 1 where rcp_idx = 10008;
 insert into user_log(m_idx, rcp_idx, ul_logtime, ul_status) VALUES(45, 10004, '2023-08-03 17:06:53', 3);
 SELECT * FROM user_log WHERE rcp_idx = 10008;

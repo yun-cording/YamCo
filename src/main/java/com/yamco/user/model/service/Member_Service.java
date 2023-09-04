@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.yamco.user.model.vo.Member_Search_VO;
 import com.yamco.user.model.vo.Member_VO;
+import com.yamco.user.model.vo.Member_meta_VO;
 
 public interface Member_Service {
 	// 자체 회원가입
@@ -14,6 +15,9 @@ public interface Member_Service {
 
 	// 회원 검색
 	public List<Member_VO> getMemberList(Member_Search_VO msvo);
+	
+	// 명예의 전당 가져오기
+	public List<Member_meta_VO> getAwardList();
 	
 	// 닉네임 설정하기
 	public int setNick(Member_VO m_vo);

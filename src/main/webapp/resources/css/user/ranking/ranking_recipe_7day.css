@@ -118,6 +118,10 @@
 	z-index:2;
 }
 
+#month:hover{
+	cursor: pointer;
+}
+
 /* #month > span:hover{
 	background: #FF6347;
 	color: white;
