@@ -276,7 +276,8 @@ color: #21730B;
 			</div>
 				<div id="Recommen"><span style="font-size: 22px;">오늘의 <span class="point_tomato">추천</span> 재료</span></div>
 				<div id="ingredient">
-			<img id="ingredient_img" src="/resources/images/potatoes.png">
+			<img id="ingredient_img" src="/resources/images/${saveVO.foodsave_img}">
+			<input type="hidden" name="searchWord" value="${saveVO.foodsave_title}">
 			</div>
 			</div>
 			

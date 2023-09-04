@@ -61,46 +61,39 @@
 			</c:if>
 			<hr>
 			<!-- 공공레시피 검색결과 -->
-<%-- 			<div class="row mx-5">
-				<div class="col-10">
+			<div class="row mx-5">
+				<div class="col-12">
 					<span class="search_subject">검색된 냠냠 레시피는 총</span> <span class="search_count">${p_list.size()}</span> <span class="search_subject">개 입니다.</span>
 				</div>
-				<div class="col-1 tab-on">
-					<span>조회순</span>
-				</div>
-				<div class="col-1 tab-off">
-					<span>평점순</span>
-				</div>
-			</div> --%>
+			</div>
 			<!-- 레시피 출력 -->
 			<!-- 콘텐츠공간 -->
-<%-- 			<div class="flexContainer">
-				<c:forEach items="${p_list }" var="k">
-					<div class="p_recipe_one">
-						<p><img src="${k.공공썸네일}" class="recipe_thumbnail"></p>
-						<p>${공공레시피명}</p>
+			<div class="flexContainer">
+				<c:forEach items="${p_list }" var="k2">
+					<div class="p_recipe_one" style="display: none">
+						<p><img src="${k2.u_rcp_img}" class="recipe_thumbnail"></p>
+						<p>${k2.u_rcp_title}</p>
 						<div class="writer">
 							<img src="https://png.pngtree.com/png-vector/20191115/ourmid/pngtree-beautiful-profile-line-vector-icon-png-image_1990469.jpg" class="profile"><span>공공레시피 제공</span>
 						</div>
 						<div class="like" style="text-align: right;">
 							<img class="icon" src="https://img.medicalreport.kr/resources/2019/07/23/o0vYNCXzJDWRPejw.jpg" alt="">
-							<span>${공공평점 }</span>
+							<span>${k2.avg_grade}</span>
 							<img class="icon" src="https://cdn-icons-png.flaticon.com/512/8316/8316018.png" alt="">
-							<span>${공공댓글수 }</span>
+							<span>${k2.c_count }</span>
 							<img class="icon" src="https://cdn-icons-png.flaticon.com/512/2415/2415461.png"	alt="">
-							<span>${공공조회수 }</span>
+							<span>${k2.u_rcp_hit }</span>
 						</div>
 					</div>
 				</c:forEach>
 			</div>
-			<c:if test="${p_list.size()>4 }">
+			<c:if test="${p_list.size()>2 }">
 			<div class="d-flex justify-content-center my-5">
 				<button type="button" class="btn btn-lg text-white"
 				 style="background-color: tomato" id="btn_append2">더보기
 				 </button>
 			</div>
-			</c:if> --%>
-			
+			</c:if>
 			<script type="text/javascript">
 				$(function () {
 					var idx = 2;
@@ -110,6 +103,7 @@
 						$("#u_order_grade").attr("class","col-1 tab-on")
 					}
 					$(".u_recipe_one").slice(0,idx).show();
+					$(".p_recipe_one").slice(0,idx).show();
 					
 					$("#btn_append").on("click", function() {
 		                $(".u_recipe_one:hidden").slice(0, idx).show();
@@ -117,12 +111,12 @@
 		                    $("#btn_append").hide(); // 모든 항목이 표시되었을 때 버튼 숨기기
 		                }
 					});
-			/* 		$("#btn_append2").on("click", function() {
+			 		$("#btn_append2").on("click", function() {
 		                $(".p_recipe_one:hidden").slice(0, idx).show();
-		                if ($("p_.recipe_one:hidden").length === 0) {
-		                    $("#btn_append").hide(); // 모든 항목이 표시되었을 때 버튼 숨기기
+		                if ($(".p_recipe_one:hidden").length === 0) {
+		                    $("#btn_append2").hide(); // 모든 항목이 표시되었을 때 버튼 숨기기
 		                }
-					}); */
+					});
 				});
 				function search_sort_grade_go() {
 					location.href="/search.go?search_text="+'${search_text}'+"&order=1"

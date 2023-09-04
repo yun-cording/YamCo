@@ -104,23 +104,10 @@
 		</where>
 	</select>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	<!-- 명예의 전당 가져오기 -->
+	<select id="selectAwardList" resultType="mmvo">
+		select * from member_metadata where tot_hit_1mon is not null order by tot_hit_1mon desc limit 100;
+	</select>
 
 	<!-- 닉네임 중복 검사 -->
 	<select id="nickChk" parameterType="String" resultType="mvo">
@@ -160,5 +147,18 @@
     	update member set m_status=3, m_out_date=CURDATE() where m_idx=#{m_idx}
     </update>
     
-
+    <!-- 토큰, 날짜 생성 -->
+    <update id="token" parameterType="mvo">
+    	update member set m_token = #{m_token}, m_t_time = sysdate() where m_id = #{m_id}
+    </update>
+    
+    <!-- 비밀번호 변경 대상자 검색 -->
+    <select id="emailId" parameterType="mvo" resultType="mvo">
+    	select * from member where m_token != ''
+    </select>
+    
+    <!-- 변경 완료 후 토큰 삭제 -->
+    <update id="tokenDelete" parameterType="mvo">
+    	update member set m_token = null, m_t_time = null where m_id = #{m_id}
+    </update>
 </mapper>

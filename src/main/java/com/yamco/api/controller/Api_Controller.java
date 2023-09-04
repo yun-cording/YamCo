@@ -300,7 +300,9 @@ public class Api_Controller {
 	public ModelAndView go_public_list(HttpServletRequest request, HttpServletResponse response) throws ServletException {
 		ModelAndView mv = new ModelAndView("user/recipe/public_list");
 		
+		
 		List<JsonNode> rowList = p_recipe_Service.go_public_list();
+		
 		List<P_recipe_VO> prvo = p_recipe_Service.article_summary();	
 		
 		List<P_recipe_VO> listSummary = new ArrayList<>();

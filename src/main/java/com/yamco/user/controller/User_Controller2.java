@@ -1,7 +1,13 @@
 package com.yamco.user.controller;
 
 import java.io.File;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -18,18 +24,21 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.yamco.api.model.service.P_recipe_Service;
+import com.yamco.api.model.vo.P_recipe_VO;
 import com.yamco.user.model.service.Member_Service;
 import com.yamco.user.model.service.RandomService;
 import com.yamco.user.model.service.U_recipe_Service;
+import com.yamco.user.model.service.User_log_Service;
 import com.yamco.user.model.vo.Member_VO;
-import com.yamco.user.model.vo.Random_VO;
+import com.yamco.user.model.vo.Member_meta_VO;
+import com.yamco.user.model.vo.Random_save_VO;
 import com.yamco.user.model.vo.U_recipe_meta_VO;
-
 
 @Controller
 public class User_Controller2 {
 
-	
 	@Autowired
 	private RandomService randomService;
 
@@ -38,177 +47,301 @@ public class User_Controller2 {
 	@Autowired
 	private Member_Service member_Service;
 	@Autowired
+	private User_log_Service user_log_Service;
+	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
+	@Autowired
+	private P_recipe_Service p_recipe_Service;
 
-	
 	@RequestMapping("/main.go")
 	public ModelAndView homeGo(HttpSession session) {
 		ModelAndView mv = new ModelAndView("/main");
+
 		// TODO 재훈 메인 시작
 		// TODO 재훈 랜덤 재료(자정 초기화) 시작
-		 Random_VO selectedFile = randomService.getSelectedFile();
-		 System.out.println("윽");
-		 System.out.println("selectedFile : " +selectedFile.getFood_img());
-		 mv.addObject("selectedFile", selectedFile);
-		 // TODO 재훈 랜덤 재료(자정 초기화) 끝
+		Random_save_VO saveVO = randomService.getSelectedFile();
+		mv.addObject("saveVO", saveVO);
+		// TODO 재훈 랜덤 재료(자정 초기화) 끝
 		// TODO 재훈 메인 끝
+
 		return mv;
 	}
 
-	
 	@RequestMapping("/public_list.go")
 	public ModelAndView publicListGo() {
 		ModelAndView mv = new ModelAndView("/user/recipe/public_list");
 		return mv;
 	}
+
 	@RequestMapping("/user_list.go")
 	public ModelAndView userListGo() {
 		ModelAndView mv = new ModelAndView("/user/recipe/user_list");
 		return mv;
 	}
+
 	@RequestMapping("/ranking_recipe.go")
 	public ModelAndView rankingRecipeGo() {
 		ModelAndView mv = new ModelAndView("/user/ranking/ranking_recipe");
 		return mv;
 	}
+
 	@RequestMapping("/ranking_search.go")
 	public ModelAndView rankingSearchGo() {
 		ModelAndView mv = new ModelAndView("/user/ranking/ranking_search");
+		List<String> result = user_log_Service.getU_recipeRankListSearch1Month();
+		mv.addObject("lank_list_search", result);
 		return mv;
 	}
+
+	@RequestMapping("/ranking_search_7day.go")
+	public ModelAndView rankingSearch7DayGo() {
+		ModelAndView mv = new ModelAndView("/user/ranking/ranking_search_7day");
+		List<String> result = user_log_Service.getU_recipeRankListSearch7Days();
+		mv.addObject("lank_list_search", result);
+		return mv;
+	}
+
 	@RequestMapping("/award.go")
 	public ModelAndView awardGo() {
 		ModelAndView mv = new ModelAndView("/user/award/award");
+		List<Member_meta_VO> awardList = member_Service.getAwardList();
+		Map<String, U_recipe_meta_VO> recipeMap = new HashMap<>();
+
+		Integer count = 0;
+		for (Iterator<Member_meta_VO> iterator = awardList.iterator(); iterator.hasNext();) {
+			Member_meta_VO mmvo = (Member_meta_VO) iterator.next();
+			String rcp_idx = mmvo.getMax_hit_1mon_rcp_idx();
+
+			if (rcp_idx == null) {
+				recipeMap.put(count.toString(), null);
+			} else {
+				U_recipe_meta_VO meta = u_recipe_Service.getSelectOne(rcp_idx);
+				recipeMap.put(count.toString(), u_recipe_Service.getSelectOne(rcp_idx));
+			}
+
+			count++;
+		}
+
+		mv.addObject("awardList", awardList);
+		mv.addObject("recipeMap", recipeMap);
+
 		return mv;
 	}
+
 	@RequestMapping("/faq.go")
 	public ModelAndView faqGo() {
 		ModelAndView mv = new ModelAndView("/user/faq/faq");
 		return mv;
 	}
+
 	@RequestMapping("/plz.go")
 	public ModelAndView plzGo() {
 		ModelAndView mv = new ModelAndView("/user/plz/plz");
 		return mv;
 	}
+
 	@RequestMapping("/login.go")
 	public ModelAndView loginGo() {
 		ModelAndView mv = new ModelAndView("/login/login");
 		return mv;
 	}
+
 	@RequestMapping("/member_join.go")
 	public ModelAndView memberJoinGo() {
 		ModelAndView mv = new ModelAndView("/login/member_join");
 		return mv;
 	}
+
 	@RequestMapping("/find_pw.go")
 	public ModelAndView findPwGo() {
 		ModelAndView mv = new ModelAndView("/login/find_pw");
 		return mv;
 	}
+
 	@RequestMapping("/new_pw.go")
 	public ModelAndView newPwGo() {
 		ModelAndView mv = new ModelAndView("/login/new_pw");
 		return mv;
 	}
+
 	@RequestMapping("/social_join.go")
 	public ModelAndView socialJoinGo() {
 		ModelAndView mv = new ModelAndView("/social_join");
 		return mv;
 	}
+
 	@RequestMapping("/user_recipe_write.go")
 	public ModelAndView userRecipeWriteGo() {
 		ModelAndView mv = new ModelAndView("/user/recipe/user_recipe_write");
 		return mv;
 	}
+
 	@RequestMapping("/myinfo.go")
 	public ModelAndView myinfoGo(HttpSession session) {
 		ModelAndView mv = new ModelAndView("/mypage/myinfo");
-		String m_idx = (String)session.getAttribute("m_idx");
+		String m_idx = (String) session.getAttribute("m_idx");
 		Member_VO mvo = member_Service.getMemberOne(m_idx);
-		if(mvo.getM_birthday()==null || mvo.getM_birthday().equals("")) {
+		if (mvo.getM_birthday() == null || mvo.getM_birthday().equals("")) {
 			mvo.setM_birthday("소셜로그인 회원입니다.");
 		}
-		if(mvo.getM_gender().equals("M")) {
+		if (mvo.getM_gender().equals("M")) {
 			mvo.setM_gender("남성");
-		}else if(mvo.getM_gender().equals("F")) {
+		} else if (mvo.getM_gender().equals("F")) {
 			mvo.setM_gender("여성");
 		}
-		if(!mvo.getM_login_type().equals("1")) {
+		if (!mvo.getM_login_type().equals("1")) {
 			mvo.setM_id("소셜로그인 회원입니다.");
 		}
 		mv.addObject("mvo", mvo);
 		return mv;
 	}
+
 	@RequestMapping("/mywishlist.go")
 	public ModelAndView myWishListGo() {
 		ModelAndView mv = new ModelAndView("/mypage/myWishList");
 		return mv;
 	}
+
 	@RequestMapping("/reportcontent.go")
 	public ModelAndView reportContentGo() {
 		ModelAndView mv = new ModelAndView("/mypage/reportContent");
 		return mv;
 	}
+
 	@RequestMapping("/mycontent.go")
 	public ModelAndView myContentGo() {
 		ModelAndView mv = new ModelAndView("/mypage/myContent");
 		return mv;
 	}
+
 	@RequestMapping("/mycomment.go")
 	public ModelAndView myCommentGo() {
 		ModelAndView mv = new ModelAndView("/mypage/myComment");
 		return mv;
 	}
-	
+
 	@RequestMapping("/public_recipe_detail.go")
-	public ModelAndView publicRecipeDetailGo(@RequestParam("rcp_idx") String rcp_idx, @RequestParam("m_idx") String m_idx) {
+	public ModelAndView publicRecipeDetailGo(@RequestParam("rcp_idx") String rcp_idx, HttpSession session) {
 		ModelAndView mv = new ModelAndView("/user/recipe/public_recipe_detail");
-		
-		//조회수 상승
+
+		String m_idx = (String) session.getAttribute("m_idx");
+
+		// 조회수 상승 //추후에 log 기록을 위해서 null 대신 m_idx 넘겨야 함
 		int result = u_recipe_Service.getHitUp(rcp_idx, m_idx);
-		System.out.println("result : " + result);
-		
+
 		// 레시피 번호받아와서 상세정보 출력하기
 		return mv;
 	}
+
 	@RequestMapping("/search.go")
-	public ModelAndView searchGo(@ModelAttribute("search_text") String search_text,@ModelAttribute("order")String order) {
+	public ModelAndView searchGo(@ModelAttribute("search_text") String search_text,
+			@ModelAttribute("order") String order, HttpSession session) {
 		ModelAndView mv = new ModelAndView("/user/recipe/search_list");
 		// 검색어로 DB다녀오기
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("search", search_text);
 		map.put("order", order);
-		List<U_recipe_meta_VO> search_list = u_recipe_Service.getSearch(map);
-		mv.addObject("u_list",search_list);
+
+		String m_idx = (String) session.getAttribute("m_idx");
+
+		List<U_recipe_meta_VO> search_list = u_recipe_Service.getSearch(map, m_idx); // 유저레시피 검색결과
+		List<U_recipe_meta_VO> p_search_list = new ArrayList<U_recipe_meta_VO>();
+		mv.addObject("u_list", search_list);
+
+		// TODO 공공데이터 시작
+		List<JsonNode> rowList = p_recipe_Service.go_public_list();
+		List<P_recipe_VO> prvo = p_recipe_Service.article_summary();
+
+		List<P_recipe_VO> listSummary = new ArrayList<>();
+		int count = 0;
+		for (int i = 0; i < rowList.size(); i++) {
+			P_recipe_VO vo = new P_recipe_VO();
+			JsonNode k = rowList.get(i);
+			try {
+				vo = prvo.get(i);
+				if (vo.getAvg_c_grade() != null) {
+					BigDecimal avgCGrade = new BigDecimal(vo.getAvg_c_grade()).setScale(1, RoundingMode.HALF_UP);
+					vo.setAvg_c_grade(avgCGrade.toString());
+				}
+			} catch (Exception e) {
+				count++;
+			}
+			String rcpSeq = k.get("RCP_SEQ").asText();
+			String attFileNoMain = k.get("ATT_FILE_NO_MAIN").asText();
+			String rcpNm = k.get("RCP_NM").asText();
+			if (k.get("RCP_PARTS_DTLS").asText().contains(search_text) || k.get("RCP_NM").asText().contains(search_text)
+					|| k.get("RCP_PAT2").asText().contains(search_text)
+					|| k.get("HASH_TAG").asText().contains(search_text)) { // 재료에 검색어가 포함될때
+				U_recipe_meta_VO pvo = new U_recipe_meta_VO();
+				pvo.setRcp_idx(rcpSeq);
+				pvo.setU_rcp_img(attFileNoMain);
+				if (vo.getAvg_c_grade() == null) {
+					pvo.setAvg_grade("0");
+				} else {
+					pvo.setAvg_grade(vo.getAvg_c_grade());
+				}
+				if(vo.getP_rcp_hit() == null) {
+					pvo.setU_rcp_hit("0");
+				}else {
+					pvo.setU_rcp_hit(vo.getP_rcp_hit());
+				}
+				pvo.setU_rcp_title(rcpNm);
+				pvo.setC_count(vo.getTotal_comments());
+				p_search_list.add(pvo);
+			}
+		}
+		if(order.equals("0")) { // 조회순
+			Collections.sort(p_search_list, new Comparator<U_recipe_meta_VO>() {
+				@Override
+				public int compare(U_recipe_meta_VO vo1, U_recipe_meta_VO vo2) {
+					int hit1 = Integer.parseInt(vo1.getU_rcp_hit());
+					int hit2 = Integer.parseInt(vo2.getU_rcp_hit());
+					return Integer.compare(hit1, hit2);
+				}
+			});
+		}else if(order.equals("1")) { // 평점순
+			Collections.sort(p_search_list, new Comparator<U_recipe_meta_VO>() {
+				@Override
+				public int compare(U_recipe_meta_VO vo1, U_recipe_meta_VO vo2) {
+					double avgGrade1 = Double.parseDouble(vo1.getAvg_grade());
+					double avgGrade2 = Double.parseDouble(vo2.getAvg_grade());
+					return Double.compare(avgGrade2, avgGrade1);
+				}
+			});
+		}
+		
+		mv.addObject("p_list", p_search_list);
+		// TODO 공공데이터 끝
 		return mv;
 	}
-	
+
 	@RequestMapping("/changeMyInfo.go")
-	public ModelAndView changeMyInfoGo( HttpSession session ) {
-		ModelAndView mv =new ModelAndView("mypage/changeMyinfo");
-		String m_idx = (String)session.getAttribute("m_idx");
+	public ModelAndView changeMyInfoGo(HttpSession session) {
+		ModelAndView mv = new ModelAndView("mypage/changeMyinfo");
+		String m_idx = (String) session.getAttribute("m_idx");
 		Member_VO mvo = member_Service.getMemberOne(m_idx);
-		if(mvo.getM_gender().equals("M")) {
+		if (mvo.getM_gender().equals("M")) {
 			mvo.setM_gender("남성");
-		}else if(mvo.getM_gender().equals("F")) {
+		} else if (mvo.getM_gender().equals("F")) {
 			mvo.setM_gender("여성");
 		}
-		mv.addObject("mvo",mvo);
+		mv.addObject("mvo", mvo);
 		return mv;
 	}
+
 	@RequestMapping("/changeMyInfo.do")
-	public ModelAndView changeMyInfoDo( HttpSession session, Member_VO mvo, MultipartFile file) {
-		ModelAndView mv =new ModelAndView("redirect:/myinfo.go");
+	public ModelAndView changeMyInfoDo(HttpSession session, Member_VO mvo, MultipartFile file) {
+		ModelAndView mv = new ModelAndView("redirect:/myinfo.go");
 		String path = session.getServletContext().getRealPath("/resources/user_image");
 		String f_name = file.getOriginalFilename();
 		if (file.isEmpty()) {
-			
+
 		} else {
 			UUID uuid = UUID.randomUUID();
 			f_name = uuid.toString() + "_" + file.getOriginalFilename();
-			mvo.setM_image("resources/user_image/"+f_name);
+			mvo.setM_image("resources/user_image/" + f_name);
 			session.setAttribute("m_image", mvo.getM_image());
+			session.setAttribute("m_nick", mvo.getM_nick());
 			System.out.println(mvo.getM_image());
 			try {
 				byte[] in = file.getBytes();
@@ -218,26 +351,28 @@ public class User_Controller2 {
 				// TODO: handle exception
 			}
 		}
-		
-		String m_idx = (String)session.getAttribute("m_idx");
+
+		String m_idx = (String) session.getAttribute("m_idx");
 		mvo.setM_idx(m_idx);
 		int res = member_Service.changeMyInfo(mvo);
-		mv.addObject("mvo",mvo);
+		mv.addObject("mvo", mvo);
 		return mv;
 	}
+
 	@RequestMapping("/leaveMember.go")
-	public ModelAndView leaveMemberGo( HttpSession session ) {
-		ModelAndView mv = new ModelAndView("/mypage/leaveMember"); 
-		String m_idx = (String)session.getAttribute("m_idx");
+	public ModelAndView leaveMemberGo(HttpSession session) {
+		ModelAndView mv = new ModelAndView("/mypage/leaveMember");
+		String m_idx = (String) session.getAttribute("m_idx");
 		Member_VO mvo = member_Service.getMemberOne(m_idx);
-		if(mvo.getM_login_type().equals("2") || mvo.getM_login_type().equals("3") || mvo.getM_login_type().equals("4")) {
+		if (mvo.getM_login_type().equals("2") || mvo.getM_login_type().equals("3")
+				|| mvo.getM_login_type().equals("4")) {
 			mv.addObject("social", true);
-			if(mvo.getM_gender().equals("M")) {
+			if (mvo.getM_gender().equals("M")) {
 				mvo.setM_gender("남성");
-			}else if(mvo.getM_gender().equals("F")) {
+			} else if (mvo.getM_gender().equals("F")) {
 				mvo.setM_gender("여성");
 			}
-			if(mvo.getM_birthday()==null || mvo.getM_birthday().equals("")) {
+			if (mvo.getM_birthday() == null || mvo.getM_birthday().equals("")) {
 				mvo.setM_birthday("소셜로그인 회원입니다.");
 			}
 			mvo.setM_id("소셜로그인 회원입니다.");
@@ -246,61 +381,61 @@ public class User_Controller2 {
 		}
 		return mv;
 	}
+
 	@RequestMapping("/leaveMember.do")
-	public ModelAndView leaveMemberDo( HttpSession session, String pw, boolean social) {
-		ModelAndView mv= new ModelAndView("main");
-		String m_idx = (String)session.getAttribute("m_idx");
+	public ModelAndView leaveMemberDo(HttpSession session, String pw, boolean social) {
+		ModelAndView mv = new ModelAndView("main");
+		String m_idx = (String) session.getAttribute("m_idx");
 		Member_VO mvo = member_Service.getMemberOne(m_idx);
-		if(social) {
+		if (social) {
 			int res = member_Service.leaveMember(mvo);
-			String alert="<script>alert('탈퇴가 완료되었습니다. 이용해주셔서 감사합니다.')</script>";
+			String alert = "<script>alert('탈퇴가 완료되었습니다. 이용해주셔서 감사합니다.')</script>";
 			session.removeAttribute("loginChk");
 			session.removeAttribute("m_nick");
 			session.removeAttribute("m_idx");
 			session.removeAttribute("m_image");
-			mv.addObject("alert",alert);
+			mv.addObject("alert", alert);
 			return mv;
 		}
 		boolean pwChk = passwordEncoder.matches(pw, mvo.getM_pw());
-		if(pwChk) {
+		if (pwChk) {
 			int res = member_Service.leaveMember(mvo);
-			String alert="<script>alert('탈퇴가 완료되었습니다. 이용해주셔서 감사합니다.')</script>";
+			String alert = "<script>alert('탈퇴가 완료되었습니다. 이용해주셔서 감사합니다.')</script>";
 			session.removeAttribute("loginChk");
 			session.removeAttribute("m_nick");
 			session.removeAttribute("m_idx");
 			session.removeAttribute("m_image");
-			mv.addObject("alert",alert);
-		}else {
-			String alert="<script>alert('비밀번호가 틀렸습니다.')</script>";
+			mv.addObject("alert", alert);
+		} else {
+			String alert = "<script>alert('비밀번호가 틀렸습니다.')</script>";
 			mv.addObject("alert", alert);
 			mv.setViewName("/mypage/leaveMember");
 		}
-		
+
 		return mv;
 	}
-	
+
 	@RequestMapping("/changeMyPw.go")
 	public ModelAndView changeMyPwGo() {
 		return new ModelAndView("/mypage/changeMypw");
 	}
-	
+
 	@RequestMapping("/changeMyPw.do")
-	public ModelAndView changeMyPwDo(String m_pw, HttpSession session ) {
-		ModelAndView mv= new ModelAndView("/login/login");
-		String m_idx = (String)session.getAttribute("m_idx");
+	public ModelAndView changeMyPwDo(String m_pw, HttpSession session) {
+		ModelAndView mv = new ModelAndView("/login/login");
+		String m_idx = (String) session.getAttribute("m_idx");
 		Member_VO mvo = member_Service.getMemberOne(m_idx);
 		mvo.setM_pw(m_pw);
 		// 채림이가 만든 mapper로 mvo 보내기
-		
-		
+		member_Service.getChangePw(mvo);
+
 		session.removeAttribute("loginChk");
 		session.removeAttribute("m_nick");
 		session.removeAttribute("m_idx");
 		session.removeAttribute("m_image");
-		String alert="<script>alert('비밀번호 변경이 완료되었습니다. 다시 로그인 해주세요')</script>";
-		mv.addObject("alert",alert);
+		String alert = "<script>alert('비밀번호 변경이 완료되었습니다. 다시 로그인 해주세요')</script>";
+		mv.addObject("alert", alert);
 		return mv;
 	}
-	
-	
+
 }

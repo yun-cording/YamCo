@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.yamco.user.model.dao.Member_DAO;
 import com.yamco.user.model.vo.Member_Search_VO;
 import com.yamco.user.model.vo.Member_VO;
+import com.yamco.user.model.vo.Member_meta_VO;
 
 @Service
 public class Member_ServiceImpl implements Member_Service {
@@ -106,6 +107,12 @@ public class Member_ServiceImpl implements Member_Service {
 		}
 		return member_DAO.getMemberList(msvo);
 	}
+	
+	// 명예의 전당 가져오기
+	@Override
+	public List<Member_meta_VO> getAwardList() {
+		return member_DAO.getAwardList();
+	} 
 
 	// 닉네임 설정하기
 	@Override
@@ -127,7 +134,6 @@ public class Member_ServiceImpl implements Member_Service {
 	// 비밀번호 변경
 	@Override
 	public int getChangePw(Member_VO mvo) {
-		System.out.println("1");
 		return member_DAO.getChangePw(mvo);
 	}
 	// idx로 멤버정보 가져오기
@@ -144,5 +150,23 @@ public class Member_ServiceImpl implements Member_Service {
 	@Override
 	public int leaveMember(Member_VO mvo) {
 		return member_DAO.leaveMember(mvo);
+	}
+	
+	// 토큰, 날짜 생성
+	@Override
+	public int setMakeToken(Member_VO mvo) {
+		return member_DAO.setMakeToken(mvo);
+	}
+
+	// 비밀번호 변경 대상 사용자 검색
+	@Override
+	public Member_VO getEmailId(Member_VO mvo) {
+		return member_DAO.getEmailId(mvo);
+	}
+
+	// 비밀번호 변경 후 토큰 삭제
+	@Override
+	public int getTokenDelete(Member_VO mvo) {
+		return member_DAO.getTokenDelete(mvo);
 	}
 }
