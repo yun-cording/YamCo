@@ -22,6 +22,7 @@ import com.yamco.user.model.service.Member_Service;
 import com.yamco.user.model.service.RandomService;
 import com.yamco.user.model.service.U_recipe_Service;
 import com.yamco.user.model.vo.Member_VO;
+import com.yamco.user.model.vo.Random_VO;
 import com.yamco.user.model.vo.U_recipe_meta_VO;
 
 
@@ -43,6 +44,14 @@ public class User_Controller2 {
 	@RequestMapping("/main.go")
 	public ModelAndView homeGo(HttpSession session) {
 		ModelAndView mv = new ModelAndView("/main");
+		// TODO 재훈 메인 시작
+		// TODO 재훈 랜덤 재료(자정 초기화) 시작
+		 Random_VO selectedFile = randomService.getSelectedFile();
+		 System.out.println("윽");
+		 System.out.println("selectedFile : " +selectedFile.getFood_img());
+		 mv.addObject("selectedFile", selectedFile);
+		 // TODO 재훈 랜덤 재료(자정 초기화) 끝
+		// TODO 재훈 메인 끝
 		return mv;
 	}
 
