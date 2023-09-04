@@ -102,7 +102,8 @@ public class PublicLoginController {
 				session.setAttribute("m_image", m_vo.getM_image());
 				alert = "<script>alert('로그인 성공.');</script>";
 				mv.addObject("alert", alert);
-				return new ModelAndView("main");
+				mv.setViewName("main");
+				return mv;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

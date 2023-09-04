@@ -150,6 +150,7 @@
 }
 
 #pro_pic{
+	border: 1px solid lightgray;
 	box-sizing: border-box;
 	float: left;
 	width: 200px;
@@ -255,6 +256,13 @@ input::-webkit-inner-spin-button {
 	border: none;
 	border-radius: 30px 30px 30px 30px;
 }
+
+button:hover {
+	cursor: pointer;
+}
+#pro_pic:hover{
+	cursor: pointer; 
+}
 	</style>
 </head>
 <body>
@@ -277,7 +285,7 @@ input::-webkit-inner-spin-button {
 			<div id="title_line"></div>
 			<div id="title">내 정보 변경</div>
 			<div class="clear">
-			<form>
+			<form method="post" enctype="multipart/form-data">
 			<div id="profile">
 					<img id="pro_pic" src="${mvo.m_image }">
 				<div class="info_all">
@@ -288,12 +296,14 @@ input::-webkit-inner-spin-button {
 				</div>
 			</div>
 			<div class="btn">
+				<input type="hidden" name="m_image" value="${mvo.m_image }">
+				<input type="file" id="fileInput" style="display: none" accept="image/*" name="file">
 				<button type="button" id="btn_save" onclick="changeMyInfoDo(this.form)">저장</button>
-				<button id="btn_exit">돌아가기</button>
+				<button type="button" id="btn_exit" onclick="history.go(-1)">돌아가기</button>
 			</div>
 			</form>
 			</div>
-		</div>		 
+		</div>
 	<aside id="sidebar-right">
 		<jsp:include page="../bestlist.jsp" />
 	</aside>
@@ -307,7 +317,27 @@ input::-webkit-inner-spin-button {
 		f.submit()
 	}
 	$(function() {
-		
+		   // "프로필 사진" 클릭 시 파일 업로드 input 열기
+	    $("#pro_pic").click(function() {
+	        $("#fileInput").click();
+	    });
+	    $("#fileInput").change(function() {
+	        const profilePicture = $("#pro_pic");
+
+	        if (this.files && this.files[0]) {
+	            const reader = new FileReader();
+
+	            reader.onload = function (e) {
+	                // 업로드한 이미지를 프로필 사진으로 표시
+	                profilePicture.attr("src",e.target.result) 
+	                
+	                // 이후에 업로드 로직을 추가할 수 있습니다.
+	                // 서버로 이미지를 업로드하거나 다른 작업을 수행할 수 있습니다.
+	            };
+
+	            reader.readAsDataURL(this.files[0]);
+	        }
+	    });
 	})
 
 </script>

@@ -1,7 +1,7 @@
 package com.yamco.user.model.vo;
 
 public class RecentList_VO {
-	private String idx, img,writer,cate;
+	private String idx, img,writer,cate, title;
 
 	public final String getIdx() {
 		return idx;
@@ -33,5 +33,13 @@ public class RecentList_VO {
 
 	public final void setCate(String cate) {
 		this.cate = cate;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
 	}
 }
