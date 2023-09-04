@@ -36,18 +36,20 @@
 			<div class="flexContainer">
 				<c:forEach items="${u_list }" var="k">
 					<div class="u_recipe_one" style="display: none">
-						<p><img src="${k.u_rcp_img }" class="recipe_thumbnail"></p>
-						<p>${k.u_rcp_title }</p>
-						<div class="writer">
-							<img src="${k.m_image }" class="profile"><span>${k.m_nick }</span>
-						</div>
+						<a href="/사용자레시피?rcp_seq=${k.rcp_idx}">
+							<p><img src="${k.u_rcp_img }" class="recipe_thumbnail"></p>
+							<p>${k.u_rcp_title }</p>
+							<div class="writer">
+								<img src="${k.m_image }" class="profile"><span>${k.m_nick }</span>
+							</div>
+						</a>
 						<div class="like" style="text-align: right;">
 							<img class="icon" src="https://img.medicalreport.kr/resources/2019/07/23/o0vYNCXzJDWRPejw.jpg" alt="">
-							<span>${k.avg_grade }</span>
+							<span>${empty k.avg_grade ? 0 : k.avg_grade }</span>
 							<img class="icon" src="https://cdn-icons-png.flaticon.com/512/8316/8316018.png" alt="">
-							<span>${k.c_count }</span>
+							<span>${empty k.c_count ? 0 : k.c_count}</span>
 							<img class="icon" src="https://cdn-icons-png.flaticon.com/512/2415/2415461.png"	alt="">
-							<span>${k.u_rcp_hit }</span>
+							<span>${empty k.u_rcp_hit ? 0 : k.u_rcp_hit}</span>
 						</div>
 					</div>
 				</c:forEach>
@@ -71,11 +73,13 @@
 			<div class="flexContainer">
 				<c:forEach items="${p_list }" var="k2">
 					<div class="p_recipe_one" style="display: none">
-						<p><img src="${k2.u_rcp_img}" class="recipe_thumbnail"></p>
-						<p>${k2.u_rcp_title}</p>
-						<div class="writer">
-							<img src="https://png.pngtree.com/png-vector/20191115/ourmid/pngtree-beautiful-profile-line-vector-icon-png-image_1990469.jpg" class="profile"><span>공공레시피 제공</span>
-						</div>
+						<a href="/go_publicDet.do?rcp_seq=${k2.rcp_idx}">
+							<p><img src="${k2.u_rcp_img}" class="recipe_thumbnail"></p>
+							<p>${k2.u_rcp_title}</p>
+							<div class="writer">
+								<img src="https://png.pngtree.com/png-vector/20191115/ourmid/pngtree-beautiful-profile-line-vector-icon-png-image_1990469.jpg" class="profile"><span>공공레시피 제공</span>
+							</div>
+						</a>
 						<div class="like" style="text-align: right;">
 							<img class="icon" src="https://img.medicalreport.kr/resources/2019/07/23/o0vYNCXzJDWRPejw.jpg" alt="">
 							<span>${k2.avg_grade}</span>

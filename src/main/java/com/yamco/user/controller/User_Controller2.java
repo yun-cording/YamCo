@@ -197,8 +197,73 @@ public class User_Controller2 {
 	}
 
 	@RequestMapping("/mywishlist.go")
-	public ModelAndView myWishListGo() {
+	public ModelAndView myWishListGo(HttpSession session, @ModelAttribute("order") String order) {
 		ModelAndView mv = new ModelAndView("/mypage/myWishList");
+		String m_idx = (String) session.getAttribute("m_idx");
+		List<String> wishList_idx = member_Service.getMyWishList(m_idx); // 찜목록 rcp_idx
+		List<U_recipe_meta_VO> wishList_meta = new ArrayList<U_recipe_meta_VO>();
+		for (String k : wishList_idx) {
+			U_recipe_meta_VO meta_vo = u_recipe_Service.getSelectOne(k);
+			if(meta_vo!=null) {
+				wishList_meta.add(meta_vo);
+			}
+			// TODO 공공데이터 시작
+			List<JsonNode> rowList = p_recipe_Service.go_public_list();
+			List<P_recipe_VO> prvo = p_recipe_Service.article_summary();
+			for (int i = 0; i < rowList.size(); i++) {
+				P_recipe_VO vo = new P_recipe_VO();
+				JsonNode k2 = rowList.get(i);
+				vo = prvo.get(i);
+
+				if (vo.getAvg_c_grade() != null) {
+					BigDecimal avgCGrade = new BigDecimal(vo.getAvg_c_grade()).setScale(1, RoundingMode.HALF_UP);
+					vo.setAvg_c_grade(avgCGrade.toString());
+				}
+				String rcpSeq = k2.get("RCP_SEQ").asText();
+				String attFileNoMain = k2.get("ATT_FILE_NO_MAIN").asText();
+				String rcpNm = k2.get("RCP_NM").asText();
+				if(k.equals(rcpSeq)) {
+					U_recipe_meta_VO pvo = new U_recipe_meta_VO();
+					pvo.setRcp_idx(rcpSeq);
+					pvo.setU_rcp_img(attFileNoMain);
+					if (vo.getAvg_c_grade() == null) {
+						pvo.setAvg_grade("0");
+					} else {
+						pvo.setAvg_grade(vo.getAvg_c_grade());
+					}
+					if (vo.getP_rcp_hit() == null) {
+						pvo.setU_rcp_hit("0");
+					} else {
+						pvo.setU_rcp_hit(vo.getP_rcp_hit());
+					}
+					pvo.setU_rcp_title(rcpNm);
+					pvo.setC_count(vo.getTotal_comments());
+					wishList_meta.add(pvo);
+					// TODO 공공데이터 끝
+				}
+			}
+		}
+		if (order.equals("0") || order.isBlank()) { // 조회순
+			Collections.sort(wishList_meta, new Comparator<U_recipe_meta_VO>() {
+				@Override
+				public int compare(U_recipe_meta_VO vo1, U_recipe_meta_VO vo2) {
+					int hit1 = Integer.parseInt(vo1.getU_rcp_hit());
+					int hit2 = Integer.parseInt(vo2.getU_rcp_hit());
+					return Integer.compare(hit2, hit1);
+				}
+			});
+		} else if (order.equals("1")) { // 평점순
+			Collections.sort(wishList_meta, new Comparator<U_recipe_meta_VO>() {
+				@Override
+				public int compare(U_recipe_meta_VO vo1, U_recipe_meta_VO vo2) {
+					double avgGrade1 = Double.parseDouble(vo1.getAvg_grade());
+					double avgGrade2 = Double.parseDouble(vo2.getAvg_grade());
+					return Double.compare(avgGrade2, avgGrade1);
+				}
+			});
+		}
+		mv.addObject("wishList", wishList_meta);
+
 		return mv;
 	}
 
@@ -234,8 +299,8 @@ public class User_Controller2 {
 	}
 
 	@RequestMapping("/search.go")
-	public ModelAndView searchGo(@ModelAttribute("search_text") String search_text,
-			@ModelAttribute("order") String order, HttpSession session) {
+	public ModelAndView searchGo(@ModelAttribute("search_text") String search_text, @ModelAttribute("order") String order,
+			HttpSession session) {
 		ModelAndView mv = new ModelAndView("/user/recipe/search_list");
 		// 검색어로 DB다녀오기
 		Map<String, String> map = new HashMap<String, String>();
@@ -251,8 +316,6 @@ public class User_Controller2 {
 		// TODO 공공데이터 시작
 		List<JsonNode> rowList = p_recipe_Service.go_public_list();
 		List<P_recipe_VO> prvo = p_recipe_Service.article_summary();
-
-		List<P_recipe_VO> listSummary = new ArrayList<>();
 		int count = 0;
 		for (int i = 0; i < rowList.size(); i++) {
 			P_recipe_VO vo = new P_recipe_VO();
@@ -270,8 +333,9 @@ public class User_Controller2 {
 			String attFileNoMain = k.get("ATT_FILE_NO_MAIN").asText();
 			String rcpNm = k.get("RCP_NM").asText();
 			if (k.get("RCP_PARTS_DTLS").asText().contains(search_text) || k.get("RCP_NM").asText().contains(search_text)
-					|| k.get("RCP_PAT2").asText().contains(search_text)
-					|| k.get("HASH_TAG").asText().contains(search_text)) { // 재료에 검색어가 포함될때
+					|| k.get("RCP_PAT2").asText().contains(search_text) || k.get("HASH_TAG").asText().contains(search_text)) { // 재료에
+																																																											// 검색어가
+																																																											// 포함될때
 				U_recipe_meta_VO pvo = new U_recipe_meta_VO();
 				pvo.setRcp_idx(rcpSeq);
 				pvo.setU_rcp_img(attFileNoMain);
@@ -280,9 +344,9 @@ public class User_Controller2 {
 				} else {
 					pvo.setAvg_grade(vo.getAvg_c_grade());
 				}
-				if(vo.getP_rcp_hit() == null) {
+				if (vo.getP_rcp_hit() == null) {
 					pvo.setU_rcp_hit("0");
-				}else {
+				} else {
 					pvo.setU_rcp_hit(vo.getP_rcp_hit());
 				}
 				pvo.setU_rcp_title(rcpNm);
@@ -290,16 +354,16 @@ public class User_Controller2 {
 				p_search_list.add(pvo);
 			}
 		}
-		if(order.equals("0")) { // 조회순
+		if (order.equals("0") || order.isBlank()) { // 조회순
 			Collections.sort(p_search_list, new Comparator<U_recipe_meta_VO>() {
 				@Override
 				public int compare(U_recipe_meta_VO vo1, U_recipe_meta_VO vo2) {
 					int hit1 = Integer.parseInt(vo1.getU_rcp_hit());
 					int hit2 = Integer.parseInt(vo2.getU_rcp_hit());
-					return Integer.compare(hit1, hit2);
+					return Integer.compare(hit2, hit1);
 				}
 			});
-		}else if(order.equals("1")) { // 평점순
+		} else if (order.equals("1")) { // 평점순
 			Collections.sort(p_search_list, new Comparator<U_recipe_meta_VO>() {
 				@Override
 				public int compare(U_recipe_meta_VO vo1, U_recipe_meta_VO vo2) {
@@ -309,7 +373,6 @@ public class User_Controller2 {
 				}
 			});
 		}
-		
 		mv.addObject("p_list", p_search_list);
 		// TODO 공공데이터 끝
 		return mv;
@@ -342,7 +405,6 @@ public class User_Controller2 {
 			mvo.setM_image("resources/user_image/" + f_name);
 			session.setAttribute("m_image", mvo.getM_image());
 			session.setAttribute("m_nick", mvo.getM_nick());
-			System.out.println(mvo.getM_image());
 			try {
 				byte[] in = file.getBytes();
 				File out = new File(path, f_name);
@@ -364,8 +426,7 @@ public class User_Controller2 {
 		ModelAndView mv = new ModelAndView("/mypage/leaveMember");
 		String m_idx = (String) session.getAttribute("m_idx");
 		Member_VO mvo = member_Service.getMemberOne(m_idx);
-		if (mvo.getM_login_type().equals("2") || mvo.getM_login_type().equals("3")
-				|| mvo.getM_login_type().equals("4")) {
+		if (mvo.getM_login_type().equals("2") || mvo.getM_login_type().equals("3") || mvo.getM_login_type().equals("4")) {
 			mv.addObject("social", true);
 			if (mvo.getM_gender().equals("M")) {
 				mvo.setM_gender("남성");
@@ -425,10 +486,9 @@ public class User_Controller2 {
 		ModelAndView mv = new ModelAndView("/login/login");
 		String m_idx = (String) session.getAttribute("m_idx");
 		Member_VO mvo = member_Service.getMemberOne(m_idx);
+		m_pw = passwordEncoder.encode(m_pw);
 		mvo.setM_pw(m_pw);
-		// 채림이가 만든 mapper로 mvo 보내기
 		member_Service.getChangePw(mvo);
-
 		session.removeAttribute("loginChk");
 		session.removeAttribute("m_nick");
 		session.removeAttribute("m_idx");
@@ -437,5 +497,7 @@ public class User_Controller2 {
 		mv.addObject("alert", alert);
 		return mv;
 	}
+
+	
 
 }
