@@ -126,12 +126,9 @@
 	height: 54px;
 	left: 1301px;
 	top: 474px;
+	background: #FF6347;
 	border: 2px solid #FF6347;
 	z-index: 2;
-}
-
-#week:hover{
-	cursor: pointer;
 }
 
 #month {
@@ -141,9 +138,12 @@
 	height: 54px;
 	left: 1397px;
 	top: 474px;
-	background: #FF6347;
 	border: 2px solid #FF6347;
 	z-index: 2;
+}
+
+#month:hover{
+	cursor: pointer;
 }
 
 /*#month > span:hover{
@@ -175,7 +175,7 @@
 	text-align: center;
 	display: block;
 	align-items: center;
-	color: white;
+	color: black;
 }
 
 #weektext {
@@ -187,7 +187,7 @@
 	text-align: center;
 	display: block;
 	align-items: center;
-	color: black;
+	color: white;
 }
 
 #searchtext {
