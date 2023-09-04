@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.yamco.user.model.vo.Member_Search_VO;
 import com.yamco.user.model.vo.Member_VO;
+import com.yamco.user.model.vo.Member_meta_VO;
 
 @Repository
 public class Member_DAO {
@@ -27,6 +28,11 @@ public class Member_DAO {
 	// 회원 검색
 	public List<Member_VO> getMemberList(Member_Search_VO msvo) {
 		return sqlSessionTemplate.selectList("member.selectListBySearchVO", msvo);
+	}
+
+	// 명예의 전당 가져오기
+	public List<Member_meta_VO> getAwardList() {
+		return sqlSessionTemplate.selectList("member.selectAwardList");
 	}
 
 	// 닉네임 설정하기

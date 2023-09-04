@@ -3,11 +3,19 @@ package com.yamco.user.model.service;
 import java.util.List;
 import java.util.Map;
 
+import com.yamco.user.model.vo.U_recipe_VO;
 import com.yamco.user.model.vo.U_recipe_meta_VO;
 
 public interface U_recipe_Service {
 	// 검색결과 가져오기
 	public List<U_recipe_meta_VO> getSearch(Map<String, String> map);
+
+	// rcp_idx를 포함한 U_recipe_VO로 U_recipe_meta_VO 검색
+	public U_recipe_meta_VO getSelectOne(U_recipe_VO urvo);
+	
+	// rcp_idx로 U_recipe_meta_VO 검색
+	public U_recipe_meta_VO getSelectOne(String rcp_idx);
+
 	// 일주일 조회수 기준 상위 30개 가져오기
 	public List<U_recipe_meta_VO> getU_recipeRankListRecipe7Days();
 

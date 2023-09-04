@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,8 +10,6 @@
 <title>냠냠레시피</title>
 <link rel="icon" type="image/x-icon"
 	href="resources/images/icon_tomato.png">
-<link rel="stylesheet"
-	href="https://cdn.korzh.com/metroui/v4/css/metro-all.min.css">
 <link rel="stylesheet" href="resources/css/user/award.css?after">
 <style type="text/css">
 * {
@@ -52,10 +52,6 @@
 	height: 1500px;
 }
 </style>
-
-<script src="https://code.jquery.com/jquery-3.7.0.js"></script>
-<script src="https://cdn.korzh.com/metroui/v4/js/metro.min.js"></script>
-<script src="resources/js/user/award.js"></script>
 </head>
 <body>
 	<div id="mydiv">
@@ -65,137 +61,197 @@
 				<jsp:include page="../../recentlist.jsp" />
 			</aside>
 			<div id="content">
-				<div class="scene">
-					<div class="carousel">
-						<div class="item">
-							<div>
-								<div class="prize_title">
-									<p>7월의 최우수상</p>
-								</div>
-								<div class="prize_content">
-									<div class="prize_profile">
-										<div class="profile_photo">
-											<a href="/"><img
-												src="resources/images/test_lhj/free-icon-profile-1361913.png"></a>
+				<c:if test="${not empty awardList}">
+					<div class="scene">
+						<div class="carousel">
+							<c:choose>
+								<c:when test="${not empty awardList[1]}">
+									<div class="item">
+										<div>
+											<div class="prize_title">
+												<p>최우수상</p>
+											</div>
+											<div class="prize_content">
+												<div class="prize_profile">
+													<div class="profile_photo">
+														<img src="${awardList[1].m_image}"
+															alt="${awardList[1].m_image}">
+													</div>
+													<div class="profile_nickname">
+														<span>${awardList[1].m_nick}</span>
+													</div>
+												</div>
+												<div class="prize_recipe">
+													<c:choose>
+														<c:when test="${not empty recipeMap['1']}">
+															<div class="prize_recipe_title">
+																<a
+																	href="/public_recipe_detail.go?rcp_idx=${recipeMap['1'].rcp_idx}"><p>${recipeMap['1'].u_rcp_title}</p></a>
+															</div>
+															<div class="prize_recipe_photo">
+																<a
+																	href="/public_recipe_detail.go?rcp_idx=${recipeMap['1'].rcp_idx}"><img
+																	src="${recipeMap['1'].u_rcp_img}"
+																	alt="${recipeMap['1'].u_rcp_img}"></a>
+															</div>
+															<div class="prize_recipe_content">
+																<a
+																	href="/public_recipe_detail.go?rcp_idx=${recipeMap['1'].rcp_idx}"><p>${recipeMap['1'].u_rcp_comment }</p></a>
+															</div>
+														</c:when>
+														<c:otherwise>
+															<div class="prize_recipe_title">
+																<%-- 요리 정보가 없는 경우 --%>
+																<h2>대표 레시피 없음</h2>
+															</div>
+														</c:otherwise>
+													</c:choose>
+												</div>
+											</div>
 										</div>
-										<div class="profile_nickname">
-											<a href="/"><span>냠냠이2</span></a>
+										<p>최우수상</p>
+									</div>
+								</c:when>
+								<c:otherwise>
+									<div class="item" style="display: none;"></div>
+								</c:otherwise>
+							</c:choose>
+							<div class="item">
+								<div>
+									<div class="prize_title">
+										<p>대상</p>
+									</div>
+									<div class="prize_content">
+										<div class="prize_profile">
+											<div class="profile_photo">
+												<img src="${awardList[0].m_image}"
+													alt="${awardList[0].m_image}">
+											</div>
+											<div class="profile_nickname">
+												<span>${awardList[0].m_nick}</span>
+											</div>
+										</div>
+										<div class="prize_recipe">
+											<c:choose>
+												<c:when test="${not empty recipeMap['0']}">
+													<div class="prize_recipe_title">
+														<a
+															href="/public_recipe_detail.go?rcp_idx=${recipeMap['0'].rcp_idx}"><p>${recipeMap['0'].u_rcp_title}</p></a>
+													</div>
+													<div class="prize_recipe_photo">
+														<a
+															href="/public_recipe_detail.go?rcp_idx=${recipeMap['0'].rcp_idx}"><img
+															src="${recipeMap['0'].u_rcp_img}"
+															alt="${recipeMap['0'].u_rcp_img}"></a>
+													</div>
+													<div class="prize_recipe_content">
+														<a
+															href="/public_recipe_detail.go?rcp_idx=${recipeMap['0'].rcp_idx}"><p>${recipeMap['0'].u_rcp_comment }</p></a>
+													</div>
+												</c:when>
+												<c:otherwise>
+													<div class="prize_recipe_title">
+														<%-- 요리 정보가 없는 경우 --%>
+														<h2>대표 요리 정보 없음</h2>
+													</div>
+												</c:otherwise>
+											</c:choose>
 										</div>
 									</div>
-									<div class="prize_recipe">
-										<div class="prize_recipe_title">
-											<a href="/"><p>새우두부계란찜2</p></a>
-										</div>
-										<div class="prize_recipe_photo">
-											<a href="/"><img
-												src="resources/images/test_lhj/steamed_shrimp_tofu_and_eggs.jpg"></a>
-										</div>
-										<div class="prize_recipe_content">
-											<a href="/"><p>
-													둘이 먹다가<br>하나가 죽어도</br>모를 요리
-												</p></a>
-										</div>
-									</div>
 								</div>
+								<p>대상</p>
 							</div>
-							<p>최우수상</p>
-						</div>
-						<div class="item">
-							<div>
-								<div class="prize_title">
-									<p>7월의 대상</p>
-								</div>
-								<div class="prize_content">
-									<div class="prize_profile">
-										<div class="profile_photo">
-											<a href="/"><img
-												src="resources/images/test_lhj/free-icon-profile-1361913.png"></a>
-										</div>
-										<div class="profile_nickname">
-											<a href="/"><span>냠냠이1</span></a>
-										</div>
-									</div>
-									<div class="prize_recipe">
-										<div class="prize_recipe_title">
-											<a href="/"><p>새우두부계란찜1</p></a>
-										</div>
-										<div class="prize_recipe_photo">
-											<a href="/"><img
-												src="resources/images/test_lhj/steamed_shrimp_tofu_and_eggs.jpg"></a>
-										</div>
-										<div class="prize_recipe_content">
-											<a href="/"><p>
-													남녀노소 누구나<br>부담없이 먹을 수 있는</br>최고의 요리
-												</p></a>
-										</div>
-									</div>
-								</div>
-							</div>
-							<p>대상</p>
-						</div>
-						<div class="item">
-							<div>
-								<div class="prize_title">
-									<p>7월의 우수상</p>
-								</div>
-								<div class="prize_content">
-									<div class="prize_profile">
-										<div class="profile_photo">
-											<a href="/"><img
-												src="resources/images/test_lhj/free-icon-profile-1361913.png"></a>
-										</div>
-										<div class="profile_nickname">
-											<a href="/"><span>냠냠이3</span></a>
-										</div>
-									</div>
-									<div class="prize_recipe">
-										<div class="prize_recipe_title">
-											<a href="/"><p>새우두부계란찜3</p></a>
-										</div>
-										<div class="prize_recipe_photo">
-											<a href="/"><img
-												src="resources/images/test_lhj/steamed_shrimp_tofu_and_eggs.jpg"></a>
-										</div>
-										<div class="prize_recipe_content">
-											<a href="/"><p>
-													그 누구도<br>맛보지 못 했던</br>새로운 맛의 개척
-												</p></a>
-										</div>
-									</div>
-								</div>
-							</div>
-							<p>우수상</p>
-						</div>
-						<div>명예의 전당</div>
-					</div>
-				</div>
 
-				<table class="lank_table">
-					<thead>
-						<tr>
-							<th>순위</th>
-							<th>닉네임</th>
-							<th>대표레시피</th>
-							<th>카테고리</th>
-							<th>평점</th>
-						</tr>
-					</thead>
-					<tbody>
-						<c:forEach begin="1" end="10" step="1" var="k" varStatus="vs">
+							<c:choose>
+								<c:when test="${not empty awardList[2]}">
+									<div class="item">
+										<div>
+											<div class="prize_title">
+												<p>우수상</p>
+											</div>
+											<div class="prize_content">
+												<div class="prize_profile">
+													<div class="profile_photo">
+														<img src="${awardList[2].m_image}"
+															alt="${awardList[2].m_image}">
+													</div>
+													<div class="profile_nickname">
+														<span>${awardList[2].m_nick}</span>
+													</div>
+												</div>
+												<div class="prize_recipe">
+													<c:choose>
+														<c:when test="${not empty recipeMap['2']}">
+															<div class="prize_recipe_title">
+																<a
+																	href="/public_recipe_detail.go?rcp_idx=${recipeMap['2'].rcp_idx}"><p>${recipeMap['2'].u_rcp_title}</p></a>
+															</div>
+															<div class="prize_recipe_photo">
+																<a
+																	href="/public_recipe_detail.go?rcp_idx=${recipeMap['2'].rcp_idx}"><img
+																	src="${recipeMap['2'].u_rcp_img}"
+																	alt="${recipeMap['2'].u_rcp_img}"></a>
+															</div>
+															<div class="prize_recipe_content">
+																<a
+																	href="/public_recipe_detail.go?rcp_idx=${recipeMap['2'].rcp_idx}"><p>${recipeMap['2'].u_rcp_comment }</p></a>
+															</div>
+														</c:when>
+														<c:otherwise>
+															<div class="prize_recipe_title">
+																<%-- 요리 정보가 없는 경우 --%>
+																<h2>대표 요리 정보 없음</h2>
+															</div>
+														</c:otherwise>
+													</c:choose>
+												</div>
+											</div>
+										</div>
+										<p>우수상</p>
+									</div>
+								</c:when>
+								<c:otherwise>
+									<div class="item" style="display: none;"></div>
+								</c:otherwise>
+							</c:choose>
+							<div>명예의 전당</div>
+						</div>
+					</div>
+
+					<table class="lank_table">
+						<thead>
 							<tr>
-								<td>${k }</td>
-								<td><a href="/">냠냠이${k }</a></td>
-								<td><a href="/">새우두부계란찜${k }</a></td>
-								<td>한식</td>
-								<td><input data-role="rating" data-value="3"
-									data-star-color="yellow" data-stared-color="tomato"></td>
+								<th>순위</th>
+								<th>닉네임</th>
+								<th>대표레시피</th>
+								<th>카테고리</th>
+								<th>평점</th>
 							</tr>
-						</c:forEach>
-					</tbody>
-				</table>
-				<div class="row_append">
-					<h2>+</h2>
-				</div>
+						</thead>
+						<tbody>
+							<c:forEach items="${awardList}" varStatus="vs">
+								<tr class="lank_table_row">
+									<td>${vs.count}</td>
+									<td>${awardList[vs.index].m_nick }</td>
+									<c:choose>
+										<c:when test="${not empty recipeMap[vs.index.toString()]}">
+											<td><a
+												href="/public_recipe_detail.go?rcp_idx=${recipeMap[vs.index.toString()].rcp_idx}">${recipeMap[vs.index.toString()].u_rcp_title}</a></td>
+											<td>${recipeMap[vs.index.toString()].u_rcp_category}</td>
+											<td>${recipeMap[vs.index.toString()].avg_grade}</td>
+										</c:when>
+										<c:otherwise>
+											<td colspan="3">대표 레시피 없음</td>
+										</c:otherwise>
+									</c:choose>
+								</tr>
+							</c:forEach>
+						</tbody>
+					</table>
+					<div class="row_append">
+						<h2>+</h2>
+					</div>
+				</c:if>
 			</div>
 			<aside id="sidebar-right">
 				<jsp:include page="../../bestlist.jsp" />
@@ -203,7 +259,10 @@
 		</div>
 		<div id="footer"><jsp:include page="../../footer.jsp" /></div>
 	</div>
-<script src="http://code.jquery.com/jquery-latest.min.js"></script>
-<script src="resources/js/user/sidebar.js"></script>
+	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+	<script src="resources/js/user/sidebar.js"></script>
+
+	<script src="resources/js/user/award/award.js?after"></script>
+	<script src="resources/js/user/award/award_table.js?after"></script>
 </body>
 </html>
