@@ -1,5 +1,8 @@
 package com.yamco.common;
 
+import java.util.Date;
+import java.util.UUID;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -112,13 +115,18 @@ public class PublicLoginController {
 		return null;
 	}
 	// TODO 채림 자체회원 로그인 작업 끗	
-	// TODO 채림 비밀번호 변경 작업 시작
+	// TODO 채림 비밀번호 찾기 비밀번호 변경 작업 시작
 	@RequestMapping("/member_findPw.do")
 	public ModelAndView getFindPw(Member_VO mvo) {
-		ModelAndView mv = new ModelAndView("login/new_pw");
+		ModelAndView mv = new ModelAndView("redirect:/email_send.do");
 		Member_VO m_vo = member_Service.getMemberLogin(mvo);
+		UUID uuid = UUID.randomUUID();
+		String t_name = uuid.toString();
+		m_vo.setM_token(t_name);
+		member_Service.setMakeToken(m_vo);
 		mv.addObject("mvo", m_vo);
 		System.out.println(m_vo.getM_id() + "1");
+		
 		return mv;
 	}
 	
@@ -137,6 +145,8 @@ public class PublicLoginController {
 			System.out.println("제");
 			member_Service.getFailCountUp(m_vo);
 			System.out.println("발");
+			member_Service.getTokenDelete(m_vo);
+			System.out.println("~!");
 			return mv;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -144,5 +154,5 @@ public class PublicLoginController {
 		}
 		return null;
 	}
-	// TODO 채림 비밀번호 변경 작업 끗		
+	// TODO 채림 비밀번호 찾기 비밀번호 변경 작업 끗		
 }

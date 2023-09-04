@@ -127,7 +127,6 @@ public class Member_ServiceImpl implements Member_Service {
 	// 비밀번호 변경
 	@Override
 	public int getChangePw(Member_VO mvo) {
-		System.out.println("1");
 		return member_DAO.getChangePw(mvo);
 	}
 	// idx로 멤버정보 가져오기
@@ -144,5 +143,23 @@ public class Member_ServiceImpl implements Member_Service {
 	@Override
 	public int leaveMember(Member_VO mvo) {
 		return member_DAO.leaveMember(mvo);
+	}
+	
+	// 토큰, 날짜 생성
+	@Override
+	public int setMakeToken(Member_VO mvo) {
+		return member_DAO.setMakeToken(mvo);
+	}
+
+	// 비밀번호 변경 대상 사용자 검색
+	@Override
+	public Member_VO getEmailId(Member_VO mvo) {
+		return member_DAO.getEmailId(mvo);
+	}
+
+	// 비밀번호 변경 후 토큰 삭제
+	@Override
+	public int getTokenDelete(Member_VO mvo) {
+		return member_DAO.getTokenDelete(mvo);
 	}
 }

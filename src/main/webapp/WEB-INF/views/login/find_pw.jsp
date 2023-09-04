@@ -88,7 +88,7 @@
 	});
 	
 		function find_pw(f) {
-			f.action = "/email_send.do";
+			f.action = "/member_findPw.do";
 			f.submit();
 		}
 	</script>

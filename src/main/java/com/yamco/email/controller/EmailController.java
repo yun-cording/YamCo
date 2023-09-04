@@ -1,6 +1,7 @@
 package com.yamco.email.controller;
 
-import java.util.Random;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -8,36 +9,27 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.yamco.email.service.EmailService;
+import com.yamco.user.model.service.Member_Service;
+import com.yamco.user.model.vo.Member_VO;
 
 @Controller
 public class EmailController {
 	@Autowired
 	private EmailService mailService;
+		
+	@Autowired
+	private Member_Service member_Service;
 	
 	@RequestMapping("/email_send.do")
-	public ModelAndView sendMail() {
+	public ModelAndView sendMail(Member_VO mvo) {
 		try {
 			ModelAndView mv = new ModelAndView("redirect:/");
-			// 임시번호 만들기
-						Random random = new Random();
-			            String order_no = String.valueOf(random.nextInt(1000000) % 1000000);
-			            if(order_no.length() < 6) {
-			                int substract = 6 - order_no.length();
-			                StringBuffer sb = new StringBuffer();
-
-			                for(int i=0; i<substract; i++) {
-			                    sb.append("0");
-			                }
-			                
-			                sb.append(order_no);
-			                order_no = sb.toString();
-			            }
-			            
-			            // 임시번호 db에 저장해서 사용
-			            
-			            // 
-			            mailService.sendEmail(order_no, "pcl8205@naver.com");
-			            return mv;
+			Member_VO m_vo = member_Service.getEmailId(mvo);
+			System.out.println("받은 id : " + m_vo.getM_id());
+			System.out.println("null일걸? : " + mvo.getM_id());			
+			
+		    mailService.sendEmail(m_vo, "lCT@YamYamrecipe.com");
+			return mv;
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
