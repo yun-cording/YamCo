@@ -279,5 +279,28 @@ public class User_Controller2 {
 		return mv;
 	}
 	
+	@RequestMapping("/changeMyPw.go")
+	public ModelAndView changeMyPwGo() {
+		return new ModelAndView("/mypage/changeMypw");
+	}
+	
+	@RequestMapping("/changeMyPw.do")
+	public ModelAndView changeMyPwDo(String m_pw, HttpSession session ) {
+		ModelAndView mv= new ModelAndView("/login/login");
+		String m_idx = (String)session.getAttribute("m_idx");
+		Member_VO mvo = member_Service.getMemberOne(m_idx);
+		mvo.setM_pw(m_pw);
+		// 채림이가 만든 mapper로 mvo 보내기
+		
+		
+		session.removeAttribute("loginChk");
+		session.removeAttribute("m_nick");
+		session.removeAttribute("m_idx");
+		session.removeAttribute("m_image");
+		String alert="<script>alert('비밀번호 변경이 완료되었습니다. 다시 로그인 해주세요')</script>";
+		mv.addObject("alert",alert);
+		return mv;
+	}
+	
 	
 }

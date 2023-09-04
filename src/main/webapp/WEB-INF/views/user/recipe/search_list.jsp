@@ -110,6 +110,7 @@
 						$("#u_order_grade").attr("class","col-1 tab-on")
 					}
 					$(".u_recipe_one").slice(0,idx).show();
+					
 					$("#btn_append").on("click", function() {
 		                $(".u_recipe_one:hidden").slice(0, idx).show();
 		                if ($(".u_recipe_one:hidden").length === 0) {
