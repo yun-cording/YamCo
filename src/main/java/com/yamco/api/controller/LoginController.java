@@ -113,17 +113,29 @@ public class LoginController {
 					// DB다녀와서 고유id 있는지 체크하기
 					Member_VO m_vo2 = api_Service.getIdChk(id);
 					if(m_vo2!=null) {
-						if (m_vo2.getM_nick() !=null) {
-							// 닉네임 널이 아니라면
+						if(m_vo2.getM_status().equals("3")) {
+							String alert="탈퇴한 회원입니다.";
+							mv.addObject("alert", alert);
+							mv.setViewName("login/login");
+							return mv;
+						}else if(m_vo2.getM_status().equals("4")){
+							String alert="블락된 회원입니다. 게시물, 댓글 작성이 제한됩니다.";
+							mv.addObject("alert", alert);
 							mv.setViewName("main");
-							session.setAttribute("loginChk", true);
-							session.setAttribute("m_nick", nickname);
-							session.setAttribute("m_idx", m_vo2.getM_idx());
-							session.setAttribute("m_image", m_vo2.getM_image());
-						} else {
-							mv.setViewName("/login/social_join"); // 닉네임받는곳
-							mv.addObject("m_id",id); // 소셜로그인 고유id
-							mv.addObject("m_nick",nickname); // 소셜로그인내부 nick네임
+							return mv;
+						}else {
+							if (m_vo2.getM_nick() !=null) {
+								// 닉네임 널이 아니라면
+								mv.setViewName("main");
+								session.setAttribute("loginChk", true);
+								session.setAttribute("m_nick", nickname);
+								session.setAttribute("m_idx", m_vo2.getM_idx());
+								session.setAttribute("m_image", m_vo2.getM_image());
+							} else {
+								mv.setViewName("/login/social_join"); // 닉네임받는곳
+								mv.addObject("m_id",id); // 소셜로그인 고유id
+								mv.addObject("m_nick",nickname); // 소셜로그인내부 nick네임
+							}
 						}
 					}else {
 						// 없으면 DB에 닉네임 null로 저장후 닉네임 받으러
@@ -200,7 +212,6 @@ public class LoginController {
 				JSONObject json = (JSONObject) pars.parse(result.toString());
 
 				String access_token = (String) json.get("access_token");
-				String refresh_token = (String) json.get("refresh_token");
 
 				// 3. 사용자 정보 요청
 				String apiURL = "https://kapi.kakao.com/v2/user/me";
@@ -243,11 +254,11 @@ public class LoginController {
 
 					JSONObject kakao_account = (JSONObject) json.get("kakao_account");
 					// 3) DB보냄 성별 male은 M으로 저장 fmale 은 F로 저장
-					String gen = "" ;
+					String gen = "";
 					if (kakao_account.get("gender") != null) {
 						gen = kakao_account.get("gender").toString();
 					}
-					String gender = "";
+					String gender = null;
 					// 성별 if문
 					if (gen.equals("male")) {
 						gender = "M";
@@ -256,7 +267,7 @@ public class LoginController {
 					}
 
 					// 4) DB보냄 생일
-					String birthday = "" ;
+					String birthday = null ;
 					if (kakao_account.get("birthday") != null) {
 						birthday = kakao_account.get("birthday").toString();
 					}

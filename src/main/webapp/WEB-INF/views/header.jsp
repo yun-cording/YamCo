@@ -123,7 +123,7 @@
   border-bottom-left-radius: 25px;
   margin-top: 50px;
   float: right;
-  color: #FFFFFF; !important;
+  color: #FFFFFF !important;
   font-size: 12px;
   font-weight: bold;
   position: relative;
@@ -139,7 +139,7 @@
 }
 .login_text{
   float: left;
-   color: #FFFFFF; !important;
+  color: #FFFFFF !important;
   line-height: 50px;
   margin-left: 20%;
   
