@@ -285,6 +285,9 @@ ol.paging li a:hover {
 	display: block; 
 	margin: auto;
 }
+button:hover {
+	cursor:pointer; 
+}
 </style>
 </head>
 <body>
@@ -312,8 +315,8 @@ ol.paging li a:hover {
 				<img class="search_icon2" src="/resources/images/search_icon_white.png">
 			</div>
 			<div class="kindOf">
-				<button id="see">조회순</button>
-				<button id="star">평점순</button>
+				<button type="button" id="see" onclick=" wish_sort_hit_go()" style="background-color: tomato; color: white;">조회순</button>
+				<button type="button" id="star" onclick="wish_sort_grade_go()">평점순</button>
 			</div>
 		</div>
 		<div class="flexContainer">
@@ -337,7 +340,6 @@ ol.paging li a:hover {
 				</div>
 			</c:forEach>
 		</div>
-		<h2>크기 : ${wishList.size() }</h2>
 		<c:if test="${wishList.size()>2 }">
 			<div class="d-flex justify-content-center my-5">
 				<button type="button" class="btn btn-lg text-white"
@@ -356,6 +358,13 @@ ol.paging li a:hover {
 $(function () {
 	var idx = 2;
 	var order = '${order}';
+	if(order==1){
+		$("#see").css("background-color","white")
+		$("#see").css("color","black")
+		
+		$("#star").css("background-color","tomato")
+		$("#star").css("color","white")
+	}
 	$(".recipe_one").slice(0,idx).show();
 	if(order==1){
 		$("#u_order_hit").attr("class","col-1 tab-off")
