@@ -1,8 +1,9 @@
 package com.yamco.user.model.vo;
 
-public class Comment_VO {
+public class Comment_meta_VO {
 	private String c_idx, m_idx, m_nick, c_contents, c_img, c_grade, rcp_idx, c_status, c_time,
 			c_blind, c_like;
+	private String u_rcp_title;
 
 	public String getC_idx() {
 		return c_idx;
@@ -90,5 +91,13 @@ public class Comment_VO {
 
 	public void setC_like(String c_like) {
 		this.c_like = c_like;
+	}
+
+	public String getU_rcp_title() {
+		return u_rcp_title;
+	}
+
+	public void setU_rcp_title(String u_rcp_title) {
+		this.u_rcp_title = u_rcp_title;
 	}
 }
