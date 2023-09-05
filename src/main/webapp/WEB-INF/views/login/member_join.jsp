@@ -6,8 +6,6 @@
 <meta charset="UTF-8">
 <title>login</title>
 <link rel="stylesheet" href="resources/css/login/member_join.css?after" />
- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 <script type="text/javascript">
 var status1 = 0;
 var status2 = 0;
@@ -16,39 +14,17 @@ var status4 = 0;
 var status5 = 0;
 var status6 = 0;
 
-var modal1 = $("#modal1");
-var modal2 = $("#modal2");
-
-$(function(){
-	$("#modal1").click(function() {
-		var chkbox = $(this).is(":checked");
-	if(chkbox){ 
-		$("#modal1").css("background-color", "white");
-		status5 = 1;	
-		log();
-	}
-  	});
-  });
-
-$(function(){
-	$("#modal2").click(function() {
-		var chkbox = $(this).is(":checked");
-	if(chkbox){ 
-		$("#modal2").css("background-color", "white");
-		status6 = 1;
-		log();
-	}
-  	});
-  });
-
-
+function memberinfochk() {
+	alert("개인 회원 약관에 동의");
+	status5 = 1;
+}
  function log() {
- 	console.log("아이디 : " + status1);
- 	console.log("비번 : " + status2);
- 	console.log("폰 : " + status3);
-	console.log("생일 : " + status4);
- 	console.log("약관1 : " + status5);
- 	console.log("약관2 : " + status6);
+// 	console.log("아이디 : " + status1);
+// 	console.log("비번 : " + status2);
+// 	console.log("폰 : " + status3);
+// 	console.log("생일 : " + status4);
+// 	console.log("약관1 : " + status5);
+// 	console.log("약관2 : " + status6);
 	if(status1==1 && status2==1 && status3==1 && status4==1 && status5==1 && status6==1){
 		document.getElementById('join_chk').disabled=false;
 		document.getElementById('join_chk').style.backgroundColor="tomato";
@@ -59,7 +35,8 @@ $(function(){
 }
 
 function memberinfoagree() {
-	
+	alert("개인정보 수집 및 이용 동의");
+	status6 = 1;	
 	if(status1==1 && status2==1 && status3==1 && status4==1 && status5==1 && status6==1){
 		log();
 		document.getElementById('join_chk').style.backgroundColor="tomato";
@@ -229,7 +206,7 @@ function birthChk_go() {
 	<span id="pwDouble"></span>
 	</div>
 	<div class="chk">
-	<input type="text" placeholder="휴대폰 " class="textfiled" name="m_phone" id="m_phone" style="background-color: white;" oninput="phoneChk_go()">
+	<input type="text" placeholder="휴대폰 " class="textfiled" name="m_phone" id="m_phone" oninput="phoneChk_go()">
 	<div class="idline"></div>
 	<span id="phoneChk"></span>
 	</div>
@@ -242,13 +219,13 @@ function birthChk_go() {
 	<span id="birthChk"></span>
 	</div>
 	
-	<div class="textchk" style=" margin-top: 12px;">
+	<div class="textchk">
 	<p style="width: 600px;"><span style="color:tomato;">(필수)</span >개인 회원 약관에 동의</p>
-	<%@ include file="terms01.jsp" %>
+	<input type="checkbox" value="" name="" id="chkbox" onclick="memberinfochk()">
 	</div>
-	<div class="textchk" style="margin-top: 12px;">
-	<span style="width: 600px;"><span style="color:tomato;">(필수)</span>개인 정보 수집 및 이용 동의</span>
-	<%@ include file="terms02.jsp" %>
+	<div class="textchk">
+	<span style="width: 600px; margin-top: 12px;"><span style="color:tomato;">(필수)</span>개인 정보 수집 및 이용 동의</span>
+	<input type="checkbox" value="" name="" id="chkbox2" onclick="memberinfoagree()">
 	</div>
 	
 	<div style="text-align:center; margin-top:30px;">
@@ -258,6 +235,5 @@ function birthChk_go() {
 	</div>
 	</div>
 	</form>
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

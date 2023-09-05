@@ -288,10 +288,6 @@ ol.paging li a:hover {
 button:hover {
 	cursor:pointer; 
 }
-
-#append_field{
-	text-align: center;
-}
 </style>
 </head>
 <body>
@@ -345,18 +341,18 @@ button:hover {
 			</c:forEach>
 		</div>
 		<c:if test="${wishList.size()>2 }">
-			<div class="d-flex justify-content-center my-5" id="append_field">
+			<div class="d-flex justify-content-center my-5">
 				<button type="button" class="btn btn-lg text-white"
-				 style="background-color: tomato; color: white;" id="btn_append">더보기
+				 style="background-color: tomato" id="btn_append">더보기
 				 </button>
 			</div>
 		</c:if>
 	</div>
+</div>
 	<aside id="sidebar-right">
 		<jsp:include page="../bestlist.jsp" />
 	</aside>
 <div id="footer"><jsp:include page="../footer.jsp" /></div>
-</div>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>		
 <script type="text/javascript">
 $(function () {
