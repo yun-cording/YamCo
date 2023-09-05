@@ -49,5 +49,6 @@ public class U_recipe_ServiceImpl implements U_recipe_Service {
 	public int getHitUp(String rcp_idx, String m_idx) {
 		return u_recipe_DAO.getHitUp(rcp_idx, m_idx);
 	}
+	
 
 }

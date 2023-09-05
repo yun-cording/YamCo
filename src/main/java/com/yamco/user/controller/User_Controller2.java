@@ -1,6 +1,11 @@
 package com.yamco.user.controller;
 
 import java.io.File;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -21,6 +26,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.yamco.api.model.service.P_recipe_Service;
+import com.yamco.api.model.vo.P_recipe_VO;
 import com.yamco.user.model.service.Images_Service;
 import com.yamco.user.model.service.Member_Service;
 import com.yamco.user.model.service.RandomService;
@@ -40,7 +48,7 @@ public class User_Controller2 {
 	@Autowired
 	private RandomService randomService;
 	@Autowired
-	private Images_Service images_Service ;
+	private Images_Service images_Service;
 
 	@Autowired
 	private U_recipe_Service u_recipe_Service;
@@ -51,13 +59,14 @@ public class User_Controller2 {
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
 	@Autowired
+	private P_recipe_Service p_recipe_Service;
+	@Autowired
 	private User_Service user_Service;
-	
 
 	@RequestMapping("/main.go")
 	public ModelAndView homeGo(HttpSession session) {
 		ModelAndView mv = new ModelAndView("/main");
-		
+
 		// TODO 재훈 메인 시작
 		// TODO 재훈 랜덤 재료(자정 초기화) 시작
 		Random_save_VO saveVO = randomService.getSelectedFile();
@@ -65,7 +74,7 @@ public class User_Controller2 {
 		// TODO 재훈 랜덤 재료(자정 초기화) 끝
 		// TODO 재훈 공지,광고 가져오기 시작
 		List<Notice_VO> nvo = images_Service.getNoticeList();
-		
+
 		// TODO 재훈 공지,광고 가져오기 끝
 		// TODO 재훈 메인 끝
 
@@ -123,7 +132,7 @@ public class User_Controller2 {
 				U_recipe_meta_VO meta = u_recipe_Service.getSelectOne(rcp_idx);
 				recipeMap.put(count.toString(), u_recipe_Service.getSelectOne(rcp_idx));
 			}
-			
+
 			count++;
 		}
 
@@ -202,8 +211,73 @@ public class User_Controller2 {
 	}
 
 	@RequestMapping("/mywishlist.go")
-	public ModelAndView myWishListGo() {
+	public ModelAndView myWishListGo(HttpSession session, @ModelAttribute("order") String order) {
 		ModelAndView mv = new ModelAndView("/mypage/myWishList");
+		String m_idx = (String) session.getAttribute("m_idx");
+		List<String> wishList_idx = member_Service.getMyWishList(m_idx); // 찜목록 rcp_idx
+		List<U_recipe_meta_VO> wishList_meta = new ArrayList<U_recipe_meta_VO>();
+		for (String k : wishList_idx) {
+			U_recipe_meta_VO meta_vo = u_recipe_Service.getSelectOne(k);
+			if (meta_vo != null) {
+				wishList_meta.add(meta_vo);
+			}
+			// TODO 공공데이터 시작
+			List<JsonNode> rowList = p_recipe_Service.go_public_list();
+			List<P_recipe_VO> prvo = p_recipe_Service.article_summary();
+			for (int i = 0; i < rowList.size(); i++) {
+				P_recipe_VO vo = new P_recipe_VO();
+				JsonNode k2 = rowList.get(i);
+				vo = prvo.get(i);
+
+				if (vo.getAvg_c_grade() != null) {
+					BigDecimal avgCGrade = new BigDecimal(vo.getAvg_c_grade()).setScale(1, RoundingMode.HALF_UP);
+					vo.setAvg_c_grade(avgCGrade.toString());
+				}
+				String rcpSeq = k2.get("RCP_SEQ").asText();
+				String attFileNoMain = k2.get("ATT_FILE_NO_MAIN").asText();
+				String rcpNm = k2.get("RCP_NM").asText();
+				if (k.equals(rcpSeq)) {
+					U_recipe_meta_VO pvo = new U_recipe_meta_VO();
+					pvo.setRcp_idx(rcpSeq);
+					pvo.setU_rcp_img(attFileNoMain);
+					if (vo.getAvg_c_grade() == null) {
+						pvo.setAvg_grade("0");
+					} else {
+						pvo.setAvg_grade(vo.getAvg_c_grade());
+					}
+					if (vo.getP_rcp_hit() == null) {
+						pvo.setU_rcp_hit("0");
+					} else {
+						pvo.setU_rcp_hit(vo.getP_rcp_hit());
+					}
+					pvo.setU_rcp_title(rcpNm);
+					pvo.setC_count(vo.getTotal_comments());
+					wishList_meta.add(pvo);
+					// TODO 공공데이터 끝
+				}
+			}
+		}
+		if (order.equals("0") || order.isBlank()) { // 조회순
+			Collections.sort(wishList_meta, new Comparator<U_recipe_meta_VO>() {
+				@Override
+				public int compare(U_recipe_meta_VO vo1, U_recipe_meta_VO vo2) {
+					int hit1 = Integer.parseInt(vo1.getU_rcp_hit());
+					int hit2 = Integer.parseInt(vo2.getU_rcp_hit());
+					return Integer.compare(hit2, hit1);
+				}
+			});
+		} else if (order.equals("1")) { // 평점순
+			Collections.sort(wishList_meta, new Comparator<U_recipe_meta_VO>() {
+				@Override
+				public int compare(U_recipe_meta_VO vo1, U_recipe_meta_VO vo2) {
+					double avgGrade1 = Double.parseDouble(vo1.getAvg_grade());
+					double avgGrade2 = Double.parseDouble(vo2.getAvg_grade());
+					return Double.compare(avgGrade2, avgGrade1);
+				}
+			});
+		}
+		mv.addObject("wishList", wishList_meta);
+
 		return mv;
 	}
 
@@ -246,11 +320,76 @@ public class User_Controller2 {
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("search", search_text);
 		map.put("order", order);
-		
+
 		String m_idx = (String) session.getAttribute("m_idx");
-		
-		List<U_recipe_meta_VO> search_list = u_recipe_Service.getSearch(map, m_idx);
+
+		List<U_recipe_meta_VO> search_list = u_recipe_Service.getSearch(map, m_idx); // 유저레시피 검색결과
+		List<U_recipe_meta_VO> p_search_list = new ArrayList<U_recipe_meta_VO>();
 		mv.addObject("u_list", search_list);
+
+		// TODO 공공데이터 시작
+		List<JsonNode> rowList = p_recipe_Service.go_public_list();
+		List<P_recipe_VO> prvo = p_recipe_Service.article_summary();
+		int count = 0;
+		for (int i = 0; i < rowList.size(); i++) {
+			P_recipe_VO vo = new P_recipe_VO();
+			JsonNode k = rowList.get(i);
+			try {
+				vo = prvo.get(i);
+				if (vo.getAvg_c_grade() != null) {
+					BigDecimal avgCGrade = new BigDecimal(vo.getAvg_c_grade()).setScale(1, RoundingMode.HALF_UP);
+					vo.setAvg_c_grade(avgCGrade.toString());
+				}
+			} catch (Exception e) {
+				count++;
+			}
+			String rcpSeq = k.get("RCP_SEQ").asText();
+			String attFileNoMain = k.get("ATT_FILE_NO_MAIN").asText();
+			String rcpNm = k.get("RCP_NM").asText();
+			if (k.get("RCP_PARTS_DTLS").asText().contains(search_text) || k.get("RCP_NM").asText().contains(search_text)
+					|| k.get("RCP_PAT2").asText().contains(search_text)
+					|| k.get("HASH_TAG").asText().contains(search_text)) { // 재료에
+																			// 검색어가
+																			// 포함될때
+				U_recipe_meta_VO pvo = new U_recipe_meta_VO();
+				pvo.setRcp_idx(rcpSeq);
+				pvo.setU_rcp_img(attFileNoMain);
+				if (vo.getAvg_c_grade() == null) {
+					pvo.setAvg_grade("0");
+				} else {
+					pvo.setAvg_grade(vo.getAvg_c_grade());
+				}
+				if (vo.getP_rcp_hit() == null) {
+					pvo.setU_rcp_hit("0");
+				} else {
+					pvo.setU_rcp_hit(vo.getP_rcp_hit());
+				}
+				pvo.setU_rcp_title(rcpNm);
+				pvo.setC_count(vo.getTotal_comments());
+				p_search_list.add(pvo);
+			}
+		}
+		if (order.equals("0") || order.isBlank()) { // 조회순
+			Collections.sort(p_search_list, new Comparator<U_recipe_meta_VO>() {
+				@Override
+				public int compare(U_recipe_meta_VO vo1, U_recipe_meta_VO vo2) {
+					int hit1 = Integer.parseInt(vo1.getU_rcp_hit());
+					int hit2 = Integer.parseInt(vo2.getU_rcp_hit());
+					return Integer.compare(hit2, hit1);
+				}
+			});
+		} else if (order.equals("1")) { // 평점순
+			Collections.sort(p_search_list, new Comparator<U_recipe_meta_VO>() {
+				@Override
+				public int compare(U_recipe_meta_VO vo1, U_recipe_meta_VO vo2) {
+					double avgGrade1 = Double.parseDouble(vo1.getAvg_grade());
+					double avgGrade2 = Double.parseDouble(vo2.getAvg_grade());
+					return Double.compare(avgGrade2, avgGrade1);
+				}
+			});
+		}
+		mv.addObject("p_list", p_search_list);
+		// TODO 공공데이터 끝
 		return mv;
 	}
 
@@ -280,7 +419,7 @@ public class User_Controller2 {
 			f_name = uuid.toString() + "_" + file.getOriginalFilename();
 			mvo.setM_image("resources/user_image/" + f_name);
 			session.setAttribute("m_image", mvo.getM_image());
-			System.out.println(mvo.getM_image());
+			session.setAttribute("m_nick", mvo.getM_nick());
 			try {
 				byte[] in = file.getBytes();
 				File out = new File(path, f_name);
@@ -352,46 +491,42 @@ public class User_Controller2 {
 
 		return mv;
 	}
-	
+
 	// TODO 상우 사용자 댓글작성
 	@RequestMapping("/comment_write.do")
 	public ModelAndView comment_write(@RequestParam(value = "rate", required = true) String rate,
-	        @RequestParam(value = "comment", required = true) String comment,
-	        @RequestParam(value = "image", required = false) MultipartFile image,
-	        HttpSession session, HttpServletRequest request) {
-		
-		
-		
+			@RequestParam(value = "comment", required = true) String comment,
+			@RequestParam(value = "image", required = false) MultipartFile image, HttpSession session,
+			HttpServletRequest request) {
+
 		try {
-		    String path = request.getSession().getServletContext().getRealPath("/resources/images/comment");
-		    MultipartFile file = image;
-		    if (file.isEmpty()) {
-		    	// 빈 경로
+			String path = request.getSession().getServletContext().getRealPath("/resources/images/comment");
+			MultipartFile file = image;
+			if (file.isEmpty()) {
+				// 빈 경로
 //		        bv.setF_name("");
-		    } else {
-		        // 같은 이름 없도록 UUID 사용
-		        UUID uuid = UUID.randomUUID();
-		        // 원본 파일명
-		        String originalFilename = image.getOriginalFilename();
-		        // 확장자 추출
-		        String fileExtension = originalFilename.substring(originalFilename.lastIndexOf("."));
-		        // UUID를 포함한 새로운 파일명 생성
-		        String f_name = uuid.toString() + fileExtension;
+			} else {
+				// 같은 이름 없도록 UUID 사용
+				UUID uuid = UUID.randomUUID();
+				// 원본 파일명
+				String originalFilename = image.getOriginalFilename();
+				// 확장자 추출
+				String fileExtension = originalFilename.substring(originalFilename.lastIndexOf("."));
+				// UUID를 포함한 새로운 파일명 생성
+				String f_name = uuid.toString() + fileExtension;
 //		        bv.setF_name(f_name);
 
-		        // 이미지 저장
-		        byte[] in = image.getBytes();
-		        File out = new File(path, f_name);
-		        FileCopyUtils.copy(in, out);
-		        System.out.println("이미지 저장 성공");
-		    }
+				// 이미지 저장
+				byte[] in = image.getBytes();
+				File out = new File(path, f_name);
+				FileCopyUtils.copy(in, out);
+				System.out.println("이미지 저장 성공");
+			}
 		} catch (Exception e) {
-		    e.printStackTrace();
-		    System.out.println("이미지 저장 실패");
+			e.printStackTrace();
+			System.out.println("이미지 저장 실패");
 		}
 
-		
-		
 //		 if (!image.isEmpty()) {
 //	            try {
 //	                // 업로드할 폴더 경로 설정
@@ -416,31 +551,51 @@ public class User_Controller2 {
 //	            // 이미지 파일이 비어있는 경우 처리
 //	        	
 //	        }
-	    
-	    
-		String m_idx = (String)session.getAttribute("m_idx");
-	    Member_VO mvo = member_Service.getMemberOne(m_idx);
-	    
-	    Comment_VO cvo = new Comment_VO();
-	    cvo.setM_nick(mvo.getM_nick());
-	    cvo.setC_contents(comment);
-	    cvo.setC_img("resources/images/comment/" + image.getOriginalFilename());
-	    cvo.setC_grade(rate);
-	    
-	    // 여기네 
-	    String s_rcp_idx = (String)session.getAttribute("rcp_idx");
-	    
-	    // System.out.println("자료형은 : " + session.getAttribute("rcp_idx").getClass().getName());
-	    
-	    // System.out.println(s_rcp_idx);
-	    cvo.setRcp_idx(String.valueOf(s_rcp_idx));
-	    
-	    
-	    
-	    int result = user_Service.comment_write(cvo);
-	    
+
+		String m_idx = (String) session.getAttribute("m_idx");
+		Member_VO mvo = member_Service.getMemberOne(m_idx);
+
+		Comment_VO cvo = new Comment_VO();
+		cvo.setM_nick(mvo.getM_nick());
+		cvo.setC_contents(comment);
+		cvo.setC_img("resources/images/comment/" + image.getOriginalFilename());
+		cvo.setC_grade(rate);
+
+		// 여기네
+		String s_rcp_idx = (String) session.getAttribute("rcp_idx");
+
+		// System.out.println("자료형은 : " +
+		// session.getAttribute("rcp_idx").getClass().getName());
+
+		// System.out.println(s_rcp_idx);
+		cvo.setRcp_idx(String.valueOf(s_rcp_idx));
+
+		int result = user_Service.comment_write(cvo);
+
 		return new ModelAndView("user/recipe/public_recipe_detail");
-		
+
 	}
+
 	// TODO 상우 사용자 댓글작성
+	@RequestMapping("/changeMyPw.go")
+	public ModelAndView changeMyPwGo() {
+		return new ModelAndView("/mypage/changeMypw");
+	}
+
+	@RequestMapping("/changeMyPw.do")
+	public ModelAndView changeMyPwDo(String m_pw, HttpSession session) {
+		ModelAndView mv = new ModelAndView("/login/login");
+		String m_idx = (String) session.getAttribute("m_idx");
+		Member_VO mvo = member_Service.getMemberOne(m_idx);
+		m_pw = passwordEncoder.encode(m_pw);
+		mvo.setM_pw(m_pw);
+		member_Service.getChangePw(mvo);
+		session.removeAttribute("loginChk");
+		session.removeAttribute("m_nick");
+		session.removeAttribute("m_idx");
+		session.removeAttribute("m_image");
+		String alert = "<script>alert('비밀번호 변경이 완료되었습니다. 다시 로그인 해주세요')</script>";
+		mv.addObject("alert", alert);
+		return mv;
+	}
 }

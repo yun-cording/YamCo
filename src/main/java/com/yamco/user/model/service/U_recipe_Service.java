@@ -24,4 +24,5 @@ public interface U_recipe_Service {
 
 	// 조회수 상승
 	public int getHitUp(String rcp_idx, String m_idx);
+	
 }

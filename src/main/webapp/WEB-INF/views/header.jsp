@@ -292,7 +292,7 @@ a{
             document.getElementById("login_text").style.display = "none"; // 로그인 글자를 숨기기
             document.getElementById("user_Id").textContent  = userId; // 유저 아이디 띄우기
             document.getElementById("user_Id").style.display = "block"; // 아이디 보이게 하기
-            document.getElementById("login_link").setAttribute("href", "#"); // 로그인 링크를 비활성화
+            document.getElementById("login_link").removeAttribute("href"); // 로그인 링크를 비활성화
             document.getElementById("user_thumbnail").src = userThumbnail; // 사용자의 썸네일을 적용
             // 레시피 작성도 평소엔 로그인 페이지로 이동하게 하고 로그인 되었다면 작성페이지로 이동하게 만들어주기
 

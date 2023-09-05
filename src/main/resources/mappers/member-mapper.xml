@@ -161,4 +161,10 @@
     <update id="tokenDelete" parameterType="mvo">
     	update member set m_token = null, m_t_time = null where m_id = #{m_id}
     </update>
+    
+    <!-- 찜목록 -->
+    <select id="wishList" parameterType="String" resultType="String">
+    	select rcp_idx from wish_list where m_idx = #{m_idx}
+    </select>
+    
 </mapper>
