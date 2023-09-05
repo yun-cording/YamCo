@@ -68,4 +68,19 @@ public class Member_DAO {
 	public int leaveMember(Member_VO mvo) {
 		return sqlSessionTemplate.update("member.leave", mvo);
 	}
+	
+	// 토큰, 날짜 생성
+	public int setMakeToken(Member_VO mvo) {
+		return sqlSessionTemplate.update("member.token", mvo);
+	}
+	
+	// 비밀번호 변경 대상 사용자 검색
+	public Member_VO getEmailId(Member_VO mvo) {
+		return sqlSessionTemplate.selectOne("member.emailId", mvo);
+	}
+	
+	// 비밀번호 변경 후 토큰 삭제
+	public int getTokenDelete(Member_VO mvo) {
+		return sqlSessionTemplate.update("member.tokenDelete", mvo);
+	}
 }

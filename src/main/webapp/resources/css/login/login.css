@@ -45,7 +45,7 @@
 	margin-top: 100px;
 }
 
-button :hover{
+.login_bt{
 	cursor: pointer !important;
 }
 
