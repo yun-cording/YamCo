@@ -301,7 +301,7 @@ color: #21730B;
 				<button class="plus view">더보기</button>
 			
 			<div class="flexbetween">
-				<c:forEach begin="1" end="4">
+				<c:forEach items="${userList }" var="k">
 				<div class="recipe_one">
 							<a href="/사용자레시피?rcp_seq=${k.rcp_idx}">
 							<p><img src="${k.u_rcp_img }" class="recipe_thumbnail"></p>
