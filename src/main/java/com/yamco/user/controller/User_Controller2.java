@@ -27,6 +27,7 @@ import com.yamco.user.model.service.User_log_Service;
 import com.yamco.user.model.vo.Member_VO;
 import com.yamco.user.model.vo.Random_VO;
 import com.yamco.user.model.vo.Random_save_VO;
+import com.yamco.user.model.vo.U_recipe_VO;
 import com.yamco.user.model.vo.Member_meta_VO;
 import com.yamco.user.model.vo.U_recipe_meta_VO;
 
@@ -161,12 +162,32 @@ public class User_Controller2 {
 		ModelAndView mv = new ModelAndView("/social_join");
 		return mv;
 	}
-
+	
+	// 성훈 레시피 작성 임시저장 처리
 	@RequestMapping("/user_recipe_write.go")
-	public ModelAndView userRecipeWriteGo() {
+	public ModelAndView userRecipeWriteGo(HttpSession session) {
 		ModelAndView mv = new ModelAndView("/user/recipe/user_recipe_write");
+		
 		return mv;
 	}
+	// 성훈 레시피 임시저장 레시피 확인
+	@RequestMapping("/limit_recipe_chk.do")
+	public Map<String, String> limit_recipe_writeChk(HttpSession session) {
+		Map<String , String> map = new HashMap<String, String>();
+		
+		String m_idx = (String) session.getAttribute("m_idx");
+			U_recipe_VO urvo = u_recipe_Service.getLimit_recipe(m_idx); // 임시저장 게시글의 수 조회
+			if(urvo.getM_idx() != null) { //임시 저장 게시글이 있을경우
+				System.out.println("임시 저장 게시글 제목: "+ urvo.getU_rcp_title());
+				map.put("rseult", "true");
+				return map;
+			}else {
+				map.put("result", "false");
+				return map;
+			}
+	}
+	
+	
 
 	@RequestMapping("/myinfo.go")
 	public ModelAndView myinfoGo(HttpSession session) {

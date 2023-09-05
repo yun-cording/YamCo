@@ -55,5 +55,11 @@ public class U_recipe_ServiceImpl implements U_recipe_Service {
 	public int getWrite(U_recipe_VO uvo) {
 		return u_recipe_DAO.getWrite(uvo);
 	}
+	
+	// 임시저장된 레시피 수 조회
+	@Override
+	public U_recipe_VO getLimit_recipe(String m_idx) {
+		return u_recipe_DAO.getLimit_recipe(m_idx);
+	}
 
 }

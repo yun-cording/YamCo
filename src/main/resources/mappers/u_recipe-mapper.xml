@@ -119,4 +119,9 @@
 	<if test="u_rcp_ctype != null">,#{u_rcp_ctype}</if>
 	, sysdate()	,#{u_rcp_img})
 	</insert>
+	
+	<!-- 임시 저장된 레시피 수 조회 -->
+	<select id="limit_recipe" parameterType="String" resultType="urvo">
+	select * from u_recipe where m_idx = #{m_idx} and u_rcp_status = 2;
+	</select>
 </mapper>

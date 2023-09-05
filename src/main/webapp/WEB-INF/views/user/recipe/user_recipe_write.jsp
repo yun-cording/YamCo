@@ -74,7 +74,7 @@ document.addEventListener("DOMContentLoaded", function() {
 				<jsp:include page="../../recentlist.jsp" />
 			</aside>
 			<!-- 내용들 담은 form태그 시작 -->
-			<form enctype="multipart/form-data" method="post" onsubmit="write_go(this)" >
+			<form enctype="multipart/form-data" method="post" onsubmit="return write_go(this)" >
 				<div id="content">
 					<!-- 레시피 제목 -->
 					<div class="left_margin" style="margin-top: 60px; float: left;">
@@ -167,7 +167,7 @@ document.addEventListener("DOMContentLoaded", function() {
 									style="color: #606060; float: left; margin-left: 60px; margin-top: -5px;">#</span>
 								<input type="text" class="input_tomato" id="hashtag"
 									name="u_rcp_keyword1" style="margin-left: 20px;"
-									placeholder="해시태그를 입력후 enter를 눌러주세요.">
+									placeholder="해시태그를 입력후 enter를 눌러주세요." required oninvalid="this.setCustomValidity('해시태그를 입력햊세요.')" oninput="this.setCustomValidity('')">
 							</div>
 						</div>
 
@@ -200,25 +200,9 @@ document.addEventListener("DOMContentLoaded", function() {
 								</div>
 							</div>
 						</div>
-<%-- <% 
-	String[] arr = { "a" , "b" , "c"};
-	request.setAttribute("arr", arr);
-	%> --%>
 						<!-- 재료 입력 -->
 						<div>
-
-							<!-- 재료를 입력해주세요. -->
-							<!-- 	<div style="margin-top: 30px;">
-						<span class="font_32 left_margin" style="float: left;">재료를 입력해주세요</span>
-						<button id="increase_ing" class="input_tomato" style="margin-left: 20px; color: #606060; width: 150px; border: none; background-color: #EEF1F4; height: 44px; position: relative; top: 1px;">재료 추가 + </button>
-					</div> -->
 							<div style="margin-top: 30px;">
-								<!-- 클릭할 때마다 1줄씩 생성 -->
-								<%-- <c:forEach var="k" begin="1" step="2" end="21">
-							<input type="text" id="ing_box${k}" class="input_tomato left_margin" style="border-color: #21730B; width:510px; height: 50px;" placeholder="ex) 두부 1모 ${k}">
-							<input type="text" id="ing_box${k+1}" class="input_tomato left_margin" style="border-color: #21730B; width:510px; height: 50px;" placeholder="ex) 두부 1모 ${k+1}">
-							<p style="margin-top: 10px;"></p>
-						</c:forEach> --%>
 								<div>
 									<!-- 재료를 입력해주세요. -->
 									<div style="margin-top: 30px;">
@@ -278,42 +262,6 @@ $(document).ready(function() {
 });	
 </script>
 <script type="text/javascript">
-	/* 재료를 입력해주세요 두부 1모 추가 */
-	/* var fieldCount = 0;
-	
-	document.addEventListener("DOMContentLoaded", function() {
-	    var increaseButton = document.getElementById("increase_ing");
-	    increaseButton.addEventListener("click", function() {
-	        createIngredientField();
-	    });
-	});
-	function createIngredientField() {
-	    var ingredientsContainer = document.getElementById("ingredientsContainer");
-			
-	    if (fieldCount < 20) {
-	        fieldCount++;
-	        var input = document.createElement("input");
-	        input.type = "text";
-	        input.id = "ing_box" + fieldCount;
-	        input.className = "input_green left_margin_80";
-	        input.style = "width: 510px; height: 50px;";
-	        input.placeholder = "ex) 두부 1모 " + fieldCount;
-	        input.style.color = "black";
-	        input.name = "u_rcp_ing" + [fieldCount];
-	        input.reqired = "required";
-
-	        if (fieldCount % 2 === 1) {
-	            input.style.marginBottom = "15px";
-	        } else {
-	            input.style.float = "right";
-	            input.style.marginRight = "100px";
-	            input.style.marginBottom = "15px";
-	        }
-	        ingredientsContainer.appendChild(input);
-	        
-	    }
-	    
-	};*/
 		var fieldCount = 0;
 	var newInputField = 0;
 	function increase_input() {
@@ -324,7 +272,7 @@ $(document).ready(function() {
 			 if(newInputField.val().length<=0){
 				alert("재료를 입력하고 추가 해주세요.");
 				newInputField.focus();
-				return;
+				return false;
 				}
 			}
 			 
@@ -342,14 +290,12 @@ $(document).ready(function() {
 			 new_input.css({
 				 'marginBottom':'15px'
 			 });
-			 //new_input.attr("style","marginBottom:15px");
 	        } else {
 	        	new_input.css({
 					 'marginRight':'100px',
 					 'float':'right',
 					 'marginBottom':'15px'
 				 });
-	            //new_input.attr("style","marginRight:100px; float:right; marginBottom:15px;");
 	        }
 		 $('#ingredientsContainer').append(new_input);
 		 
@@ -357,99 +303,83 @@ $(document).ready(function() {
 	};
 	
 	function write_go(f) {
-		
+			
 		if(f.u_rcp_title.value.trim().length<=0){
 			alert("제목을 입력해 주세요.");
 			f.u_rcp_title.focus();
-			return;
+			return false;
 		}
 		
 		if(f.u_rcp_category1.value.trim() == 'select_category'){
 			alert("카테고리를 선택해 주세요");
 			f.u_rcp_category1.focus();
-			return;
+			return false;
 		}
 		
 		if(f.u_rcp_category2.value.trim() == 'select_category'){
 			alert("카테고리를 선택해 주세요");
-			f.u_rcp_category1.focus();
-			return;
+			f.u_rcp_category2.focus();
+			return false;
 		}
 		
-		/* if($("#hashtag").val().length>0){
+		if($("#hashtag").val().length<=0){
+			alert("해시태그를 입력해 주세요");
+			f.u_rcp_keyword1.focus();
+			return false;
+		}
+		
+		/*  if($("#hashtag").val().length>0){
 			if($("#hashtag1").val().length<=0){
 			alert("해시태그를 입력해 주세요.");
 			f.u_rcp_keyword2.focus();
-			return;				
+			return false;				
 			}
-		}
-		
-		console.log(newInputField);
-		
-		if(newInputField.length<0){
-			alert("재료를 입력하고 추가 해주세요.");
-			newInputField.focus();
-			return;
 		} */
 		
 		
-		
-	 var u_rcp_ing2 = [];	
-	for (var i = 1; i <= fieldCount; i++) {
-		
-		/* if(f.u_rcp_ing+i.value.trim().length<=0){
-			alert("재료를 입력해 주세요");
-			f.u_rcp_ing+i.focus();
-			return;
-		} */
+	var u_rcp_status = 0;
+	 var u_rcp_ing2 = [];
+	 console.log("filedCount : " + fieldCount);
+	for (var i = 0; i < fieldCount; i++) {	
 		u_rcp_ing2[i-1] = $("#ing_box"+i).val();
 	} 
-		f.action="/write_go?u_rcp_ing2="+u_rcp_ing2;
-		// +"&u_rcp_ing="+u_rcp_ing+"&u_rcp_category1="+u_rcp_category1+"&u_rcp_category2="+u_rcp_category2
+		
+	if(confirm("저장 하시겠습니까?") == true){
+			//alert("저장해");
+		f.action="/write_go?u_rcp_ing2="+u_rcp_ing2+"&u_rcp_status="+u_rcp_status;
+		}else{
+			//alert("저장안해");	
+			return false;
+		}
+		
 	}
+	
 	
 	function limitWrite_go(f) {
 		
-		/* if(f.u_rcp_title.value.trim().length<=0){
+		if(confirm("임시저장은 한개의 게시글만 가능합니다.\n임시저장 하시겠습니까?") == true){
+			// if() db에 로그인된 사용자의 m_idx를 가지고 u_recipe테이블에가서 기존글 확인하고
+			// confirm창으로 기존에 임시저장된 게시글이 있습니다. 계속하시면 기존 임시저장글은 삭제됩니다. 진행하시겠습니까? 처리
+			// true일 경우 controller 에서 update문으로 새로 작성한 임시저장글로 업데이트
+		 if(f.u_rcp_title.value.trim().length<=0){
 			alert("제목을 입력해 주세요.");
 			f.u_rcp_title.focus();
-			return;
+			return false;
 		}
-		
-		if(f.u_rcp_category1.value.trim() == 'select_category'){
-			alert("카테고리를 선택해 주세요");
-			f.u_rcp_category1.focus();
-			return;
-		}
-		
-		if(f.u_rcp_category2.value.trim() == 'select_category'){
-			alert("카테고리를 선택해 주세요");
-			f.u_rcp_category1.focus();
-			return;
-		}
-		
-		if($("#hashtag").val().length>0){
-			if($("#hashtag1").val().length<=0){
-			alert("해시태그를 입력해 주세요.");
-			f.u_rcp_keyword2.focus();
-			return;				
-			}
-		}
-		
-		if(newInputField.length<0){
-			alert("재료를 입력하고 추가 해주세요.");
-			newInputField.focus();
-			return;
-		} */
 		
 		var u_rcp_status = 2;
 		 var u_rcp_ing2 = [];
-		for (var i = 1; i <= fieldCount; i++) {
+		for (var i = 0; i < fieldCount; i++) {
 			u_rcp_ing2[i-1] = $("#ing_box"+i).val();
 		} 
 		
 		f.action="/write_go?u_rcp_ing2="+u_rcp_ing2+"&u_rcp_status="+u_rcp_status;
-		f.submit();		
+		f.submit();	
+		
+	}else{
+		return false;
+	}
+		
 	}
 </script>
 <script type="text/javascript">
@@ -474,7 +404,7 @@ document.addEventListener("DOMContentLoaded", function() {
 						<div>
 							<table class="left_margin" id="summer_table" style="margin-top: 30px;">
 								<tr>
-									<td colspan="2"><textarea rows="10" cols="60" name="content" class="left_margin" id="user_rcp_content"	style="margin-left: 100px;"></textarea></td>
+									<td colspan="2"><textarea rows="10" cols="60" name="u_rcp_main" class="left_margin" id="u_rcp_main"	style="margin-left: 100px;"></textarea></td>
 								</tr>
 							</table>
 						</div>
@@ -510,7 +440,7 @@ document.addEventListener("DOMContentLoaded", function() {
 	<script src="resources/js/lang/summernote-ko-KR.js"></script>
 	<script type="text/javascript">
     	$(function(){
-    		$('#user_rcp_content').summernote({
+    		$('#u_rcp_main').summernote({
     			lang : 'ko-KR',
     			height : 800,
     			disableResizeEditor: true,
@@ -537,7 +467,7 @@ document.addEventListener("DOMContentLoaded", function() {
 			}).done(function(data) {
 				var path = data.path;
 				var fname = data.fname;
-				$("#content").summernote("editor.insertImage",path+"/"+fname);
+				$("#u_rcp_main").summernote("editor.insertImage",path+"/"+fname);
 			});
 		}
    	</script>

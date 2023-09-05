@@ -27,4 +27,7 @@ public interface U_recipe_Service {
 	
 	// 레시피 글쓰기
 	public int getWrite(U_recipe_VO uvo);
+	
+	// 임시저장된 레시피 조회 (성훈)
+	public U_recipe_VO getLimit_recipe(String m_idx);
 }

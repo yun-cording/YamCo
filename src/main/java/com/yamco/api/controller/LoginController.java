@@ -336,7 +336,7 @@ public class LoginController {
 			if (mvo.getM_nick() != null) { // db에 값이 있고 닉네임까지 입력되어 있을경우 메인으로이동
 				mv.setViewName("/main");
 				session.setAttribute("loginChk", true);
-				session.setAttribute("id", m_id);
+				session.setAttribute("m_nick", mvo.getM_nick());
 				session.setAttribute("m_idx", mvo.getM_idx());
 				session.setAttribute("m_image", mvo.getM_image());
 			 // db에 값이 있고 닉네임까지 입력되어 있을경우 메인으로이동 끝
