@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.yamco.user.model.dao.U_recipe_DAO;
+import com.yamco.user.model.vo.U_recipe_Search_VO;
 import com.yamco.user.model.vo.U_recipe_VO;
 import com.yamco.user.model.vo.U_recipe_meta_VO;
 
@@ -38,6 +39,18 @@ public class U_recipe_ServiceImpl implements U_recipe_Service {
 		return u_recipe_DAO.getSelectOne(urvo);
 	}
 
+	// U_recipe_VO로 U_recipe_meta_VO 검색
+	@Override
+	public List<U_recipe_meta_VO> getSelectList(U_recipe_VO urvo) {
+		return u_recipe_DAO.getSelectList(urvo);
+	}
+	
+	// U_recipe_Search_VO로 U_recipe_meta_VO 검색
+	@Override
+	public List<U_recipe_meta_VO> getSelectList(U_recipe_Search_VO ursvo) {
+		return u_recipe_DAO.getSelectList(ursvo);
+	}
+
 	// rcp_idx로 U_recipe_meta_VO 검색
 	@Override
 	public U_recipe_meta_VO getSelectOne(String rcp_idx) {
@@ -49,5 +62,6 @@ public class U_recipe_ServiceImpl implements U_recipe_Service {
 	public int getHitUp(String rcp_idx, String m_idx) {
 		return u_recipe_DAO.getHitUp(rcp_idx, m_idx);
 	}
+	
 
 }

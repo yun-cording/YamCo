@@ -149,7 +149,7 @@
 	margin-top: 181px;
 }
 
-#info_content{
+.info_content{
 	font-size: 25px;
 	box-sizing: border-box;
 	width: 820px;
@@ -190,7 +190,7 @@ input[type="password"]{
 	font-size: 28px;
 	text-align: center;
 	color: white;
-	background-color: tomato;
+	background-color: lightgray;
 	border: none;
 	border-radius: 30px 30px 30px 30px;
 	float: left;
@@ -218,6 +218,15 @@ input[type="password"]{
 	border: none;
 	border-radius: 30px 30px 30px 30px;
 }
+.info_content span{
+	display: inline-block;
+	font-size: 13px;
+	width: 370px;
+	text-align: right;
+}
+button:hover {
+	cursor:pointer; 
+}
 </style>
 </head>
 <body>
@@ -239,23 +248,133 @@ input[type="password"]{
 			</div>
 			<div class="title_line"></div>
 			<div class="title">비밀번호 변경</div>
-			<div class="clear">			
+			<div class="clear">	
+			<form action="/changeMyPw.do" method="post">		
 			<div class="info_all">
-					<div id="info_content">기존 비밀번호 : <input type="password" name="old_pw"><button id="btn_double">인증하기</button></div>
-					<div id="info_content">새 비밀번호 : <input type="password" name="new_pw"></div>
-					<div id="info_content">비밀번호 확인 : <input type="password" name="new_pw_ok"></div>
+					<div class="info_content">기존 비밀번호 : <input type="password" name="old_pw" id="old_pw"> <span id=txt></span> </div>
+					<div class="info_content">새 비밀번호 : <input type="password" name="m_pw" id="new_pw"> <span id=txt2></span></div>
+					<div class="info_content">비밀번호 확인 : <input type="password" id="new_pw_ok"> <span id=txt3></span></div>
 				</div>
 			<div class="btn">
-					<button id="btn_save">비밀번호 변경</button>
-					<button type="button" id="btn_exit" onclick="history.go(-1)">돌아가기</button>
-				</div>
+				<button id="btn_save" disabled>비밀번호 변경</button>
+				<button type="button" id="btn_exit" onclick="history.go(-1)">돌아가기</button>
+			</div>
+			</form>
 			</div>		 
 		 </div>
 		<aside id="sidebar-right">
 			<jsp:include page="../bestlist.jsp" />
 		</aside>
 		</div>
-<div id="footer"><jsp:include page="../footer.jsp" /></div>
+			<div id="footer"><jsp:include page="../footer.jsp" /></div>
 		</div>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+		<script type="text/javascript">
+			
+			function checkValidSomeThing(param) {
+				var pwtxt = /^(?=.*?[a-z])(?=.*?[0-9]).{8,15}$/;
+				return pwtxt.test(param);
+			}
+			
+			$(function() {
+					var status1 = false;
+					var status2 = false;
+					var old_pw = $("#old_pw").val();
+					var txt =$("#txt");
+					var new_pw = $("#new_pw").val();
+					var txt2 = $("#txt2");
+					var new_pw_ok = $("#new_pw_ok").val();
+					var txt3 = $("#txt3");
+				$("#old_pw").keyup(function (){
+					status1=false
+					old_pw = $("#old_pw").val();
+					txt = $("#txt");
+					if(old_pw===""){
+						txt.text("");
+					}else{
+						$.ajax({
+							url: "/pwChk.do",
+							method : "post",
+							data : "old_pw="+old_pw,
+							async: false,
+							success: function(res) {
+								if(res){
+									txt.text("비밀번호가 일치합니다.")
+									txt.css("color","green")
+									status1 = true;
+								}else{
+									txt.text("비밀번호가 불일치합니다.")
+									txt.css("color","red")
+								}
+							},
+							error: function() {
+								alert("ajxa실패");
+							}
+						})						
+					}
+					if(status1&&status2){
+						$("#btn_save").prop("disabled", false);
+						$("#btn_save").css("background-color", "tomato");
+					}else{
+						$("#btn_save").prop("disabled", true);
+						$("#btn_save").css("background-color", "lightgray");
+					}
+				})
+				$("#new_pw").keyup(function (){
+					status2=false;
+					new_pw = $("#new_pw").val();
+					txt2 = $("#txt2");
+					if(new_pw===""){
+						txt2.text("");
+					}else if(!checkValidSomeThing(new_pw)){
+						txt2.text("최소 8자리 이상 15자리 이하 영문 소문자, 숫자를 사용해주세요")
+						txt2.css("color","red")
+					}else{
+						txt2.text("");
+						if(new_pw===new_pw_ok){
+							txt3.text("비밀번호가 일치합니다.")
+							txt3.css("color","green")
+							status2=true
+						}else{
+							txt3.text("비밀번호가 일치하지 않습니다.");
+							txt3.css("color","red")
+						}
+					}
+					if(status1&&status2){
+						$("#btn_save").prop("disabled", false);
+						$("#btn_save").css("background-color", "tomato");
+					}else{
+						$("#btn_save").prop("disabled", true);
+						$("#btn_save").css("background-color", "lightgray");
+					}
+				})
+				$("#new_pw_ok").keyup(function (){
+					new_pw_ok = $("#new_pw_ok").val();
+					txt3 = $("#txt3");
+					status2=false;
+					if(new_pw_ok===""){
+						txt3.text("");
+					}else if(!checkValidSomeThing(new_pw_ok)){
+						txt3.text("최소 8자리 이상 15자리 이하 영문 소문자, 숫자를 사용해주세요")
+						txt3.css("color","red")
+					}else{
+						if(new_pw===new_pw_ok){
+							txt3.text("비밀번호가 일치합니다.")
+							txt3.css("color","green")
+							status2=true
+						}else{
+							txt3.text("비밀번호가 일치하지 않습니다.");						
+						}
+					}
+					if(status1&&status2){
+						$("#btn_save").prop("disabled", false);
+						$("#btn_save").css("background-color", "tomato");
+					}else{
+						$("#btn_save").prop("disabled", true);
+						$("#btn_save").css("background-color", "lightgray");
+					}
+				})
+			});
+		</script>
 </body>
 </html>

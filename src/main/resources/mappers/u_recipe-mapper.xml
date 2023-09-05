@@ -9,32 +9,161 @@
 		u_recipe_metadata
 		order by hit_7day desc LIMIT 30
 	</select>
-	
+
 	<!-- 한달 조회수 기준 상위 30개 가져오기 -->
 	<select id="rankListRecipe1Month" resultType="urmvo">
 		select * from
 		u_recipe_metadata
 		order by hit_1mon desc LIMIT 30
 	</select>
-	
+
 	<!-- 검색어로 결과 rcp_idx 가져오기 -->
 	<select id="recipeSearch" parameterType="Map" resultType="urmvo">
-		select * from u_recipe_metadata where u_rcp_title like CONCAT('%',#{search},'%') or u_rcp_category like CONCAT('%',#{search},'%') or u_rcp_ing like CONCAT('%',#{search},'%')
+		select * from u_recipe_metadata where u_rcp_title like
+		CONCAT('%',#{search},'%') or u_rcp_category like
+		CONCAT('%',#{search},'%') or u_rcp_ing like CONCAT('%',#{search},'%')
 		order by
 		<if test="order == 0 or order==null"> u_rcp_hit </if>
 		<if test="order == 1"> avg_grade </if>
 		desc
 	</select>
-	
+
 	<!-- rcp_idx로 metadata 가져와서 검색결과 띄우기 -->
 	<select id="metaData" parameterType="String" resultType="urmvo">
-		select * from
+		select *
+		from
 		u_recipe_metadata
 		where rcp_idx=#{rcp_idx}
 	</select>
-	
+
 	<!-- rcp_idx를 포함한 U_recipe_VO로 U_recipe_meta_VO 검색 -->
-	<select id="selectOneByVO" parameterType="urvo" resultType="urmvo">
+	<select id="selectListByVO" parameterType="urvo"
+		resultType="urmvo">
+		select * from
+		u_recipe_metadata
+		<where>
+			<if test="rcp_idx != null">
+				rcp_idx=#{rcp_idx}
+			</if>
+			<if test="m_idx != null">
+				and m_idx = #{m_idx}
+			</if>
+			<if test="u_rcp_title != null">
+				and u_rcp_title = #{u_rcp_title}
+			</if>
+			<if test="u_rcp_comment != null">
+				and u_rcp_comment = #{u_rcp_comment}
+			</if>
+			<if test="u_rcp_category != null">
+				and u_rcp_category = #{u_rcp_category}
+			</if>
+			<if test="u_rcp_ing != null">
+				and u_rcp_ing = #{u_rcp_ing}
+			</if>
+			<if test="u_rcp_main != null">
+				and u_rcp_main = #{u_rcp_main}
+			</if>
+			<if test="u_rcp_level != null">
+				and u_rcp_level = #{u_rcp_level}
+			</if>
+			<if test="u_rcp_keyword != null">
+				and u_rcp_keyword = #{u_rcp_keyword}
+			</if>
+			<if test="u_rcp_blind != null">
+				and u_rcp_blind = #{u_rcp_blind}
+			</if>
+			<if test="m_nick != null">
+				and m_nick = #{m_nick}
+			</if>
+			<if test="u_rcp_status != null">
+				and u_rcp_status = #{u_rcp_status}
+			</if>
+			<if test="u_rcp_hit != null">
+				and u_rcp_hit = #{u_rcp_hit}
+			</if>
+			<if test="u_rcp_ctype != null">
+				and u_rcp_ctype = #{u_rcp_ctype}
+			</if>
+			<if test="u_rcp_time != null">
+				and u_rcp_time = #{u_rcp_time}
+			</if>
+			<if test="u_rcp_img != null">
+				and u_rcp_img = #{u_rcp_img}
+			</if>
+		</where>
+	</select>
+
+	<!-- U_recipe_Search_VO로 U_recipe_meta_VO 검색 -->
+	<select id="selectListBySearchVO" parameterType="ursvo"
+		resultType="urmvo">
+		select * from
+		u_recipe_metadata
+		<where>
+			<if test="rcp_idx != null">
+				rcp_idx=#{rcp_idx}
+			</if>
+			<if test="m_idx != null">
+				and m_idx = #{m_idx}
+			</if>
+			<if test="u_rcp_title != null">
+				and u_rcp_title = #{u_rcp_title}
+			</if>
+			<if test="u_rcp_comment != null">
+				and u_rcp_comment = #{u_rcp_comment}
+			</if>
+			<if test="u_rcp_category != null">
+				and u_rcp_category = #{u_rcp_category}
+			</if>
+			<if test="u_rcp_ing != null">
+				and u_rcp_ing = #{u_rcp_ing}
+			</if>
+			<if test="u_rcp_main != null">
+				and u_rcp_main = #{u_rcp_main}
+			</if>
+			<if test="u_rcp_level != null">
+				and u_rcp_level = #{u_rcp_level}
+			</if>
+			<if test="u_rcp_keyword != null">
+				and u_rcp_keyword = #{u_rcp_keyword}
+			</if>
+			<if test="u_rcp_blind != null">
+				and u_rcp_blind = #{u_rcp_blind}
+			</if>
+			<if test="m_nick != null">
+				and m_nick = #{m_nick}
+			</if>
+			<if test="u_rcp_status != null">
+				and u_rcp_status = #{u_rcp_status}
+			</if>
+			<if test="u_rcp_hit != null">
+				and u_rcp_hit = #{u_rcp_hit}
+			</if>
+			<if test="u_rcp_ctype != null">
+				and u_rcp_ctype = #{u_rcp_ctype}
+			</if>
+			<if test="u_rcp_time != null">
+				and u_rcp_time = #{u_rcp_time}
+			</if>
+			<if test="u_rcp_img != null">
+				and u_rcp_img = #{u_rcp_img}
+			</if>
+			<if test="likeTitle != null">
+				and u_rcp_title like CONCAT('%',#{likeTitle},'%')
+			</if>
+		</where>
+		<if test="orderKey != null">
+			order by ${orderKey}
+			<if test="order != null">
+				${order}
+			</if>
+		</if>
+	</select>
+	<!-- ${}를 사용함으로써 문자열 옆에 ''가 안 붙고 그대로 들어간다. -->
+	<!-- 참고: https://logical-code.tistory.com/25 -->	
+
+	<!-- rcp_idx를 포함한 U_recipe_VO로 U_recipe_meta_VO 검색 -->
+	<select id="selectOneByVO" parameterType="urvo"
+		resultType="urmvo">
 		select * from
 		u_recipe_metadata
 		<where>
@@ -86,9 +215,10 @@
 			</if>
 		</where>
 	</select>
-	
+
 	<!-- rcp_idx에 해당 하는 레시피 조회수 1 상승 -->
 	<update id="hitUp" parameterType="String">
-		update u_recipe set u_rcp_hit = u_rcp_hit + 1 where rcp_idx = #{rcp_idx}
+		update u_recipe set u_rcp_hit =
+		u_rcp_hit + 1 where rcp_idx = #{rcp_idx}
 	</update>
 </mapper>

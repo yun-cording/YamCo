@@ -308,7 +308,7 @@ button{
 				</div>
 				<div class="btn">
 					<button id="btn_change" onclick="changeMyInfo_go()">정보 변경</button>
-					<button id="btn_ch_pw">비밀번호 변경</button>
+					<button id="btn_ch_pw" onclick="changeMyPw_go()">비밀번호 변경</button>
 					<button id="btn_exit" onclick="leaveMember_go()">탈퇴하기</button>
 				</div>
 			</div>
@@ -335,6 +335,9 @@ function changeMyInfo_go() {
 }
 function leaveMember_go() {
 	location.href="/leaveMember.go"
+}
+function changeMyPw_go() {
+	location.href="/changeMyPw.go"
 }
 $(function() {
 	if('${social}'){

@@ -330,11 +330,7 @@ button:hover {
 	            reader.onload = function (e) {
 	                // 업로드한 이미지를 프로필 사진으로 표시
 	                profilePicture.attr("src",e.target.result) 
-	                
-	                // 이후에 업로드 로직을 추가할 수 있습니다.
-	                // 서버로 이미지를 업로드하거나 다른 작업을 수행할 수 있습니다.
 	            };
-
 	            reader.readAsDataURL(this.files[0]);
 	        }
 	    });

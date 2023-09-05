@@ -169,4 +169,10 @@ public class Member_ServiceImpl implements Member_Service {
 	public int getTokenDelete(Member_VO mvo) {
 		return member_DAO.getTokenDelete(mvo);
 	}
+	
+	// 찜목록
+	@Override
+	public List<String> getMyWishList(String m_idx) {
+		return member_DAO.getMyWishList(m_idx);
+	}
 }
