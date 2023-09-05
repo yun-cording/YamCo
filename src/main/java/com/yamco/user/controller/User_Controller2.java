@@ -40,6 +40,8 @@ import com.yamco.user.model.vo.Member_VO;
 import com.yamco.user.model.vo.Member_meta_VO;
 import com.yamco.user.model.vo.Notice_VO;
 import com.yamco.user.model.vo.Random_save_VO;
+import com.yamco.user.model.vo.U_recipe_Search_VO;
+import com.yamco.user.model.vo.U_recipe_VO;
 import com.yamco.user.model.vo.U_recipe_meta_VO;
 
 @Controller
@@ -288,8 +290,41 @@ public class User_Controller2 {
 	}
 
 	@RequestMapping("/mycontent.go")
-	public ModelAndView myContentGo() {
+	public ModelAndView myContentGo(HttpSession session) {
 		ModelAndView mv = new ModelAndView("/mypage/myContent");
+		String m_idx = (String) session.getAttribute("m_idx");
+		U_recipe_VO urvo = new U_recipe_VO();
+		urvo.setM_idx(m_idx);
+		List<U_recipe_meta_VO> result = u_recipe_Service.getSelectList(urvo);
+		mv.addObject("contentList", result);
+		return mv;
+	}
+
+	@RequestMapping("/mycontent_search.go")
+	public ModelAndView myContentOrderGo(HttpSession session, @ModelAttribute("keyword") String keyword,
+			@ModelAttribute("orderKey") String orderKey, @ModelAttribute("order") String order) {
+		ModelAndView mv = new ModelAndView("/mypage/myContent");
+		String m_idx = (String) session.getAttribute("m_idx");
+		U_recipe_Search_VO ursvo = new U_recipe_Search_VO();
+		ursvo.setM_idx(m_idx);
+		
+		//검색어 키워드가 있는 경우 
+		if (keyword != null && !keyword.isEmpty()) {
+			ursvo.setLikeTitle(keyword);
+		}
+		//정렬 기준이 있는 경우
+		if (orderKey != null && !orderKey.isEmpty()) {
+			ursvo.setOrderKey(orderKey);
+			//정렬 방식이 없거나 오름차순이면 내림차순으로 바꿔준다.
+			if (order == null || order.isEmpty() || order.equalsIgnoreCase("asc")) {
+				order = "desc";
+			} else { //그 외의 경우에는 오름차순으로 설정한다.
+				order = "asc";
+			}
+			ursvo.setOrder(order);
+		}
+		List<U_recipe_meta_VO> result = u_recipe_Service.getSelectList(ursvo);
+		mv.addObject("contentList", result);
 		return mv;
 	}
 
