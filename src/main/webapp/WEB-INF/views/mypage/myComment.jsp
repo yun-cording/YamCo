@@ -8,6 +8,7 @@
 <title>마이페이지</title>
 <link rel="icon" type="image/x-icon"
 	href="resources/images/icon_tomato.png">
+
 <style type="text/css">
 * {
 	padding: 0;
@@ -198,27 +199,72 @@ ul {
 	color: tomato;
 	border-bottom: 3px solid tomato;
 }
+
+.row_append {
+	margin: 10px auto;
+	padding: 10px;
+	width: calc(30% - 20px);
+	border: 3px solid tomato;
+	border-radius: 30px;
+	text-align: center;
+	color: tomato;
+	cursor: pointer;
+}
+
+.qa {
+	display: none;
+}
+
 </style>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
-		var arrowDown = "/resources/images/arrow_down.png";
-		var arrowUp = "/resources/images/arrow_up.png";
-		
-		/* 화살표 버튼을 누르면 실행됨 */		
+		var arrowDown = "/resources/images/arrow_down.png"; //아래 화살표 이미지
+		var arrowUp = "/resources/images/arrow_up.png"; //위 화살표 이미지
+		var loop = 0; //반복 단위 step
+
+		/* 화살표 버튼을 누르면 실행됨 */
 		$(".arrow").on("click", function() {
-			var	answer = $(this).closest(".q_title").next();
-			if($(this).attr("src") === arrowUp) {
+			var answer = $(this).closest(".q_title").next();
+			if ($(this).attr("src") === arrowUp) {
+				//지금 위 화살표이면 answer 내용 숨기고 아래 화살표로 바꿈
 				answer.fadeOut(400);
 				$(this).attr("src", arrowDown);
-			} else {
-				answer.fadeIn({direction : "top"});
+			} else { 
+				//지금 아래 화살표이면 answer 내용 나타내고 위 화살표로 바꿈
+				answer.fadeIn({
+					direction : "top"
+				});
 				answer.attr("style", "display : flex;");
 				$(this).attr("src", arrowUp);
 			}
 		});
 		
+		//페이지가 처음 로딩되었을 때 qa div를 loop +  1개 노출시킴
+		if ($(".qa:hidden").length > loop) {
+			$(".qa:hidden").slice(0, loop + 1).show();
+			if ($(".qa:hidden").length < 1) { //숨겨져있는 qa div가 없으면 더보기 버튼 숨김
+				$(".row_append").hide();
+			}
+		} else { //loop + 1개 보다 qa div 개수가 적으면 모두 노출시키고 더보기 버튼 숨김
+			$(".qa:hidden").show();
+			$(".row_append").hide();
+		}
+		
+		//더보기 버튼 클릭할 때마다 qa div를 loop + 1개 노출시킴
+		$(".row_append").on("click", function () {
+			if ($(".qa:hidden").length > loop) {
+				$(".qa:hidden").slice(0, loop + 1).show();
+				if ($(".qa:hidden").length < 1) {
+					$(".row_append").hide();
+				}
+			} else {
+				$(".lank_table_row:hidden").show();
+				$(".row_append").hide();
+			}
+		});
+
 		/* var i=0;
 		$("#a_1").on("click", function() {
 			if(i++%2 == 0){
@@ -299,8 +345,18 @@ ul {
 					<c:choose>
 						<c:when test="${not empty commentList}">
 							<c:forEach items="${ commentList}" var="k" varStatus="vs">
+								<div class="qa">
 								<div class="q_title">
-									<span class="q_title_t">${vs.count }. <a href="/go_publicDet.do?rcp_idx=${k.rcp_idx }">${k.u_rcp_title}</a></span>
+									<span class="q_title_t">${vs.count }. <c:choose>
+											<c:when test="${k.rcp_idx < 10000}">
+												<a href="/go_publicDet.do?rcp_seq=${k.rcp_idx }">${k.u_rcp_title}</a>
+											</c:when>
+											<c:otherwise>
+												<a href="/go_사용자레시피.do?rcp_idx=${k.rcp_idx }">${k.u_rcp_title}</a>
+											</c:otherwise>
+										</c:choose>
+
+									</span>
 									<div>
 										<img class="arrow" src="/resources/images/arrow_down.png">
 									</div>
@@ -311,67 +367,20 @@ ul {
 									</div>
 									<p class="text_center">${k.c_contents }</p>
 								</div>
+								</div>
 							</c:forEach>
 						</c:when>
 						<c:otherwise>
 							<h2>작성한 댓글이 존재하지 않습니다.</h2>
 						</c:otherwise>
 					</c:choose>
-					<%--
-					<div class="q_title">
-						<span id="q_title_t">1. 육회덮밥</span>
-						<div>
-							<img class="arrow" id="a_1"
-								src="/resources/images/arrow_down.png">
-						</div>
-					</div>
-					<div class="answer" id="a1">
-						<div class="img">
-							<img src="/resources/images/potatoes.png" class="img_size">
-						</div>
-						<p id="a_text_1" class="text_center">맛있어요~</p>
-					</div>
-					<div class="q_title">
-						<span id="q_title_t">2. 감자전</span> <img class="arrow" id="a_2"
-							src="/resources/images/arrow_down.png">
-					</div>
-					<div class="answer" id="a2">
-						<div class="img"
-							<img src="/resources/images/potatoes.png" class="img_size">
-						</div>
-						<span id="a_text_2">바삭해요~~바삭해요~~바삭해요~~바삭해요~~바삭해요~~바삭해요~~바삭해요~~바삭해요~~바삭해요~~바삭해요~~바삭해요~~바삭해요~~바삭해요~~바삭해요~~바삭해요~~
-							<br>
-						<br>
-						<br>
-						<br>
-						<br>
-						<br>
-						<br>
-						</span>
-					</div>
-					<div class="q_title">
-						<span id="q_title_t">3. 치킨</span> <img class="arrow" id="a_3"
-							src="/resources/images/arrow_down.png">
-					</div>
-					<div class="answer" id="a3">
-						<span id="a_text_3"> 존맛탱~~~ </span>
-					</div>
-					<div class="q_title">
-						<span id="q_title_t">4. 피자</span> <img class="arrow" id="a_4"
-							src="/resources/images/arrow_down.png">
-					</div>
-					<div class="answer" id="a4">
-						<span id="a_text_4"> 좀 짭니다~~~~ </span>
-					</div>
-					<div class="q_title">
-						<span id="q_title_t">5. 김치찜</span> <img class="arrow" id="a_5"
-							src="/resources/images/arrow_down.png">
-					</div>
-					<div class="answer" id="a5">
-						<span id="a_text_5">고기를 더 넣었더니 더 맛있네요~~~~~ </span>
-					</div>>
-					--%>
 				</div>
+				<%-- 1 대신 step 단위 입력할 것 --%>
+				<c:if test="${commentList.size() > 1 }">
+					<div class="row_append">
+						<h2>더보기</h2>
+					</div>
+				</c:if>
 			</div>
 			<aside id="sidebar-right">
 				<jsp:include page="../bestlist.jsp" />
