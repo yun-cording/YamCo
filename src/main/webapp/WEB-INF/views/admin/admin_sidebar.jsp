@@ -49,17 +49,9 @@
         </div>
     </li>
 
-
-    <!-- Nav Item - 로그분석 -->
-    <li class="nav-item">
-        <a class="nav-link" href="charts.html">
-            <i class="fas fa-fw fa-chart-area"></i>
-            <span>로그분석</span></a>
-    </li>
-
     <!-- Nav Item - 공지사항 -->
     <li class="nav-item">
-        <a class="nav-link" href="tables.html">
+        <a class="nav-link" href="/go_admin_ppl.do">
             <i class="fas fa-fw fa-table"></i>
             <span>공지사항 배너 등록</span></a>
     </li>

@@ -103,7 +103,7 @@ public class PublicLoginController {
 				session.setAttribute("loginChk", true);
 				session.setAttribute("m_image", m_vo.getM_image());
 				if(m_vo.getM_idx().equals("1")) {
-					mv.setViewName("admin/admin_dashboard");
+					mv.setViewName("redirect:/go_admin_dashboard.do");
 					return mv;
 				}
 				alert = "<script>alert('로그인 성공.');</script>";

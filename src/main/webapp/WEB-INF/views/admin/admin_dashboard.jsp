@@ -40,7 +40,7 @@
 				<div class="container-fluid">
 					<!-- Page Heading -->
 					<h1 class="h2 font-weight-bold mb-2 text-gray-800">대시보드</h1>
-					<p class="small mb-4">안녕하세요 김희준님! 관리자 페이지에 로그인 하셨습니다.</p>
+					<p class="small mb-4">안녕하세요 ${m_nick }님! 관리자 페이지에 로그인 하셨습니다.</p>
 					<!-- 맨윗줄 -->
 					<div class="row mb-5">
 						<!-- 조회수 카드 -->
@@ -53,7 +53,7 @@
 												class="text-xs font-weight-bold text-success text-uppercase mb-1">
 												<span class="font-weight-bold font">총 조회수</span>
 											</div>
-											<div class="h5 mb-0 font-weight-bold text-gray-800">75</div>
+											<div class="h5 mb-0 font-weight-bold text-gray-800">${dash_VO.total_hit }</div>
 										</div>
 										<div class="col-auto">
 											<img src="/resources/images/search 1.png" alt=""
@@ -73,7 +73,7 @@
 												class="text-xs font-weight-bold text-success text-uppercase mb-1">
 												<span class="font-weight-bold font">총 방문자 수</span>
 											</div>
-											<div class="h5 mb-0 font-weight-bold text-gray-800">75</div>
+											<div class="h5 mb-0 font-weight-bold text-gray-800">${dash_VO.total_visit }</div>
 										</div>
 										<div class="col-auto">
 											<img src="/resources/images/web-traffic 1.png" alt=""
@@ -92,7 +92,7 @@
 												class="text-xs font-weight-bold text-success text-uppercase mb-1">
 												<span class="font-weight-bold font">신규 회원등록</span>
 											</div>
-											<div class="h5 mb-0 font-weight-bold text-gray-800">75</div>
+											<div class="h5 mb-0 font-weight-bold text-gray-800">${dash_VO.client_new }</div>
 										</div>
 										<div class="col-auto">
 											<img src="/resources/images/user 1.png" alt="" width="40px;">
@@ -110,7 +110,7 @@
 												class="text-xs font-weight-bold text-success text-uppercase mb-1">
 												<span class="font-weight-bold font">신규 등록 레시피</span>
 											</div>
-											<div class="h5 mb-0 font-weight-bold text-gray-800">75</div>
+											<div class="h5 mb-0 font-weight-bold text-gray-800">${dash_VO.recipe_new }</div>
 										</div>
 										<div class="col-auto">
 											<img src="/resources/images/blogger 1.png" alt=""
@@ -255,7 +255,7 @@
 				<div class="modal-footer">
 					<button class="btn btn-secondary" type="button"
 						data-dismiss="modal">취소</button>
-					<a class="btn btn-danger" href="login.html">로그아웃</a>
+					<a class="btn btn-danger" href="/logOut_go">로그아웃</a>
 				</div>
 			</div>
 		</div>

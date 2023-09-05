@@ -126,12 +126,6 @@ public class User_Controller2 {
 		return mv;
 	}
 
-	@RequestMapping("/public_list.go")
-	public ModelAndView publicListGo() {
-		ModelAndView mv = new ModelAndView("/user/recipe/public_list");
-		return mv;
-	}
-
 	@RequestMapping("/user_list.go")
 	public ModelAndView userListGo() {
 		ModelAndView mv = new ModelAndView("/user/recipe/user_list");
