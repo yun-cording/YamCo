@@ -11,6 +11,7 @@ import org.springframework.transaction.TransactionDefinition;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
 
+import com.yamco.user.model.vo.U_recipe_Search_VO;
 import com.yamco.user.model.vo.U_recipe_VO;
 import com.yamco.user.model.vo.U_recipe_meta_VO;
 import com.yamco.user.model.vo.User_log_VO;
@@ -49,6 +50,16 @@ public class U_recipe_DAO {
 
 	public U_recipe_meta_VO getSearchData(String rcp_idx) {
 		return sqlSessionTemplate.selectOne("u_recipe.metaData", rcp_idx);
+	}
+
+	// U_recipe_VO로 U_recipe_meta_VO 검색
+	public List<U_recipe_meta_VO> getSelectList(U_recipe_VO urvo) {
+		return sqlSessionTemplate.selectList("u_recipe.selectListByVO", urvo);
+	}
+
+	// U_recipe_Search_VO로 U_recipe_meta_VO 검색
+	public List<U_recipe_meta_VO> getSelectList(U_recipe_Search_VO ursvo) {
+		return sqlSessionTemplate.selectList("u_recipe.selectListBySearchVO", ursvo);
 	}
 
 	// rcp_idx를 포함한 U_recipe_VO로 U_recipe_meta_VO 검색
