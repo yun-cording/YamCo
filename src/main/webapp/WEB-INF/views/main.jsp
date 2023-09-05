@@ -58,7 +58,7 @@
 	padding-top: 30px;
 }
 
-#notice_img{
+.image-banner{
  
 	width: 900px;
 	height: 330px;
@@ -84,6 +84,7 @@
 #ingredient_img{
 	width: 300px;
 	height: 275px;
+	margin: 0px;
 }
 
 .new_yamyam {
@@ -268,7 +269,8 @@ color: #21730B;
 		form.action = "/search.go" ;
 		form.submit();
 	}
-</script>
+	</script>
+
 <body>
 <div id="main">
 		
@@ -278,9 +280,10 @@ color: #21730B;
 		</aside>
 		<div id="content">
 		<div class="clear">
-		
 			<div id="notice">
-			<img id="notice_img" src="/resources/images/notice_exam.png">
+			<c:forEach var="k" items="${noticeList}">
+            	<img id="notice_img_${status.index}" class="image-banner" src="/resources/images/${k.notice_img}" alt="${k.notice_title}" />
+			</c:forEach>
 			</div>
 				<div id="Recommen"><span style="font-size: 22px;">오늘의 <span class="point_tomato">추천</span> 재료</span></div>
 				<div id="ingredient">
@@ -300,26 +303,21 @@ color: #21730B;
 			<div class="flexbetween">
 				<c:forEach begin="1" end="4">
 				<div class="recipe_one">
-							<p>
-								<img 
-									src="https://mediahub.seoul.go.kr/wp-content/uploads/2020/10/d13ea4a756099add8375e6c795b827ab.jpg"
-									class="recipe_thumbnail">
-							</p>
-							<p>공공레시피명</p>
+							<a href="/사용자레시피?rcp_seq=${k.rcp_idx}">
+							<p><img src="${k.u_rcp_img }" class="recipe_thumbnail"></p>
+							<p>${k.u_rcp_title }</p>
 							<div class="writer">
-								<img
-									src="https://png.pngtree.com/png-vector/20191115/ourmid/pngtree-beautiful-profile-line-vector-icon-png-image_1990469.jpg"
-									class="profile"> <span>작성자 이름</span>
+								<img src="${k.m_image }" class="profile"><span>${k.m_nick }</span>
 							</div>
+							</a>
 							<div class="like" style="text-align: right;">
-								<img class="icon"
-									src="https://img.medicalreport.kr/resources/2019/07/23/o0vYNCXzJDWRPejw.jpg"
-									alt=""> <span>4.9</span> <img class="icon"
-									src="https://cdn-icons-png.flaticon.com/512/8316/8316018.png"
-									alt=""> <span>42</span> <img class="icon"
-									src="https://cdn-icons-png.flaticon.com/512/2415/2415461.png"
-									alt=""> <span>7만</span>
-							</div>
+							<img class="icon" src="/resources/images/icon_tomato_ver2_1.png" alt="">
+							<span>${empty k.avg_grade ? 0 : k.avg_grade }</span>
+							<img class="icon" src="https://cdn-icons-png.flaticon.com/512/8316/8316018.png" alt="">
+							<span>${empty k.c_count ? 0 : k.c_count}</span>
+							<img class="icon" src="https://cdn-icons-png.flaticon.com/512/2415/2415461.png"	alt="">
+							<span>${empty k.u_rcp_hit ? 0 : k.u_rcp_hit}</span>
+						</div>
 						</div>
 					</c:forEach>
 				
@@ -390,5 +388,39 @@ color: #21730B;
 		<div id="footer"><jsp:include page="footer.jsp" /></div>
 		</div>
 		${alert }
+		<script type="text/javascript">
+	 var noticeImages = document.querySelectorAll(".image-banner");
+	 var currentIndex = 0;
+	 function hideAllImages() {
+	        noticeImages.forEach(function(image) {
+	        	 image.style.opacity = 0;
+	             image.style.display = "none";
+	        });
+	    }
+	 function showImage(index) {
+	        noticeImages[index].style.display = "block";
+	        var opacity = 0;
+	        var timer = setInterval(function() {
+	            opacity += 0.02; // 매 20ms마다 투명도를 증가시켜 부드럽게 나타나게 함
+	            noticeImages[index].style.opacity = opacity.toFixed(2); // 소수점 두 자리까지 설정
+	            if (opacity >= 1) {
+	                clearInterval(timer); // 투명도가 1에 도달하면 타이머 종료
+	            }
+	        }, 20); // 20ms 간격으로 실행
+	    }
+	 
+	 function changeImage() {
+			 hideAllImages();
+	        showImage(currentIndex);
+	        currentIndex = (currentIndex + 1) % noticeImages.length;
+	    }
+		// 초기에는 첫 번째 이미지만 표시
+	    hideAllImages();
+	    showImage(currentIndex);
+
+	 	// 5초마다 이미지 변경
+	    setInterval(changeImage, 5000);
+	  
+</script>
 </body>
 </html>
