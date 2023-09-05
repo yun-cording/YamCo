@@ -27,7 +27,7 @@
 
     <!-- Nav Item - Dashboard -->
     <li class="nav-item active">
-        <a class="nav-link" href="index.html">
+        <a class="nav-link" href="/go_admin_dashboard.do" >
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>대시보드</span></a>
     </li>
@@ -42,9 +42,9 @@
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header"></h6>
-                <a class="collapse-item" href="buttons.html">사용자 게시물 관리</a>
-                <a class="collapse-item" href="cards.html">회원관리</a>
-                <a class="collapse-item" href="cards.html">신고내역 관리</a>
+                <a class="collapse-item" href="/go_admin_contentchk.do">사용자 게시물 관리</a>
+                <a class="collapse-item" href="/go_admin_memberchk.do">회원관리</a>
+                <a class="collapse-item" href="/go_admin_report.do">신고내역 관리</a>
             </div>
         </div>
     </li>

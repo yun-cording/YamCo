@@ -262,7 +262,7 @@ return (
 						
 						
 						
-					<!-- <form action="https://httpbin.org/post" class="dropzone needsclick dropoption"
+					<form action="https://httpbin.org/post" class="dropzone needsclick dropoption"
 						id="demo-upload">
 						<div id="titletextbox">
 										<label style="size: 35px;">제목 :  </label>
@@ -277,7 +277,7 @@ return (
 								</span> <span class="plus">+</span>
 							</div>
 						</div>
-					</form> -->
+					</form>
 						<!-- 드레그앤드랍 부분 끝-->
 					<button type="button" class="btn1 btn-secondary btn-lg">취소</button>
 						<button type="button" class="btn1 btn-success btn-lg">등록</button>

@@ -1,6 +1,5 @@
 package com.yamco.common;
 
-import java.util.Date;
 import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
@@ -103,6 +102,10 @@ public class PublicLoginController {
 				session.setAttribute("m_nick", m_vo.getM_nick());
 				session.setAttribute("loginChk", true);
 				session.setAttribute("m_image", m_vo.getM_image());
+				if(m_vo.getM_idx().equals("1")) {
+					mv.setViewName("admin/admin_dashboard");
+					return mv;
+				}
 				alert = "<script>alert('로그인 성공.');</script>";
 				mv.addObject("alert", alert);
 				mv.setViewName("main");
