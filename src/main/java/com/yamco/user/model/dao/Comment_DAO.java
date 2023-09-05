@@ -16,4 +16,8 @@ public class Comment_DAO {
 	public int comment_write(Comment_VO cvo) {
 		return sqlSessionTemplate.insert("comment.comment_write", cvo);
 	}
+	// 댓글 좋아요
+	public int comment_like(String c_idx) {
+		return sqlSessionTemplate.insert("comment.comment_like", c_idx);
+	}
 }

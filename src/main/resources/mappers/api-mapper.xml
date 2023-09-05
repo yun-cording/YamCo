@@ -13,4 +13,8 @@
 	<select id="nickChk" parameterType="String" resultType="int">
 		select count(*) from member where m_nick = #{m_nick}
 	</select>
+	<!-- 상세페이지 들어갈 때 조회수 올리기 -->
+	<update id="hit_update" parameterType="String">
+		update p_recipe set p_rcp_hit = p_rcp_hit + 0.5 where rcp_idx = #{rcp_idx}
+	</update>
 </mapper>

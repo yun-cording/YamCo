@@ -17,12 +17,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.yamco.api.model.service.Api_Service;
 import com.yamco.api.model.service.P_recipe_Service;
 import com.yamco.api.model.vo.P_recipe_VO;
-import com.yamco.user.model.vo.RecentList_VO;
 import com.yamco.user.model.service.Member_Service;
 import com.yamco.user.model.vo.Comment_VO;
-import com.yamco.user.model.vo.Member_VO;
+import com.yamco.user.model.vo.RecentList_VO;
 
 @Controller
 public class Api_Controller {
@@ -30,6 +30,8 @@ public class Api_Controller {
 	P_recipe_Service p_recipe_Service;
 	@Autowired
 	Member_Service member_Service;
+	@Autowired
+	Api_Service api_Service;
 //	@Autowired
 //	private Paging paging;
 //	@Autowired
@@ -42,14 +44,22 @@ public class Api_Controller {
 		ModelAndView mv = new ModelAndView("user/recipe/user_recipe_detail");
 		return mv;
 	}
-
+	
+	// TODO 상우 공공데이터 상세페이지
 	// 공공레시피 상세페이지
 	@RequestMapping("/go_publicDet.do")
 	// seq인지 idx인지 체크
 	public ModelAndView go_publicDet(@RequestParam("rcp_seq") String rcpSeq, HttpSession session) {
 		ModelAndView mv = new ModelAndView("user/recipe/public_recipe_detail");
+		// rcpSeq는 rcp_idx와 동일함!
+		
 		// 공공리스트 전체 리스트 받아오자
 		List<JsonNode> rowList = p_recipe_Service.go_public_list();
+		
+		// ★ 왜 두번 실행?? (double 로 바꿔서 0.5씩 올리게 해둠)
+		api_Service.hitUpdate(rcpSeq);
+		
+		System.out.println("한번만 해라!");
 		// 그중에서 rcpSeq가 받아온 값과 일치하는 녀석만 정보를 빼오자.
 		// 필터링
 		List<JsonNode> detail_list = new ArrayList<>();
@@ -66,7 +76,7 @@ public class Api_Controller {
 		        // 하나의 node를 detail_list에 담자!
 		        if (rcpSeqValue.equals(rcpSeq)) {
 		        	detail_list.add(jsonNode); // 일치하는 경우, 해당 jsonNode를 detail_list에 추가
-		        	System.out.println(jsonNode);
+		        	// System.out.println(jsonNode);
 		        	for (int i = 1; i <= 5; i++) {
 		        		manual[i - 1] = jsonNode.get("MANUAL0" + i).asText();
 		        		manualImg[i - 1] = jsonNode.get("MANUAL_IMG0" + i).asText();
@@ -74,8 +84,6 @@ public class Api_Controller {
 		        }
 		    }
 		}
-		
-		System.out.println("테스트 : " + detail_list);
 
 		// RCP_SEQ와 일치하는 rcp_idx 세션에 담기
 		// 세션에 
@@ -106,7 +114,7 @@ public class Api_Controller {
 		        comments_list_mine.add(comment);
 		    }
 		}
-		System.out.println("내꺼 갯수 : " + comments_list_mine.size());
+		// System.out.println("내꺼 갯수 : " + comments_list_mine.size());
 		// 댓글 전체리스트
 		// 이용자 id도 보내주자
 		// 아래 삭제해도 됨 (세션에서 뽑아씀)
@@ -119,12 +127,16 @@ public class Api_Controller {
 		mv.addObject("detail_list", detail_list);
 		mv.addObject("avg_rating", avg_rating);
 //		mv.addObject("manualMap", manualMap);
-		System.out.println("detail list 갔다!");
+		// System.out.println("detail list 갔다!");
 		// 전체 리스트
-		System.out.println(detail_list);
+		// System.out.println(detail_list);
 		
 		
 		// m_nick, m_idx, loginChk, session 들어감
+		
+		// TODO 상우 공공데이터 상세페이지
+		
+		
 		
 		// TODO 희준 세션에 최근리스트 추가하기 시작
 		List<RecentList_VO> recent = (List<RecentList_VO>) session.getAttribute("recent");
@@ -157,6 +169,7 @@ public class Api_Controller {
 		return mv;
 	}
 
+
 	// 사용자레시피 작성페이지
 	@RequestMapping("/go_userWrite.do")
 	public ModelAndView go_userWrite() {
@@ -177,6 +190,8 @@ public class Api_Controller {
 	@RequestMapping("/go_public_list.do")
 	public ModelAndView go_public_list(HttpServletRequest request, HttpServletResponse response) throws ServletException {
 		ModelAndView mv = new ModelAndView("user/recipe/public_list");
+		
+		System.out.println("목록띄우기는 몇번?");
 
 		List<JsonNode> rowList = p_recipe_Service.go_public_list();
 
@@ -216,7 +231,7 @@ public class Api_Controller {
 		}
 		return mv.addObject("listSummary", listSummary);
 	}
-	// TODO 상우 공공데이터 파싱 => 목록 띄우기
+	// TODO 상우 공공데이터 파싱 => 목록 띄우기 끝
 
 	// TODO 상우 공공데이터 자료 전체 받아서 반환하기
 

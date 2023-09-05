@@ -427,6 +427,19 @@ public class User_Controller2 {
 		// TODO 공공데이터 끝
 		return mv;
 	}
+	
+	// TODO 상우 사용자 댓글 좋아요
+	@RequestMapping("/comment_like.do")
+	public ModelAndView comment_like(@RequestParam(value = "c_idx", required = true) String c_idx) {
+		ModelAndView mv = new ModelAndView("user/recipe/public_recipe_detail");
+		
+		System.out.println("c_idx는 : " + c_idx);
+		user_Service.comment_like(c_idx);
+		System.out.println("댓글 좋아요 완료!");
+		
+		return mv;
+	}
+	// TODO 상우 사용자 댓글 좋아요 완료
 
 	@RequestMapping("/changeMyInfo.go")
 	public ModelAndView changeMyInfoGo(HttpSession session) {
@@ -561,6 +574,8 @@ public class User_Controller2 {
 			e.printStackTrace();
 			System.out.println("이미지 저장 실패");
 		}
+		
+		// ★ 이미지 실제 경로에 업로드
 
 //		 if (!image.isEmpty()) {
 //	            try {
@@ -610,8 +625,9 @@ public class User_Controller2 {
 		return new ModelAndView("user/recipe/public_recipe_detail");
 
 	}
-
-	// TODO 상우 사용자 댓글작성
+	// TODO 상우 사용자 댓글작성 완료
+	
+	
 	@RequestMapping("/changeMyPw.go")
 	public ModelAndView changeMyPwGo() {
 		return new ModelAndView("/mypage/changeMypw");

@@ -48,7 +48,6 @@
 					<div class="recipe_one">
 						<p>
 						<!-- 메인이미지 클릭 시 해당 게시글 상세페이지로 이동 -->
-						<%-- <a href="/go_publicDet.do?rcp_seq=${k.get("RCP_SEQ").asText()}"> --%>
 						<a href="/go_publicDet.do?rcp_seq=${k.rcpSeq}">
 							<img src="${k.attFileNoMain}" class="recipe_thumbnail">
 						</p>
@@ -68,6 +67,7 @@
 							    <span>${empty k.total_comments ? 0 : k.total_comments}</span>
 							    <img class="icon" src="https://cdn-icons-png.flaticon.com/512/2415/2415461.png" alt="">
 							    <span>${empty k.p_rcp_hit ? 0 : k.p_rcp_hit}</span>
+							    <%-- <span>${Math.round(empty k.p_rcp_hit ? 0 : k.p_rcp_hit)}</span> --%>
 							</div>
 							
 						

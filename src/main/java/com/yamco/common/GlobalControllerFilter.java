@@ -11,9 +11,19 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.yamco.admin.controller.Log_Controller;
+import com.yamco.admin.model.service.Log_Service;
+
 // TODO 상우 세션 생성될 때마다 count하는 코드
 public class GlobalControllerFilter implements Filter {
-
+	// controller에서 컨틀롤러 호출하니까 오류 남. 서비스 호출하자!
+	@Autowired
+	private Log_Controller log_Controller;
+	@Autowired
+	private Log_Service log_Service;
+	
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
             throws IOException, ServletException {
@@ -29,6 +39,10 @@ public class GlobalControllerFilter implements Filter {
                 visitorCount = 0;
             }
             visitorCount++;
+            // 증가된 방문자 수 맞춰서 update + 1
+            System.out.println("방문자수 올렸다!");
+            log_Service.visitorUp();
+            
             session.getServletContext().setAttribute("visitorCount", visitorCount);
             //System.out.println("냠냠시치 지금까지 방문자 수는 : " + visitorCount);
             

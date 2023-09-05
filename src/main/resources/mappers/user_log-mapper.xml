@@ -109,5 +109,11 @@
 		select s_name from
 		user_log_search_number_7days order by search_number desc limit 30
 	</select>
+	
+	<!-- 상우 상세페이지 들어갈 때 조회수 올리기 -->
+	<insert id="visitorUp">
+		insert into user_log (m_idx, s_name, rcp_idx, ul_logtime, ul_status)
+		values(null, null, null, current_timestamp(), 4)
+	</insert>
 
 </mapper>

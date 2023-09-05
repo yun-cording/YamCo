@@ -96,14 +96,38 @@
     }
 
     // 이미지 미리보기 버튼 클릭 시 호출
-    document.getElementById('preview_btn').addEventListener('click', function() {
+    /* document.getElementById('preview_btn').addEventListener('click', function() {
         previewFile();
-    });
+    }); */
 </script>
 
 <script type="text/javascript">
+/* 완전히 로드된 후에 실행하자! */
+// 페이지 로드 완료 후에 실행될 코드
 document.addEventListener("DOMContentLoaded", function () {
-    // 페이지 로드 완료 후에 실행될 코드
+	// JSP 코드로부터 m_nick 값을 가져옴
+    var mNick = '<%= session.getAttribute("m_nick") %>';
+
+	// 좋아요 이미지 클릭
+	const commentLineBtnImg = document.getElementById("comment_line_btn_img");
+	
+	commentLineBtnImg.addEventListener("click", function() {
+		
+		 if (mNick =="null" || mNick === "null" || mNick == null || mNick === null || mNick === undefined || mNick == undefined || mNick == "" || mNick === "") {
+         	console.log("아디 없다!");
+             var result = confirm("로그인이 필요합니다. 계속하시겠습니까?");
+             if (result) {
+                 window.location.href = "/go_login.do";
+             } else {
+             	
+             }
+         }else{
+        	 // 로그인 되어있을 시 실행
+        	 alert("댓글 좋아요 완료");
+        	 // 재훈재훈 헌정 코드
+        	 window.location.href = "/comment_like.do?c_idx=${cvo.c_idx}";
+         }
+	});
 	
     var contentTextarea = document.getElementById("content-textarea");
     if (contentTextarea) {
@@ -112,7 +136,6 @@ document.addEventListener("DOMContentLoaded", function () {
             // 서버에서 가져온 m_nick 값을 변수에 할당합니다. (예시로 "m_nick"이라 가정)
 
            	console.log("아디 첵");
-            var mNick = '<%= session.getAttribute("m_nick") %>'; // JSP 코드로부터 m_nick 값을 가져옴
 	
             // m_nick 값이 없는 경우(alert를 띄워야 하는 경우)
            if (mNick =="null" || mNick === "null" || mNick == null || mNick === null || mNick === undefined || mNick == undefined || mNick == "" || mNick === "") {
@@ -166,71 +189,72 @@ document.addEventListener("DOMContentLoaded", function () {
 				<div class="horizontal-line"></div>
 			</div>
 				
-				<div id="upper2">
-					<c:forEach var="item" items="${detail_list}">
-				        <div id="title">
-							${item.get("RCP_NM").asText()}
-						</div>
-					</c:forEach>
-					<div id="lower_images">
-						<img class="lower_images" src="resources/images/hashtag.png" style="margin-left: 138px;">
-						<!-- 이미지가 검은하트 or 빨간 하트 -->
-						<c:if test="${liked_ornot == null}">
-						    <img class="lower_images" src="resources/images/black_heart.png" style="margin-left: 45px;">
-						</c:if>
-						<c:if test="${liked_ornot == '1'}">
-						    <img class="lower_images" src="resources/images/heart.png" style="margin-left: 45px;">
-						</c:if>
-						<img class="lower_images" src="resources/images/tableware.png" style="margin-left: 45px;">
-						
-							<div style="width: 100px; height: 40px; margin-left: 26px; text-align: center; margin-top: 10px;">
-								<!-- span은 쓰레기다 -->
-								<c:forEach var="item" items="${detail_list}">
-							        <p id="ing_dets">
-										<p class="lower_text" style="margin-left: 107px; width: 100px; height: 40px; text-align: center;"># ${item.get("HASH_TAG").asText()}
-									</p>
-								</c:forEach>
-								
-								<!-- <textarea rows="2" cols="10" style="margin-left: 154px;">asdasdaksdhakjsdhkjshfkjshfkjashdkjhaskd</textarea> -->
-							</div>
-							<%-- ${wvo.likeornot} --%>
-							<div style="height: 1px;">
-								<span class="lower_text" style="margin-left: 267px; position: relative; top: -40px;">찜리스트에 추가</span>
-									<div style="width: 100px; height: 40px; margin-left: 26px; text-align: center; margin-top: 10px;">
-										<!-- span은 쓰레기다 (p 대신 쓰면 글자가 첫줄에서 왼쪽 뻥 띄우고 시작함) -->
-										<c:forEach var="item" items="${detail_list}">
-											<p id="howto_cook" class="lower_text">${item.get("RCP_PAT2").asText()}</p>
-										</c:forEach>
-									</div>
-							</div>
-				
-						<p style="margin-top: 20px;">
-							<img class="lower_images" src="resources/images/icon_tomato_ver2_1.png"  style="margin-left: 138px;">
-							<img class="lower_images" src="resources/images/steam.png"  style="margin-left: 45px;">
-						</p>
-						<p style="margin-top: 10px;">
-						<div style="width: 100px; height: 40px; margin-left: -30px; text-align: center; margin-top: 10px;">
-							<p id="writer_nick" class="lower_text">냠냠레시피</p>
-						</div>
-						<div style="width: 100px; height: 40px; margin-left: 26px; text-align: center; margin-top: 10px;">
-							<c:forEach var="item" items="${detail_list}">
-								<p id="cook_category" class="lower_text">${item.get("RCP_WAY2").asText()}</p>
-							</c:forEach>
-						</div>
+			<div id="upper2">
+				<c:forEach var="item" items="${detail_list}">
+			        <div id="title">
+						${item.get("RCP_NM").asText()}
 					</div>
-					<div id="tip">
-						<img src="resources/images/light-bulb.png" style="width:135px; height:135px; position: absolute; margin-left: 565px; top: 825px;">
-						<span style="margin-left: 574px; font-size:32px; position: relative; top: -180px;"><strong>요리 tip</strong></span>
-						<div id="rcp_tip">
+				</c:forEach>
+				<div id="lower_images">
+					<img class="lower_images" src="resources/images/hashtag.png" style="margin-left: 138px;">
+					<!-- 이미지가 검은하트 or 빨간 하트 -->
+					<c:if test="${liked_ornot == null}">
+					    <img class="lower_images" src="resources/images/black_heart.png" style="margin-left: 45px;">
+					</c:if>
+					<c:if test="${liked_ornot == '1'}">
+					    <img class="lower_images" src="resources/images/heart.png" style="margin-left: 45px;">
+					</c:if>
+					<img class="lower_images" src="resources/images/tableware.png" style="margin-left: 45px;">
+					
+						<div style="width: 100px; height: 40px; margin-left: 26px; text-align: center; margin-top: 10px;">
+							<!-- span은 쓰레기다 -->
 							<c:forEach var="item" items="${detail_list}">
-								<p id="recipe_tip" class="font_size_24">
-									${item.get("RCP_NA_TIP").asText()}
+						        <p id="ing_dets">
+									<p class="lower_text" style="margin-left: 107px; width: 100px; height: 40px; text-align: center;"># ${item.get("HASH_TAG").asText()}
 								</p>
 							</c:forEach>
 						</div>
+						<%-- ${wvo.likeornot} --%>
+						<div style="height: 1px;">
+							<span class="lower_text" style="margin-left: 267px; position: relative; top: -40px;">찜리스트에 추가</span>
+								<div style="width: 100px; height: 40px; margin-left: 26px; text-align: center; margin-top: 10px;">
+									<!-- span은 쓰레기다 (p 대신 쓰면 글자가 첫줄에서 왼쪽 뻥 띄우고 시작함) -->
+									<c:forEach var="item" items="${detail_list}">
+										<p id="howto_cook" class="lower_text">${item.get("RCP_PAT2").asText()}</p>
+									</c:forEach>
+								</div>
+						</div>
+			
+					<p style="margin-top: 20px;">
+						<img class="lower_images" src="resources/images/icon_tomato_ver2_1.png"  style="margin-left: 138px;">
+						<img class="lower_images" src="resources/images/steam.png"  style="margin-left: 45px;">
+					</p>
+					<p style="margin-top: 10px;">
+					<div style="width: 100px; height: 40px; margin-left: -30px; text-align: center; margin-top: 10px;">
+						<p id="writer_nick" class="lower_text">냠냠레시피</p>
 					</div>
-					<div class="horizontal-line" style="margin-top: -20px;"></div>
+					<div style="width: 100px; height: 40px; margin-left: 26px; text-align: center; margin-top: 10px;">
+						<c:forEach var="item" items="${detail_list}">
+							<p id="cook_category" class="lower_text">${item.get("RCP_WAY2").asText()}</p>
+						</c:forEach>
+					</div>
+					
+				<!-- lower_images 끝 -->
 				</div>
+				<div id="tip">
+					<img src="resources/images/light-bulb.png" style="width:135px; height:135px; position: absolute; margin-left: 565px; top: 825px;">
+					<span style="margin-left: 574px; font-size:32px; position: relative; top: -180px;"><strong>요리 tip</strong></span>
+					<div id="rcp_tip">
+						<c:forEach var="item" items="${detail_list}">
+							<p id="recipe_tip" class="font_size_24">
+								${item.get("RCP_NA_TIP").asText()}
+							</p>
+						</c:forEach>
+					</div>
+				</div>
+				<div class="horizontal-line" style="margin-top: -20px;"></div>
+			<!-- upper2 끝 -->
+			</div>
 				
 				<!-- 공공데이터 본문 -->
 					<!-- 영양정보 -->
@@ -239,18 +263,20 @@ document.addEventListener("DOMContentLoaded", function () {
 						<span style="font-size:32px; position: relative; top: -220px; left-margin: -100px; left: -142px;"><strong>영양정보</strong></span>
 						<div style="width: 400px; height: 230px; text-align: center; margin-left: 780px; margin-top: -280px; position: relative; top : -170px;">
 							<c:forEach var="item" items="${detail_list}">
-									<p style="font-size: 32px;"><strong>총 열량 : ${item.get("INFO_ENG").asText()}kcal</strong></p>
-									<p style="font-size: 32px;"><strong>나트륨 : ${item.get("INFO_NA").asText()}mg</strong></p>
-									<p style="font-size: 32px;"><strong>탄수화물 : ${item.get("INFO_CAR").asText()}g</strong></p>
-									<p style="font-size: 32px;"><strong>단백질 : ${item.get("INFO_PRO").asText()}g</strong></p>
-									<p style="font-size: 32px;"><strong>지방 : ${item.get("INFO_FAT").asText()}g</strong></p>
+								<p style="font-size: 32px;"><strong>총 열량 : ${item.get("INFO_ENG").asText()}kcal</strong></p>
+								<p style="font-size: 32px;"><strong>나트륨 : ${item.get("INFO_NA").asText()}mg</strong></p>
+								<p style="font-size: 32px;"><strong>탄수화물 : ${item.get("INFO_CAR").asText()}g</strong></p>
+								<p style="font-size: 32px;"><strong>단백질 : ${item.get("INFO_PRO").asText()}g</strong></p>
+								<p style="font-size: 32px;"><strong>지방 : ${item.get("INFO_FAT").asText()}g</strong></p>
 							</c:forEach>
 						</div>
 						<div class="horizontal-line_green" style="margin-top: -170px; position: relative; top: 80px; border-top: 2px solid #21730B;"></div>
+					<!-- nutrition 끝 -->
 					</div>
 					<!-- 본문 -->
 						<img src="resources/images/cooking.png" style="width:135px; height:135px; position: relative; margin-left: 565px; top:-550px; margin-top: 600px;">
 						<span style="font-size:32px; position: relative; top: -500px; left-margin: -100px; left: -142px;"><strong>조리 과정</strong></span>
+						
 						<!-- 조리과정 -->
 						<div style="text-align:left; position: relative; top: -350px; margin-left: 150px;">
 					        <c:forEach var="item" items="${manual}" varStatus="loop">
@@ -265,11 +291,12 @@ document.addEventListener("DOMContentLoaded", function () {
 							        </c:if>
 							    </div>
 							</c:forEach>
-    					<!-- 주의 문구 -->
-	 					<div>
-							<span id="gonggong">(* 표시되는 정보는 식약처에서 제공하는 공공데이터에 근거하며, 일부 자료의 경우 오류가 포함되어 있을 수 있습니다.)</span>
-						</div>
-					    <p id="body_endline" class="horizontal-line_gray"></p>
+    						<!-- 주의 문구 -->
+		 					<div>
+								<span id="gonggong">(* 표시되는 정보는 식약처에서 제공하는 공공데이터에 근거하며, 일부 자료의 경우 오류가 포함되어 있을 수 있습니다.)</span>
+							</div>
+					   		<p id="body_endline" class="horizontal-line_gray"></p>
+						<!-- 조리과정 끝 -->					   		
 						</div>	
 						
 						<!-- 수정, 삭제버튼, 신고 -->				
@@ -277,12 +304,9 @@ document.addEventListener("DOMContentLoaded", function () {
 							<span style="color: lightgray; font-size: 12px; float: right; position: relative; top: 50px; left: -45px;">신고하기</span>
 							<img src="resources/images/alarm.png" style="width: 40px; height: 40px; float: right;">
 						</div>
-								</div>
-							</div>
-						</div>
-						
+													
 				<!-- 이런 레시피는 어떠세요? 추천 -->
-				<div style="width: 1320px; height: 100px; float: left; text-align: center; margin-left: 300px;">
+				<div style="width: 1320px; height: 100px; float: left; text-align: center;">
 					<span id="howabout_this"><strong>이런 레시피는 어떠세요?</strong></span>
 				</div>
 				
@@ -307,63 +331,91 @@ document.addEventListener("DOMContentLoaded", function () {
 				      </div>
 				
 
-				<div class="horizontal-line_gray" id="testline2"></div>
+				<!-- <div class="horizontal-line_gray" id="testline2"></div> -->
 				<!-- 댓글 및 리뷰 글자 -->
-				<div style="width: 300px; height: 150px; float: left; margin-left: 300px;">
-					<span class="tomato_title" style="width: 300px; height: 150px; text-align: center;"><strong>댓글 및 리뷰</strong></span>
-				</div>
-					
-				<form id="comment_write" enctype="multipart/form-data" style="margin-top: -20px; height: 1px;" action="/comment_write.do">
-					<!-- 긁어온 별점 -->
-					 <div class="rate magnify" id="rating">
-					    <input type="radio" id="star5" name="rate" value="5" />
-					    <label for="star5" title="text">5 stars</label>
-					    <input type="radio" id="star4" name="rate" value="4" />
-					    <label for="star4" title="text">4 stars</label>
-					    <input type="radio" id="star3" name="rate" value="3" />
-					    <label for="star3" title="text">3 stars</label>
-					    <input type="radio" id="star2" name="rate" value="2" />
-					    <label for="star2" title="text">2 stars</label>
-					    <input type="radio" id="star1" name="rate" value="1" />
-					    <label for="star1" title="text">1 star</label>
-					  </div>
+				<div id="comment_write_div" class="width_1320">
+					<div id="review_star" style="width: 300px; height: 150px; float: left; margin-left: 100px;">
+						<span class="tomato_title" style="width: 300px; height: 150px; text-align: center;"><strong>댓글 및 리뷰</strong></span>
+					</div>
+						
+					<form id="comment_write" enctype="multipart/form-data" style="margin-top: -20px; height: 1px;" action="/comment_write.do">
+						<!-- 긁어온 별점 -->
+						 <div class="rate magnify" id="rating">
+						    <input type="radio" id="star5" name="rate" value="5" />
+						    <label for="star5" title="text">5 stars</label>
+						    <input type="radio" id="star4" name="rate" value="4" />
+						    <label for="star4" title="text">4 stars</label>
+						    <input type="radio" id="star3" name="rate" value="3" />
+						    <label for="star3" title="text">3 stars</label>
+						    <input type="radio" id="star2" name="rate" value="2" />
+						    <label for="star2" title="text">2 stars</label>
+						    <input type="radio" id="star1" name="rate" value="1" />
+						    <label for="star1" title="text">1 star</label>
+						  </div>
 					
 				
 					<!-- 댓글 입력 -->
 						  <textarea id="content-textarea" placeholder="댓글을 입력하세요." style="height: 180px; required"></textarea>
 							<div style="height: 60px; width: 200px; position:relative; top: -305px; left: 1200px;">
 								<input class="photo_insert" type="file" id="imgUpload" onchange="previewFile()" style="font-size: 16px; display:none;"></input>
-									<label class="round_btn photo_insert" for="imgUpload">사진 추가</label>
 							</div>
-							<!-- <button id="preview_btn">이미지 미리보기</button> -->
-							<img id="preview_btn" src="#" alt="이미지 미리보기" style="max-width: 120px; max-height: 120px;">
-							<div style="position:relative; float:left;">
-								<button class="round_btn write_cancel_btn" id="comment_write_do" name="comment_write_do">작성</button>
-								<button class="round_btn write_cancel_btn" id="cancel_btn">취소</button>
+							<div id="btns_photo">
+								<label class="round_btn_right photo_insert" id="add_photo" for="imgUpload">사진 추가</label>
+								<img id="preview_btn" src="#" alt="이미지 미리보기" style="max-width: 120px; max-height: 120px;">
 							</div>
+<!-- 							<div id="cancel_write_btn">
+								<button class="round_btn_right write_cancel_btn" id="cancel_btn">취소</button>
+								<button class="round_btn_right write_cancel_btn" id="comment_write_do" name="comment_write_do">작성</button>
+							</div> -->
 					</form>
-					
-					<div class="horizontal-line_gray" id="testline3"></div>
 				
+					
+					
+					<div id="comment_upline">
+				</div>
+					
+					</div>
+					<!-- <div class="horizontal-line_gray" id="testline3"></div> -->
 					<!-- 댓글 표시 -->
-					<div style="float:right;">
-						<button class="popular_new">인기순</button>
-						<button class="popular_new" style="position: relative; right: -20px;">최신순</button>
+					<div style="float:right; height: 1px;">
+						<button class="popular_new" id="orderby_hit">인기순</button>
+						<button class="popular_new" id="orderby_new" style="position: relative; right: -20px;">최신순</button>
+					</div>
 					<div>
 						<button class="best_comment popular_new" id="align_order2">정렬순서</button>
 					</div>
 					
+											
+						
 					<!-- 쓴 댓글 표시 -->
 					<div id="comments_show">
 						<c:forEach items="${comments_list_all}" var="cvo">
 							<div id="writer_time">
-						        <p class="left_float" style="margin-bottom: 50px;">${cvo.m_nick}</p>
-						        <p><button class="best_comment left_float">베스트 댓글</button>
-						        <p class="left_float">${cvo.c_time}</p>
+						        <p class="left_float" id="comment_writer" style="margin-bottom: 50px;">${cvo.m_nick}</p>
+						        <div id="best_comment_div">
+						        	<button class="best_comment left_float" id="comment_best">베스트 댓글</button>
+						        </div>
+						        <div class="left_float" id="comment_time"><p id="ctime_id">${cvo.c_time}</p></div>
 						    </div>
-						
+						    
+						    	<img class="comment_img" src="resources/images/public_sample1.png">
+						    	<div id="comment_content">${cvo.c_contents}
+						    		<button class="round_btn revision_delete_btn" id="comment_revision">수정</button>
+							    	<button class="round_btn revision_delete_btn" id="comment_delete">삭제</button>
+							    	<!-- 내 글이 아닌 경우 신고하기 -->
+							    	<!-- <a href="</comment_report.do"><span>신고하기</span></a> -->
+							    	<!-- <a href="/"><span id="comment_report">신고하기</span></a> -->
+							    	<!-- 내 글인 경우 수정 삭제 -->
+							    	
+							    	<!-- <button class="like_btn" type="button" id="comment_like_btn"> -->
+							        <img class="like_btn" id="comment_line_btn_img" src="resources/images/thumbs-up.png" alt="좋아요 버튼">
+						    	</div>
+						    	
+							    <p id="like_number"><strong>${cvo.c_like}</strong></p>
+							    <div id="comment_downline"></div>
 						</c:forEach>
-					</div>
+					</div> 
+					
 					
 					
 					<%-- <div id="comments_show">
@@ -414,12 +466,19 @@ document.addEventListener("DOMContentLoaded", function () {
 					
 					
 					<!-- 댓글 더보기 -->
-					<div style="margin: auto; text-align: center; margin-top: 20px;">
+<!-- 					<div style="margin: auto; text-align: center; margin-top: 20px;">
 						<button class="report_button" style="width: 100px; height: 50px; margin-top: 20px; border:none; border-radius:5px; background-color: tomato; font-size: 24px; color:white; margin: auto;">더보기</button>
-					</div>							
+					</div>		
+										 -->
+				
+				
 				</div>
-			
-		`
+				
+			</div>
+				<!-- content -->
+	<!-- mydiv 끝 -->
+	</div>
+		
 		<!-- content 끝 -->		
 	
 		<aside id="sidebar-right">
@@ -427,7 +486,7 @@ document.addEventListener("DOMContentLoaded", function () {
 			</aside>
 		<div id="footer">
 			<jsp:include page="../../footer.jsp" />
-		</div>
+		</div> -
 </body>
 	
 </html>
