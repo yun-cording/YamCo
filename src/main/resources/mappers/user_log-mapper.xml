@@ -109,5 +109,11 @@
 		select s_name from
 		user_log_search_number_7days order by search_number desc limit 30
 	</select>
-
+	
+	<select id="bestListIdx" resultType="String">
+		select rcp_idx from user_log_recipe_hit_today
+		order by hit_today DESC
+		LIMIT 5
+	</select>
+	
 </mapper>
