@@ -152,10 +152,15 @@
 			</if>
 		</where>
 		<if test="orderKey != null">
+			<!-- orderKey : 정렬기준 column -->
 			order by ${orderKey}
 			<if test="order != null">
+				<!-- order : desc or asc -->
 				${order}
 			</if>
+		</if>
+		<if test="limitNum != null">
+			limit ${limitNum}
 		</if>
 	</select>
 	<!-- ${}를 사용함으로써 문자열 옆에 ''가 안 붙고 그대로 들어간다. -->

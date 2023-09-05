@@ -29,6 +29,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.yamco.api.model.service.P_recipe_Service;
 import com.yamco.api.model.vo.P_recipe_VO;
+import com.yamco.user.model.service.Comment_Service;
 import com.yamco.user.model.service.Images_Service;
 import com.yamco.user.model.service.Member_Service;
 import com.yamco.user.model.service.RandomService;
@@ -36,6 +37,7 @@ import com.yamco.user.model.service.U_recipe_Service;
 import com.yamco.user.model.service.User_Service;
 import com.yamco.user.model.service.User_log_Service;
 import com.yamco.user.model.vo.Comment_VO;
+import com.yamco.user.model.vo.Comment_meta_VO;
 import com.yamco.user.model.vo.Member_VO;
 import com.yamco.user.model.vo.Member_meta_VO;
 import com.yamco.user.model.vo.Notice_VO;
@@ -64,6 +66,8 @@ public class User_Controller2 {
 	private P_recipe_Service p_recipe_Service;
 	@Autowired
 	private User_Service user_Service;
+	@Autowired
+	private Comment_Service comment_Service;
 
 	@RequestMapping("/main.go")
 	public ModelAndView homeGo(HttpSession session) {
@@ -326,13 +330,20 @@ public class User_Controller2 {
 			ursvo.setOrder(order);
 		}
 		List<U_recipe_meta_VO> result = u_recipe_Service.getSelectList(ursvo);
-		mv.addObject("contentList", result);
+		mv.addObject("cotentList", result);
 		return mv;
 	}
 
 	@RequestMapping("/mycomment.go")
-	public ModelAndView myCommentGo() {
+	public ModelAndView myCommentGo(HttpSession session) {
 		ModelAndView mv = new ModelAndView("/mypage/myComment");
+		String m_idx = (String) session.getAttribute("m_idx");
+		Comment_VO cvo = new Comment_VO();
+		cvo.setM_idx(m_idx);
+		
+		List<Comment_meta_VO> result = comment_Service.getSelectList(cvo);
+		mv.addObject("commentList", result);
+		
 		return mv;
 	}
 

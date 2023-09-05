@@ -22,6 +22,7 @@ LEFT JOIN
 GROUP BY 
     ur.rcp_idx;
     
+DROP VIEW u_recipe_metadata;
 #u_recipe에 부가적인 정보를 더한 뷰
 CREATE VIEW u_recipe_metadata AS
 SELECT 
@@ -29,7 +30,8 @@ SELECT
     c.c_count,
     c.avg_grade,
     ul_7days.hit AS hit_7day,
-    ul_1month.hit AS hit_1mon
+    ul_1month.hit AS hit_1mon,
+    ul_today.hit_today AS hit_today
 FROM 
     u_recipe_with_member_image u
 LEFT JOIN 
@@ -37,7 +39,9 @@ LEFT JOIN
 LEFT JOIN 
     user_log_recipe_hit_7days ul_7days ON u.rcp_idx = ul_7days.rcp_idx
 LEFT JOIN 
-    user_log_recipe_hit_1month ul_1month ON u.rcp_idx = ul_1month.rcp_idx;
+    user_log_recipe_hit_1month ul_1month ON u.rcp_idx = ul_1month.rcp_idx
+LEFT JOIN 
+    user_log_recipe_hit_today ul_today ON u.rcp_idx = ul_today.rcp_idx;
 
 #검색어에 대한 일주인간 검색수를 볼 수 있는 뷰
 CREATE VIEW user_log_search_number_7days AS 
@@ -105,6 +109,18 @@ FROM
 LEFT JOIN 
     member_u_recipe_hit_1month m_h_1month ON m.m_idx = m_h_1month.m_idx;
 
+#commnent에 부가적인 정보를 더한 뷰
+CREATE VIEW comment_metadata AS
+SELECT 
+    c.*,
+    ur.u_rcp_title
+FROM 
+    comment c
+LEFT JOIN 
+    u_recipe ur ON ur.rcp_idx = c.rcp_idx;
+
 update u_recipe set u_rcp_hit = u_rcp_hit + 1 where rcp_idx = 10008;
 insert into user_log(m_idx, rcp_idx, ul_logtime, ul_status) VALUES(45, 10004, '2023-08-03 17:06:53', 3);
 SELECT * FROM user_log WHERE rcp_idx = 10008;
+
+SELECT * FROM u_recipe_metadata WHERE m_idx = 90 ORDER BY u_rcp_hit desc;
