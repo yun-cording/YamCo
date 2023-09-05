@@ -6,12 +6,14 @@ import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,12 +29,16 @@ import org.springframework.web.servlet.ModelAndView;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.yamco.api.model.service.P_recipe_Service;
 import com.yamco.api.model.vo.P_recipe_VO;
+import com.yamco.user.model.service.Images_Service;
 import com.yamco.user.model.service.Member_Service;
 import com.yamco.user.model.service.RandomService;
 import com.yamco.user.model.service.U_recipe_Service;
+import com.yamco.user.model.service.User_Service;
 import com.yamco.user.model.service.User_log_Service;
+import com.yamco.user.model.vo.Comment_VO;
 import com.yamco.user.model.vo.Member_VO;
 import com.yamco.user.model.vo.Member_meta_VO;
+import com.yamco.user.model.vo.Notice_VO;
 import com.yamco.user.model.vo.Random_save_VO;
 import com.yamco.user.model.vo.U_recipe_meta_VO;
 
@@ -41,6 +47,8 @@ public class User_Controller2 {
 
 	@Autowired
 	private RandomService randomService;
+	@Autowired
+	private Images_Service images_Service;
 
 	@Autowired
 	private U_recipe_Service u_recipe_Service;
@@ -52,6 +60,8 @@ public class User_Controller2 {
 	private BCryptPasswordEncoder passwordEncoder;
 	@Autowired
 	private P_recipe_Service p_recipe_Service;
+	@Autowired
+	private User_Service user_Service;
 
 	@RequestMapping("/main.go")
 	public ModelAndView homeGo(HttpSession session) {
@@ -62,6 +72,10 @@ public class User_Controller2 {
 		Random_save_VO saveVO = randomService.getSelectedFile();
 		mv.addObject("saveVO", saveVO);
 		// TODO 재훈 랜덤 재료(자정 초기화) 끝
+		// TODO 재훈 공지,광고 가져오기 시작
+		List<Notice_VO> nvo = images_Service.getNoticeList();
+
+		// TODO 재훈 공지,광고 가져오기 끝
 		// TODO 재훈 메인 끝
 
 		return mv;
@@ -204,7 +218,7 @@ public class User_Controller2 {
 		List<U_recipe_meta_VO> wishList_meta = new ArrayList<U_recipe_meta_VO>();
 		for (String k : wishList_idx) {
 			U_recipe_meta_VO meta_vo = u_recipe_Service.getSelectOne(k);
-			if(meta_vo!=null) {
+			if (meta_vo != null) {
 				wishList_meta.add(meta_vo);
 			}
 			// TODO 공공데이터 시작
@@ -222,7 +236,7 @@ public class User_Controller2 {
 				String rcpSeq = k2.get("RCP_SEQ").asText();
 				String attFileNoMain = k2.get("ATT_FILE_NO_MAIN").asText();
 				String rcpNm = k2.get("RCP_NM").asText();
-				if(k.equals(rcpSeq)) {
+				if (k.equals(rcpSeq)) {
 					U_recipe_meta_VO pvo = new U_recipe_meta_VO();
 					pvo.setRcp_idx(rcpSeq);
 					pvo.setU_rcp_img(attFileNoMain);
@@ -299,8 +313,8 @@ public class User_Controller2 {
 	}
 
 	@RequestMapping("/search.go")
-	public ModelAndView searchGo(@ModelAttribute("search_text") String search_text, @ModelAttribute("order") String order,
-			HttpSession session) {
+	public ModelAndView searchGo(@ModelAttribute("search_text") String search_text,
+			@ModelAttribute("order") String order, HttpSession session) {
 		ModelAndView mv = new ModelAndView("/user/recipe/search_list");
 		// 검색어로 DB다녀오기
 		Map<String, String> map = new HashMap<String, String>();
@@ -333,9 +347,10 @@ public class User_Controller2 {
 			String attFileNoMain = k.get("ATT_FILE_NO_MAIN").asText();
 			String rcpNm = k.get("RCP_NM").asText();
 			if (k.get("RCP_PARTS_DTLS").asText().contains(search_text) || k.get("RCP_NM").asText().contains(search_text)
-					|| k.get("RCP_PAT2").asText().contains(search_text) || k.get("HASH_TAG").asText().contains(search_text)) { // 재료에
-																																																											// 검색어가
-																																																											// 포함될때
+					|| k.get("RCP_PAT2").asText().contains(search_text)
+					|| k.get("HASH_TAG").asText().contains(search_text)) { // 재료에
+																			// 검색어가
+																			// 포함될때
 				U_recipe_meta_VO pvo = new U_recipe_meta_VO();
 				pvo.setRcp_idx(rcpSeq);
 				pvo.setU_rcp_img(attFileNoMain);
@@ -426,7 +441,8 @@ public class User_Controller2 {
 		ModelAndView mv = new ModelAndView("/mypage/leaveMember");
 		String m_idx = (String) session.getAttribute("m_idx");
 		Member_VO mvo = member_Service.getMemberOne(m_idx);
-		if (mvo.getM_login_type().equals("2") || mvo.getM_login_type().equals("3") || mvo.getM_login_type().equals("4")) {
+		if (mvo.getM_login_type().equals("2") || mvo.getM_login_type().equals("3")
+				|| mvo.getM_login_type().equals("4")) {
 			mv.addObject("social", true);
 			if (mvo.getM_gender().equals("M")) {
 				mvo.setM_gender("남성");
@@ -476,6 +492,91 @@ public class User_Controller2 {
 		return mv;
 	}
 
+	// TODO 상우 사용자 댓글작성
+	@RequestMapping("/comment_write.do")
+	public ModelAndView comment_write(@RequestParam(value = "rate", required = true) String rate,
+			@RequestParam(value = "comment", required = true) String comment,
+			@RequestParam(value = "image", required = false) MultipartFile image, HttpSession session,
+			HttpServletRequest request) {
+
+		try {
+			String path = request.getSession().getServletContext().getRealPath("/resources/images/comment");
+			MultipartFile file = image;
+			if (file.isEmpty()) {
+				// 빈 경로
+//		        bv.setF_name("");
+			} else {
+				// 같은 이름 없도록 UUID 사용
+				UUID uuid = UUID.randomUUID();
+				// 원본 파일명
+				String originalFilename = image.getOriginalFilename();
+				// 확장자 추출
+				String fileExtension = originalFilename.substring(originalFilename.lastIndexOf("."));
+				// UUID를 포함한 새로운 파일명 생성
+				String f_name = uuid.toString() + fileExtension;
+//		        bv.setF_name(f_name);
+
+				// 이미지 저장
+				byte[] in = image.getBytes();
+				File out = new File(path, f_name);
+				FileCopyUtils.copy(in, out);
+				System.out.println("이미지 저장 성공");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("이미지 저장 실패");
+		}
+
+//		 if (!image.isEmpty()) {
+//	            try {
+//	                // 업로드할 폴더 경로 설정
+//	                // String uploadPath = "resources/images/comment/";
+//	                String uploadPath = "src/main/resources/static/images/comment/"; // resources 폴더 안에 있는 경우
+//
+//	                // 업로드할 파일의 경로 설정
+//	                String originalFilename = image.getOriginalFilename();
+//	                String filePath = uploadPath + originalFilename;
+//	                System.out.println("파일 이름 : " + originalFilename);
+//
+//	                // 파일을 업로드
+//	                File dest = new File(filePath);
+//	                image.transferTo(dest);
+//	                System.out.println("이미지 업로드 했다!");
+//
+//	            } catch (IOException e) {
+//	                e.printStackTrace();
+//	                System.out.println("이미지 업로드 오류");
+//	            }
+//	        } else {
+//	            // 이미지 파일이 비어있는 경우 처리
+//	        	
+//	        }
+
+		String m_idx = (String) session.getAttribute("m_idx");
+		Member_VO mvo = member_Service.getMemberOne(m_idx);
+
+		Comment_VO cvo = new Comment_VO();
+		cvo.setM_nick(mvo.getM_nick());
+		cvo.setC_contents(comment);
+		cvo.setC_img("resources/images/comment/" + image.getOriginalFilename());
+		cvo.setC_grade(rate);
+
+		// 여기네
+		String s_rcp_idx = (String) session.getAttribute("rcp_idx");
+
+		// System.out.println("자료형은 : " +
+		// session.getAttribute("rcp_idx").getClass().getName());
+
+		// System.out.println(s_rcp_idx);
+		cvo.setRcp_idx(String.valueOf(s_rcp_idx));
+
+		int result = user_Service.comment_write(cvo);
+
+		return new ModelAndView("user/recipe/public_recipe_detail");
+
+	}
+
+	// TODO 상우 사용자 댓글작성
 	@RequestMapping("/changeMyPw.go")
 	public ModelAndView changeMyPwGo() {
 		return new ModelAndView("/mypage/changeMypw");
@@ -497,7 +598,4 @@ public class User_Controller2 {
 		mv.addObject("alert", alert);
 		return mv;
 	}
-
-	
-
 }
