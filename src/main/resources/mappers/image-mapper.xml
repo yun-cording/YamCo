@@ -15,4 +15,7 @@
 	<select id="savelist" resultType="ransvo">
 		SELECT * FROM food_save LIMIT 1
 	</select>
+	<select id="noticelist" resultType="nvo">
+		SELECT * FROM notice_img  
+	</select>
 </mapper>

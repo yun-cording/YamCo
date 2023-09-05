@@ -64,8 +64,8 @@ public class User_Controller2 {
 		mv.addObject("saveVO", saveVO);
 		// TODO 재훈 랜덤 재료(자정 초기화) 끝
 		// TODO 재훈 공지,광고 가져오기 시작
-		List<Notice_VO> nvo = images_Service.getNoticeList();
-		
+		List<Notice_VO> list  = images_Service.getNoticeList();
+		mv.addObject("noticeList", list);
 		// TODO 재훈 공지,광고 가져오기 끝
 		// TODO 재훈 메인 끝
 
