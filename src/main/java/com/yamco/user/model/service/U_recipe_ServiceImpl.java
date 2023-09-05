@@ -45,7 +45,7 @@ public class U_recipe_ServiceImpl implements U_recipe_Service {
 		return u_recipe_DAO.getSelectList(urvo);
 	}
 	
-	// U_recipe_Search_VO로 U_recipe_meta_VO 검색(단, order 기준 내림차순 정렬)
+	// U_recipe_Search_VO로 U_recipe_meta_VO 검색
 	@Override
 	public List<U_recipe_meta_VO> getSelectList(U_recipe_Search_VO ursvo) {
 		return u_recipe_DAO.getSelectList(ursvo);

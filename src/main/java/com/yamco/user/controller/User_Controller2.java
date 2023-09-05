@@ -227,14 +227,18 @@ public class User_Controller2 {
 		String m_idx = (String) session.getAttribute("m_idx");
 		U_recipe_Search_VO ursvo = new U_recipe_Search_VO();
 		ursvo.setM_idx(m_idx);
+		
+		//검색어 키워드가 있는 경우 
 		if (keyword != null && !keyword.isEmpty()) {
 			ursvo.setLikeTitle(keyword);
 		}
+		//정렬 기준이 있는 경우
 		if (orderKey != null && !orderKey.isEmpty()) {
 			ursvo.setOrderKey(orderKey);
+			//정렬 방식이 없거나 오름차순이면 내림차순으로 바꿔준다.
 			if (order == null || order.isEmpty() || order.equalsIgnoreCase("asc")) {
 				order = "desc";
-			} else {
+			} else { //그 외의 경우에는 오름차순으로 설정한다.
 				order = "asc";
 			}
 			ursvo.setOrder(order);
