@@ -101,7 +101,8 @@ function restorePlaceholder(element, defaultPlaceholder) {
 		</div>
 		</a>
 	</div>
-</div>	
+</div>
+${alert }
 <script type="text/javascript">
 		function handleCredentialResponse(response) {
 		    // decodeJwtResponse() is a custom function defined by you

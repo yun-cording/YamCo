@@ -55,11 +55,12 @@
 						<p>
 							${k.rcpNm}
 						</p>
+						
 							<div class="writer">
 								<img
 									src="https://png.pngtree.com/png-vector/20191115/ourmid/pngtree-beautiful-profile-line-vector-icon-png-image_1990469.jpg"
 									class="profile"> <span>냠냠레시피</span>
-							</div>
+							</div></a>
 							<div class="like" style="text-align: right;">
 							    <img class="icon" src="https://img.medicalreport.kr/resources/2019/07/23/o0vYNCXzJDWRPejw.jpg" alt="">
 							    <span>${empty k.avg_c_grade ? 0 : k.avg_c_grade}</span>
@@ -69,7 +70,7 @@
 							    <span>${empty k.p_rcp_hit ? 0 : k.p_rcp_hit}</span>
 							</div>
 							
-						</a>
+						
 					</div>
 				</c:forEach>
 			</div>
