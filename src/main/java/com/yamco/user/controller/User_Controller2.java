@@ -27,6 +27,8 @@ import com.yamco.user.model.service.User_log_Service;
 import com.yamco.user.model.vo.Member_VO;
 import com.yamco.user.model.vo.Member_meta_VO;
 import com.yamco.user.model.vo.RecentList_VO;
+import com.yamco.user.model.vo.U_recipe_Search_VO;
+import com.yamco.user.model.vo.U_recipe_VO;
 import com.yamco.user.model.vo.U_recipe_meta_VO;
 
 @Controller
@@ -208,8 +210,37 @@ public class User_Controller2 {
 	}
 
 	@RequestMapping("/mycontent.go")
-	public ModelAndView myContentGo() {
+	public ModelAndView myContentGo(HttpSession session) {
 		ModelAndView mv = new ModelAndView("/mypage/myContent");
+		String m_idx = (String) session.getAttribute("m_idx");
+		U_recipe_VO urvo = new U_recipe_VO();
+		urvo.setM_idx(m_idx);
+		List<U_recipe_meta_VO> result = u_recipe_Service.getSelectList(urvo);
+		mv.addObject("contentList", result);
+		return mv;
+	}
+
+	@RequestMapping("/mycontent_search.go")
+	public ModelAndView myContentOrderGo(HttpSession session, @ModelAttribute("keyword") String keyword,
+			@ModelAttribute("orderKey") String orderKey, @ModelAttribute("order") String order) {
+		ModelAndView mv = new ModelAndView("/mypage/myContent");
+		String m_idx = (String) session.getAttribute("m_idx");
+		U_recipe_Search_VO ursvo = new U_recipe_Search_VO();
+		ursvo.setM_idx(m_idx);
+		if (keyword != null && !keyword.isEmpty()) {
+			ursvo.setLikeTitle(keyword);
+		}
+		if (orderKey != null && !orderKey.isEmpty()) {
+			ursvo.setOrderKey(orderKey);
+			if (order == null || order.isEmpty() || order.equalsIgnoreCase("asc")) {
+				order = "desc";
+			} else {
+				order = "asc";
+			}
+			ursvo.setOrder(order);
+		}
+		List<U_recipe_meta_VO> result = u_recipe_Service.getSelectList(ursvo);
+		mv.addObject("contentList", result);
 		return mv;
 	}
 
@@ -240,9 +271,9 @@ public class User_Controller2 {
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("search", search_text);
 		map.put("order", order);
-		
+
 		String m_idx = (String) session.getAttribute("m_idx");
-		
+
 		List<U_recipe_meta_VO> search_list = u_recipe_Service.getSearch(map, m_idx);
 		mv.addObject("u_list", search_list);
 		return mv;
