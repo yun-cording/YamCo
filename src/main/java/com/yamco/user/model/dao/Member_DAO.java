@@ -83,4 +83,8 @@ public class Member_DAO {
 	public int getTokenDelete(Member_VO mvo) {
 		return sqlSessionTemplate.update("member.tokenDelete", mvo);
 	}
+	// 찜목록
+	public List<String> getMyWishList(String m_idx) {
+		return sqlSessionTemplate.selectList("member.wishList", m_idx);
+	}
 }

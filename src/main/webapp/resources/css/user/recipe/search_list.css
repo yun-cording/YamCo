@@ -8,6 +8,9 @@
 	margin: 0;
 	box-sizing: border-box;
 }
+a:hover { 
+	color: inherit !important; 
+	}
 #mydiv {
 	width: 1920px;
 	margin: auto;

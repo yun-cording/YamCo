@@ -3,6 +3,7 @@ package com.yamco.user.model.service;
 import java.util.List;
 import java.util.Map;
 
+import com.yamco.user.model.vo.U_recipe_Search_VO;
 import com.yamco.user.model.vo.U_recipe_VO;
 import com.yamco.user.model.vo.U_recipe_meta_VO;
 
@@ -12,6 +13,12 @@ public interface U_recipe_Service {
 
 	// rcp_idx를 포함한 U_recipe_VO로 U_recipe_meta_VO 검색
 	public U_recipe_meta_VO getSelectOne(U_recipe_VO urvo);
+	
+	// U_recipe_VO로 U_recipe_meta_VO 검색
+	public List<U_recipe_meta_VO> getSelectList(U_recipe_VO urvo);
+	
+	// U_recipe_Search_VO로 U_recipe_meta_VO 검색
+	public List<U_recipe_meta_VO> getSelectList(U_recipe_Search_VO ursvo);
 	
 	// rcp_idx로 U_recipe_meta_VO 검색
 	public U_recipe_meta_VO getSelectOne(String rcp_idx);
