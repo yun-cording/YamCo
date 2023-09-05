@@ -368,11 +368,11 @@ $(function () {
         }
 	});
 });
-	function search_sort_grade_go() {
-		location.href="/search.go?search_text="+'${search_text}'+"&order=1"
+	function wish_sort_grade_go() {
+		location.href="/mywishlist.go?order=1"
 	}
-	function search_sort_hit_go() {
-		location.href="/search.go?search_text="+'${search_text}'+"&order=0"
+	function wish_sort_hit_go() {
+		location.href="/mywishlist.go?order=0"
 	}
 </script>
 </body>
