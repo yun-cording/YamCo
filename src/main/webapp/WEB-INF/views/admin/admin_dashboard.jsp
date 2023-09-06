@@ -52,7 +52,7 @@
 												class="text-xs font-weight-bold text-success text-uppercase mb-1">
 												<span class="font-weight-bold font">총 조회수</span>
 											</div>
-											<div class="h5 mb-0 font-weight-bold text-gray-800">${dash_VO.total_hit }</div>
+											<div class="h5 mb-0 font-weight-bold text-gray-800">${vo.hit_total }</div>
 										</div>
 										<div class="col-auto">
 											<img src="/resources/images/search 1.png" alt=""
@@ -72,7 +72,7 @@
 												class="text-xs font-weight-bold text-success text-uppercase mb-1">
 												<span class="font-weight-bold font">총 방문자 수</span>
 											</div>
-											<div class="h5 mb-0 font-weight-bold text-gray-800">${dash_VO.total_visit }</div>
+											<div class="h5 mb-0 font-weight-bold text-gray-800">${vo.visit_total }</div>
 										</div>
 										<div class="col-auto">
 											<img src="/resources/images/web-traffic 1.png" alt=""
@@ -91,7 +91,7 @@
 												class="text-xs font-weight-bold text-success text-uppercase mb-1">
 												<span class="font-weight-bold font">신규 회원등록</span>
 											</div>
-											<div class="h5 mb-0 font-weight-bold text-gray-800">${dash_VO.client_new }</div>
+											<div class="h5 mb-0 font-weight-bold text-gray-800">${vo.client_new }</div>
 										</div>
 										<div class="col-auto">
 											<img src="/resources/images/user 1.png" alt="" width="40px;">
@@ -109,7 +109,7 @@
 												class="text-xs font-weight-bold text-success text-uppercase mb-1">
 												<span class="font-weight-bold font">신규 등록 레시피</span>
 											</div>
-											<div class="h5 mb-0 font-weight-bold text-gray-800">${dash_VO.recipe_new }</div>
+											<div class="h5 mb-0 font-weight-bold text-gray-800">${vo.recipe_new }</div>
 										</div>
 										<div class="col-auto">
 											<img src="/resources/images/blogger 1.png" alt=""
@@ -132,17 +132,14 @@
 								<!-- Card Body -->
 								<div class="card-body d-flex justify-content-between">
 									<div class="chart-pie">
-										<div class="font-weight-bold text-center">81%</div>
 										<canvas id="myPieChart" style="width: 120px; height: 120px;"></canvas>
 										<div class="font-weight-bold small text-center">사용자레시피/공공레시피 조회비율</div>
 									</div>
 									<div class="chart-pie">
-										<div class="font-weight-bold text-center">22개</div>
 										<canvas id="myPieChart2" style="width: 120px; height: 120px;"></canvas>
 										<div class="font-weight-bold small text-center">오전/오후 방문자 비율</div>
 									</div>
 									<div class="chart-pie">
-										<div class="font-weight-bold text-center">80회</div>
 										<canvas id="myPieChart3" style="width: 120px; height: 120px;"></canvas>
 										<div class="font-weight-bold small text-center">남/녀 비율</div>
 									</div>
@@ -177,16 +174,16 @@
 										<table class="table table-bordered" id="dataTable"
 											width="100%" cellspacing="0">
 											<colgroup>
+												<col width="10%" />
+												<col width="15%" />
+												<col width="35%" />
 												<col width="20%" />
-												<col width="22%" />
-												<col width="20%" />
-												<col width="18%" />
 												<col width="20%" />
 											</colgroup>
 											<thead>
 												<tr>
-													<th scope="col">신고 누적 횟수</th>
-													<th scope="col">피신고자 닉네임</th>
+													<th scope="col">신고 횟수</th>
+													<th scope="col">닉네임</th>
 													<th scope="col">게시글 제목</th>
 													<th scope="col">댓글 내용</th>
 													<th scope="col">블라인드 처리</th>
@@ -268,12 +265,12 @@
 	<!-- Page level plugins -->
 	<script src="/resources/vendor/chart.js/Chart.min.js"></script>
 	<script type="text/javascript">
-		var doughnutData1 = [30,70]
-		var doughnutData2 = [30,70]
-		var doughnutData3 = [30,70]
-		var hitData = [5000,10000,8000,16000,30000,25000,4000]
-		var hitDay = ['월요일','화요일','수요일','목요일','금요일','토요일','일요일']
-		var visitData =  [4215, 5312, 6251, 7841, 9821, 14984, 9813]
+		var doughnutData1 = [${vo.hit_user} ,  ${vo.hit_public} ]
+		var doughnutData2 = [ ${vo.visit_am}, ${vo.visit_pm}  ]
+		var doughnutData3 = [ ${vo.male_count} ,${vo.female_count} ]
+		var hitData = ${vo.week_hit_count}
+		var hitDay = ${vo.daysOfWeek}
+		var visitData =  ${vo.week_visit_count}
 		
 	</script>
 	<!-- Page level custom scripts -->
