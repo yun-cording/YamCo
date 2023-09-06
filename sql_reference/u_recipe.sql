@@ -7,7 +7,8 @@ FROM
     u_recipe ur
 JOIN 
     member m ON ur.m_idx = m.m_idx;
-
+    
+DROP VIEW recipe;
 #p_recipe, u_recipe 두 테이블 정보를 더한 뷰
 #주의: p_recipe의 p_rcp_hit를 u_rcp_hit에 저장하였다.
 #주의: p_recipe의 u_rcp_status 기본값을 0으로 저장하였다.
@@ -26,7 +27,8 @@ SELECT
     rcs.c_count, rcs.avg_grade,
     ul_7days.hit AS hit_7day,
     ul_1month.hit AS hit_1mon,
-    ul_today.hit_today AS hit_today
+    ul_today.hit_today AS hit_today,
+    w.w_count
 FROM 
     recipe r
 LEFT JOIN 
@@ -36,7 +38,9 @@ LEFT JOIN
 LEFT JOIN 
     user_log_recipe_hit_1month ul_1month ON r.rcp_idx = ul_1month.rcp_idx
 LEFT JOIN 
-    user_log_recipe_hit_today ul_today ON r.rcp_idx = ul_today.rcp_idx;
+    user_log_recipe_hit_today ul_today ON r.rcp_idx = ul_today.rcp_idx
+LEFT JOIN 
+    u_recipe_wish_count w ON r.rcp_idx = w.rcp_idx;
 
 #p_recipe, u_recipe 테이블 정보에 comment테이블의 댓글수와 평점을 더한 뷰
 CREATE VIEW recipe_comment_summary AS
@@ -58,7 +62,6 @@ LEFT JOIN
 GROUP BY 
     pr.rcp_idx;
 
-
 #u_recipe 테이블 정보에 comment테이블의 댓글수와 평점을 더한 뷰
 CREATE VIEW u_recipe_comment_summary AS
 SELECT 
@@ -72,6 +75,18 @@ LEFT JOIN
 GROUP BY 
     ur.rcp_idx;
     
+#u_recipe 테이블 정보에 wish_list테이블의 찜수를 더한 뷰
+CREATE VIEW u_recipe_wish_count AS
+SELECT 
+    ur.rcp_idx,
+    COUNT(wl.rcp_idx) AS w_count
+FROM 
+    u_recipe ur
+LEFT JOIN 
+    wish_list wl ON ur.rcp_idx = wl.rcp_idx
+GROUP BY 
+    ur.rcp_idx;
+    
 DROP VIEW u_recipe_metadata;
 #u_recipe에 부가적인 정보를 더한 뷰
 CREATE VIEW u_recipe_metadata AS
@@ -81,7 +96,8 @@ SELECT
     c.avg_grade,
     ul_7days.hit AS hit_7day,
     ul_1month.hit AS hit_1mon,
-    ul_today.hit_today AS hit_today
+    ul_today.hit_today AS hit_today,
+    w.w_count
 FROM 
     u_recipe_with_member_image u
 LEFT JOIN 
@@ -91,7 +107,9 @@ LEFT JOIN
 LEFT JOIN 
     user_log_recipe_hit_1month ul_1month ON u.rcp_idx = ul_1month.rcp_idx
 LEFT JOIN 
-    user_log_recipe_hit_today ul_today ON u.rcp_idx = ul_today.rcp_idx;
+    user_log_recipe_hit_today ul_today ON u.rcp_idx = ul_today.rcp_idx
+LEFT JOIN 
+    u_recipe_wish_count w ON u.rcp_idx = w.rcp_idx;
 
 #검색어에 대한 일주인간 검색수를 볼 수 있는 뷰
 CREATE VIEW user_log_search_number_7days AS 
