@@ -332,28 +332,23 @@ color: #21730B;
 				<button class="plus view">더보기</button>
 			
 			<div class="flexbetween">
-				<c:forEach begin="1" end="8">
+				<c:forEach items="${bestList }" var="k">
 				<div class="recipe_one">
-							<p>
-								<img
-									src="https://mediahub.seoul.go.kr/wp-content/uploads/2020/10/d13ea4a756099add8375e6c795b827ab.jpg"
-									class="recipe_thumbnail">
-							</p>
-							<p>공공레시피명</p>
+							<a href="/사용자레시피?rcp_seq=${k.rcp_idx}">
+							<p><img src="${k.u_rcp_img }" class="recipe_thumbnail"></p>
+							<p>${k.u_rcp_title }</p>
 							<div class="writer">
-								<img
-									src="https://png.pngtree.com/png-vector/20191115/ourmid/pngtree-beautiful-profile-line-vector-icon-png-image_1990469.jpg"
-									class="profile"> <span>작성자 이름</span>
+								<img src="${k.m_image }" class="profile"><span>${k.m_nick }</span>
 							</div>
+							</a>
 							<div class="like" style="text-align: right;">
-								<img class="icon"
-									src="https://img.medicalreport.kr/resources/2019/07/23/o0vYNCXzJDWRPejw.jpg"
-									alt=""> <span>4.9</span> <img class="icon"
-									src="https://cdn-icons-png.flaticon.com/512/8316/8316018.png"
-									alt=""> <span>42</span> <img class="icon"
-									src="https://cdn-icons-png.flaticon.com/512/2415/2415461.png"
-									alt=""> <span>7만</span>
-							</div>
+							<img class="icon" src="/resources/images/icon_tomato_ver2_1.png" alt="">
+							<span>${empty k.avg_grade ? 0 : k.avg_grade }</span>
+							<img class="icon" src="https://cdn-icons-png.flaticon.com/512/8316/8316018.png" alt="">
+							<span>${empty k.c_count ? 0 : k.c_count}</span>
+							<img class="icon" src="https://cdn-icons-png.flaticon.com/512/2415/2415461.png"	alt="">
+							<span>${empty k.u_rcp_hit ? 0 : k.u_rcp_hit}</span>
+						</div>
 						</div>
 					</c:forEach>
 				
@@ -374,10 +369,12 @@ color: #21730B;
 			<div class="border grade">
 				<div><span class="title">명예의 전당</span></div>
 				<button class="plus view">더보기</button>
-				<div id="grade_text"><span style="font-size: 40px"><span class="point_tomato">최고</span>의 <span class="point_green">냠냠쉐프</span>는?</span></div>
-				<div id="grade_two"><img id="thumbnail_two" class="thumbnail" src="/resources/images/potatoes.png"><span class="nick">닉네임</span><img class="rank" src="/resources/images/rankingmedal/2.png"></div>
-				<div id="grade_one"><img id="thumbnail_two" class="thumbnail" src="/resources/images/potatoes.png"><span class="nick">닉네임</span><img class="rank" src="/resources/images/rankingmedal/1.png"></div>
-				<div id="grade_three"><img id="thumbnail_two" class="thumbnail" src="/resources/images/potatoes.png"><span class="nick">닉네임</span><img class="rank" src="/resources/images/rankingmedal/3.png"></div>
+				<c:if test="${not empty award_list}">
+					<div id="grade_text"><span style="font-size: 40px"><span class="point_tomato">최고</span>의 <span class="point_green">냠냠쉐프</span>는?</span></div>
+					<div id="grade_two"><img id="thumbnail_two" class="thumbnail" src="${award_list[1].m_image}" alt="2등"><span class="nick">${award_list[1].m_nick}</span><img class="rank" src="/resources/images/rankingmedal/2.png"></div>
+					<div id="grade_one"><img id="thumbnail_two" class="thumbnail" src="${award_list[0].m_image}"><span class="nick">${award_list[0].m_nick}</span><img class="rank" src="/resources/images/rankingmedal/1.png"></div>
+					<div id="grade_three"><img id="thumbnail_two" class="thumbnail" src="${award_list[2].m_image}"><span class="nick">${award_list[2].m_nick}</span><img class="rank" src="/resources/images/rankingmedal/3.png"></div>
+				</c:if>
 			</div>
 		</div>	
 			

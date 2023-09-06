@@ -87,12 +87,26 @@ public class User_Controller2 {
 		mv.addObject("noticeList", list);
 
 		// TODO 재훈 공지,광고 가져오기 끝
-		// TODO 재훈 최신 레시피 가져오기(유저꺼만) 시작
+		// TODO 재훈 최신 레시피 가져오기 시작
 		
 		List<U_recipe_meta_VO> user_list  = main_service.getUsertrendList();
 		mv.addObject("userList", user_list);
 		
-		// TODO 재훈 최신 레시피 가져오기(유저꺼만) 끝
+		// TODO 재훈 최신 레시피 가져오기 끝
+		
+		// TODO 재훈 베스트 레시피 가져오기 시작
+		
+		List<U_recipe_meta_VO> best_list  = main_service.getbestList();
+		mv.addObject("bestList", best_list);
+		
+		// TODO 재훈 베스트 레시피 가져오기 끝
+		
+		// TODO 재훈 베스트 레시피 가져오기 시작
+		
+		List<Member_meta_VO> award_list  = main_service.getmainAwardList();
+		mv.addObject("award_list", award_list);
+		
+		// TODO 재훈 베스트 레시피 가져오기 끝
 		// TODO 재훈 메인 끝
 
 		return mv;
