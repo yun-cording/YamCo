@@ -6,14 +6,16 @@
 	<!-- 일주일 조회수 기준 상위 30개 가져오기 -->
 	<select id="rankListRecipe7Days" resultType="urmvo">
 		select * from
-		u_recipe_metadata
+		recipe_metadata
+		where u_rcp_status = 0
 		order by hit_7day desc LIMIT 30
 	</select>
 
 	<!-- 한달 조회수 기준 상위 30개 가져오기 -->
 	<select id="rankListRecipe1Month" resultType="urmvo">
 		select * from
-		u_recipe_metadata
+		recipe_metadata
+		where u_rcp_status = 0
 		order by hit_1mon desc LIMIT 30
 	</select>
 
@@ -226,4 +228,61 @@
 		update u_recipe set u_rcp_hit =
 		u_rcp_hit + 1 where rcp_idx = #{rcp_idx}
 	</update>
+
+	
+	<!-- 레시피 글쓰기 -->
+	<insert id="write" parameterType="urvo">
+	insert into u_recipe(m_idx , u_rcp_title
+	<if test="u_rcp_comment != null">,u_rcp_comment</if>
+	<if test="u_rcp_category != null">,u_rcp_category</if>
+	<if test="u_rcp_ing != null">,u_rcp_ing</if>
+	<if test="u_rcp_main != null">,u_rcp_main</if>
+	<if test="u_rcp_level != null">,u_rcp_level</if>
+	<if test="u_rcp_keyword != null">,u_rcp_keyword</if>
+	<if test="u_rcp_tip != null">,u_rcp_tip</if>
+	,u_rcp_blind ,m_nick,u_rcp_status
+	<if test="u_rcp_hit != null">,u_rcp_hit</if>
+	<if test="u_rcp_ctype != null">,u_rcp_ctype</if>
+	,u_rcp_time	,u_rcp_img)
+	values(	#{m_idx} , #{u_rcp_title}
+	<if test="u_rcp_comment != null">,#{u_rcp_comment}</if>
+	<if test="u_rcp_category != null">,#{u_rcp_category}</if>
+	<if test="u_rcp_ing != null">,#{u_rcp_ing}</if>
+	<if test="u_rcp_main != null">,#{u_rcp_main}</if>
+	<if test="u_rcp_level != null">,#{u_rcp_level}</if>
+	<if test="u_rcp_keyword != null">,#{u_rcp_keyword}</if>
+	<if test="u_rcp_tip != null">,#{u_rcp_tip}</if>
+	,#{u_rcp_blind}	,#{m_nick} ,#{u_rcp_status}
+	<if test="u_rcp_hit != null">,#{u_rcp_hit}</if>
+	<if test="u_rcp_ctype != null">,#{u_rcp_ctype}</if>
+	, sysdate()	,#{u_rcp_img})
+	</insert>
+	
+	<!-- 임시 저장된 레시피 수 조회 -->
+	<select id="limit_recipe" parameterType="String" resultType="urvo">
+	select * from u_recipe where m_idx = #{m_idx} and u_rcp_status = 2;
+	</select>
+	
+	<!-- 임시 저장된 레시피 삭제 -->
+	<delete id="limit_recipe_del" parameterType="String">
+	delete from u_recipe where m_idx = #{m_idx} and u_rcp_status = 2;
+	</delete>
+
+	<!-- 재훈 메인페이지 최근레시피 리스트 가져오기  -->
+	<select id="maintrendlist" resultType="urmvo">
+		select * from
+		u_recipe_metadata
+		ORDER BY u_rcp_time DESC
+		LIMIT 4
+	</select>
+	<!-- 재훈 메인페이지 최근레시피 리스트 가져오기 끝  -->
+	
+	<!-- 재훈 베스트 리스트 1주일기준 상위 8개 가져오기 시작 -->
+	<select id="bestList7Days" resultType="urmvo">
+		select * from
+		u_recipe_metadata
+		order by hit_7day desc LIMIT 8
+	</select>
+	<!-- 재훈 베스트 리스트 1주일기준 상위 8개 가져오기 끝 -->
+
 </mapper>

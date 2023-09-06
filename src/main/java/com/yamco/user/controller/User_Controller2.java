@@ -4,6 +4,7 @@ import java.io.File;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.io.IOException;
@@ -31,6 +32,7 @@ import com.yamco.api.model.service.P_recipe_Service;
 import com.yamco.api.model.vo.P_recipe_VO;
 import com.yamco.user.model.service.Comment_Service;
 import com.yamco.user.model.service.Images_Service;
+import com.yamco.user.model.service.Main_Service;
 import com.yamco.user.model.service.Member_Service;
 import com.yamco.user.model.service.RandomService;
 import com.yamco.user.model.service.U_recipe_Service;
@@ -39,6 +41,11 @@ import com.yamco.user.model.service.User_log_Service;
 import com.yamco.user.model.vo.Comment_VO;
 import com.yamco.user.model.vo.Comment_meta_VO;
 import com.yamco.user.model.vo.Member_VO;
+
+import com.yamco.user.model.vo.Random_VO;
+import com.yamco.user.model.vo.Random_save_VO;
+import com.yamco.user.model.vo.U_recipe_VO;
+
 import com.yamco.user.model.vo.Member_meta_VO;
 import com.yamco.user.model.vo.Notice_VO;
 import com.yamco.user.model.vo.Random_save_VO;
@@ -53,6 +60,8 @@ public class User_Controller2 {
 	private RandomService randomService;
 	@Autowired
 	private Images_Service images_Service;
+	@Autowired
+	private Main_Service main_service;
 
 	@Autowired
 	private U_recipe_Service u_recipe_Service;
@@ -79,9 +88,31 @@ public class User_Controller2 {
 		mv.addObject("saveVO", saveVO);
 		// TODO 재훈 랜덤 재료(자정 초기화) 끝
 		// TODO 재훈 공지,광고 가져오기 시작
-		List<Notice_VO> nvo = images_Service.getNoticeList();
+
+		List<Notice_VO> list  = images_Service.getNoticeList();
+		mv.addObject("noticeList", list);
 
 		// TODO 재훈 공지,광고 가져오기 끝
+		// TODO 재훈 최신 레시피 가져오기 시작
+		
+		List<U_recipe_meta_VO> user_list  = main_service.getUsertrendList();
+		mv.addObject("userList", user_list);
+		
+		// TODO 재훈 최신 레시피 가져오기 끝
+		
+		// TODO 재훈 베스트 레시피 가져오기 시작
+		
+		List<U_recipe_meta_VO> best_list  = main_service.getbestList();
+		mv.addObject("bestList", best_list);
+		
+		// TODO 재훈 베스트 레시피 가져오기 끝
+		
+		// TODO 재훈 베스트 레시피 가져오기 시작
+		
+		List<Member_meta_VO> award_list  = main_service.getmainAwardList();
+		mv.addObject("award_list", award_list);
+		
+		// TODO 재훈 베스트 레시피 가져오기 끝
 		// TODO 재훈 메인 끝
 		// TODO 희준 bestList초기화 시작
 		List<U_recipe_meta_VO> bestList = new ArrayList<U_recipe_meta_VO>();
@@ -226,12 +257,8 @@ public class User_Controller2 {
 		ModelAndView mv = new ModelAndView("/social_join");
 		return mv;
 	}
-
-	@RequestMapping("/user_recipe_write.go")
-	public ModelAndView userRecipeWriteGo() {
-		ModelAndView mv = new ModelAndView("/user/recipe/user_recipe_write");
-		return mv;
-	}
+	
+	// /user_recipe_write.go recipe_controller로 이동 
 
 	@RequestMapping("/myinfo.go")
 	public ModelAndView myinfoGo(HttpSession session) {
@@ -385,23 +412,19 @@ public class User_Controller2 {
 		List<Comment_meta_VO> result = comment_Service.getSelectList(cvo);
 
 		// 공공데이터에서 레시피 제목 가져오기
-		for (Iterator iterator = result.iterator(); iterator.hasNext();) {
-			Comment_meta_VO comment_meta_VO = (Comment_meta_VO) iterator.next();
-			String rcp_seq = comment_meta_VO.getRcp_idx();
+		for (Iterator<Comment_meta_VO> iterator = result.iterator(); iterator.hasNext();) {
+			Comment_meta_VO cmvo = (Comment_meta_VO) iterator.next();
+			String rcp_seq = cmvo.getRcp_idx();
 			// 댓글을 단 게시글이 공공데이터일 경우 parsing
 			if (Integer.parseInt(rcp_seq) < 10000) {
 				// TODO 공공데이터 시작
 				List<JsonNode> rowList = p_recipe_Service.go_public_list();
-				List<P_recipe_VO> prvo = p_recipe_Service.article_summary();
 				for (int i = 0; i < rowList.size(); i++) {
-					P_recipe_VO vo = new P_recipe_VO();
 					JsonNode node = rowList.get(i);
-					vo = prvo.get(i);
 					String node_rcpSeq = node.get("RCP_SEQ").asText();
 					if (rcp_seq.equals(node_rcpSeq)) {
 						String node_rcpNm = node.get("RCP_NM").asText();
-						comment_meta_VO.setU_rcp_title(node_rcpNm);
-						System.out.println("node_rcpNm : " + node_rcpNm);
+						cmvo.setU_rcp_title(node_rcpNm);
 					}
 				}
 				// TODO 공공데이터 끝

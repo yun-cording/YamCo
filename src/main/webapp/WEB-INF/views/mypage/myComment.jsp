@@ -214,7 +214,6 @@ ul {
 .qa {
 	display: none;
 }
-
 </style>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
@@ -231,7 +230,7 @@ ul {
 				//지금 위 화살표이면 answer 내용 숨기고 아래 화살표로 바꿈
 				answer.fadeOut(400);
 				$(this).attr("src", arrowDown);
-			} else { 
+			} else {
 				//지금 아래 화살표이면 answer 내용 나타내고 위 화살표로 바꿈
 				answer.fadeIn({
 					direction : "top"
@@ -240,7 +239,7 @@ ul {
 				$(this).attr("src", arrowUp);
 			}
 		});
-		
+
 		//페이지가 처음 로딩되었을 때 qa div를 loop +  1개 노출시킴
 		if ($(".qa:hidden").length > loop) {
 			$(".qa:hidden").slice(0, loop + 1).show();
@@ -251,9 +250,9 @@ ul {
 			$(".qa:hidden").show();
 			$(".row_append").hide();
 		}
-		
+
 		//더보기 버튼 클릭할 때마다 qa div를 loop + 1개 노출시킴
-		$(".row_append").on("click", function () {
+		$(".row_append").on("click", function() {
 			if ($(".qa:hidden").length > loop) {
 				$(".qa:hidden").slice(0, loop + 1).show();
 				if ($(".qa:hidden").length < 1) {
@@ -346,27 +345,29 @@ ul {
 						<c:when test="${not empty commentList}">
 							<c:forEach items="${ commentList}" var="k" varStatus="vs">
 								<div class="qa">
-								<div class="q_title">
-									<span class="q_title_t">${vs.count }. <c:choose>
-											<c:when test="${k.rcp_idx < 10000}">
-												<a href="/go_publicDet.do?rcp_seq=${k.rcp_idx }">${k.u_rcp_title}</a>
-											</c:when>
-											<c:otherwise>
-												<a href="/go_사용자레시피.do?rcp_idx=${k.rcp_idx }">${k.u_rcp_title}</a>
-											</c:otherwise>
-										</c:choose>
+									<div class="q_title">
+										<span class="q_title_t">${vs.count }. <c:choose>
+												<c:when test="${k.rcp_idx < 10000}">
+													<c:set var="rcp_url"
+														value="/go_publicDet.do?rcp_seq=${k.rcp_idx }" />
+												</c:when>
+												<c:otherwise>
+													<c:set var="rcp_url"
+														value="public_recipe_detail.go?rcp_idx=${k.rcp_idx }" />
+												</c:otherwise>
+											</c:choose> <a href="${rcp_url }">${k.u_rcp_title}</a>
 
-									</span>
-									<div>
-										<img class="arrow" src="/resources/images/arrow_down.png">
+										</span>
+										<div>
+											<img class="arrow" src="/resources/images/arrow_down.png">
+										</div>
 									</div>
-								</div>
-								<div class="answer">
-									<div class="img">
-										<img src="${k.c_img }" alt="${k.c_img }" class="img_size">
+									<div class="answer">
+										<div class="img">
+											<img src="${k.c_img }" alt="${k.c_img }" class="img_size">
+										</div>
+										<p class="text_center">${k.c_contents }</p>
 									</div>
-									<p class="text_center">${k.c_contents }</p>
-								</div>
 								</div>
 							</c:forEach>
 						</c:when>
