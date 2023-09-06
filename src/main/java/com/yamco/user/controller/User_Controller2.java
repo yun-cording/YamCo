@@ -4,6 +4,7 @@ import java.io.File;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.io.IOException;
@@ -40,6 +41,11 @@ import com.yamco.user.model.service.User_log_Service;
 import com.yamco.user.model.vo.Comment_VO;
 import com.yamco.user.model.vo.Comment_meta_VO;
 import com.yamco.user.model.vo.Member_VO;
+
+import com.yamco.user.model.vo.Random_VO;
+import com.yamco.user.model.vo.Random_save_VO;
+import com.yamco.user.model.vo.U_recipe_VO;
+
 import com.yamco.user.model.vo.Member_meta_VO;
 import com.yamco.user.model.vo.Notice_VO;
 import com.yamco.user.model.vo.Random_save_VO;
@@ -251,12 +257,8 @@ public class User_Controller2 {
 		ModelAndView mv = new ModelAndView("/social_join");
 		return mv;
 	}
-
-	@RequestMapping("/user_recipe_write.go")
-	public ModelAndView userRecipeWriteGo() {
-		ModelAndView mv = new ModelAndView("/user/recipe/user_recipe_write");
-		return mv;
-	}
+	
+	// /user_recipe_write.go recipe_controller로 이동 
 
 	@RequestMapping("/myinfo.go")
 	public ModelAndView myinfoGo(HttpSession session) {
