@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -29,6 +30,32 @@ select option[value=""][disabled] {
 	display: none;
 }
 </style>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script> 
+    <script type="text/javascript">
+    	$(function() {
+			$("#reset_search").click(function() {
+				$(".select_box").val("0");
+				$(".input_txf").val("");
+				$(".start_date").val("");
+				$(".end_date").val("");
+				$("input:radio[name='btn_date']").prop("checked", false);
+				$("input:radio[name='btn_status']").prop("checked", false);
+			});
+		});
+    	
+    	$(function() {
+    	    $(".btn_ok").on("click", function() {
+    	            var result = confirm("블라인드 처리 하시겠습니까?");
+    	            if (result) { // 사용자가 확인을 누른 경우
+    	                $("input:hidden[name='btn_blindok']").show();
+    	            } else { // 사용자가 취소를 누른 경우
+    	                $("input:button[name='btn_blind']").prop("checked", false);
+    	                $("input:button[name='btn_blind']").val("블라인드");
+    	                $("input:button[name='btn_blind']").css("background-color", ""); // 배경 색상 제거
+    	            }
+    	    });
+    	});
+    </script>
    
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom fonts for this template-->
@@ -40,8 +67,18 @@ select option[value=""][disabled] {
     <link href="/resources/css/sb-admin-2.min.css" rel="stylesheet">
     <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+	<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
+	rel="stylesheet">
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Custom styles for this page -->
+<link href="resources/vendor/datatables/dataTables.bootstrap4.min.css"
+	rel="stylesheet">
 </head>
 <body id="page-top">
+
     <!-- Page Wrapper -->
     <div id="wrapper">
 		<jsp:include page="admin_sidebar.jsp" />
@@ -56,10 +93,11 @@ select option[value=""][disabled] {
 					<h1 class="ml-5 mt-5 font-weight-bold">사용자 게시물 관리</h1>
 					<hr>
 
-					<!-- 여기에서 작업하시면 됩니다. -->		
+					<!-- 여기에서 작업하시면 됩니다. -->	
 					<div class="row justify-content-between">			
 						<div
-							class="col-8 mt-4 p-3 text-center rounded shadow w-75">
+							class="col-6 mt-4 p-3 text-center rounded shadow w-75">
+							<form action="" method="post">	
 							<div class="card h-100">
 								<h6
 									class="card-header bg-light text-black-50 fw-bold small text-start">
@@ -70,8 +108,8 @@ select option[value=""][disabled] {
 										<div class="col-auto fw-bold text-nowrap">검색어</div>
 										<div class="col col-lg-auto mx-auto">
 											<div class="dropdown">
-												<select class="btn-light form-select">
-													<option value="" disabled selected>카테고리</option>
+												<select class="btn-light form-select select_box">
+													<option value="0" disabled selected>카테고리</option>
 													<option value="1">1인분</option>
 													<option value="2">채식</option>
 													<option value="3">국물류</option>
@@ -92,7 +130,7 @@ select option[value=""][disabled] {
 										</div>
 										<div class="col-12 mt-2 col-lg mt-lg-0 mx-auto">
 											<div class="input-group">
-												<input type="text" class="form-control" aria-label="input"
+												<input type="text" class="form-control input_txf" aria-label="input"
 													aria-describedby="inputGroup-sizing-default">
 											</div>
 										</div>
@@ -105,10 +143,10 @@ select option[value=""][disabled] {
 										<div class="col-8 col-xxl">
 											<div class="row px-4 mt-3">
 												<div class="col pl-0 pr-0 pr-md-2 mb-2">
-													<input type="date" name="start-date" class="btn btn-outline-secondary text-center rounded w-100 fw-bold">
+													<input type="date" name="start-date" class="btn btn-outline-secondary text-center rounded w-100 fw-bold start_date">
 												</div>
 												<div class="col pl-0 pl-md-2 pr-0">
-													<input type="date" name="end-date" class="btn btn-outline-secondary text-center rounded w-100 fw-bold">
+													<input type="date" name="end-date" class="btn btn-outline-secondary text-center rounded w-100 fw-bold end_date">
 												</div>
 										<div class="col">
 											<div class="btn_group" role="group"
@@ -138,14 +176,20 @@ select option[value=""][disabled] {
 									<div class="row justify-content-around align-items-center">
 										<div class="col-12 col-xxl-auto text-xxl-start fw-bold">게시글
 											상태</div>
-										<div class="col-6 order-3 col-sm-4 mt-2 col-xxl m-xxl-0">
-											<button type="button"
-												class="btn btn-outline-success w-100 fw-bold">게시중</button>
-										</div>
-										<div
-											class="col-6 order-3 col-sm-4 mt-2 offset-xxl-1 col-xxl m-xxl-0">
-											<button type="button"
-												class="btn btn-outline-success w-100 fw-bold">블라인드</button>
+										<div class="col">
+											<div class="btn_group" role="group"
+												aria-label="Basic radio toggle button group">
+												<div class="btn_empty d-grid gap-2 col-6 mx-auto">
+													<input type="radio" class="btn-check" name="btn_status"
+														id="btnradio4"> <label
+														class="btn btn-outline-success" for="btnradio4">게시중</label>
+												</div>
+												<div class="btn_empty d-grid gap-2 col-6 mx-auto">
+													<input type="radio" class="btn-check" name="btn_status"
+														id="btnradio5"> <label
+														class="btn btn-outline-danger" for="btnradio5">블라인드</label>
+												</div>
+											</div>
 										</div>
 									</div>
 								</li>
@@ -156,12 +200,12 @@ select option[value=""][disabled] {
 											<div class="row">
 												<div class="col-auto">
 													<button type="button"
-														class="btn btn-outline-success w-100 fw-bold">
+														class="btn btn-outline-success w-100 fw-bold" id="reset_search">
 														초기화 <i class="fa-solid fa-arrow-rotate-right"></i>
 													</button>
 												</div>
 												<div class="col-auto">
-													<button type="button" class="btn btn-success w-100 fw-bold">검색</button>
+													<button type="button" class="btn btn-success w-100 fw-bold" id="u_content_search" onclick="search.go()">검색</button>
 												</div>
 											</div>
 										</div>
@@ -169,8 +213,9 @@ select option[value=""][disabled] {
 								</li>
 							</ul>
 							</div>
+							</form>
 						</div> 
-						<div class="col-4 mt-4" style="padding-right: 4%; padding-left: 4%;">
+						<div class="col-3 mt-4" style="padding-right: 4%; padding-left: 4%;">
 						<div class="row">
 							<div class="card border-left-success shadow h-100 py-2">
 								<div class="card-body">
@@ -224,7 +269,7 @@ select option[value=""][disabled] {
                     <div class="card shadow mb-4">
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table class="table table-bordered" id="dataTable" style="width:100%;" cellspacing="0">
+                                <table class="table table-bordered" id="dataTable">
                                     <thead>
                                         <tr>
                                             <th>게시물 번호</th>
@@ -240,6 +285,7 @@ select option[value=""][disabled] {
                                         </tr>
                                     </thead>
                                     <tbody>
+                                    <%-- <c:forEach items="" var="" varStatus=""> --%>
                                         <tr>
                                             <td>1</td>
                                             <td>1인분</td>
@@ -250,140 +296,20 @@ select option[value=""][disabled] {
                                             <td>2023-06-01</td>
                                             <td>0</td>
                                             <td>게시중</td>
-                                            <td>상태변경</td>
+                                            <td class="d-flex justify-content-center">
+	                                            		<div class="row">
+												<div class="col-auto">
+													<button type="button"
+														class="btn btn-danger w-60" id="reset_search">
+														블라인드</button>
+												</div>
+												<div class="col-auto">
+													<button type="button" class="btn btn-secondary w-60" id="u_content_search">블라인드 취소</button>
+												</div>
+											</div>
+                                            </td>
                                         </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td>채식</td>
-                                            <td>박채림</td>
-                                            <td>레시피 제목</td>
-                                            <td>500</td>
-                                            <td>500</td>
-                                            <td>2023-06-01</td>
-                                            <td>12</td>
-                                            <td>게시중</td>
-                                            <td>상태변경</td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>국물류</td>
-                                            <td>김재훈</td>
-                                            <td>레시피 제목</td>
-                                            <td>500</td>
-                                            <td>500</td>
-                                            <td>2023-06-01</td>
-                                            <td>125</td>
-                                            <td>블라인드</td>
-                                            <td>상태변경</td>
-                                        </tr>
-                                        <tr>
-                                            <td>4</td>
-                                            <td>돈가스, 일식</td>
-                                            <td>김상우</td>
-                                            <td>레시피 제목</td>
-                                            <td>500</td>
-                                            <td>500</td>
-                                            <td>2023-06-01</td>
-                                            <td>1</td>
-                                            <td>게시중</td>
-                                            <td>상태변경</td>
-                                        </tr>
-                                        <tr>
-                                            <td>5</td>
-                                            <td>고기, 구이</td>
-                                            <td>이한주</td>
-                                            <td>레시피 제목</td>
-                                            <td>500</td>
-                                            <td>500</td>
-                                            <td>2023-06-01</td>
-                                            <td>0</td>
-                                            <td>게시중</td>
-                                            <td>상태변경</td>
-                                        </tr>
-                                        <tr>
-                                            <td>6</td>
-                                            <td>해산물</td>
-                                            <td>윤성훈</td>
-                                            <td>레시피 제목</td>
-                                            <td>500</td>
-                                            <td>500</td>
-                                            <td>2023-06-01</td>
-                                            <td>0</td>
-                                            <td>게시중</td>
-                                            <td>상태변경</td>
-                                        </tr>
-                                        <tr>
-                                            <td>7</td>
-                                            <td>분식</td>
-                                            <td>탁영송</td>
-                                            <td>레시피 제목</td>
-                                            <td>500</td>
-                                            <td>500</td>
-                                            <td>2023-06-01</td>
-                                            <td>0</td>
-                                            <td>게시중</td>
-                                            <td>상태변경</td>
-                                        </tr>
-                                        <tr>
-                                            <td>8</td>
-                                            <td>면류</td>
-                                            <td>강성진</td>
-                                            <td>레시피 제목</td>
-                                            <td>500</td>
-                                            <td>500</td>
-                                            <td>2023-06-01</td>
-                                            <td>12</td>
-                                            <td>게시중</td>
-                                            <td>상태변경</td>
-                                        </tr>
-                                        <tr>
-                                            <td>9</td>
-                                            <td>죽</td>
-                                            <td>권연준</td>
-                                            <td>레시피 제목</td>
-                                            <td>500</td>
-                                            <td>500</td>
-                                            <td>2023-06-01</td>
-                                            <td>2</td>
-                                            <td>게시중</td>
-                                            <td>상태변경</td>
-                                        </tr>
-                                        <tr>
-                                            <td>10</td>
-                                            <td>술안주</td>
-                                            <td>이수환</td>
-                                            <td>레시피 제목</td>
-                                            <td>500</td>
-                                            <td>500</td>
-                                            <td>2023-06-01</td>
-                                            <td>445</td>
-                                            <td>블라인드</td>
-                                            <td>상태변경</td>
-                                        </tr>
-                                        <tr>
-                                            <td>11</td>
-                                            <td>반찬</td>
-                                            <td>이소연</td>
-                                            <td>레시피 제목</td>
-                                            <td>500</td>
-                                            <td>500</td>
-                                            <td>2023-06-01</td>
-                                            <td>786</td>
-                                            <td>블라인드</td>
-                                            <td>상태변경</td>
-                                        </tr>
-                                        <tr>
-                                            <td>12</td>
-                                            <td>후식</td>
-                                            <td>김민지</td>
-                                            <td>레시피 제목</td>
-                                            <td>500</td>
-                                            <td>500</td>
-                                            <td>2023-06-01</td>
-                                            <td>12</td>
-                                            <td>게시중</td>
-                                            <td>상태변경</td>
-                                        </tr>
+                                        <%-- </c:forEach> --%>
                                     </tbody>
                                 </table>
                             </div>
@@ -405,7 +331,6 @@ select option[value=""][disabled] {
             </div>
         </div>
         <!-- End of Content Wrapper -->
-    </div>
     <!-- End of Page Wrapper -->
 
     <!-- Scroll to Top Button-->
@@ -448,7 +373,7 @@ select option[value=""][disabled] {
 
     <!-- Custom scripts for all pages-->
     <script src="/resources/js/sb-admin-2.min.js"></script>
-
+    
 </body>
 
 </html>

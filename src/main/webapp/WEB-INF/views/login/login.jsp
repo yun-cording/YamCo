@@ -60,6 +60,7 @@ function restorePlaceholder(element, defaultPlaceholder) {
 </head>
 <body>
 	${alert}
+	${history_go}
 <form method="post">
 <c:set var="clientId" value="YvbCvm24gWq60XdG4a8G" />
 <c:set var="redirectURI" value="http://localhost:8090/naver_login.do" />
@@ -102,7 +103,6 @@ function restorePlaceholder(element, defaultPlaceholder) {
 		</a>
 	</div>
 </div>
-${alert }
 <script type="text/javascript">
 		function handleCredentialResponse(response) {
 		    // decodeJwtResponse() is a custom function defined by you
