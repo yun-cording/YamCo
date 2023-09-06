@@ -285,17 +285,17 @@ select option[value=""][disabled] {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                    <%-- <c:forEach items="" var="" varStatus=""> --%>
+                                    <c:forEach items="${content_result}" var="k" varStatus=""> 
                                         <tr>
-                                            <td>1</td>
-                                            <td>1인분</td>
-                                            <td>김희준</td>
-                                            <td>레시피 제목</td>
-                                            <td>500</td>
-                                            <td>500</td>
-                                            <td>2023-06-01</td>
-                                            <td>0</td>
-                                            <td>게시중</td>
+                                            <td>${k.rcp_idx}</td>
+                                            <td>${k.m_idx}</td>
+                                            <td>${k.u_rcp_title}</td>
+                                            <td>${k.m_nick}</td>
+                                            <td>${k.w_count}</td>
+                                            <td>${k.u_rcp_hit}</td>
+                                            <td>${k.u_rcp_time}</td>
+                                            <td>${k.u_rcp_blind}</td>
+                                            <td>${k.u_rcp_status == "3" ? "게시중" : "블라인드"}</td>
                                             <td class="d-flex justify-content-center">
 	                                            		<div class="row">
 												<div class="col-auto">
@@ -309,7 +309,7 @@ select option[value=""][disabled] {
 											</div>
                                             </td>
                                         </tr>
-                                        <%-- </c:forEach> --%>
+                                         </c:forEach>
                                     </tbody>
                                 </table>
                             </div>

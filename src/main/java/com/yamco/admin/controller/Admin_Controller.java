@@ -12,8 +12,10 @@ import org.springframework.web.servlet.ModelAndView;
 import com.yamco.admin.model.service.AdminService;
 import com.yamco.admin.model.vo.Admin_Dash_VO;
 import com.yamco.user.model.service.Member_Service;
+import com.yamco.user.model.service.U_recipe_Service;
 import com.yamco.user.model.vo.Member_Search_VO;
 import com.yamco.user.model.vo.Member_VO;
+import com.yamco.user.model.vo.U_recipe_meta_VO;
 
 @Controller
 public class Admin_Controller {
@@ -21,6 +23,8 @@ public class Admin_Controller {
 	private Member_Service member_Service;
 	@Autowired
 	private AdminService adminService;
+	@Autowired
+	private U_recipe_Service u_recipe_Service;
 
 	@RequestMapping("go_admin_report.do")
 	public ModelAndView go_admin_report() {
@@ -65,8 +69,12 @@ public class Admin_Controller {
 	}
 
 	@RequestMapping("go_admin_contentchk.do")
-	public ModelAndView go_admin_contentchk() {
-		return new ModelAndView("admin/admin_contentchk");
+	public ModelAndView go_admin_contentchk(U_recipe_meta_VO urmvo) {
+		ModelAndView mv = new ModelAndView("admin/admin_contentchk");
+		List<U_recipe_meta_VO> result = u_recipe_Service.getUserContentList(urmvo);
+		System.out.println(result);
+		mv.addObject("content_result", result);
+		return mv;
 	}
 
 	@RequestMapping("go_tableExam.do")

@@ -41,5 +41,6 @@ public interface U_recipe_Service {
 	// 임시저장 레시피 삭제 
 	public int deleteRecipe(String m_idx);
 	
-	
+	// 사용자 게시판 리스트 가져오기
+	public List<U_recipe_meta_VO> getUserContentList(U_recipe_meta_VO urmvo);
 }

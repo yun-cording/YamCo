@@ -112,4 +112,9 @@ public class U_recipe_DAO {
 		System.out.println("DAO 오니 ? " );
 		return sqlSessionTemplate.delete("u_recipe.limit_recipe_del",m_idx);
 	}
+	
+	// 채림 사용자 게시판 리스트 가져오기
+	public List<U_recipe_meta_VO> getUserContentList(U_recipe_meta_VO urmvo){
+		return sqlSessionTemplate.selectList("u_recipe.userContentList", urmvo);
+	}
 }

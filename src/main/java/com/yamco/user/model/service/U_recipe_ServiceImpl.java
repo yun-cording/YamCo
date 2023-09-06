@@ -139,4 +139,9 @@ public class U_recipe_ServiceImpl implements U_recipe_Service {
 		return u_recipe_DAO.deleteRecipe(m_idx);
 	}
 
+	// 사용자 게시판 리스트 가져오기
+	@Override
+	public List<U_recipe_meta_VO> getUserContentList(U_recipe_meta_VO urmvo) {
+		return u_recipe_DAO.getUserContentList(urmvo);
+	}
 }
