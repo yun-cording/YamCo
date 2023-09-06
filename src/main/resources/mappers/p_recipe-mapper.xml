@@ -21,7 +21,7 @@
 	</select>
 	<!-- rcp_idx에 댓글 쓴거 다 불러오기 -->
     <select id="load_all_comments" parameterType="String" resultType="cvo">
-		SELECT * FROM comment WHERE rcp_idx = #{rcp_idx}
+		SELECT * FROM comment WHERE rcp_idx = #{rcp_idx} order by c_like desc
 	</select>
 	
 </mapper>
