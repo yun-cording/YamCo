@@ -31,6 +31,7 @@ import com.yamco.api.model.service.P_recipe_Service;
 import com.yamco.api.model.vo.P_recipe_VO;
 import com.yamco.user.model.service.Comment_Service;
 import com.yamco.user.model.service.Images_Service;
+import com.yamco.user.model.service.Main_Service;
 import com.yamco.user.model.service.Member_Service;
 import com.yamco.user.model.service.RandomService;
 import com.yamco.user.model.service.U_recipe_Service;
@@ -53,6 +54,8 @@ public class User_Controller2 {
 	private RandomService randomService;
 	@Autowired
 	private Images_Service images_Service;
+	@Autowired
+	private Main_Service main_service;
 
 	@Autowired
 	private U_recipe_Service u_recipe_Service;
@@ -79,9 +82,31 @@ public class User_Controller2 {
 		mv.addObject("saveVO", saveVO);
 		// TODO 재훈 랜덤 재료(자정 초기화) 끝
 		// TODO 재훈 공지,광고 가져오기 시작
-		List<Notice_VO> nvo = images_Service.getNoticeList();
+
+		List<Notice_VO> list  = images_Service.getNoticeList();
+		mv.addObject("noticeList", list);
 
 		// TODO 재훈 공지,광고 가져오기 끝
+		// TODO 재훈 최신 레시피 가져오기 시작
+		
+		List<U_recipe_meta_VO> user_list  = main_service.getUsertrendList();
+		mv.addObject("userList", user_list);
+		
+		// TODO 재훈 최신 레시피 가져오기 끝
+		
+		// TODO 재훈 베스트 레시피 가져오기 시작
+		
+		List<U_recipe_meta_VO> best_list  = main_service.getbestList();
+		mv.addObject("bestList", best_list);
+		
+		// TODO 재훈 베스트 레시피 가져오기 끝
+		
+		// TODO 재훈 베스트 레시피 가져오기 시작
+		
+		List<Member_meta_VO> award_list  = main_service.getmainAwardList();
+		mv.addObject("award_list", award_list);
+		
+		// TODO 재훈 베스트 레시피 가져오기 끝
 		// TODO 재훈 메인 끝
 		// TODO 희준 bestList초기화 시작
 		List<U_recipe_meta_VO> bestList = new ArrayList<U_recipe_meta_VO>();

@@ -226,4 +226,20 @@
 		update u_recipe set u_rcp_hit =
 		u_rcp_hit + 1 where rcp_idx = #{rcp_idx}
 	</update>
+	<!-- 재훈 메인페이지 최근레시피 리스트 가져오기  -->
+	<select id="maintrendlist" resultType="urmvo">
+		select * from
+		u_recipe_metadata
+		ORDER BY u_rcp_time DESC
+		LIMIT 4
+	</select>
+	<!-- 재훈 메인페이지 최근레시피 리스트 가져오기 끝  -->
+	
+	<!-- 재훈 베스트 리스트 1주일기준 상위 8개 가져오기 시작 -->
+	<select id="bestList7Days" resultType="urmvo">
+		select * from
+		u_recipe_metadata
+		order by hit_7day desc LIMIT 8
+	</select>
+	<!-- 재훈 베스트 리스트 1주일기준 상위 8개 가져오기 끝 -->
 </mapper>
