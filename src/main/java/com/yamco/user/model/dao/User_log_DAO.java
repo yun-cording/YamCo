@@ -18,4 +18,8 @@ public class User_log_DAO {
 	public List<String> getU_recipeRankListSearch1Month() {
 		return sqlSessionTemplate.selectList("user_log.rankListSearch1Month");
 	}
+
+	public List<String> getBestListIdx() {
+		return sqlSessionTemplate.selectList("user_log.bestListIdx");
+	}
 }

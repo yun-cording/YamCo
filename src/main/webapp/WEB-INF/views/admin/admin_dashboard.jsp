@@ -25,7 +25,6 @@
 <!-- Custom styles for this page -->
 <link href="resources/vendor/datatables/dataTables.bootstrap4.min.css"
 	rel="stylesheet">
-	
 </head>
 <body id="page-top">
 	<!-- Page Wrapper -->
@@ -40,7 +39,7 @@
 				<div class="container-fluid">
 					<!-- Page Heading -->
 					<h1 class="h2 font-weight-bold mb-2 text-gray-800">대시보드</h1>
-					<p class="small mb-4">안녕하세요 김희준님! 관리자 페이지에 로그인 하셨습니다.</p>
+					<p class="small mb-4">안녕하세요 ${m_nick }님! 관리자 페이지에 로그인 하셨습니다.</p>
 					<!-- 맨윗줄 -->
 					<div class="row mb-5">
 						<!-- 조회수 카드 -->
@@ -53,7 +52,7 @@
 												class="text-xs font-weight-bold text-success text-uppercase mb-1">
 												<span class="font-weight-bold font">총 조회수</span>
 											</div>
-											<div class="h5 mb-0 font-weight-bold text-gray-800">75</div>
+											<div class="h5 mb-0 font-weight-bold text-gray-800">${dash_VO.total_hit }</div>
 										</div>
 										<div class="col-auto">
 											<img src="/resources/images/search 1.png" alt=""
@@ -73,7 +72,7 @@
 												class="text-xs font-weight-bold text-success text-uppercase mb-1">
 												<span class="font-weight-bold font">총 방문자 수</span>
 											</div>
-											<div class="h5 mb-0 font-weight-bold text-gray-800">75</div>
+											<div class="h5 mb-0 font-weight-bold text-gray-800">${dash_VO.total_visit }</div>
 										</div>
 										<div class="col-auto">
 											<img src="/resources/images/web-traffic 1.png" alt=""
@@ -92,7 +91,7 @@
 												class="text-xs font-weight-bold text-success text-uppercase mb-1">
 												<span class="font-weight-bold font">신규 회원등록</span>
 											</div>
-											<div class="h5 mb-0 font-weight-bold text-gray-800">75</div>
+											<div class="h5 mb-0 font-weight-bold text-gray-800">${dash_VO.client_new }</div>
 										</div>
 										<div class="col-auto">
 											<img src="/resources/images/user 1.png" alt="" width="40px;">
@@ -110,7 +109,7 @@
 												class="text-xs font-weight-bold text-success text-uppercase mb-1">
 												<span class="font-weight-bold font">신규 등록 레시피</span>
 											</div>
-											<div class="h5 mb-0 font-weight-bold text-gray-800">75</div>
+											<div class="h5 mb-0 font-weight-bold text-gray-800">${dash_VO.recipe_new }</div>
 										</div>
 										<div class="col-auto">
 											<img src="/resources/images/blogger 1.png" alt=""
@@ -135,17 +134,17 @@
 									<div class="chart-pie">
 										<div class="font-weight-bold text-center">81%</div>
 										<canvas id="myPieChart" style="width: 120px; height: 120px;"></canvas>
-										<div class="font-weight-bold text-center">일간 접속자 수</div>
+										<div class="font-weight-bold small text-center">사용자레시피/공공레시피 조회비율</div>
 									</div>
 									<div class="chart-pie">
 										<div class="font-weight-bold text-center">22개</div>
 										<canvas id="myPieChart2" style="width: 120px; height: 120px;"></canvas>
-										<div class="font-weight-bold text-center">일간 게시물 등록수</div>
+										<div class="font-weight-bold small text-center">오전/오후 방문자 비율</div>
 									</div>
 									<div class="chart-pie">
 										<div class="font-weight-bold text-center">80회</div>
 										<canvas id="myPieChart3" style="width: 120px; height: 120px;"></canvas>
-										<div class="font-weight-bold text-center">일간 조회수</div>
+										<div class="font-weight-bold small text-center">남/녀 비율</div>
 									</div>
 								</div>
 							</div>
@@ -222,14 +221,10 @@
 									<hr>
 								</div>
 							</div>
-
 						</div>
-
-
 					</div>
 				</div>
 				<!-- /.container-fluid -->
-
 			</div>
 		</div>
 		<!-- End of Content Wrapper -->
@@ -255,12 +250,11 @@
 				<div class="modal-footer">
 					<button class="btn btn-secondary" type="button"
 						data-dismiss="modal">취소</button>
-					<a class="btn btn-danger" href="login.html">로그아웃</a>
+					<a class="btn btn-danger" href="/logOut_go">로그아웃</a>
 				</div>
 			</div>
 		</div>
 	</div>
-
 	<!-- Bootstrap core JavaScript-->
 	<script src="/resources/vendor/jquery/jquery.min.js"></script>
 	<script src="/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -273,10 +267,18 @@
 
 	<!-- Page level plugins -->
 	<script src="/resources/vendor/chart.js/Chart.min.js"></script>
-
+	<script type="text/javascript">
+		var doughnutData1 = [30,70]
+		var doughnutData2 = [30,70]
+		var doughnutData3 = [30,70]
+		var hitData = [5000,10000,8000,16000,30000,25000,4000]
+		var hitDay = ['월요일','화요일','수요일','목요일','금요일','토요일','일요일']
+		var visitData =  [4215, 5312, 6251, 7841, 9821, 14984, 9813]
+		
+	</script>
 	<!-- Page level custom scripts -->
 	<script src="/resources/js/demo/chart-area-demo.js"></script>
-	<script src="/resources/js/demo/chart-pie-demo.js"></script>
+	<script src="/resources/js/demo/chart-pie-demo.js?after"></script>
 	<script src="/resources/js/demo/chart-bar-demo.js"></script>
 	
 	<!-- Page level custom scripts -->
@@ -284,6 +286,7 @@
 	<!-- Page level plugins -->
 	<script src="resources/vendor/datatables/jquery.dataTables.min.js"></script>
 	<script src="resources/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+	
 </body>
 
 </html>

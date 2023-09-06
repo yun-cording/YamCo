@@ -18,7 +18,13 @@ public class User_log_Service_Impl implements User_log_Service {
 	}
 
 	// 한달 검색수 기준 상위 30개 가져오기
+	@Override
 	public List<String> getU_recipeRankListSearch1Month() {
 		return user_log_DAO.getU_recipeRankListSearch1Month();
+	}
+	
+	@Override
+	public List<String> getBestListIdx() {
+		return user_log_DAO.getBestListIdx();
 	}
 }
