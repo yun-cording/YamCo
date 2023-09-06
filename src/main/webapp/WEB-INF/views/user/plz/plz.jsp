@@ -12,34 +12,8 @@
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script src="resources/js/user/sidebar.js?after"></script>
 <script src="resources/js/user/recipe/search_list.js"></script>
-<script type="text/javascript">
-	$(function () {
-		$("#btn_append").on("click", function() {
-			var newRecipe = '';
-			for (var i = 0; i < 4; i++) {
-				newRecipe += '<div class="recipe_one">';
-				newRecipe +='<p>';
-				newRecipe +='<img	src="https://mediahub.seoul.go.kr/wp-content/uploads/2020/10/d13ea4a756099add8375e6c795b827ab.jpg" class="recipe_thumbnail">';
-				newRecipe +='<p>';
-				newRecipe +='<p>공공레시피명</p>';
-				newRecipe +='<div class="writer">';
-				newRecipe +='<img src="https://png.pngtree.com/png-vector/20191115/ourmid/pngtree-beautiful-profile-line-vector-icon-png-image_1990469.jpg" class="profile"> <span>작성자 이름</span> ';
-				newRecipe +='</div>';
-				newRecipe +='<div class="like" style="text-align: right;">';
-				newRecipe +='	<img class="icon"	src="https://img.medicalreport.kr/resources/2019/07/23/o0vYNCXzJDWRPejw.jpg" alt="">';
-				newRecipe +='<span>4.9</span>';
-				newRecipe +='<img class="icon" src="https://cdn-icons-png.flaticon.com/512/8316/8316018.png" alt=""> ';
-				newRecipe +='<span>42</span>';
-				newRecipe +='<img class="icon"	src="https://cdn-icons-png.flaticon.com/512/2415/2415461.png" alt=""> ';
-				newRecipe +='<span>7만</span>';
-				newRecipe +='<span>7만</span>';
-				newRecipe +='</div></div>';
-			}
-			$("#flexContainer").append(newRecipe);
-		});
-	});
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-</script>
 <style type="text/css">
 * {
 	padding: 0;
@@ -103,6 +77,7 @@
 	width: 1120px;
 	height: 1000px;
 	margin-left: 100px;
+	background: rgb(248,248,248);
 }
 .arrow{
 	width: 300px;
@@ -126,7 +101,7 @@ clear: both;
 .guide{
 	margin-left: 320px;
 	float: left;
-	color: lightgray;
+	color: black;
 }
 #gif-container{
 	margin-left: 180px;
@@ -178,6 +153,9 @@ clear: both;
 .container{
 	margin-top: 50px;
 }
+.off{
+	display: none;
+}
 
 </style>
 
@@ -197,6 +175,7 @@ clear: both;
 				</div>
 				<div class="guide"><span>※최대 3개의 재료까지 등록 가능합니다</span></div>
 				<div id="gif-container"><img class="ref" id="gif-image" src="/resources/images/move_refrige.gif"></div>
+				<form onsubmit="return submitForm(this);">
 				<div id="input-stack">
 					<div class="clean">
 						<div class="hidden-input hidden center"><img src="/resources/images/icon_input.png"><input class="input_text" type="text"></div>
@@ -204,28 +183,27 @@ clear: both;
 						<div class="hidden-input hidden center"><img src="/resources/images/icon_input.png"><input class="input_text" type="text"></div>
 					</div>
 				</div>
-					<div class="search"><button class="bt">레시피 검색</button></div>
+					<div class="search"><button id="rcp_search_bt" class="bt" onclick="searchbt()">레시피 검색</button></div>
+			</form>
 			</div>
 			<!-- 냉장고 끝 -->
-			<!-- 검색시 -->
+			<div id="onoff" class="off">
+			<!-- 검색시 시작 -->
 			<div class="container">
-				<div class="row me-1">
-					<div class="col-9">
-						<span class="search_subject">냠냠 레시피는 총</span> <span class="search_count">???</span> <span class="search_subject">개</span>
-					</div>
-					<div class="col-1 tab-on">
-						<span>정확순</span>
-					</div>
-					<div class="col-1 tab-off">
-						<span>조회순</span>
-					</div>
-					<div class="col-1 tab-off">
-						<span>평점순</span>
-					</div>
+				<div class="row mx-5">
+				<div class="col-10">
+					<span class="search_subject">검색된 냠냠's 쉐프레시피는 총</span> <span class="search_count">${u_list.size()}</span> <span class="search_subject">개 입니다.</span>
+				</div>
+				<div id="u_order_hit" class="col-1 tab-on" onclick="search_sort_hit_go()">
+					<span>조회순</span>
+				</div>
+				<div id="u_order_grade" class="col-1 tab-off" onclick="search_sort_grade_go()">
+					<span>평점순</span>
 				</div>
 			</div>
+			</div>
 			
-			<!-- 레시피 출력 -->
+			<!-- 레시피 출력 시작 -->
 			
 			<!-- 콘텐츠공간 -->
 			<div id="flexContainer">
@@ -259,7 +237,7 @@ clear: both;
 				 style="background-color: tomato" id="btn_append">더보기</button>
 			</div>
 			<!-- 레시피 출력끝  -->
-		
+			</div>
 		</div>
 		<aside id="sidebar-right">
 			<jsp:include page="../../bestlist.jsp" />
@@ -291,6 +269,52 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 });
+
+
+	
+	
+</script>
+<script type="text/javascript">
+function submitForm(form) {
+    // 입력된 값을 가져와서 컨트롤러로 보내는 로직을 작성
+    var inputValues = [];
+    var inputElements = form.querySelectorAll(".input_text");
+    inputElements.forEach(function (inputElement) {
+        inputValues.push(inputElement.value);
+    });
+
+    // AJAX 또는 다른 방법을 사용하여 컨트롤러로 입력 값을 전달
+	$.ajax({
+        url: '/your-controller-endpoint', // 컨트롤러의 엔드포인트 URL을 지정
+        type: 'POST', // 또는 'GET' 등 HTTP 요청 메서드를 선택
+        data: {
+            inputValues: inputValues // 서버에 전달할 데이터를 객체로 지정
+        },
+        success: function (response) {
+            // AJAX 요청이 성공한 경우 실행되는 콜백 함수
+            // 서버에서 받은 응답 데이터를 처리하고 화면에 표시
+            document.getElementById("onoff").innerHTML = response;
+            document.getElementById("onoff").style.display = "block";
+        },
+        error: function (error) {
+            // AJAX 요청이 실패한 경우 실행되는 콜백 함수
+            console.error('AJAX 요청 실패:', error);
+        }
+    });
+    
+    
+    // 폼 제출을 막음
+    return false;
+}
+
+
+function searchbt() {
+	  var container = document.getElementById("onoff");
+	  if (container.classList.contains("off")) {
+		  container.classList.remove("off");
+	  }
+}
+
 </script>
 </body>
 </html>
