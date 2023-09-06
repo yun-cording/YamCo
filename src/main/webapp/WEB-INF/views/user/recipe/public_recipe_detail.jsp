@@ -336,7 +336,7 @@ document.addEventListener("DOMContentLoaded", function () {
 									<label class="round_btn photo_insert" for="imgUpload">사진 추가</label>
 							</div>
 							<!-- <button id="preview_btn">이미지 미리보기</button> -->
-							<img id="preview_btn" src="#" alt="이미지 미리보기" style="max-width: 120px; max-height: 120px;">
+							<img id="preview_btn" src="" alt="이미지 미리보기" style="max-width: 120px; max-height: 120px;">
 							<div style="position:relative; float:left;">
 								<button class="round_btn write_cancel_btn" id="comment_write_do" name="comment_write_do">작성</button>
 								<button class="round_btn write_cancel_btn" id="cancel_btn">취소</button>
