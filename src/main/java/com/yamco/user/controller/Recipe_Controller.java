@@ -37,7 +37,7 @@ public class Recipe_Controller {
 	@PostMapping("/write_go")
 	public ModelAndView get_write(U_recipe_VO uvo, HttpServletRequest request,
 			@RequestPart("u_rcp_img1") MultipartFile u_rcp_img1, String[] u_rcp_ing2, String u_rcp_status) {
-		ModelAndView mv = new ModelAndView("/main");
+		ModelAndView mv = new ModelAndView("redirect:/go_home.do");
 		HttpSession session = request.getSession();
 
 		System.out.println("recipe_status : " + u_rcp_status);
@@ -46,110 +46,82 @@ public class Recipe_Controller {
 		String m_idx = (String) session.getAttribute("m_idx");
 		System.out.println("midx : " + m_idx);
 
-		uvo.setM_idx((String) session.getAttribute("m_idx"));
+		uvo.setM_idx(m_idx);
 		uvo.setU_rcp_blind("0");
-		uvo.setM_nick((String) session.getAttribute("m_nick"));
-
-		// uvo.setU_rcp_status(0);
+		uvo.setM_nick(name);
+		
+		// 키워드 db에 넣기 위한 처리
+		String u_rcp_keyword = "";
+		if (uvo.getU_rcp_keyword1() != null) {
+			u_rcp_keyword = uvo.getU_rcp_keyword1();
+		} else if (uvo.getU_rcp_keyword2() != null) {
+			u_rcp_keyword = uvo.getU_rcp_keyword1() + "," + uvo.getU_rcp_keyword2();
+		}
+		uvo.setU_rcp_keyword(u_rcp_keyword);
+		
+		// 재료들 배열 값 넣기
+		String u_rcp_ing = "";
 		for (int i = 0; i < u_rcp_ing2.length; i++) {
-			System.out.println("재료 입력값[" + i + "] :" + u_rcp_ing2[i]);
+			u_rcp_ing += u_rcp_ing2[i] + ",";
+		}
+
+		System.out.println("u_rcp_ing : " + u_rcp_ing);
+		uvo.setU_rcp_ing(u_rcp_ing);
+		
+		for (int i = 0; i < u_rcp_ing2.length; i++) {
+		System.out.println("재료 입력값[" + i + "] :" + u_rcp_ing2[i]);
 		}
 		System.out.println("카테고리 1 : " + uvo.getU_rcp_category1());
 		System.out.println("카테고리 2 : " + uvo.getU_rcp_category2());
 		System.out.println("난이도 : " + uvo.getU_rcp_level());
 		System.out.println("메인작성내용 : " + uvo.getU_rcp_main());
-
+		
 		try {
-
+				
 			if (u_rcp_status.equals("2")) { // 임시 저장으로 등록했을 경우
 				uvo.setU_rcp_status(u_rcp_status);
 
 				if (u_rcp_img1 == null) {
 					uvo.setU_rcp_img("");
 				} else {
+				// 썸네일 파일 처리
+				UUID uuid = UUID.randomUUID();
+				String[] uuids = uuid.toString().split("-");
+				String uniqueName = uuids[0];
+				String fileName = u_rcp_img1.getOriginalFilename();
+				String u_rcp_img = uniqueName + fileName;
 
-					// 카테고리 db에 값 넣기 위한 처리
-					String u_rcp_category = uvo.getU_rcp_category1() + "," + uvo.getU_rcp_category2();
-					uvo.setU_rcp_category(u_rcp_category);
-					// 키워드 db에 넣기 위한 처리
-					String u_rcp_keyword = "";
-					if (uvo.getU_rcp_keyword1() != null) {
-						u_rcp_keyword = uvo.getU_rcp_keyword1();
-					} else if (uvo.getU_rcp_keyword2() != null) {
-						u_rcp_keyword = uvo.getU_rcp_keyword1() + "," + uvo.getU_rcp_keyword2();
-					}
-					uvo.setU_rcp_keyword(u_rcp_keyword);
-					// 재료들 배열 값 넣기
-					String u_rcp_ing = "";
-					for (int i = 0; i < u_rcp_ing2.length; i++) {
-						u_rcp_ing += u_rcp_ing2[i] + ",";
-					}
-
-					System.out.println("u_rcp_ing : " + u_rcp_ing);
-					uvo.setU_rcp_ing(u_rcp_ing);
-
-					// 썸네일 파일 처리
-					UUID uuid = UUID.randomUUID();
-					String[] uuids = uuid.toString().split("-");
-					String uniqueName = uuids[0];
-
-					String fileName = u_rcp_img1.getOriginalFilename();
-					String u_rcp_img = uniqueName + fileName;
-					// db에 파일 이름 값 넣기
-					uvo.setU_rcp_img(u_rcp_img);
-					System.out.println("파일 이름 : " + u_rcp_img);
-
-					String path = request.getSession().getServletContext()
-							.getRealPath("resources/user_image/user_thumnail"); // 업로드할 폴더 경로
-					System.out.println("저장 경로 : " + path);
-
-					File saveFile = new File(path + "//" + u_rcp_img);
-					u_rcp_img1.transferTo(saveFile); // 파일을 톰켓 가상폴더에 저장 // 파일 처리 끝
-
-					int result = u_recipe_Service.getWrite(uvo);
+				// db에 파일 이름 값 넣기
+				uvo.setU_rcp_img(u_rcp_img);
+				System.out.println("파일 이름 : " + u_rcp_img);
+				String path = request.getSession().getServletContext().getRealPath("resources/user_image/user_thumnail"); // 업로드할 폴더 경로
+				System.out.println("저장 경로 : " + path);
+				File saveFile = new File(path + "//" + u_rcp_img);
+				u_rcp_img1.transferTo(saveFile); // 파일을 톰켓 가상폴더에 저장 // 파일 처리 끝		
 				} // 파일이 첨부되어 있을경우 끝
-
+				int result = u_recipe_Service.getWrite(uvo);
 				return mv;
 			} else { // 글쓰기로 등록했을 경우
 				uvo.setU_rcp_status("0");
-
 				if (u_rcp_img1 == null) {
 					uvo.setU_rcp_img("");
 				} else {
-					// 카테고리 db에 값 넣기 위한 처리
-					String u_rcp_category = uvo.getU_rcp_category1() + "," + uvo.getU_rcp_category2();
-					uvo.setU_rcp_category(u_rcp_category);
-					// 키워드 db에 넣기 위한 처리
-					String u_rcp_keyword = uvo.getU_rcp_keyword1() + "," + uvo.getU_rcp_keyword2();
-					uvo.setU_rcp_keyword(u_rcp_keyword);
-					// 재료들 배열 값 넣기
-					String u_rcp_ing = "";
-					for (int i = 0; i < u_rcp_ing2.length; i++) {
-						u_rcp_ing += u_rcp_ing2[i] + ",";
-					}
-					System.out.println("u_rcp_ing : " + u_rcp_ing);
-					uvo.setU_rcp_ing(u_rcp_ing);
-
 					// 썸네일 파일 처리
-					UUID uuid = UUID.randomUUID();
-					String[] uuids = uuid.toString().split("-");
-					String uniqueName = uuids[0];
+				UUID uuid = UUID.randomUUID();
+				String[] uuids = uuid.toString().split("-");
+				String uniqueName = uuids[0];
+				String fileName = u_rcp_img1.getOriginalFilename();
+				String u_rcp_img = uniqueName + fileName;
+				// db에 파일 이름 값 넣기
+				uvo.setU_rcp_img(u_rcp_img);
+				System.out.println("파일 이름 : " + u_rcp_img);
+				String path = request.getSession().getServletContext().getRealPath("resources/user_image/user_thumnail"); // 업로드할 폴더 경로
+				System.out.println("저장 경로 : " + path);
+				File saveFile = new File(path + "//" + u_rcp_img);
+				u_rcp_img1.transferTo(saveFile); // 파일을 톰켓 가상폴더에 저장 // 파일 처리 끝		
 
-					String fileName = u_rcp_img1.getOriginalFilename();
-					String u_rcp_img = uniqueName + fileName;
-					// db에 파일 이름 값 넣기
-					uvo.setU_rcp_img(u_rcp_img);
-					System.out.println("파일 이름 : " + u_rcp_img);
-
-					String path = request.getSession().getServletContext()
-							.getRealPath("resources/user_image/user_thumnail"); // 업로드할 폴더 경로
-					System.out.println("저장 경로 : " + path);
-
-					File saveFile = new File(path + "//" + u_rcp_img);
-					u_rcp_img1.transferTo(saveFile); // 파일을 톰켓 가상폴더에 저장 // 파일 처리 끝
-
-					int result = u_recipe_Service.getWrite(uvo);
 				} // 파일이 첨부되어 있을경우 끝
+				int result = u_recipe_Service.getWrite(uvo);
 				return mv;
 			} // 글쓰기로 등록했을 경우 끝
 		} catch (Exception e) {
@@ -165,33 +137,48 @@ public class Recipe_Controller {
 		System.out.println("header에서넘어온 result : " + result);
 		String result2 = result;
 		String m_idx = (String) session.getAttribute("m_idx");
-		if (result2 == "yes") { // 임시저장글 작성페이지로 이동할 경우
+		System.out.println("작성중인 m_idx : " + m_idx);
+		
+		if(result2.equals("yes")){ // 임시저장글 작성페이지로 이동할 경우
 			U_recipe_VO urvo = u_recipe_Service.getLimit_recipe(m_idx);
 			// List<String> category1 = Arrays.asList("select_category", "select_steam",
 			// "select_boil", "select_cook",
 			// "select_stir", "select_fry", "select_etc");
-
+			
 			// 카테고리 값 넘겨주기 처리
 			String[] u_rcp_category = urvo.getU_rcp_category().split(",");
 			String category_choice1 = u_rcp_category[0].trim();
 			System.out.println("category_choice1 : " + category_choice1);
 			String category_choice2 = u_rcp_category[1].trim();
 			System.out.println("category_choice2 : " + category_choice2);
-
-			String u_rcp_level = urvo.getU_rcp_level();
-
+			
+			// 난이도는 jsp가서 처리하는 걸로
+			
+			// 키워드 처리
+			String u_rcp_keyword1 = "";
+			String u_rcp_keyword2 = "";
+			if(urvo.getU_rcp_keyword().contains(",")) { // 키워드가 2개 입력됐을경우
+				
+			}else { // 키워드가 1개인 경우
+				
+			}
+				//u_rcp_keyword = uvo.getU_rcp_keyword1() + "," + uvo.getU_rcp_keyword2();
 			mv.setViewName("/user/recipe/limit_recipe_write");
-			mv.addObject("level", u_rcp_level);
 			mv.addObject("category_choice1", category_choice1);
 			mv.addObject("category_choice2", category_choice2);
 			mv.addObject("result", result2);
 			mv.addObject(urvo);
 			return mv;
-		}else if(result2 == "cancelandgo"){
-			int result3 = u_recipe_Service.deleteRecipe(m_idx);
+		}else if(result2.equals("cancelandgo")){
+			System.out.println("삭제하러 controller 오니?");
+			u_recipe_Service.deleteRecipe(m_idx);
+			
 			mv.setViewName("/user/recipe/user_recipe_write");
+			
 			return mv;
+			
 		}else { 
+			System.out.println("설마 여기로 오니 ?");
 			mv.setViewName("/user/recipe/user_recipe_write");
 			return mv;
 		}

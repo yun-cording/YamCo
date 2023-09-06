@@ -135,9 +135,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 						<!-- 조리 난이도 -->
 						<div>
-							<span class="font_32 left_margin_70 float_left margin_left_70"
-								style="position: relative; top: -325px; float: right; margin-right: 380px;">조리
-								난이도</span>
+							<span class="font_32 left_margin_70 float_left margin_left_70"	style="position: relative; top: -325px; float: right; margin-right: 380px;">조리난이도</span>
 							<div
 								style="float: right; margin-top: -260px; margin-right: -470px;">
 								  <input type="radio" id="html" class="radio_font checkmark"name="u_rcp_level" value="newbie_lev" checked>  
@@ -156,8 +154,7 @@ document.addEventListener("DOMContentLoaded", function() {
 							<div style="margin-top: 30px;">
 								<span class="font_32"
 									style="color: #606060; float: left; margin-left: 60px; margin-top: -5px;">#</span>
-								<input type="text" class="input_tomato" id="hashtag"
-									name="u_rcp_keyword1" style="margin-left: 20px;"
+								<input type="text" class="input_tomato" id="hashtag" name="u_rcp_keyword1" style="margin-left: 20px;"
 									placeholder="해시태그를 입력후 enter를 눌러주세요." required oninvalid="this.setCustomValidity('해시태그를 입력해세요.')" oninput="this.setCustomValidity('')">
 							</div>
 						</div>

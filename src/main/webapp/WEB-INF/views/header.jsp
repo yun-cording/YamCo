@@ -28,7 +28,8 @@ $.ajax({
 			location.href="/user_recipe_write.go?result="+result;			
 		}		
 		}else {
-			location.href="/user_recipe_write.go";
+			result="ing";
+			location.href="/user_recipe_write.go?result="+result;
 		}
 	}
 }); /* ajax 끝 */
