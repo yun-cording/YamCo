@@ -320,8 +320,7 @@ button {
 		/* 검색버튼을 누르면 해당 keyword를 컨트롤러에 넘겨준다. */
 		function goSearch() {
 			var search_input = document.getElementById("search_input").value;
-			location.href = "/mycontent_search.go?keyword=" + search_input
-					+ "&orderKey=u_rcp_hit&order=asc";
+			location.href = "/mycontent_search.go?keyword=" + search_input;
 		}
 		
 		/* keyword(레시피 제목에 포함되는 문자열), orderKey(정렬 기준 column), order(정렬 방식)을 컨트롤러에 전달한다. */

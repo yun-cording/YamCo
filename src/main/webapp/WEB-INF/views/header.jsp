@@ -70,7 +70,7 @@ $.ajax({
             </div>
         
         <div class="menu_bar">
-                <a href="/public_list.go"><div class="menu tab1"><span id="p_rcp">냠냠공식레시피</span></div></a>
+                <a href="/go_public_list.do"><div class="menu tab1"><span id="p_rcp">냠냠공식레시피</span></div></a>
                 <a href="/user_list.go"><div class="menu tab2"><span id="chef_rcp">냠냠's쉐프레시피</span></div></a>
                 <a href="/ranking_recipe.go"><div class="menu tab3"><span id="rank">랭킹</span></div></a>
                 <a href="/plz.go"><div class="menu tab4"><span id="open_ref">냉장고를열어봐</span></div></a>

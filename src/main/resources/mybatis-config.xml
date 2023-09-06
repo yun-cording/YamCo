@@ -28,10 +28,13 @@
 	<typeAlias type="com.yamco.user.model.vo.User_log_VO" alias="ulvo" />
 	<typeAlias type="com.yamco.user.model.vo.User_log_Search_VO" alias="ulsvo" />
 	<typeAlias type="com.yamco.user.model.vo.Comment_VO" alias="cvo" />
+	<typeAlias type="com.yamco.admin.model.vo.Admin_Dash_VO" alias="advo" />
+	<typeAlias type="com.yamco.user.model.vo.Comment_meta_VO" alias="cmvo" />
 	</typeAliases>
 
 	<mappers><!-- 매퍼 위치를 쓰기 -->
 		<!-- <mapper resource="mappers/members-mapper.xml" /> -->
+		<mapper resource="mappers/admin-mapper.xml" />
 		<mapper resource="mappers/api-mapper.xml" />
 		<mapper resource="mappers/member-mapper.xml" />
 		<mapper resource="mappers/image-mapper.xml" />
