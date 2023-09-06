@@ -102,12 +102,12 @@
 
 	<select id="rankListSearch1Month" resultType="String">
 		select s_name from
-		user_log_search_number_1month order by search_number desc limit 30
+		user_log_search_number_1month where trim(s_name) != '' order by search_number desc limit 30
 	</select>
 
 	<select id="rankListSearch7Days" resultType="String">
 		select s_name from
-		user_log_search_number_7days order by search_number desc limit 30
+		user_log_search_number_7days where trim(s_name) != '' order by search_number desc limit 30
 	</select>
 	
 	<select id="bestListIdx" resultType="String">

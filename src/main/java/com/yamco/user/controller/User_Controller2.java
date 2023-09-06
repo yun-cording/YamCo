@@ -29,6 +29,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.yamco.api.model.service.P_recipe_Service;
 import com.yamco.api.model.vo.P_recipe_VO;
+import com.yamco.user.model.service.Comment_Service;
 import com.yamco.user.model.service.Images_Service;
 import com.yamco.user.model.service.Member_Service;
 import com.yamco.user.model.service.RandomService;
@@ -36,6 +37,7 @@ import com.yamco.user.model.service.U_recipe_Service;
 import com.yamco.user.model.service.User_Service;
 import com.yamco.user.model.service.User_log_Service;
 import com.yamco.user.model.vo.Comment_VO;
+import com.yamco.user.model.vo.Comment_meta_VO;
 import com.yamco.user.model.vo.Member_VO;
 import com.yamco.user.model.vo.Member_meta_VO;
 import com.yamco.user.model.vo.Notice_VO;
@@ -64,6 +66,8 @@ public class User_Controller2 {
 	private P_recipe_Service p_recipe_Service;
 	@Autowired
 	private User_Service user_Service;
+	@Autowired
+	private Comment_Service comment_Service;
 
 	@RequestMapping("/main.go")
 	public ModelAndView homeGo(HttpSession session) {
@@ -344,18 +348,23 @@ public class User_Controller2 {
 		String m_idx = (String) session.getAttribute("m_idx");
 		U_recipe_Search_VO ursvo = new U_recipe_Search_VO();
 		ursvo.setM_idx(m_idx);
-		
-		//검색어 키워드가 있는 경우 
+
+		// 검색어 키워드가 있는 경우
 		if (keyword != null && !keyword.isEmpty()) {
 			ursvo.setLikeTitle(keyword);
+
+			if (orderKey == null || orderKey.isEmpty()) {
+				orderKey = "u_rcp_hit";
+			}
 		}
-		//정렬 기준이 있는 경우
+
+		// 정렬 기준이 있는 경우
 		if (orderKey != null && !orderKey.isEmpty()) {
 			ursvo.setOrderKey(orderKey);
-			//정렬 방식이 없거나 오름차순이면 내림차순으로 바꿔준다.
+			// 정렬 방식이 없거나 오름차순이면 내림차순으로 바꿔준다.
 			if (order == null || order.isEmpty() || order.equalsIgnoreCase("asc")) {
 				order = "desc";
-			} else { //그 외의 경우에는 오름차순으로 설정한다.
+			} else { // 그 외의 경우에는 오름차순으로 설정한다.
 				order = "asc";
 			}
 			ursvo.setOrder(order);
@@ -366,8 +375,41 @@ public class User_Controller2 {
 	}
 
 	@RequestMapping("/mycomment.go")
-	public ModelAndView myCommentGo() {
+	public ModelAndView myCommentGo(HttpSession session) {
 		ModelAndView mv = new ModelAndView("/mypage/myComment");
+		String m_idx = (String) session.getAttribute("m_idx");
+		Comment_VO cvo = new Comment_VO();
+		cvo.setM_idx(m_idx);
+
+		// 사용자 아이디로 댓글 조회 (단, 공공데이터의 경우 레시피 제목 데이터가 없음)
+		List<Comment_meta_VO> result = comment_Service.getSelectList(cvo);
+
+		// 공공데이터에서 레시피 제목 가져오기
+		for (Iterator iterator = result.iterator(); iterator.hasNext();) {
+			Comment_meta_VO comment_meta_VO = (Comment_meta_VO) iterator.next();
+			String rcp_seq = comment_meta_VO.getRcp_idx();
+			// 댓글을 단 게시글이 공공데이터일 경우 parsing
+			if (Integer.parseInt(rcp_seq) < 10000) {
+				// TODO 공공데이터 시작
+				List<JsonNode> rowList = p_recipe_Service.go_public_list();
+				List<P_recipe_VO> prvo = p_recipe_Service.article_summary();
+				for (int i = 0; i < rowList.size(); i++) {
+					P_recipe_VO vo = new P_recipe_VO();
+					JsonNode node = rowList.get(i);
+					vo = prvo.get(i);
+					String node_rcpSeq = node.get("RCP_SEQ").asText();
+					if (rcp_seq.equals(node_rcpSeq)) {
+						String node_rcpNm = node.get("RCP_NM").asText();
+						comment_meta_VO.setU_rcp_title(node_rcpNm);
+						System.out.println("node_rcpNm : " + node_rcpNm);
+					}
+				}
+				// TODO 공공데이터 끝
+			}
+		}
+
+		mv.addObject("commentList", result);
+
 		return mv;
 	}
 
