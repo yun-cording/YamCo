@@ -280,6 +280,7 @@
 							<div style="height: 60px; width: 200px; position:relative; top: -305px; left: 1200px;">
 								<input class="photo_insert" type="file" id="imgUpload" onchange="previewFile()" style="font-size: 16px; display:none;"></input>
 							</div>
+<<<<<<< HEAD
 							<div id="btns_photo" style="width: 120px; height: 172px; float: right; margin-top: -15px;">
 								<label class="round_btn_right photo_insert" id="add_photo" for="imgUpload">사진 추가</label>
 								<!-- ＃ 한주 헌정 수정 코드 (지분 100%) -->
@@ -289,6 +290,13 @@
 							<div id="cancel_write_btn">
 								<button class="round_btn_right" id="comment_write_do" name="comment_write_do">작성</button>
 								<button class="round_btn_right" id="cancel_btn" style="position: relative; top: -32px;">취소</button>
+=======
+							<!-- <button id="preview_btn">이미지 미리보기</button> -->
+							<img id="preview_btn" src="" alt="이미지 미리보기" style="max-width: 120px; max-height: 120px;">
+							<div style="position:relative; float:left;">
+								<button class="round_btn write_cancel_btn" id="comment_write_do" name="comment_write_do">작성</button>
+								<button class="round_btn write_cancel_btn" id="cancel_btn">취소</button>
+>>>>>>> refs/heads/master
 							</div>
 					</form>
 				

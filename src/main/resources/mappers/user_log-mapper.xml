@@ -102,12 +102,18 @@
 
 	<select id="rankListSearch1Month" resultType="String">
 		select s_name from
-		user_log_search_number_1month order by search_number desc limit 30
+		user_log_search_number_1month where trim(s_name) != '' order by search_number desc limit 30
 	</select>
 
 	<select id="rankListSearch7Days" resultType="String">
 		select s_name from
-		user_log_search_number_7days order by search_number desc limit 30
+		user_log_search_number_7days where trim(s_name) != '' order by search_number desc limit 30
+	</select>
+	
+	<select id="bestListIdx" resultType="String">
+		select rcp_idx from user_log_recipe_hit_today
+		order by hit_today DESC
+		LIMIT 5
 	</select>
 	
 	<!-- 상우 상세페이지 들어갈 때 조회수 올리기 -->
@@ -115,5 +121,5 @@
 		insert into user_log (m_idx, s_name, rcp_idx, ul_logtime, ul_status)
 		values(null, null, null, current_timestamp(), 4)
 	</insert>
-
+	
 </mapper>

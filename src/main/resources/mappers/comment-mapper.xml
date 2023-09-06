@@ -10,8 +10,51 @@
 		values(#{m_nick}, #{c_contents}, #{c_img}, #{c_grade}, #{rcp_idx}, 0, current_timestamp(),
 			0, 0)
 	</insert>
+<<<<<<< HEAD
 	<!-- 댓글 좋아요 -->
 	<update id="comment_like" parameterType="String">
 		update comment set c_like = c_like + 1 where c_idx = #{c_idx}
 	</update>
+=======
+	
+	<!-- 댓글 조회 -->
+	<select id="selectListByVO" parameterType="cvo" resultType="cmvo">
+		select * from comment_metadata
+		<where>
+			<if test="c_idx != null">
+				c_idx=#{c_idx}
+			</if>
+			<if test="m_idx != null">
+				and m_idx = #{m_idx}
+			</if>
+			<if test="m_nick != null">
+				and m_nick = #{m_nick}
+			</if>
+			<if test="c_contents != null">
+				and c_contents = #{c_contents}
+			</if>
+			<if test="c_img != null">
+				and c_img = #{c_img}
+			</if>
+			<if test="c_grade != null">
+				and c_grade = #{c_grade}
+			</if>
+			<if test="rcp_idx != null">
+				and rcp_idx = #{rcp_idx}
+			</if>
+			<if test="c_status != null">
+				and c_status = #{c_status}
+			</if>
+			<if test="c_time != null">
+				and c_time = #{c_time}
+			</if>
+			<if test="c_blind != null">
+				and c_blind = #{c_blind}
+			</if>
+			<if test="c_like != null">
+				and c_like = #{c_like}
+			</if>
+		</where>
+	</select>
+>>>>>>> refs/heads/master
 </mapper>

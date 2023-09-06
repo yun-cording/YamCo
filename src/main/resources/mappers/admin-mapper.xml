@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="admin">
+	<!-- 총 조회수 -->
+	<select id="totalHit" resultType="String">
+		SELECT COUNT(*) from user_log
+		WHERE ul_status = 3
+	</select>
+	<!-- 총 방문자수 -->
+	
+	<!-- 신규회원 (1주간) -->
+	<select id="clientNew" resultType="String">
+		SELECT COUNT(*) FROM member
+		WHERE m_regdate >= DATE(NOW() - INTERVAL 7 DAY);
+	</select>
+	<!-- 신규레시피 (1주간) -->
+	<select id="recipeNew" resultType="String">
+		SELECT COUNT(*) FROM u_recipe
+		WHERE u_rcp_time >= DATE(NOW() - INTERVAL 7 DAY);
+	</select>
+
+</mapper>

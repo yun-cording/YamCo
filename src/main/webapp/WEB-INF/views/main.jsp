@@ -58,7 +58,7 @@
 	padding-top: 30px;
 }
 
-#notice_img{
+.image-banner{
  
 	width: 900px;
 	height: 330px;
@@ -84,6 +84,7 @@
 #ingredient_img{
 	width: 300px;
 	height: 275px;
+	margin: 0px;
 }
 
 .new_yamyam {
@@ -136,9 +137,10 @@
 }
 
 .nick{
-	margin-top:30px;
 	float: left;
-	margin-left: 78px;
+	width: 200px;
+	text-align: center;
+	
 }
 
 .rank{
@@ -254,10 +256,11 @@ color: #21730B;
 	border-radius: 50%;
 	margin-top: -25px;
 	position: relative;
-	left: -44px;
-	
+	left: 75px;
 }
-
+a,button{
+cursor: pointer;
+}
 
 </style>
 </head>
@@ -268,7 +271,8 @@ color: #21730B;
 		form.action = "/search.go" ;
 		form.submit();
 	}
-</script>
+	</script>
+
 <body>
 <div id="main">
 		
@@ -278,9 +282,10 @@ color: #21730B;
 		</aside>
 		<div id="content">
 		<div class="clear">
-		
 			<div id="notice">
-			<img id="notice_img" src="/resources/images/notice_exam.png">
+			<c:forEach var="k" items="${noticeList}">
+            	<img id="notice_img_${status.index}" class="image-banner" src="/resources/images/${k.notice_img}" alt="${k.notice_title}" />
+			</c:forEach>
 			</div>
 				<div id="Recommen"><span style="font-size: 22px;">오늘의 <span class="point_tomato">추천</span> 재료</span></div>
 				<div id="ingredient">
@@ -295,31 +300,26 @@ color: #21730B;
 			<div class="clear">
 			<div class="border new_yamyam">
 				<div><span class="title">최신 냠냠레시피</span></div>
-				<button class="plus view">더보기</button>
+				<button type="button" class="plus view" onclick="">더보기</button>
 			
 			<div class="flexbetween">
-				<c:forEach begin="1" end="4">
+				<c:forEach items="${userList }" var="k">
 				<div class="recipe_one">
-							<p>
-								<img 
-									src="https://mediahub.seoul.go.kr/wp-content/uploads/2020/10/d13ea4a756099add8375e6c795b827ab.jpg"
-									class="recipe_thumbnail">
-							</p>
-							<p>공공레시피명</p>
+							<a href="/사용자레시피?rcp_seq=${k.rcp_idx}">
+							<p><img src="${k.u_rcp_img }" class="recipe_thumbnail"></p>
+							<p>${k.u_rcp_title }</p>
 							<div class="writer">
-								<img
-									src="https://png.pngtree.com/png-vector/20191115/ourmid/pngtree-beautiful-profile-line-vector-icon-png-image_1990469.jpg"
-									class="profile"> <span>작성자 이름</span>
+								<img src="${k.m_image }" class="profile"><span>${k.m_nick }</span>
 							</div>
+							</a>
 							<div class="like" style="text-align: right;">
-								<img class="icon"
-									src="https://img.medicalreport.kr/resources/2019/07/23/o0vYNCXzJDWRPejw.jpg"
-									alt=""> <span>4.9</span> <img class="icon"
-									src="https://cdn-icons-png.flaticon.com/512/8316/8316018.png"
-									alt=""> <span>42</span> <img class="icon"
-									src="https://cdn-icons-png.flaticon.com/512/2415/2415461.png"
-									alt=""> <span>7만</span>
-							</div>
+							<img class="icon" src="/resources/images/icon_tomato_ver2_1.png" alt="">
+							<span>${empty k.avg_grade ? 0 : k.avg_grade }</span>
+							<img class="icon" src="https://cdn-icons-png.flaticon.com/512/8316/8316018.png" alt="">
+							<span>${empty k.c_count ? 0 : k.c_count}</span>
+							<img class="icon" src="https://cdn-icons-png.flaticon.com/512/2415/2415461.png"	alt="">
+							<span>${empty k.u_rcp_hit ? 0 : k.u_rcp_hit}</span>
+						</div>
 						</div>
 					</c:forEach>
 				
@@ -331,31 +331,26 @@ color: #21730B;
 			<div class="clear">
 			<div class="border best_rcp">
 				<div><span class="title">베스트 레시피</span></div>
-				<button class="plus view">더보기</button>
+				<button type="button" class="plus view" onclick="bestgo()">더보기</button>
 			
 			<div class="flexbetween">
-				<c:forEach begin="1" end="8">
+				<c:forEach items="${bestList }" var="k">
 				<div class="recipe_one">
-							<p>
-								<img
-									src="https://mediahub.seoul.go.kr/wp-content/uploads/2020/10/d13ea4a756099add8375e6c795b827ab.jpg"
-									class="recipe_thumbnail">
-							</p>
-							<p>공공레시피명</p>
+							<a href="/사용자레시피?rcp_seq=${k.rcp_idx}">
+							<p><img src="${k.u_rcp_img }" class="recipe_thumbnail"></p>
+							<p>${k.u_rcp_title }</p>
 							<div class="writer">
-								<img
-									src="https://png.pngtree.com/png-vector/20191115/ourmid/pngtree-beautiful-profile-line-vector-icon-png-image_1990469.jpg"
-									class="profile"> <span>작성자 이름</span>
+								<img src="${k.m_image }" class="profile"><span>${k.m_nick }</span>
 							</div>
+							</a>
 							<div class="like" style="text-align: right;">
-								<img class="icon"
-									src="https://img.medicalreport.kr/resources/2019/07/23/o0vYNCXzJDWRPejw.jpg"
-									alt=""> <span>4.9</span> <img class="icon"
-									src="https://cdn-icons-png.flaticon.com/512/8316/8316018.png"
-									alt=""> <span>42</span> <img class="icon"
-									src="https://cdn-icons-png.flaticon.com/512/2415/2415461.png"
-									alt=""> <span>7만</span>
-							</div>
+							<img class="icon" src="/resources/images/icon_tomato_ver2_1.png" alt="">
+							<span>${empty k.avg_grade ? 0 : k.avg_grade }</span>
+							<img class="icon" src="https://cdn-icons-png.flaticon.com/512/8316/8316018.png" alt="">
+							<span>${empty k.c_count ? 0 : k.c_count}</span>
+							<img class="icon" src="https://cdn-icons-png.flaticon.com/512/2415/2415461.png"	alt="">
+							<span>${empty k.u_rcp_hit ? 0 : k.u_rcp_hit}</span>
+						</div>
 						</div>
 					</c:forEach>
 				
@@ -366,7 +361,7 @@ color: #21730B;
 		<div class="clear">
 			<div class="border ref_search">
 				<div><span class="title">냉장고를 열어봐</span></div>
-				<button class="plus ref">냉장고 열러가기</button>
+				<button type="button" class="plus ref" onclick="openref()">냉장고 열러가기</button>
 				<div id="ref_text"><span style="font-size: 40px">우리집 <span class="point_tomato">냉장고</span>의
 				<span class="point_tomato">재료</span>로 이런 <span class="point_green">요리</span>를???</span></div>
 			</div>
@@ -375,11 +370,43 @@ color: #21730B;
 		<div class="clear">
 			<div class="border grade">
 				<div><span class="title">명예의 전당</span></div>
-				<button class="plus view">더보기</button>
-				<div id="grade_text"><span style="font-size: 40px"><span class="point_tomato">최고</span>의 <span class="point_green">냠냠쉐프</span>는?</span></div>
-				<div id="grade_two"><img id="thumbnail_two" class="thumbnail" src="/resources/images/potatoes.png"><span class="nick">닉네임</span><img class="rank" src="/resources/images/rankingmedal/2.png"></div>
-				<div id="grade_one"><img id="thumbnail_two" class="thumbnail" src="/resources/images/potatoes.png"><span class="nick">닉네임</span><img class="rank" src="/resources/images/rankingmedal/1.png"></div>
-				<div id="grade_three"><img id="thumbnail_two" class="thumbnail" src="/resources/images/potatoes.png"><span class="nick">닉네임</span><img class="rank" src="/resources/images/rankingmedal/3.png"></div>
+				<button type="button" class="plus view" onclick="awardgo()">더보기</button>
+				<c:if test="${not empty award_list}">
+					<div id="grade_text"><span style="font-size: 40px"><span class="point_tomato">최고</span>의 <span class="point_green">냠냠쉐프</span>는?</span></div>
+					
+					<div id="grade_two" >
+					<c:choose>
+						<c:when test="${not empty award_list[1].m_image}">
+							<img id="thumbnail_two" class="thumbnail" src="${award_list[1].m_image}">
+						</c:when>
+						<c:otherwise>
+							<img id="thumbnail_two" class="thumbnail" src="/resources/images/icon_input.png">
+						</c:otherwise>
+					</c:choose>
+					<span class="nick">${award_list[1].m_nick}</span><img class="rank" src="/resources/images/rankingmedal/2.png"></div>
+					
+					<div id="grade_one" >
+					<c:choose>
+						<c:when test="${not empty award_list[0].m_image}">
+							<img id="thumbnail_two" class="thumbnail" src="${award_list[0].m_image}">
+						</c:when>
+						<c:otherwise>
+							<img id="thumbnail_two" class="thumbnail" src="/resources/images/icon_input.png">
+						</c:otherwise>
+					</c:choose>
+					<span class="nick">${award_list[0].m_nick}</span><img class="rank" src="/resources/images/rankingmedal/1.png"></div>
+					
+					<div id="grade_three">
+					<c:choose>
+						<c:when test="${not empty award_list[2].m_image}">
+							<img id="thumbnail_two" class="thumbnail" src="${award_list[2].m_image}">
+						</c:when>
+						<c:otherwise>
+							<img id="thumbnail_two" class="thumbnail" src="/resources/images/icon_input.png">
+						</c:otherwise>
+					</c:choose>
+							<span class="nick">${award_list[2].m_nick}</span><img class="rank" src="/resources/images/rankingmedal/3.png"></div>
+				</c:if>
 			</div>
 		</div>	
 			
@@ -390,5 +417,49 @@ color: #21730B;
 		<div id="footer"><jsp:include page="footer.jsp" /></div>
 		</div>
 		${alert }
+		<script type="text/javascript">
+	 var noticeImages = document.querySelectorAll(".image-banner");
+	 var currentIndex = 0;
+	 function hideAllImages() {
+	        noticeImages.forEach(function(image) {
+	        	 image.style.opacity = 0;
+	             image.style.display = "none";
+	        });
+	    }
+	 function showImage(index) {
+	        noticeImages[index].style.display = "block";
+	        var opacity = 0;
+	        var timer = setInterval(function() {
+	            opacity += 0.02; // 매 20ms마다 투명도를 증가시켜 부드럽게 나타나게 함
+	            noticeImages[index].style.opacity = opacity.toFixed(2); // 소수점 두 자리까지 설정
+	            if (opacity >= 1) {
+	                clearInterval(timer); // 투명도가 1에 도달하면 타이머 종료
+	            }
+	        }, 20); // 20ms 간격으로 실행
+	    }
+	 
+	 function changeImage() {
+			 hideAllImages();
+	        showImage(currentIndex);
+	        currentIndex = (currentIndex + 1) % noticeImages.length;
+	    }
+		// 초기에는 첫 번째 이미지만 표시
+	    hideAllImages();
+	    showImage(currentIndex);
+
+	 	// 5초마다 이미지 변경
+	    setInterval(changeImage, 5000);
+	 	
+	    function awardgo() {
+	    	location.href ="/award.go" ;
+		}
+	    function openref() {
+	    	location.href ="/plz.go" ;
+		}
+	    function bestgo() {
+	    	location.href ="/go_ranking_recipe.do" ;
+		}
+	  	
+</script>
 </body>
 </html>

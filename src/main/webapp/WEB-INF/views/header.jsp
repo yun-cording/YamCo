@@ -5,230 +5,38 @@
 <head>
 <meta charset="UTF-8">
 <title>header</title>
-<style type="text/css">
-/* Header_재훈(완성) */
- * {
-	padding: 0;
-	box-sizing: border-box;
-	
-}
-
-@font-face {
-    font-family: 'Yeongdeok_TTF';
-    src: url('../resources/fonts/Yeongdeok Blueroad.ttf') format('truetype');
-}
-
-  #header{
-  width: 1920px;
-  height: 230px;
-  background: #FFFFFF;
-  font-family: 'Yeongdeok_TTF';
-  }
-  .onediv{
-    width: 717px;
-    height: 150px;
-    float: left;
-  }
-  .twodiv{
-    width: 446px;
-    height: 150px;
-    float: left;
-  }
-  .threediv{
-    width: 58px;
-    height: 150px;
-    float: left;
-  }
-  .login{
-    width: 212px;
-    height: 150px;
-    float: left;
-  }
-.rcp_write{
-    width: 487px;
-    height: 150px;
-    float: left;
-}
-.menu_bar{
-    width: 1920px;
-    height: 80px;
-    float: left;
-    
-}
-
-.menu{
-    width: 220px;
-    height: 50px;
-    background-color: tomato;
-    float: left;
-    color: #FFFFFF;
-    font-size: 20px;  
-    font-weight: bold;
-    text-align: center;
-    /*  부모 요소의 높이를 맞추게 되면 글자가 가운데로 감(line-height) */
-    line-height: 50px;
-    cursor: pointer;
-
-}
-.menu.active {
-    background-color: #21730B; /* 선택된 탭의 배경색을 변경  재훈그린*/
-}
-.tab1{
-  margin-left: 300px;
-  border-top-left-radius: 25px;
-  border-bottom-left-radius: 25px;
-}
-.tab6{
-  border-top-right-radius: 25px;
-  border-bottom-right-radius: 25px;
-}
-
-.mainlogo{
-    width: 326px;
-    height: 90px;
-    margin-top: 30px;
-    float: right;
-}
-.search_tf{
-    width: 406px;
-    padding-left: 10px;
-    height: 50px;
-    border: 3px solid tomato !important;
-    margin-top: 50px;
-    float: right;
-    border-radius: 10px;
-    font-size: 16px;
-  
-}
-.search_tf:focus{ outline: none;}
-.search_bt{
-  width: 58px;
-  height: 50px;
-  margin-top: 50px;
-  background-color: tomato;
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
-}
-.search_icon{
-  width: 50px;
-  height: 50px;
-  position: relative;
-}
-.login_bt{
-  width: 150px;
-  height: 50px;
-  background-color: tomato;
-  border-top-left-radius: 25px;
-  border-bottom-left-radius: 25px;
-  margin-top: 50px;
-  float: right;
-  color: #FFFFFF !important;
-  font-size: 12px;
-  font-weight: bold;
-  position: relative;
-}
-.login_thumbnail{
-  width: 40px;
-  height: 40px;
-  border-radius: 100%;
-  background-color: white;
-  margin-top: 5px;
-  margin-left: 5px;
-  float: left;
-}
-.login_text{
-  float: left;
-  color: #FFFFFF !important;
-  line-height: 50px;
-  margin-left: 20%;
-  
-}
-.rcp_write_bt{
-  width: 150px;
-  height: 50px;
-  background-color: tomato;
-  margin-top: 50px;
-  border-left: 1px solid white;
-  border-bottom-right-radius: 25px;
-  border-top-right-radius: 25px;
-}
-.rcp_write_text{
-  color: white;
-  font-size: 12px;
-  font-weight: bold;
-  float: left;
-  margin-left: 7px;
-  line-height: 50px;
-}
-.rcp_write_icon{
-  width: 50px;
-  height: 50px;
-  margin-left: 5px;
-  float: left;
-}
-.clear{
-  clear: both;
-}
-#user_Id{
-    display: none; 
-  position: absolute;
-  top: 18px;
-  color: white;
-  left: 60px;
-  width: 80px;
-}
-#user_thumbnail{
-	width: 40px;
-	height: 40px;
-	border-radius: 20px;
-}
-a{
-  cursor: pointer;
-  text-decoration: none;
-  color: inherit;
-} 
-.popup{
-  width: 150px;
-  height: 46px;
-  border-radius: 8px;
-  background-color:  #21730B;
-  position: absolute;
-  top: 52px;
-  
-}
-#popup{
-  display: none;
-}
-.pop_bt{
-  width: 71px;
-  height: 40px;
-  border: none;
-  float: left;
-  margin-top: 3px;
-  background-color: #FFFFFF;
-  color: #21730B ;
-  
-}
-.myPage{
-  margin-left: 3px;
-  border-top-left-radius: 8px ;
-  border-bottom-left-radius: 8px ;
-}
-.logout{
-  margin-left: 3px;
-  border-top-right-radius: 8px ;
-  border-bottom-right-radius:  8px;
-}
-.myPage:hover{
-	cursor: pointer;
-}
-.logout:hover{
-	cursor: pointer;
-}
-</style>
-
+<link rel="stylesheet" href="resources/css/header.css" />
 </head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+<script type="text/javascript">
+function recipeChk() {
+//$("#recipeChk").on('click', function() {
+$.ajax({
+	type: 'get',
+	url : '/limit_recipe_chk.do',
+	async : true ,
+	dataType : 'text' ,
+	success : function(result) {
+		var result = result;
+		
+		console.log(result);
+		if(result=="yes"){
+		if(confirm("작성중인 게시글이 있습니다.\n이어서 작성하시겠습니까?\n취소클릭시 기존글은 삭제되고 새글 작성페이지로 넘어갑니다.") == true){
+		location.href="/user_recipe_write.go?result="+result;
+		}else{
+			result = "cancelandgo";
+			location.href="/user_recipe_write.go?result="+result;			
+		}		
+		}else {
+			result="ing";
+			location.href="/user_recipe_write.go?result="+result;
+		}
+	}
+}); /* ajax 끝 */
+//}); /* recipeChk 클릭 끝 */	
+}
+
+</script>
 <body>
 	<form action="/search.go">
 	<div id="header" class="clear">
@@ -257,13 +65,13 @@ a{
               </div>
         <div class="rcp_write">
                 <div class="rcp_write_bt">
-                  <a href="/user_recipe_write.go"><span class="rcp_write_text">레시피 작성</span>
+                  <a onclick="recipeChk()"><span class="rcp_write_text">레시피 작성</span><!-- href="/user_recipe_write.go"  id="recipeChk"-->
                 <img class="rcp_write_icon" src ="/resources/images/secret_recipe_icon.png"></a>
                 </div>
             </div>
         
         <div class="menu_bar">
-                <a href="/public_list.go"><div class="menu tab1"><span id="p_rcp">냠냠공식레시피</span></div></a>
+                <a href="/go_public_list.do"><div class="menu tab1"><span id="p_rcp">냠냠공식레시피</span></div></a>
                 <a href="/user_list.go"><div class="menu tab2"><span id="chef_rcp">냠냠's쉐프레시피</span></div></a>
                 <a href="/ranking_recipe.go"><div class="menu tab3"><span id="rank">랭킹</span></div></a>
                 <a href="/plz.go"><div class="menu tab4"><span id="open_ref">냉장고를열어봐</span></div></a>

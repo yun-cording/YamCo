@@ -1,7 +1,7 @@
 package com.yamco.user.model.vo;
 
 public class Comment_VO {
-	private String c_idx, m_nick, c_contents, c_img, c_grade, rcp_idx, c_status, c_time,
+	private String c_idx, m_idx, m_nick, c_contents, c_img, c_grade, rcp_idx, c_status, c_time,
 			c_blind, c_like;
 
 	public String getC_idx() {
@@ -10,6 +10,14 @@ public class Comment_VO {
 
 	public void setC_idx(String c_idx) {
 		this.c_idx = c_idx;
+	}
+	
+	public String getM_idx() {
+		return m_idx;
+	}
+
+	public void setM_idx(String m_idx) {
+		this.m_idx = m_idx;
 	}
 
 	public String getM_nick() {
