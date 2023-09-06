@@ -137,9 +137,10 @@
 }
 
 .nick{
-	margin-top:30px;
 	float: left;
-	margin-left: 78px;
+	width: 200px;
+	text-align: center;
+	
 }
 
 .rank{
@@ -255,10 +256,11 @@ color: #21730B;
 	border-radius: 50%;
 	margin-top: -25px;
 	position: relative;
-	left: -44px;
-	
+	left: 75px;
 }
-
+a,button{
+cursor: pointer;
+}
 
 </style>
 </head>
@@ -298,7 +300,7 @@ color: #21730B;
 			<div class="clear">
 			<div class="border new_yamyam">
 				<div><span class="title">최신 냠냠레시피</span></div>
-				<button class="plus view">더보기</button>
+				<button type="button" class="plus view" onclick="">더보기</button>
 			
 			<div class="flexbetween">
 				<c:forEach items="${userList }" var="k">
@@ -329,7 +331,7 @@ color: #21730B;
 			<div class="clear">
 			<div class="border best_rcp">
 				<div><span class="title">베스트 레시피</span></div>
-				<button class="plus view">더보기</button>
+				<button type="button" class="plus view" onclick="bestgo()">더보기</button>
 			
 			<div class="flexbetween">
 				<c:forEach items="${bestList }" var="k">
@@ -359,7 +361,7 @@ color: #21730B;
 		<div class="clear">
 			<div class="border ref_search">
 				<div><span class="title">냉장고를 열어봐</span></div>
-				<button class="plus ref">냉장고 열러가기</button>
+				<button type="button" class="plus ref" onclick="openref()">냉장고 열러가기</button>
 				<div id="ref_text"><span style="font-size: 40px">우리집 <span class="point_tomato">냉장고</span>의
 				<span class="point_tomato">재료</span>로 이런 <span class="point_green">요리</span>를???</span></div>
 			</div>
@@ -368,12 +370,42 @@ color: #21730B;
 		<div class="clear">
 			<div class="border grade">
 				<div><span class="title">명예의 전당</span></div>
-				<button class="plus view">더보기</button>
+				<button type="button" class="plus view" onclick="awardgo()">더보기</button>
 				<c:if test="${not empty award_list}">
 					<div id="grade_text"><span style="font-size: 40px"><span class="point_tomato">최고</span>의 <span class="point_green">냠냠쉐프</span>는?</span></div>
-					<div id="grade_two"><img id="thumbnail_two" class="thumbnail" src="${award_list[1].m_image}" alt="2등"><span class="nick">${award_list[1].m_nick}</span><img class="rank" src="/resources/images/rankingmedal/2.png"></div>
-					<div id="grade_one"><img id="thumbnail_two" class="thumbnail" src="${award_list[0].m_image}"><span class="nick">${award_list[0].m_nick}</span><img class="rank" src="/resources/images/rankingmedal/1.png"></div>
-					<div id="grade_three"><img id="thumbnail_two" class="thumbnail" src="${award_list[2].m_image}"><span class="nick">${award_list[2].m_nick}</span><img class="rank" src="/resources/images/rankingmedal/3.png"></div>
+					
+					<div id="grade_two" >
+					<c:choose>
+						<c:when test="${not empty award_list[1].m_image}">
+							<img id="thumbnail_two" class="thumbnail" src="${award_list[1].m_image}">
+						</c:when>
+						<c:otherwise>
+							<img id="thumbnail_two" class="thumbnail" src="/resources/images/icon_input.png">
+						</c:otherwise>
+					</c:choose>
+					<span class="nick">${award_list[1].m_nick}</span><img class="rank" src="/resources/images/rankingmedal/2.png"></div>
+					
+					<div id="grade_one" >
+					<c:choose>
+						<c:when test="${not empty award_list[0].m_image}">
+							<img id="thumbnail_two" class="thumbnail" src="${award_list[0].m_image}">
+						</c:when>
+						<c:otherwise>
+							<img id="thumbnail_two" class="thumbnail" src="/resources/images/icon_input.png">
+						</c:otherwise>
+					</c:choose>
+					<span class="nick">${award_list[0].m_nick}</span><img class="rank" src="/resources/images/rankingmedal/1.png"></div>
+					
+					<div id="grade_three">
+					<c:choose>
+						<c:when test="${not empty award_list[2].m_image}">
+							<img id="thumbnail_two" class="thumbnail" src="${award_list[2].m_image}">
+						</c:when>
+						<c:otherwise>
+							<img id="thumbnail_two" class="thumbnail" src="/resources/images/icon_input.png">
+						</c:otherwise>
+					</c:choose>
+							<span class="nick">${award_list[2].m_nick}</span><img class="rank" src="/resources/images/rankingmedal/3.png"></div>
 				</c:if>
 			</div>
 		</div>	
@@ -417,7 +449,17 @@ color: #21730B;
 
 	 	// 5초마다 이미지 변경
 	    setInterval(changeImage, 5000);
-	  
+	 	
+	    function awardgo() {
+	    	location.href ="/award.go" ;
+		}
+	    function openref() {
+	    	location.href ="/plz.go" ;
+		}
+	    function bestgo() {
+	    	location.href ="/go_ranking_recipe.do" ;
+		}
+	  	
 </script>
 </body>
 </html>
