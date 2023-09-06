@@ -108,13 +108,50 @@ public class User_Controller2 {
 		
 		// TODO 재훈 베스트 레시피 가져오기 끝
 		// TODO 재훈 메인 끝
-
-		return mv;
-	}
-
-	@RequestMapping("/public_list.go")
-	public ModelAndView publicListGo() {
-		ModelAndView mv = new ModelAndView("/user/recipe/public_list");
+		// TODO 희준 bestList초기화 시작
+		List<U_recipe_meta_VO> bestList = new ArrayList<U_recipe_meta_VO>();
+		List<String> idxList =  user_log_Service.getBestListIdx();
+		if(idxList.size()>5) {
+			idxList = idxList.subList(0, 4); // 5개이상이면 5개로 자르기
+		}
+		for (String k : idxList) {
+			int rcp_idx = Integer.parseInt(k);
+			if(rcp_idx>=10000) {
+				// 사용자 metadata 가져오기
+				U_recipe_meta_VO mvo = u_recipe_Service.getSelectOne(k);
+				bestList.add(mvo);
+			}else {
+				// json 가져오기
+				// TODO 공공데이터 시작
+				List<JsonNode> rowList = p_recipe_Service.go_public_list();
+				List<P_recipe_VO> prvo = p_recipe_Service.article_summary();
+				for (int i = 0; i < rowList.size(); i++) {
+					JsonNode k2 = rowList.get(i);
+					String rcpSeq = k2.get("RCP_SEQ").asText();
+					String rcpNm = k2.get("RCP_NM").asText();
+					P_recipe_VO vo = new P_recipe_VO();
+					vo = prvo.get(i);
+					if (vo.getAvg_c_grade() != null) {
+						BigDecimal avgCGrade = new BigDecimal(vo.getAvg_c_grade()).setScale(1, RoundingMode.HALF_UP);
+						vo.setAvg_c_grade(avgCGrade.toString());
+					}
+					if (k.equals(rcpSeq)) {
+						U_recipe_meta_VO pvo = new U_recipe_meta_VO();
+						pvo.setRcp_idx(rcpSeq);
+						if (vo.getAvg_c_grade() == null) {
+							pvo.setAvg_grade("0");
+						} else {
+							pvo.setAvg_grade(vo.getAvg_c_grade());
+						}
+						pvo.setU_rcp_title(rcpNm);
+						bestList.add(pvo);
+						// TODO 공공데이터 끝
+					}
+				}
+			}
+		}
+		session.setAttribute("bestList",bestList);
+		// TODO 희준 bestList초기화 끝
 		return mv;
 	}
 

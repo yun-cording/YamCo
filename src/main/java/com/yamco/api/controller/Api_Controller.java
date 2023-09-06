@@ -66,6 +66,9 @@ public class Api_Controller {
 		        // 하나의 node를 detail_list에 담자!
 		        if (rcpSeqValue.equals(rcpSeq)) {
 		        	detail_list.add(jsonNode); // 일치하는 경우, 해당 jsonNode를 detail_list에 추가
+		        	cate=jsonNode.get("RCP_PAT2").asText();
+		        	img=jsonNode.get("ATT_FILE_NO_MAIN").asText();
+		        	title=jsonNode.get("RCP_NM").asText();
 		        	System.out.println(jsonNode);
 		        	for (int i = 1; i <= 5; i++) {
 		        		manual[i - 1] = jsonNode.get("MANUAL0" + i).asText();

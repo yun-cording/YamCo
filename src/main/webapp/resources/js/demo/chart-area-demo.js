@@ -32,7 +32,7 @@ var ctx = document.getElementById("myAreaChart");
 var myLineChart = new Chart(ctx, {
   type: 'line',
   data: {
-    labels: ["월요일","화요일","수요일","목요일","금요일","토요일","일요일"],
+    labels: hitDay,
     datasets: [{
       label: "조회수",
       lineTension: 0.3,
@@ -46,7 +46,7 @@ var myLineChart = new Chart(ctx, {
       pointHoverBorderColor:'rgba(0, 176, 116, 1)',
       pointHitRadius: 10,
       pointBorderWidth: 2,
-      data: [0, 10000, 5000, 15000, 10000, 20000, 15000],
+      data: hitData,
     }],
   },
   options: {
