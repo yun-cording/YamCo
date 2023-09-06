@@ -6,14 +6,16 @@
 	<!-- 일주일 조회수 기준 상위 30개 가져오기 -->
 	<select id="rankListRecipe7Days" resultType="urmvo">
 		select * from
-		u_recipe_metadata
+		recipe_metadata
+		where u_rcp_status = 0
 		order by hit_7day desc LIMIT 30
 	</select>
 
 	<!-- 한달 조회수 기준 상위 30개 가져오기 -->
 	<select id="rankListRecipe1Month" resultType="urmvo">
 		select * from
-		u_recipe_metadata
+		recipe_metadata
+		where u_rcp_status = 0
 		order by hit_1mon desc LIMIT 30
 	</select>
 

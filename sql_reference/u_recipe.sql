@@ -8,6 +8,56 @@ FROM
 JOIN 
     member m ON ur.m_idx = m.m_idx;
 
+#p_recipe, u_recipe 두 테이블 정보를 더한 뷰
+#주의: p_recipe의 p_rcp_hit를 u_rcp_hit에 저장하였다.
+#주의: p_recipe의 u_rcp_status 기본값을 0으로 저장하였다.
+CREATE VIEW recipe AS
+SELECT rcp_idx, NULL m_idx, NULL u_rcp_title, NULL u_rcp_comment, NULL u_rcp_category, NULL u_rcp_ing, NULL u_rcp_main, NULL u_rcp_level, NULL u_rcp_keyword, NULL u_rcp_tip, NULL u_rcp_blind, NULL m_nick, COALESCE(0) u_rcp_status, p_rcp_hit u_rcp_hit, NULL u_rcp_ctype, NULL u_rcp_time, NULL u_rcp_img
+FROM p_recipe
+UNION
+SELECT rcp_idx, m_idx, u_rcp_title, u_rcp_comment, u_rcp_category, u_rcp_ing, u_rcp_main, u_rcp_level, u_rcp_keyword, u_rcp_tip, u_rcp_blind, m_nick, u_rcp_status, u_rcp_hit, u_rcp_ctype, u_rcp_time, u_rcp_img
+FROM u_recipe;
+
+DROP VIEW recipe_metadata;
+#recipe에 부가적인 정보를 더한 뷰
+CREATE VIEW recipe_metadata AS
+SELECT 
+    r.*,
+    rcs.c_count, rcs.avg_grade,
+    ul_7days.hit AS hit_7day,
+    ul_1month.hit AS hit_1mon,
+    ul_today.hit_today AS hit_today
+FROM 
+    recipe r
+LEFT JOIN 
+    recipe_comment_summary rcs ON r.rcp_idx = rcs.rcp_idx
+LEFT JOIN 
+    user_log_recipe_hit_7days ul_7days ON r.rcp_idx = ul_7days.rcp_idx
+LEFT JOIN 
+    user_log_recipe_hit_1month ul_1month ON r.rcp_idx = ul_1month.rcp_idx
+LEFT JOIN 
+    user_log_recipe_hit_today ul_today ON r.rcp_idx = ul_today.rcp_idx;
+
+#p_recipe, u_recipe 테이블 정보에 comment테이블의 댓글수와 평점을 더한 뷰
+CREATE VIEW recipe_comment_summary AS
+SELECT rcp_idx, total_comments c_count, avg_c_grade avg_grade
+FROM p_recipe_comment_summary
+UNION
+SELECT * FROM u_recipe_comment_summary;
+    
+#p_recipe 테이블 정보에 comment테이블의 댓글수와 평점을 더한 뷰
+CREATE VIEW p_recipe_comment_summary AS
+SELECT 
+    pr.rcp_idx,
+    COUNT(c.c_idx) AS c_count,
+    ROUND(AVG(c.c_grade), 1) AS avg_grade
+FROM 
+    p_recipe pr
+LEFT JOIN 
+    comment c ON pr.rcp_idx = c.rcp_idx
+GROUP BY 
+    pr.rcp_idx;
+
 
 #u_recipe 테이블 정보에 comment테이블의 댓글수와 평점을 더한 뷰
 CREATE VIEW u_recipe_comment_summary AS
@@ -84,6 +134,7 @@ AND ul_logtime >= DATE_SUB(sysdate(), INTERVAL 1 MONTH)
 GROUP BY rcp_idx;
 
 #member가 작성한 recipe의 한달간 조회수 총합과 최고 조회수의 rcp_idx를 볼 수 있는 뷰
+#주의: ul.m_state가 0인 것만 계산함(노출되는 게시물만 계산)
 CREATE VIEW member_u_recipe_hit_1month AS
 SELECT 
     m.m_idx,
@@ -95,6 +146,7 @@ JOIN
     u_recipe u ON m.m_idx = u.m_idx
 LEFT JOIN 
     user_log_recipe_hit_1month ul ON u.rcp_idx = ul.rcp_idx
+WHERE u.u_rcp_status = 0
 GROUP BY 
     m.m_idx;
     
