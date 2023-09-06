@@ -22,7 +22,7 @@
 					<c:when test="${k.idx>=10000 }">
 						<a href="/사용자레시피?=${k.idx }">
 							<div class="recent_center">
-								<img	src="${k.img }" 	alt="" >
+								<img	src="${k.img }" alt="" >
 								<p class="cate">${k.cate } | ${k.title }</p>
 								<p class="writer">작성자 : ${k.writer }</p>
 							</div>
@@ -31,7 +31,7 @@
 					<c:otherwise>
 						<a href="/go_publicDet.do?rcp_seq=${k.idx }">
 							<div class="recent_center">
-								<img	src="${k.img }" 	alt="" >
+								<img	src="${k.img }" alt="" >
 								<p class="cate">${k.cate } | ${k.title }</p>
 								<p class="writer">작성자 : ${k.writer }</p>
 							</div>

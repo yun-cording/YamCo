@@ -7,9 +7,9 @@ var ctx = document.getElementById("myPieChart");
 var myPieChart = new Chart(ctx, {
   type: 'doughnut',
   data: {
-    labels: ["접속자수", ""],
+    labels: ["사용자 레시피", "공공 레시피"],
     datasets: [{
-      data: [81, 19],
+      data: doughnutData1,
       backgroundColor: ['#FF5B5B', 'rgba(255, 91, 91, 0.15)'],
       hoverBackgroundColor: ['#FF5B5B', 'rgba(255, 91, 91, 0.15)'],
       hoverBorderColor: "rgba(234, 236, 244, 1)",
@@ -34,13 +34,13 @@ var myPieChart = new Chart(ctx, {
     cutoutPercentage: 40,
   },
 });
-var ctx = document.getElementById("myPieChart2");
-var myPieChart = new Chart(ctx, {
+var ctx2 = document.getElementById("myPieChart2");
+var myPieChart2 = new Chart(ctx2, {
   type: 'doughnut',
   data: {
-    labels: ["접속자수", "공백"],
+    labels: ["오전 방문자", "오후 방문자"],
     datasets: [{
-      data: [22, 78],
+      data: doughnutData2,
       backgroundColor: ['#00B074', 'rgba(0, 176, 116, 0.15)'],
       hoverBackgroundColor: ['#00B074', 'rgba(0, 176, 116, 0.15)'],
       hoverBorderColor: "rgba(234, 236, 244, 1)",
@@ -64,15 +64,15 @@ var myPieChart = new Chart(ctx, {
     cutoutPercentage: 40,
   },
 });
-var ctx = document.getElementById("myPieChart3");
-var myPieChart = new Chart(ctx, {
+var ctx3 = document.getElementById("myPieChart3");
+var myPieChart3 = new Chart(ctx3, {
   type: 'doughnut',
   data: {
-    labels: ["접속자수", "공백"],
+    labels: ["남성", "여성"],
     datasets: [{
-      data: [62, 38],
-      backgroundColor: ['rgba(45, 156, 219, 1)', 'rgba(45, 156, 219, 0.15)'],
-      hoverBackgroundColor: ['rgba(45, 156, 219, 1)', 'rgba(45, 156, 219, 0.15)'],
+      data: doughnutData3,
+      backgroundColor: ['rgba(45, 156, 219, 1)', 'rgba(255, 87, 87, 1)'],
+      hoverBackgroundColor: ['rgba(45, 156, 219, 1)', 'rgba(255, 87, 87, 1)'],
       hoverBorderColor: "rgba(234, 236, 244, 1)",
     }],
   },

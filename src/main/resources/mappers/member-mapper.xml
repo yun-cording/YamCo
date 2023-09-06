@@ -106,7 +106,12 @@
 
 	<!-- 명예의 전당 가져오기 -->
 	<select id="selectAwardList" resultType="mmvo">
-		select * from member_metadata where tot_hit_1mon is not null order by tot_hit_1mon desc limit 100;
+		select * from member_metadata where tot_hit_1mon is not null order by tot_hit_1mon desc limit 100
+	</select>
+	
+	<!-- 재훈 메인 명예의 전당 3명가져오기 -->
+	<select id="mainAwardList" resultType="mmvo">
+		select * from member_metadata where tot_hit_1mon is not null order by tot_hit_1mon desc limit 3
 	</select>
 
 	<!-- 닉네임 중복 검사 -->
