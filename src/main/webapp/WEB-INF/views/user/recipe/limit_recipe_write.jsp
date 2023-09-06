@@ -30,6 +30,7 @@ document.addEventListener("DOMContentLoaded", function() {
 	  function scrollToTop() {
 	    window.scrollTo({ top: 0, behavior: 'smooth' });
 	  }
+
 	  // 페이지가 로드되면 맨 위로 스크롤
 	  scrollToTop();
 	});
@@ -52,15 +53,13 @@ document.addEventListener("DOMContentLoaded", function() {
 			};
 			
 			reader.readAsDataURL(selectFile);
+			
 		});
 	});	 
 </script>
 </head>
 <body>
 
-	<!-- 페이지 로드 시 스크롤이 맨위로 -->
-	<!-- <script src="scrollToTop.js"></script> -->
-	<!-- Include your JavaScript file -->
 	<div id="mydiv">
 		<jsp:include page="../../header.jsp" />
 		<div id="test">
@@ -73,19 +72,21 @@ document.addEventListener("DOMContentLoaded", function() {
 					<!-- 레시피 제목 -->
 					<div class="left_margin" style="margin-top: 60px; float: left;">
 						<span class="font_32">레시피 제목 : </span> <input type="text" name="u_rcp_title"
-							class="input_tomato" placeholder="레시피 제목을 입력해주세요.">
+							value=${urvo.u_rcp_title }class="input_tomato" placeholder="레시피 제목을 입력해주세요.">
 					</div>
 
 					<!-- 대표사진 등록 -->
 					<div style="margin-left: 100px; margin-top: 200px;">
 						<div>
-							<span class="font_32">대표사진 등록 </span> 
-							<label for="fileInput"	id="fileInputLabel" class="input_tomato"> <!-- class="custom-file-input" -->
-							<input type="file" id="fileInput" accept="image/*" name="u_rcp_img1"></input> <!-- class="input_tomato" -->
-							<span>사진첨부하기 +</span>
+							<span class="font_32">대표사진 등록 </span> <label for="fileInput"
+								id="fileInputLabel" class="input_tomato"> <!-- class="custom-file-input" -->
+								<input type="file" id="fileInput" accept="image/*" name="u_rcp_img"></input> <!-- class="input_tomato" -->
+								<span>사진첨부하기 +</span>
 							</label>
 							<div style="margin-top: 35px;">
-								<img id="thumnail_img_pick"	src="resources/user_image/user_thumnail/" width="320px"	height="320px">
+								<img id="thumnail_img_pick"
+									src="resources/user_image/user_thumnail/${urvo.u_rcp_img }" width="320px"
+									height="320px">
 							</div>
 							<div style="margin-top: 20px;">
 								이미지는 320 x 320px을 권장합니다.<br> ※ 게시판에 상단의 이미지가 노출됩니다. ※
@@ -106,16 +107,54 @@ document.addEventListener("DOMContentLoaded", function() {
 							<!-- dropdown 박스 -->
 							<select name="u_rcp_category1" id="cars" class="input_tomato"
 								style="float: right; margin-right: 50px; margin-top: -470px; color: #606060">
+								<c:choose>
+								<c:when test="${ category_choice1 == 'select_category'}">
 								<option value="select_category" selected>카테고리를 선택하세요.</option>
+								</c:when>
+								<c:when test="${ category_choice1 != 'select_category'}">
+								<option value="select_category">카테고리를 선택하세요.</option>
+								</c:when>
+								<c:when test="${ category_choice1 == 'select_steam'}">
+								<option value="select_steam" selected>찌기</option>
+								</c:when>
+								<c:when test="${ category_choice1 != 'select_steam'}">
 								<option value="select_steam">찌기</option>
+								</c:when>
+								<c:when test="${ category_choice1 == 'select_boil'}">
+								<option value="select_boil" selected>끓이기</option>
+								</c:when>
+								<c:when test="${ category_choice1 != 'select_boil'}">
 								<option value="select_boil">끓이기</option>
+								</c:when>
+								<c:when test="${ category_choice1 == 'select_cook'}">
+								<option value="select_cook" selected>굽기</option>
+								</c:when>
+								<c:when test="${ category_choice1 != 'select_cook'}">
 								<option value="select_cook" >굽기</option>
+								</c:when>
+								<c:when test="${ category_choice1 == 'select_stir'}">
+								<option value="select_stir" selected>볶기</option>
+								</c:when>
+								<c:when test="${ category_choice1 != 'select_stir'}">
 								<option value="select_stir" >볶기</option>
+								</c:when>
+								<c:when test="${ category_choice1 == 'select_fry'}">
+								<option value="select_fry" selected>튀기기</option>
+								</c:when>
+								<c:when test="${ category_choice1 != 'select_fry'}">
 								<option value="select_fry" >튀기기</option>
+								</c:when>
+								<c:when test="${ category_choice1 == 'select_etc'}">
+								<option value="select_etc" selected>기타</option>
+								</c:when>
+								<c:when test="${ category_choice1 != 'select_etc'}">
 								<option value="select_etc">기타</option>
+								</c:when>
+								</c:choose>
 							</select> <br> <br>
 							<!-- </form> -->
 						</div>
+
 						<!-- 조리방법 -->
 						<div>
 							<span class="font_32 left_margin_70 float_left margin_left_70"
@@ -123,13 +162,50 @@ document.addEventListener("DOMContentLoaded", function() {
 							<!-- dropdown 박스 -->
 							<select name="u_rcp_category2" id="cars" class="input_tomato"
 								style="float: right; margin-right: 50px; margin-top: -397px; color: #606060">
+								<c:choose>
+								<c:when test="${ category_choice1 == 'select_category'}">
+								<option value="select_category" selected>카테고리를 선택하세요.</option>
+								</c:when>
+								<c:when test="${ category_choice1 != 'select_category'}">
 								<option value="select_category">카테고리를 선택하세요.</option>
+								</c:when>
+								<c:when test="${ category_choice1 == 'select_steam'}">
+								<option value="select_rice" selected>밥</option>
+								</c:when>
+								<c:when test="${ category_choice1 != 'select_steam'}">
 								<option value="select_rice">밥</option>
+								</c:when>
+								<c:when test="${ category_choice1 == 'select_boil'}">
+								<option value="select_soup" selected>국&찌개</option>
+								</c:when>
+								<c:when test="${ category_choice1 != 'select_boil'}">
 								<option value="select_soup">국&찌개</option>
+								</c:when>
+								<c:when test="${ category_choice1 == 'select_cook'}">
+								<option value="select_bestone" selected>일품</option>
+								</c:when>
+								<c:when test="${ category_choice1 != 'select_cook'}">
 								<option value="select_bestone" >일품</option>
+								</c:when>
+								<c:when test="${ category_choice1 == 'select_stir'}">
+								<option value="select_side" selected>반찬</option>
+								</c:when>
+								<c:when test="${ category_choice1 != 'select_stir'}">
 								<option value="select_side" >반찬</option>
+								</c:when>
+								<c:when test="${ category_choice1 == 'select_fry'}">
+								<option value="select_afterEat" selected>후식</option>
+								</c:when>
+								<c:when test="${ category_choice1 != 'select_fry'}">
 								<option value="select_afterEat" >후식</option>
+								</c:when>
+								<c:when test="${ category_choice1 == 'select_etc'}">
+								<option value="select_etc" selected>기타</option>
+								</c:when>
+								<c:when test="${ category_choice1 != 'select_etc'}">
 								<option value="select_etc">기타</option>
+								</c:when>
+								</c:choose>
 							</select> <br> <br>
 						</div>
 
@@ -140,12 +216,42 @@ document.addEventListener("DOMContentLoaded", function() {
 								난이도</span>
 							<div
 								style="float: right; margin-top: -260px; margin-right: -470px;">
+								<c:choose>
+								<c:when test="${ level == 'newbie_lev'}">
 								  <input type="radio" id="html" class="radio_font checkmark"name="u_rcp_level" value="newbie_lev" checked>  
 									<label for="html" class="radio_font">초급 냠냠</label>  
+									</c:when> 
+									<c:when test="${ level != 'newbie_lev'}">
+								  <input type="radio" id="html" class="radio_font checkmark"name="u_rcp_level" value="newbie_lev" >  
+									<label for="html" class="radio_font">초급 냠냠</label>  
+									</c:when>
+									<c:when test="${ level == 'middle_lev'}">
+									<input type="radio" id="css" class="radio_font checkmark"name="u_rcp_level" value="middle_lev" checked>  
+									<label for="css" class="radio_font">중급 냠냠</label>   
+									</c:when>
+									<c:when test="${ level != 'middle_lev'}">
 									<input type="radio" id="css" class="radio_font checkmark"name="u_rcp_level" value="middle_lev">  
 									<label for="css" class="radio_font">중급 냠냠</label>   
+									</c:when>  
+									<c:when test="${ level == 'advanced_lev'}">
+									<input type="radio" id="javascript" class="radio_font checkmark" name="u_rcp_level" value="advanced_lev" checked>   
+									<label	for="javascript" class="radio_font">상급 냠냠</label>
+									</c:when>
+									<c:when test="${ level != 'advanced_lev'}">
 									<input type="radio" id="javascript" class="radio_font checkmark" name="u_rcp_level" value="advanced_lev" >   
 									<label	for="javascript" class="radio_font">상급 냠냠</label>
+									</c:when>
+									
+									<c:otherwise>
+									  <input type="radio" id="html" class="radio_font checkmark"name="u_rcp_level" value="newbie_lev" checked>  
+									<label for="html" class="radio_font">초급 냠냠</label>  
+									<input type="radio" id="css" class="radio_font checkmark"name="u_rcp_level" value="middle_lev" >  
+									<label for="css" class="radio_font">중급 냠냠</label>   
+									<input type="radio" id="javascript" class="radio_font checkmark" name="u_rcp_level" value="advanced_lev" >  
+									<label	for="javascript" class="radio_font">상급 냠냠</label>
+									</c:otherwise>
+									
+									</c:choose>
 							</div>
 						</div>
 
@@ -157,13 +263,14 @@ document.addEventListener("DOMContentLoaded", function() {
 								<span class="font_32"
 									style="color: #606060; float: left; margin-left: 60px; margin-top: -5px;">#</span>
 								<input type="text" class="input_tomato" id="hashtag"
-									name="u_rcp_keyword1" style="margin-left: 20px;"
+									name="u_rcp_keyword1" style="margin-left: 20px;" value="${urvo.u_rcp_keyword }"
 									placeholder="해시태그를 입력후 enter를 눌러주세요." required oninvalid="this.setCustomValidity('해시태그를 입력해세요.')" oninput="this.setCustomValidity('')">
 							</div>
 						</div>
 
 						<!-- 요리 팁 + 임시저장 -->
 						<div>
+					
 							<!-- 요리 팁 -->
 							<div>
 								<span class="font_32 left_margin" style="float: left;">요리Tip</span>
@@ -195,6 +302,7 @@ document.addEventListener("DOMContentLoaded", function() {
 								</div>
 							</div>
 						</div>
+
 
 	<script type="text/javascript">
 	/* 취소버튼 클릭시 한번더 의사 묻는 script */
@@ -276,12 +384,13 @@ $(document).ready(function() {
 					 'marginBottom':'15px'
 				 });
 	        }
-		 $('#ingredientsContainer').append(new_input);		 
+		 $('#ingredientsContainer').append(new_input);
+		 
 		}
 	};
 	
 	function write_go(f) {
-		
+			
 		if(f.u_rcp_title.value.trim().length<=0){
 			alert("제목을 입력해 주세요.");
 			f.u_rcp_title.focus();
@@ -319,23 +428,47 @@ $(document).ready(function() {
 		}else{
 			//alert("저장안해");	
 			return false;
-		}		
-	}	
+		}
+		
+	}
 	
 	function limitWrite_go(f) {
-	// result = have 일 경우 임시저장글이 있는 상태에서 새글 작성하러 온 상태에서 임시저장 누르게 된 경우
-	// result = pass 임시저장글이 없는 상태에서 새글 작성하러와서 임시저장하는 경우
-		//var result = ${result};
-		//console.log("user_recipe_write : "+result);
-		//if(result=='pass'){ // 임시저장게시글이 없는 상태에서 임시저장하는 경우
+		var result = ${result};
+		console.log(result);
+		if(result == 'have'){// have 임시저장글이 있지만 새로 작성하는상태에서 임시저장을 누른 경우
+			if(confirm("기존 임시저장글은 삭제됩니다.\n임시저장하시겠습니까?") == true){
+				
+				if(f.u_rcp_title.value.trim().length<=0){
+					alert("제목을 입력해 주세요.");
+					f.u_rcp_title.focus();
+					return false;
+				}
+				
+				var u_rcp_status = 2;
+				 var u_rcp_ing2 = [];
+				for (var i = 0; i < fieldCount; i++) {
+					u_rcp_ing2[i-1] = $("#ing_box"+i).val();
+				} 
+				
+				f.action="/write_go?u_rcp_ing2="+u_rcp_ing2+"&u_rcp_status="+u_rcp_status;
+				f.submit();	
+				
+			}
+			else{
+				return false;
+			}
 		
-		if(confirm("임시저장은 한개의 레시피만 가능합니다.\n임시저장 하시겠습니까?") == true){
+		}else{
+		if(confirm("임시저장은 한개의 게시글만 가능합니다.\n임시저장 하시겠습니까?") == true){
+			// if() db에 로그인된 사용자의 m_idx를 가지고 u_recipe테이블에가서 기존글 확인하고
+			// confirm창으로 기존에 임시저장된 게시글이 있습니다. 계속하시면 기존 임시저장글은 삭제됩니다. 진행하시겠습니까? 처리
 			// true일 경우 controller 에서 update문으로 새로 작성한 임시저장글로 업데이트
 		 if(f.u_rcp_title.value.trim().length<=0){
 			alert("제목을 입력해 주세요.");
 			f.u_rcp_title.focus();
 			return false;
 		}
+		
 		var u_rcp_status = 2;
 		 var u_rcp_ing2 = [];
 		for (var i = 0; i < fieldCount; i++) {
@@ -348,32 +481,9 @@ $(document).ready(function() {
 	}else{
 		return false;
 	}
-	//}// 임시저장게시글이 없는 상태에서 임시저장하는 경우 끝
-	
-/* 	else if(result=='have'){ // 임시저장글이 있는 상태에서 임시저장하는 경우
-		if(confirm("기존 임시저장 레시피가 있습니다.\n임시저장하실 경우 기존 레시피는 삭제됩니다.\n임시저장 하시겠습니까?") == true){
-			// confirm창으로 기존에 임시저장된 게시글이 있습니다. 계속하시면 기존 임시저장글은 삭제됩니다. 진행하시겠습니까? 처리
-			// true일 경우 controller 에서 update문으로 새로 작성한 임시저장글로 업데이트
-		 if(f.u_rcp_title.value.trim().length<=0){
-			alert("제목을 입력해 주세요.");
-			f.u_rcp_title.focus();
-			return false;
-		}
 			
-		var u_rcp_status = 2;
-		 var u_rcp_ing2 = [];
-		for (var i = 0; i < fieldCount; i++) {
-			u_rcp_ing2[i-1] = $("#ing_box"+i).val();
-		} 
-		console.log("임시저장레시피가 있는 경우 : " + result);
-		f.action="/limit_write_go?u_rcp_ing2="+u_rcp_ing2+"&u_rcp_status="+u_rcp_status+"&result="+result;
-		f.submit();	
+}// 임시저장된 게시글이 없을때 임시저장되는문 끝
 		
-	}else{
-		return false;
-	}	
-} */// 임시저장글이 있는 상태에서 임시저장하는 경우 기존글은 삭제됨 끝
-
 }
 </script>
 <script type="text/javascript">

@@ -37,4 +37,9 @@ public interface U_recipe_Service {
 	
 	// 임시저장된 레시피 조회 (성훈)
 	public U_recipe_VO getLimit_recipe(String m_idx);
+
+	// 임시저장 레시피 삭제 
+	public int deleteRecipe(String m_idx);
+	
+	
 }

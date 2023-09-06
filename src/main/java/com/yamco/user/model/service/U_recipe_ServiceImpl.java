@@ -74,5 +74,11 @@ public class U_recipe_ServiceImpl implements U_recipe_Service {
 	public U_recipe_VO getLimit_recipe(String m_idx) {
 		return u_recipe_DAO.getLimit_recipe(m_idx);
 	}
-
+	
+	// 성훈 임시저장된 레시피 삭제
+	@Override
+	public int deleteRecipe(String m_idx) {
+		return u_recipe_DAO.deleteRecipe(m_idx);
+	}
+	
 }

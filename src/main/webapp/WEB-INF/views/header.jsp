@@ -7,29 +7,33 @@
 <title>header</title>
 <link rel="stylesheet" href="resources/css/header.css" />
 </head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 <script type="text/javascript">
-	
-$("#recipeChk").on("click", function() {
+function recipeChk() {
+//$("#recipeChk").on('click', function() {
 $.ajax({
 	type: 'get',
 	url : '/limit_recipe_chk.do',
 	async : true ,
-	dataType : 'json' ,
-	success : function(data) {
-		var result = data.result;
+	dataType : 'text' ,
+	success : function(result) {
+		var result = result;
+		
 		console.log(result);
-		if(result=='true'){
-		confirm("작성중인 게시글이 있습니다.\n이어서 작성하시겠습니까?" == true){
-			location.href="/user_recipe_write.go";
+		if(result=="yes"){
+		if(confirm("작성중인 게시글이 있습니다.\n이어서 작성하시겠습니까?\n취소클릭시 기존글은 삭제되고 새글 작성페이지로 넘어갑니다.") == true){
+		location.href="/user_recipe_write.go?result="+result;
 		}else{
-			return;		
-		}	
-		}else if(result=='false'){
+			result = "cancelandgo";
+			location.href="/user_recipe_write.go?result="+result;			
+		}		
+		}else {
 			location.href="/user_recipe_write.go";
-		}	
 		}
+	}
 }); /* ajax 끝 */
-}); /* recipeChk 클릭 끝 */
+//}); /* recipeChk 클릭 끝 */	
+}
 
 </script>
 <body>
@@ -60,7 +64,7 @@ $.ajax({
               </div>
         <div class="rcp_write">
                 <div class="rcp_write_bt">
-                  <a  id="recipeChk"><span class="rcp_write_text">레시피 작성</span><!-- href="/user_recipe_write.go" -->
+                  <a onclick="recipeChk()"><span class="rcp_write_text">레시피 작성</span><!-- href="/user_recipe_write.go"  id="recipeChk"-->
                 <img class="rcp_write_icon" src ="/resources/images/secret_recipe_icon.png"></a>
                 </div>
             </div>

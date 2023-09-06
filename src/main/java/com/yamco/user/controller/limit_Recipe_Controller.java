@@ -1,13 +1,6 @@
 package com.yamco.user.controller;
 
 import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,12 +8,8 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -28,13 +17,13 @@ import com.yamco.user.model.service.U_recipe_Service;
 import com.yamco.user.model.vo.U_recipe_VO;
 
 @Controller
-public class Recipe_Controller {
-
+public class limit_Recipe_Controller {
 	@Autowired
 	U_recipe_Service u_recipe_Service;
-
-	//레시피 저장 , 레시피 임시저장
-	@PostMapping("/write_go")
+	
+	
+	//임시저장으로 불러온 게시글 저장 or 임시저장
+	@PostMapping("/limit_write_go")
 	public ModelAndView get_write(U_recipe_VO uvo, HttpServletRequest request,
 			@RequestPart("u_rcp_img1") MultipartFile u_rcp_img1, String[] u_rcp_ing2, String u_rcp_status) {
 		ModelAndView mv = new ModelAndView("/main");
@@ -157,83 +146,5 @@ public class Recipe_Controller {
 			return null;
 		}
 	}
-
-	// 성훈 레시피 작성
-	@RequestMapping("/user_recipe_write.go")
-	public ModelAndView userRecipeWriteGo(HttpSession session, String result) {
-		ModelAndView mv = new ModelAndView();
-		System.out.println("header에서넘어온 result : " + result);
-		String result2 = result;
-		String m_idx = (String) session.getAttribute("m_idx");
-		if (result2 == "yes") { // 임시저장글 작성페이지로 이동할 경우
-			U_recipe_VO urvo = u_recipe_Service.getLimit_recipe(m_idx);
-			// List<String> category1 = Arrays.asList("select_category", "select_steam",
-			// "select_boil", "select_cook",
-			// "select_stir", "select_fry", "select_etc");
-
-			// 카테고리 값 넘겨주기 처리
-			String[] u_rcp_category = urvo.getU_rcp_category().split(",");
-			String category_choice1 = u_rcp_category[0].trim();
-			System.out.println("category_choice1 : " + category_choice1);
-			String category_choice2 = u_rcp_category[1].trim();
-			System.out.println("category_choice2 : " + category_choice2);
-
-			String u_rcp_level = urvo.getU_rcp_level();
-
-			mv.setViewName("/user/recipe/limit_recipe_write");
-			mv.addObject("level", u_rcp_level);
-			mv.addObject("category_choice1", category_choice1);
-			mv.addObject("category_choice2", category_choice2);
-			mv.addObject("result", result2);
-			mv.addObject(urvo);
-			return mv;
-		}else if(result2 == "cancelandgo"){
-			int result3 = u_recipe_Service.deleteRecipe(m_idx);
-			mv.setViewName("/user/recipe/user_recipe_write");
-			return mv;
-		}else { 
-			mv.setViewName("/user/recipe/user_recipe_write");
-			return mv;
-		}
-	}
-
-	@PostMapping("/saveImage.do")
-	@ResponseBody
-	public Map<String, String> saveImg(U_recipe_VO uvo, HttpServletRequest request) {
-		Map<String, String> map = new HashMap<String, String>(); // hash 맵 사용
-
-		// 넘어온 파일 검증
-		MultipartFile f = uvo.getS_file(); // 멀티파트파일 f 에 ImgVO vo로 f_name으로 보낸 파일을 받아서 집어넣음
-		String fname = null;
-		if (f.getSize() > 0) { // f의 사이즈가 0보다 클경우 즉 파일이 있을경우
-			// 첨부파일 위치
-			String path = request.getSession().getServletContext()
-					.getRealPath("/resources/user_image/user_summernote_img");
-
-			UUID uuid = UUID.randomUUID();
-			String[] uuids = uuid.toString().split("-");
-			String uniqueName = uuids[0];
-			fname = uniqueName + "_" + f.getOriginalFilename();
-
-			try {
-				// 업로드(저장용도) path 경로에 있는 fname파일을 f.transferTo에 업로드하겠다.
-				f.transferTo(new File(path, fname));
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			// 비동기식 요청이므로 저장된 파일의 경로와 파일명을 보내야 한다.
-			String path2 = request.getContextPath();
-			if (path2 == null) {
-				System.out.println("path2 is null");
-			}
-			System.out.println(path2);
-			map.put("fname", fname);
-			map.put("path", "/resources/user_image/user_summernote_img");
-
-			// pom.xml에 json 변환 해주는 라이브러리 추가
-			return map; // ajax요청에서 map으로 리턴할 경우 키 : 값 으로 리턴 되기 떄문에 json형싱그로 자동으로 리턴이 된다.
-		}
-		return null;
-	}
-
+	
 }

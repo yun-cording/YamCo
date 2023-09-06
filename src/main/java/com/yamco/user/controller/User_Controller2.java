@@ -4,6 +4,7 @@ import java.io.File;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.io.IOException;
@@ -191,31 +192,7 @@ public class User_Controller2 {
 		return mv;
 	}
 	
-	// 성훈 레시피 작성 임시저장 처리
-	@RequestMapping("/user_recipe_write.go")
-	public ModelAndView userRecipeWriteGo(HttpSession session) {
-		ModelAndView mv = new ModelAndView("/user/recipe/user_recipe_write");
-		
-		return mv;
-	}
-	// 성훈 레시피 임시저장 레시피 확인
-	@RequestMapping("/limit_recipe_chk.do")
-	public Map<String, String> limit_recipe_writeChk(HttpSession session) {
-		Map<String , String> map = new HashMap<String, String>();
-		
-		String m_idx = (String) session.getAttribute("m_idx");
-			U_recipe_VO urvo = u_recipe_Service.getLimit_recipe(m_idx); // 임시저장 게시글의 수 조회
-			if(urvo.getM_idx() != null) { //임시 저장 게시글이 있을경우
-				System.out.println("임시 저장 게시글 제목: "+ urvo.getU_rcp_title());
-				map.put("rseult", "true");
-				return map;
-			}else {
-				map.put("result", "false");
-				return map;
-			}
-	}
-	
-	
+	// /user_recipe_write.go recipe_controller로 이동 
 
 	@RequestMapping("/myinfo.go")
 	public ModelAndView myinfoGo(HttpSession session) {
