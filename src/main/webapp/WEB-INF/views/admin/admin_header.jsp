@@ -54,7 +54,7 @@
                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <span class="mr-2 d-none d-lg-inline text-gray-600 small">${m_nick }님, 안녕하세요</span>
                     <img class="img-profile rounded-circle"
-                        src="${m_image }">
+                        src="resources/images/icon_input.png">
                 </a>
                 <!-- Dropdown - User Information -->
                 <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
