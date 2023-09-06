@@ -30,7 +30,7 @@ public class AdminDAO {
 		String hit_user = sqlSessionTemplate.selectOne("admin.hitUser");
 		String hit_public = sqlSessionTemplate.selectOne("admin.hitPublic");
 		// 방문자수 관련
-		String visit_total = "아직 못했음";
+		String visit_total = sqlSessionTemplate.selectOne("admin.visitTotal");
 		String visit_am = sqlSessionTemplate.selectOne("admin.visitAm");
 		String visit_pm = sqlSessionTemplate.selectOne("admin.visitPm");
 		// 레시피 관련
@@ -66,7 +66,7 @@ public class AdminDAO {
 		for (Admin_Report_VO k : comment_report_list) {
 			Comment_VO cvo = new Comment_VO();
 			cvo.setC_idx(k.getC_idx());
-			Comment_meta_VO vo = sqlSessionTemplate.selectOne("comment.selectListByVO", cvo); // 게시글 번호로 닉네임, 제목 가져오기
+			Comment_meta_VO vo = sqlSessionTemplate.selectOne("comment.selectListByVO", cvo); // 댓글 번호로 닉네임, 내용 가져오기
 			k.setM_nick(vo.getM_nick());
 			k.setC_contents(vo.getC_contents());
 			final_report_list.add(k);
@@ -74,11 +74,12 @@ public class AdminDAO {
 		Collections.sort(final_report_list, new Comparator<Admin_Report_VO>() {
 			@Override
 			public int compare(Admin_Report_VO vo1, Admin_Report_VO vo2) {
-				int hit1 = Integer.parseInt(vo1.getCount());
-				int hit2 = Integer.parseInt(vo2.getC_contents());
-				return Integer.compare(hit2, hit1);
+				int count1 = Integer.parseInt(vo1.getCount());
+				int count2 = Integer.parseInt(vo2.getCount());
+				return Integer.compare(count1, count2);
 			}
 		});
+		
 		
 		dash_VO.setFinal_report_list(final_report_list);
 		dash_VO.setRecipe_new(recipe_new);

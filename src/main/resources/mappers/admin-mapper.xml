@@ -9,7 +9,9 @@
 		WHERE ul_status = 3
 	</select>
 	<!-- 총 방문자수 -->
-	
+	<select id="visitTotal" resultType="String">
+		SELECT COUNT(*) FROM user_log	WHERE ul_status = 4
+	</select>
 	<!-- 신규회원 (1주간) -->
 	<select id="clientNew" resultType="String">
 		SELECT COUNT(*) FROM member
@@ -71,9 +73,9 @@
 	</select>
 	<!-- 댓글 신고 -->
 	<select id="commentReport" resultType="arvo">
-		SELECT rcp_idx, COUNT(*) AS count
+		SELECT c_idx, COUNT(*) AS count
 		FROM report_t
-		WHERE rcp_idx IS NOT NULL
-		GROUP BY rcp_idx
+		WHERE c_idx IS NOT NULL
+		GROUP BY c_idx
 	</select>
 </mapper>

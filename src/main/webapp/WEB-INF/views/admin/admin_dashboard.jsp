@@ -190,12 +190,12 @@
 												</tr>
 											</thead>
 											<tbody>
-											<c:forEach begin="1" end="100" var="k">
+											<c:forEach items="${vo.final_report_list}" var="k">
 												<tr>
-													<td>${k }</td>
-													<td>신고자${k }</td>
-													<td>${k }번째 게시물</td>
-													<td>2011/01/${k }</td>
+													<td>${k.count }</td>
+													<td>${k.m_nick }</td>
+													<td>${k.u_rcp_title }</td>
+													<td>${k.c_contents }</td>
 													<td> <button class="btn btn-danger">블라인드 처리</button> </td>
 												</tr>											
 											</c:forEach>
@@ -278,12 +278,19 @@
 	<script src="/resources/js/demo/chart-pie-demo.js?after"></script>
 	<script src="/resources/js/demo/chart-bar-demo.js"></script>
 	
-	<!-- Page level custom scripts -->
-	<script src="resources/js/demo/datatables-demo.js"></script>
 	<!-- Page level plugins -->
 	<script src="resources/vendor/datatables/jquery.dataTables.min.js"></script>
 	<script src="resources/vendor/datatables/dataTables.bootstrap4.min.js"></script>
-	
+	<script type="text/javascript">
+    $(document).ready(function () {
+        $('#dataTable').dataTable({
+            "columnDefs": [
+                { "orderable": false, "targets": [1,2,3,4] }
+            ],
+            order: [[0, 'desc']]
+        });
+    });
+	</script>
 </body>
 
 </html>
