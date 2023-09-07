@@ -28,7 +28,6 @@ public class Comment_DAO {
 	//댓글 조회
 	public List<Comment_meta_VO> getSelectList(Comment_VO cvo) {
 		return sqlSessionTemplate.selectList("comment.selectListByVO", cvo);
-<<<<<<< HEAD
 	}
 	// 상우 댓글 수정
 	@Transactional
@@ -79,7 +78,5 @@ public class Comment_DAO {
 		// delete 쓰면 틀린다!
 		result = sqlSessionTemplate.update("comment.insertOrUpdateCommentLike", comment_likeornot_map);
 		return result;
-=======
->>>>>>> refs/heads/master
 	}
 }

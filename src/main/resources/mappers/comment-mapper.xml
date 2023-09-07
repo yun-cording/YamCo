@@ -54,7 +54,6 @@
 			</if>
 		</where>
 	</select>
-<<<<<<< HEAD
 	
 	<!-- 상우 댓글 수정 -->
 	<update id="comment_revision" parameterType="map">
@@ -86,6 +85,4 @@
 	        </otherwise>
 	    </choose>
 	</update>
-=======
->>>>>>> refs/heads/master
 </mapper>
