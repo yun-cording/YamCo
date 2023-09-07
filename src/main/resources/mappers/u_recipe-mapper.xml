@@ -289,5 +289,24 @@
 	<select id="userContentList" parameterType="urmvo" resultType="urmvo">
 		select * from u_recipe_metadata order by rcp_idx asc		
 	</select>
+	
+	<select id="userSearchList" parameterType="urmvo" resultType="urmvo">
+		select * from u_recipe_metadata 
+			<where>	
+					
+			<if test="input != null">
+				and u_rcp_title like '%#{input}%'
+			</if>			
+			<if test="start_date != null and start_date != ''">
+				and u_rcp_time >= '#{start_date}'
+			</if>			
+			<if test="end_date != null and end_date != ''">
+				and u_rcp_time<![CDATA[<]]> '#{end_date}'
+			</if>			
+			<if test="btn_status != null and btn_status != ''">
+				and u_rcp_status = #{btn_status}
+			</if>	
+		</where>	
+	</select>
 	<!-- 채림 사용자 게시판 리스트 가져오기 끗 -->
 </mapper>

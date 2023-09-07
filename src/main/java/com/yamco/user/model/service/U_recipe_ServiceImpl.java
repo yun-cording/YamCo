@@ -1,5 +1,6 @@
 package com.yamco.user.model.service;
 
+import java.time.LocalDate;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -143,5 +144,51 @@ public class U_recipe_ServiceImpl implements U_recipe_Service {
 	@Override
 	public List<U_recipe_meta_VO> getUserContentList(U_recipe_meta_VO urmvo) {
 		return u_recipe_DAO.getUserContentList(urmvo);
+	}
+	
+	// 사용자 게시판 리스트 가져오기(검색)
+	@Override
+	public List<U_recipe_meta_VO> getUserSearchList(U_recipe_meta_VO urmvo) {
+		String category = urmvo.getHave_category();
+//		if(category != null) {
+//			urmvo.setHave_category(category);
+			System.out.println(category + " : 1");
+//		}
+//		
+		String input = urmvo.getInput();
+//		if(input != null && !input.isBlank() && !input.equals("")) {
+//			urmvo.setHave_title(input);
+			System.out.println(input + " : 2");
+//		}
+//		
+		String start_date = urmvo.getStart_date();
+		String end_date = urmvo.getEnd_date();
+//		
+//		if(start_date != null && !start_date.isBlank()) {
+//			urmvo.setStart_date(start_date);
+			System.out.println(start_date + " : 3");
+//		}
+//		
+//		if(end_date != null && !end_date.isBlank()) {
+//			LocalDate end = LocalDate.parse(end_date);
+//			end = end.plusDays(1);
+//			end_date = end.toString();
+//			urmvo.setEnd_date(end_date);
+			System.out.println(end_date + " : 4");
+//		}
+//		
+		  String btn_status = urmvo.getBtn_status();
+		  System.out.println(btn_status + " : 5");
+		  
+		  if(btn_status != null && !btn_status.isBlank()) { 
+			  if(btn_status.equalsIgnoreCase("게시중")) {
+			  urmvo.setBtn_status("0");
+			  System.out.println(urmvo.getBtn_status() + " : 6"); 
+		  }else { 
+			  urmvo.setBtn_status("3");
+		  	System.out.println(urmvo.getBtn_status() + " : 7"); 
+		  	}
+		  }
+		return u_recipe_DAO.getUserSearchList(urmvo);
 	}
 }

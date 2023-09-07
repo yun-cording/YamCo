@@ -216,12 +216,12 @@ select option[value=""][disabled] {
 										<div class="col-auto fw-bold text-nowrap">검색어</div>
 										<div class="col col-lg-auto mx-auto">
 											<div class="dropdown">
-												<select class="btn-light form-select select_box category">
+												<select class="btn-light form-select select_box category" name="have_category">
 													<option value="카테고리" disabled selected>카테고리</option>
 													<option value="1인분">1인분</option>
 													<option value="채식">채식</option>
 													<option value="국물류">국물류</option>
-													<option class="dropdown-item"  value="돈까스,일식">돈까스,
+													<option class="dropdown-item" value="돈까스,일식">돈까스,
 															일식</option>
 													<option class="dropdown-item" value="고기,구이">고기,
 															구이</option>
@@ -238,8 +238,8 @@ select option[value=""][disabled] {
 										</div>
 										<div class="col-12 mt-2 col-lg mt-lg-0 mx-auto">
 											<div class="input-group">
-												<input type="text" class="form-control input_txf" aria-label="input"
-													aria-describedby="inputGroup-sizing-default">
+												<input type="text" class="form-control input_txf" placeholder="글 제목만 입력해주세요." aria-label="input"
+													aria-describedby="inputGroup-sizing-default" name="input">
 											</div>
 										</div>
 									</div>
@@ -390,9 +390,9 @@ select option[value=""][disabled] {
                                     <c:forEach items="${content_result}" var="k" varStatus=""> 
                                         <tr>
                                             <td>${k.rcp_idx}</td>
-                                            <td>${k.m_idx}</td>
-                                            <td>${k.u_rcp_title}</td>
+                                            <td>${k.u_rcp_category}</td>
                                             <td>${k.m_nick}</td>
+                                            <td>${k.u_rcp_title}</td>
                                             <td>${k.w_count}</td>
                                             <td>${k.u_rcp_hit}</td>
                                             <td>${k.u_rcp_time}</td>

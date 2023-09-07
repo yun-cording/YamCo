@@ -43,4 +43,7 @@ public interface U_recipe_Service {
 	
 	// 사용자 게시판 리스트 가져오기
 	public List<U_recipe_meta_VO> getUserContentList(U_recipe_meta_VO urmvo);
+	
+	// 사용자 게시판 리스트 가져오기(검색)
+	public List<U_recipe_meta_VO> getUserSearchList(U_recipe_meta_VO urmvo);
 }
