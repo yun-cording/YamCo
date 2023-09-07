@@ -189,6 +189,20 @@ FROM
 LEFT JOIN 
     u_recipe ur ON ur.rcp_idx = c.rcp_idx;
 
+#전체회원 수, 탈퇴회원 수, 자체가입 회원 수, 소셜가입 회원 수를 저장하는 뷰
+#m_status = 0 슈퍼바이저, m_status = 2 일반 관리자
+#m_status = 1 일반회원, m_status = 3 탈퇴회원, m_status = 4 금지회원
+CREATE VIEW member_count_summary AS
+SELECT
+    SUM(m_status = 1 OR m_status = 3 or m_status = 4) AS total_member,
+    SUM(m_login_type = 1) AS member_type_self,
+    SUM(m_login_type >= 2) AS member_type_social,
+    SUM(m_status = 3) AS drop_out_member,
+    SUM(m_status = 0 OR m_status = 2) AS total_admin,
+    SUM(m_status = 0) AS supervisor,
+    SUM(m_status = 2) AS common_admin
+FROM member;
+
 update u_recipe set u_rcp_hit = u_rcp_hit + 1 where rcp_idx = 10008;
 insert into user_log(m_idx, rcp_idx, ul_logtime, ul_status) VALUES(45, 10004, '2023-08-03 17:06:53', 3);
 SELECT * FROM user_log WHERE rcp_idx = 10008;

@@ -68,8 +68,8 @@
 					<!-- 사용자 정보관리 / 관리자 정보관리 버튼 -->
 					<div class="row mb-3 justify-content-start">
 						<div class="col-auto p-0">
-							<a class="btn btn-lg btn-outline-success" href="/go_admin_memberchk.do"
-								role="button">사용자 정보관리</a>
+							<a class="btn btn-lg btn-outline-success"
+								href="/go_admin_memberchk.do" role="button">사용자 정보관리</a>
 						</div>
 						<div class="col-auto p-0">
 							<a class="btn btn-lg btn-success"
@@ -93,7 +93,7 @@
 												class="col-auto col-lg-12 col-xxl-auto fw-bold text-nowrap">전체
 												관리자</div>
 											<div
-												class="col-auto col-lg-12 col-xxl-auto text-black-50 fw-bold small">6명</div>
+												class="col-auto col-lg-12 col-xxl-auto text-black-50 fw-bold small">${countSummary.total_admin }명</div>
 										</div>
 									</li>
 									<li class="list-group-item" style="height: 33.33%">
@@ -103,7 +103,7 @@
 												class="col-auto col-lg-12 col-xxl-auto fw-bold text-nowrap">슈퍼
 												바이저 계정</div>
 											<div
-												class="col-auto col-lg-12 col-xxl-auto text-black-50 fw-bold small">1명</div>
+												class="col-auto col-lg-12 col-xxl-auto text-black-50 fw-bold small">${countSummary.supervisor }명</div>
 										</div>
 									</li>
 									<li class="list-group-item" style="height: 33.33%">
@@ -113,7 +113,7 @@
 												class="col-auto col-lg-12 col-xxl-auto fw-bold text-nowrap">
 												중간 관리자 계정</div>
 											<div
-												class="col-auto col-lg-12 col-xxl-auto text-black-50 fw-bold small">5명</div>
+												class="col-auto col-lg-12 col-xxl-auto text-black-50 fw-bold small">${countSummary.common_admin }명</div>
 										</div>
 									</li>
 								</ul>
@@ -131,15 +131,17 @@
 									검색 조건</h6>
 
 								<!-- form start -->
-								<form action="/go_admin_memberchk.do" method="post">
+								<form action="/go_admin_memberchk_admin_search.do" method="post">
 
 									<ul class="list-group list-group-flush">
 
 										<li class="list-group-item">
+											<!-- row for 검색어 조건 -->
 											<div class="row justify-content-around align-items-center">
 												<div
 													class="col-auto col-sm-4 col-xl-auto fw-bold text-nowrap">검색어</div>
 												<div class="col col-xl-auto mx-auto">
+													<!-- 검색 키워드 카테고리 선택 -->
 													<select name="keyword_category"
 														class="form-select text-center"
 														aria-label="keyword select">
@@ -148,6 +150,7 @@
 													</select>
 												</div>
 												<div class="col-auto ps-0">
+													<!-- 검색 키워드 포함/일치 여부 선택 -->
 													<div class="form-check form-check-inline m-0">
 														<input class="form-check-input" type="radio"
 															name="keyword_type" id="keyword_type_like" value="like">
@@ -163,30 +166,39 @@
 												</div>
 												<div class="col-12 mt-2 col-xl mt-xl-0 mx-auto">
 													<div class="input-group">
+														<!-- 검색 키워드 입력창 -->
 														<input type="text" name="keyword" class="form-control"
 															aria-label="input"
 															aria-describedby="inputGroup-sizing-default">
+
+														<!-- 버튼 클릭시 submit 동작 수행 -->
 														<button type="button" class="btn btn-outline-secondary"
 															onclick="goSubmit(this.form)">
 															<i class="fa-solid fa-magnifying-glass"></i>
 														</button>
 													</div>
 												</div>
-											</div>
+											</div> <!-- End of row for 검색어 조건 -->
 										</li>
+
 										<li class="list-group-item">
+											<!-- row for 기간 조건 -->
 											<div class="row justify-content-between align-items-center">
 												<div class="col-4 col-xl-auto fw-bold text-nowrap">기간
 													조건</div>
 												<div class="col-8 col-xxl">
+													<!-- 기간 조건 카테고리 선택 -->
 													<select name="period_category"
 														class="form-select text-center" aria-label="period select">
 														<option value="1">가입일</option>
 														<option value="2">탈퇴일</option>
 													</select>
 												</div>
+
+												<!-- 기간 조건 시작일/종료일 선택 -->
 												<div
 													class="col-6 mt-2 pe-1 col-xxl mt-xxl-0 input-date-wrapper">
+													<!-- 주의: required 속성이 없으면 data-placeholder를 적용하는 css가 작동 안 됨 -->
 													<input type="date" id="input_startday" name="start_date"
 														data-placeholder="시작일" required aria-required="true"
 														class="btn btn-outline-secondary text-center rounded w-100 fw-bold">
@@ -196,6 +208,8 @@
 														data-placeholder="종료일" required aria-required="true"
 														class="btn btn-outline-secondary text-center rounded w-100 fw-bold">
 												</div>
+
+												<!-- 기간 조건 단축키(1일, 7일, 1달) 버튼 -->
 												<div class="col-4 mt-2 pe-1 col-xxl-auto mt-xxl-0">
 													<button type="button" id="btn_1day"
 														class="btn btn-outline-secondary w-100">1일</button>
@@ -208,16 +222,19 @@
 													<button type="button" id="btn_1month"
 														class="btn btn-outline-secondary w-100">1달</button>
 												</div>
-											</div>
+											</div> <!-- End of row for 기간 조건 -->
 										</li>
+
 										<li class="list-group-item">
 											<div class="row justify-content-end align-items-center">
 												<div class="col-auto">
+													<!-- reset : 폼 컨트롤의 값을 초기화 시켜줍니다. -->
 													<input type="reset"
 														class="btn btn-outline-primary w-100 fw-bold"
 														value="조건 초기화" />
 												</div>
 												<div class="col-auto">
+													<!-- 버튼 클릭시 submit 동작 수행 -->
 													<button type="button" class="btn btn-primary w-100 fw-bold"
 														onclick="goSubmit(this.form)">검색</button>
 												</div>
@@ -241,9 +258,12 @@
 						<div class="col-12 ps-3">
 							<h4 class="fw-bold">검색결과</h4>
 						</div>
+
+						<!-- col for datatable -->
 						<div class="col-12">
+							<!-- card for datatable -->
 							<div class="card p-3">
-								<!-- overflow-x-hidden 안 주면 가로스크롤이 생길 때가 있음 -->
+								<!-- 주의: overflow-x-hidden 안 주면 가로스크롤이 생길 때가 있음 -->
 								<div class="table-responsive overflow-x-hidden">
 									<table class="table table-bordered" id="dataTable" width="100%"
 										cellspacing="0">
@@ -251,38 +271,52 @@
 											<tr>
 												<th>uid</th>
 												<th>닉네임</th>
-												<th>이메일</th>
+												<th>아이디</th>
 												<th>가입일</th>
 												<th>탈퇴일</th>
 												<th>탈퇴</th>
 											</tr>
 										</thead>
 										<tbody>
-											<!-- dummy data 생성 -->
-											<c:forEach begin="1" end="22" step="1" var="k" varStatus="vs">
-												<tr class="align-middle">
-													<td>${k }</td>
-													<td>Mr.Happiniess${k }</td>
-													<td>Mr.H********@.g********</td>
-													<td>2023-05-${k + 9}</td>
-													<td>${(k % 3) == 0 ? "2023-10-06" : "" }</td>
-													<td><c:choose>
-															<c:when test="${(k % 3) == 0 }">
-																<i class="fa-solid fa-user-slash text-secondary"
-																	title="탈퇴 회원"></i>
-															</c:when>
-															<c:otherwise>
-																<a href="/" title="계정 탈퇴"><i
-																	class="fa-solid fa-user-minus text-danger"></i></a>
-															</c:otherwise>
-														</c:choose></td>
-												</tr>
-											</c:forEach>
+											<c:choose>
+												<%-- search_result이 있는 경우 반복문으로 데이터 행 출력 --%>
+												<c:when test="${not empty search_result }">
+													<c:forEach var="k" items="${search_result }">
+														<tr class="align-middle">
+															<td>${k.m_idx }</td>
+															<td>${k.m_nick }</td>
+															<td>${k.m_id }</td>
+															<td>${k.m_regdate}</td>
+															<td>${k.m_out_date}</td>
+															<%-- 관리자의 상태에% 따라 다른 출력을 보여준다 --%>
+															<td><c:choose>
+																	<%-- 슈퍼바이저 계정은 탈퇴가 불가하다 --%>
+																	<c:when test="${k.m_status == 0}">
+																		<i class="fa-solid fa-crown text-warning"
+																			title="Super"></i>
+																	</c:when>
+																	<c:when test="${k.m_status == 5}">
+																		<i class="fa-solid fa-user-slash text-secondary"
+																			title="탈퇴 회원"></i>
+																	</c:when>
+																	<c:otherwise>
+																		<%-- 해당 태그를 누르면 관리자를 탈퇴시킨다 --%>
+																		<%-- m_status = 5 --%>
+																		<i class="fa-solid fa-user-minus text-danger "
+																			title="계정 탈퇴" onclick="dropOut(${k.m_idx})"></i>
+																	</c:otherwise>
+																</c:choose></td>
+														</tr>
+													</c:forEach>
+												</c:when>
+											</c:choose>
 										</tbody>
 									</table>
 								</div>
 							</div>
+							<!-- End of card for datatable -->
 						</div>
+						<!-- End of col for datatable -->
 
 					</div>
 					<!-- End of row for 검색결과 card -->
@@ -303,7 +337,7 @@
 															<label class="m-0 fw-bold text-nowrap" for="nickname">닉네임</label>
 														</div>
 														<div class="col">
-															<input type="text" name="nickname" id="nickname"
+															<input type="text" name="m_nick" id="nickname"
 																class="m-0 form-control">
 														</div>
 													</div>
@@ -314,7 +348,7 @@
 															<label class="m-0 fw-bold text-nowrap" for="id">아이디</label>
 														</div>
 														<div class="col">
-															<input type="text" name="id" id="id"
+															<input type="text" name="m_id" id="id"
 																class="m-0 form-control">
 														</div>
 													</div>
@@ -325,8 +359,8 @@
 															<label class="m-0 fw-bold text-nowrap" for="password">비밀번호</label>
 														</div>
 														<div class="col">
-															<input type="text" name="password" id="password"
-																class="m-0 form-control">
+															<input type="password" name="m_pw" id="password"
+																class="m-0 form-control" oninput="pwChk_go()">
 														</div>
 													</div>
 												</div>
@@ -336,14 +370,34 @@
 															<label class="m-0 fw-bold text-nowrap" for="pwcheck">재확인</label>
 														</div>
 														<div class="col">
-															<input type="text" name="pwcheck" id="pwcheck"
-																class="m-0 form-control">
+															<input type="password" id="pwcheck"
+																class="m-0 form-control" oninput="pwChk_go()">
 														</div>
 													</div>
 												</div>
-												<div class="col-auto ms-auto mt-2 col-xxl-1 mt-xxl-0 text-end">
-													<input type="submit" class="btn btn-primary fw-bold"
-														value="추가">
+												<div
+													class="col-auto me-auto mt-2 col-xxl-12 order-xxl-2 ms-xxl-auto text-end">
+													<span class="nickDoubleChk"></span>
+												</div>
+												<div
+													class="col-auto me-auto mt-2 col-xxl-12 order-xxl-2 ms-xxl-auto text-end">
+													<span class="idDoubleChk"></span>
+												</div>
+												<div
+													class="col-auto me-auto mt-2 col-xxl-12 order-xxl-2 ms-xxl-auto text-end">
+													<span id="pwTxt"></span>
+												</div>
+												<div
+													class="col-auto me-auto mt-2 col-xxl-12 order-xxl-2 ms-xxl-auto text-end">
+													<span id="pwDouble"></span>
+												</div>
+												<div
+													class="col-auto ms-auto mt-2 col-xxl-1 order-xxl-1 mt-xxl-0 text-end">
+													<button id="join_chk" type="button"
+														class="btn btn-secondary fw-bold" disabled
+														onclick="memberJoin_go(this.form)">
+														<span>추가</span>
+													</button>
 												</div>
 											</div>
 										</form>
@@ -420,11 +474,18 @@
 	<script
 		src="https://cdn.datatables.net/select/1.7.0/js/dataTables.select.min.js"></script>
 
+	<!-- 알럿창꾸미기 -->
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+	<script src="sweetalert2.min.js"></script>
+
 	<script
 		src="resources/js/admin/memberchk/admin_memberchk_admin_datatable.js?after"></script>
 
 	<script
-		src="resources/js/admin/memberchk/admin_memberchk_btnevent.js?after"></script>
+		src="resources/js/admin/memberchk/admin_memberchk_admin_btnevent.js?after"></script>
+
+	<script
+		src="resources/js/admin/memberchk/admin_memberchk_admin_sign_in.js?after"></script>
 </body>
 
 </html>

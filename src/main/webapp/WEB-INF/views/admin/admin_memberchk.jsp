@@ -100,7 +100,7 @@
 												class="col-auto col-lg-12 col-xxl-auto fw-bold text-nowrap">전체
 												회원</div>
 											<div
-												class="col-auto col-lg-12 col-xxl-auto text-black-50 fw-bold small">31명</div>
+												class="col-auto col-lg-12 col-xxl-auto text-black-50 fw-bold small">${countSummary.total_member }명</div>
 										</div>
 									</li>
 									<li class="list-group-item h-25">
@@ -110,7 +110,7 @@
 												class="col-auto col-lg-12 col-xxl-auto fw-bold text-nowrap">자체
 												가입 회원</div>
 											<div
-												class="col-auto col-lg-12 col-xxl-auto text-black-50 fw-bold small">6명</div>
+												class="col-auto col-lg-12 col-xxl-auto text-black-50 fw-bold small">${countSummary.member_type_self }명</div>
 										</div>
 									</li>
 									<li class="list-group-item h-25">
@@ -120,7 +120,7 @@
 												class="col-auto col-lg-12 col-xxl-auto fw-bold text-nowrap">소셜
 												가입 회원</div>
 											<div
-												class="col-auto col-lg-12 col-xxl-auto text-black-50 fw-bold small">23명</div>
+												class="col-auto col-lg-12 col-xxl-auto text-black-50 fw-bold small">${countSummary.member_type_social }명</div>
 										</div>
 									</li>
 									<li class="list-group-item h-25">
@@ -130,7 +130,7 @@
 												class="col-auto col-lg-12 col-xxl-auto fw-bold text-nowrap">탈퇴
 												회원</div>
 											<div
-												class="col-auto col-lg-12 col-xxl-auto text-black-50 fw-bold small">2명</div>
+												class="col-auto col-lg-12 col-xxl-auto text-black-50 fw-bold small">${countSummary.drop_out_member }명</div>
 										</div>
 									</li>
 								</ul>
@@ -166,8 +166,8 @@
 														aria-label="keyword select">
 														<option value="1">아이디</option>
 														<option value="2">닉네임</option>
-														<option value="3">휴대전화</option>
-														<option value="4">생년월일</option>
+														<option value="3">전화번호</option>
+														<option value="4">생일</option>
 													</select>
 												</div>
 												<div class="col-auto ps-0">
@@ -356,16 +356,14 @@
 										cellspacing="0">
 										<thead>
 											<tr>
-												<th></th>
-												<!-- dataTables.searchPanes에서 선택 기능을 구현하기 위한 열(JS로 구현) -->
 												<th>idx</th>
 												<!-- 사용자에게는 보이지 않고 숨겨지는 열이다 -->
 												<!-- 프로필 사진 원본 크기가 클 경우 화면에 출력되는 최대크기 제한 -->
-												<th style="max-width: 3rem;">프로필</th>
+												<th class="imgMaxSize">프로필</th>
 												<th>닉네임</th>
 												<th>아이디</th>
 												<th>전화번호</th>
-												<th>생년월일</th>
+												<th>생일</th>
 												<th>성별</th>
 												<th>가입일</th>
 												<th>탈퇴일</th>
@@ -388,9 +386,8 @@
 												<c:when test="${not empty search_result }">
 													<c:forEach var="k" items="${search_result}">
 														<tr class="align-middle">
-															<td></td>
 															<td>${k.m_idx }</td>
-															<td><img src="${k.m_image }"
+															<td class="imgMaxSize"><img src="${k.m_image }"
 																class="img-fluid img-thumbnail" alt="${k.m_image }" /></td>
 															<td>${k.m_nick }</td>
 															<td>${k.m_id }</td>
@@ -403,48 +400,47 @@
 															<!-- 회원의 상태에 따라 다른 출력을 보여준다 -->
 															<c:choose>
 																<c:when test="${k.m_status == 3 }">
-																	<td>탈퇴</td>
+																	<td class="text-danger">탈퇴</td>
 																	<td><i
-																		class="fa-solid fa-user-slash text-secondary"></i></td>
+																		class="fa-solid fa-user-slash text-secondary"
+																		title="정상"></i></td>
 																</c:when>
 																<c:otherwise>
-																	<td>정상</td>
+																	<td class="text-primary">정상</td>
 																	<!-- 해당 태그를 누르면 회원을 탈퇴시킨다 -->
 																	<!-- m_status = 3 -->
-																	<td><a href="/" title="계정 탈퇴"><i
-																			class="fa-solid fa-user-slash text-danger"></i></a></td>
+																	<td><i class="fa-solid fa-user-slash text-danger hovercursorpointer" title="계정 탈퇴" onclick="dropOut(${k.m_idx})"></i></td>
 																</c:otherwise>
 															</c:choose>
 															<c:choose>
 																<c:when test="${k.m_fail_count >= 5 }">
-																	<td>잠김</td>
+																	<td class="text-danger">잠김</td>
 																	<!-- 해당 태그를 누르면 회원의 잠김 상태를 해제한다. -->
 																	<!-- m_fail_count = 0 -->
-																	<td><a href="/" title="계정 잠김 해제"><i
-																			class="fa-solid fa-lock-open text-secondary"></i></a></td>
+																	<td><i
+																		class="fa-solid fa-lock-open text-secondary hovercursorpointer"
+																		title="계정 잠김 해제" onclick="openLock(${k.m_idx})"></i></td>
 																</c:when>
 																<c:otherwise>
-																	<td>정상</td>
+																	<td class="text-primary">정상</td>
 																	<!-- 해당 태그를 누르면 회원을 잠김 상태로 만든다. -->
 																	<!-- m_fail_count = 5 -->
-																	<td><a href="/" title="계정 잠금"><i
-																			class="fa-solid fa-lock text-danger"></i></a></td>
+																	<td><i class="fa-solid fa-unlock text-primary"
+																		title="정상"></i></td>
 																</c:otherwise>
 															</c:choose>
 															<c:choose>
 																<c:when test="${k.m_status == 4 }">
-																	<td>금지</td>
+																	<td class="text-danger">금지</td>
 																	<!-- 해당 태그를 누르면 회원을 작성 가능 상태로 만든다. -->
 																	<!-- m_status = 1 -->
-																	<td><a href="/" title="작성 금지 해제"><i
-																			class="fa-solid fa-pencil text-primary"></i></a></td>
+																	<td><i class="fa-solid fa-pencil text-primary hovercursorpointer" title="작성 금지 해제" onclick="openWrite(${k.m_idx})"></i></td>
 																</c:when>
 																<c:otherwise>
-																	<td>정상</td>
+																	<td class="text-primary">정상</td>
 																	<!-- 해당 태그를 누르면 회원을 작성 불가 상태로 만든다. -->
 																	<!-- m_status = 4 -->
-																	<td><a href="/" title="작성 금지"><i
-																			class="fa-solid fa-ban text-danger"></i></a></td>
+																	<td><i class="fa-solid fa-ban text-danger hovercursorpointer" title="작성 금지" onclick="banWrite(${k.m_idx})"></i></td>
 																</c:otherwise>
 															</c:choose>
 														</tr>
@@ -520,7 +516,7 @@
 
 	<!-- for DataTables customOptionConditions -->
 	<!--  	<script src="https://code.jquery.com/jquery-3.7.0.js"></script> -->
-	
+
 	<!-- 서드파티 라이브러디 datatable를 사용하기 위한 CDN -->
 	<script
 		src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>

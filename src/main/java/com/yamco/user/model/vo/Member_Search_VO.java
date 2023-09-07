@@ -1,5 +1,7 @@
 package com.yamco.user.model.vo;
 
+import java.util.ArrayList;
+
 public class Member_Search_VO {
 	private String m_idx, m_id, m_pw, m_phone, m_gender, m_birthday, m_nick, m_regdate, m_status, m_fail_count,
 			m_out_date, m_login_type, m_token, m_t_time, m_image;
@@ -7,6 +9,7 @@ public class Member_Search_VO {
 	private String regdate_start, regdate_end, out_date_start, out_date_end;
 	private String keyword_category, keyword_type, keyword, period_category, start_date, end_date, member_type,
 			member_lock, member_state;
+	private ArrayList<String> stateArr;
 
 	public String getM_idx() {
 		return m_idx;
@@ -262,5 +265,13 @@ public class Member_Search_VO {
 
 	public void setMember_state(String member_state) {
 		this.member_state = member_state;
+	}
+
+	public ArrayList<String> getStateArr() {
+		return stateArr;
+	}
+
+	public void setStateArr(ArrayList<String> stateArr) {
+		this.stateArr = stateArr;
 	}
 }

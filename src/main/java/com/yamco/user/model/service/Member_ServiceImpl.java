@@ -1,6 +1,7 @@
 package com.yamco.user.model.service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -108,11 +109,67 @@ public class Member_ServiceImpl implements Member_Service {
 		return member_DAO.getMemberList(msvo);
 	}
 	
+	@Override
+	public List<Member_VO> getAdminList(Member_Search_VO msvo) {
+		String keyword = msvo.getKeyword();
+		if (keyword != null && !keyword.isBlank()) {
+			if (msvo.getKeyword_type().equalsIgnoreCase("like")) { // 키워드 포함
+				switch (msvo.getKeyword_category()) {
+				case "1":
+					msvo.setLike_id(keyword);
+					break;
+				case "2":
+					msvo.setLike_nick(keyword);
+					break;
+				}
+			} else { // 키워드 일치
+				switch (msvo.getKeyword_category()) {
+				case "1":
+					msvo.setM_id(keyword);
+					break;
+				case "2":
+					msvo.setM_nick(keyword);
+					break;
+				}
+			}
+		}
+
+		String start_date = msvo.getStart_date();
+		String end_date = msvo.getEnd_date();
+
+		if (start_date != null && !start_date.isBlank()) {
+			if (msvo.getPeriod_category().equals("1")) { // 가입일 기준
+				msvo.setRegdate_start(start_date);
+			} else { // 탈퇴일 기준
+				msvo.setOut_date_start(start_date);
+			}
+		}
+
+		if (end_date != null && !end_date.isBlank()) {
+			LocalDate end = LocalDate.parse(end_date);
+			end = end.plusDays(1);
+			end_date = end.toString();
+			if (msvo.getPeriod_category().equals("1")) { // 가입일 기준
+				msvo.setRegdate_end(end_date);
+			} else { // 탈퇴일 기준
+				msvo.setOut_date_end(end_date);
+			}
+		}
+
+		ArrayList<String> stateArr = new ArrayList<>();
+		stateArr.add("0");
+		stateArr.add("2");
+		stateArr.add("5");
+		msvo.setStateArr(stateArr);		
+		
+		return member_DAO.getMemberList(msvo);
+	}
+
 	// 명예의 전당 가져오기
 	@Override
 	public List<Member_meta_VO> getAwardList() {
 		return member_DAO.getAwardList();
-	} 
+	}
 
 	// 닉네임 설정하기
 	@Override
@@ -131,27 +188,37 @@ public class Member_ServiceImpl implements Member_Service {
 	public int getFailCountUp(Member_VO mvo) {
 		return member_DAO.getFailCountUp(mvo);
 	}
+
 	// 비밀번호 변경
 	@Override
 	public int getChangePw(Member_VO mvo) {
 		return member_DAO.getChangePw(mvo);
 	}
+
 	// idx로 멤버정보 가져오기
 	@Override
 	public Member_VO getMemberOne(String m_idx) {
 		return member_DAO.getMemberOne(m_idx);
 	}
+
 	// 내 정보 변경
 	@Override
 	public int changeMyInfo(Member_VO mvo) {
 		return member_DAO.changeMyInfo(mvo);
 	}
+
 	// 회원 탈퇴
 	@Override
 	public int leaveMember(Member_VO mvo) {
 		return member_DAO.leaveMember(mvo);
 	}
 	
+	// 관리자 탈퇴
+	@Override
+	public int leaveAdmin(Member_VO mvo) {
+		return member_DAO.leaveAdmin(mvo);
+	}
+
 	// 토큰, 날짜 생성
 	@Override
 	public int setMakeToken(Member_VO mvo) {
@@ -169,10 +236,16 @@ public class Member_ServiceImpl implements Member_Service {
 	public int getTokenDelete(Member_VO mvo) {
 		return member_DAO.getTokenDelete(mvo);
 	}
-	
+
 	// 찜목록
 	@Override
 	public List<String> getMyWishList(String m_idx) {
 		return member_DAO.getMyWishList(m_idx);
+	}
+	
+	// m_idx를 조건으로 Member_VO update 수행
+	@Override
+	public int getUpdate(Member_VO mvo) {
+		return member_DAO.getUpdate(mvo);
 	}
 }

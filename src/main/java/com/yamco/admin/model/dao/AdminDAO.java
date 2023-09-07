@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.yamco.admin.model.vo.Admin_Dash_VO;
+import com.yamco.admin.model.vo.Member_count_summary_VO;
 @Repository
 public class AdminDAO {
 	@Autowired
@@ -24,4 +25,7 @@ public class AdminDAO {
 		return dash_VO;
 	}
 
+	public Member_count_summary_VO getMemberCountSummary() {
+		return sqlSessionTemplate.selectOne("admin.memberCountSummary");
+	}
 }

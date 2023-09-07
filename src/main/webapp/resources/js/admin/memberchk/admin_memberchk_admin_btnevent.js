@@ -3,20 +3,8 @@ function goSubmit(f) {
     f.submit();
 }
 
-function openLock(m_idx) {
-    location.href = "/go_admin_memberchk_update.do?m_idx=" + m_idx + "&m_fail_count=0";
-}
-
 function dropOut(m_idx) {
-    location.href = "/go_admin_memberchk_update.do?m_idx=" + m_idx + "&m_status=3";
-}
-
-function openWrite(m_idx) {
-    location.href = "/go_admin_memberchk_update.do?m_idx=" + m_idx + "&m_status=1";
-}
-
-function banWrite(m_idx) {
-    location.href = "/go_admin_memberchk_update.do?m_idx=" + m_idx + "&m_status=4";
+    location.href = "/go_admin_memberchk_drop_out.do?m_idx=" + m_idx;
 }
 
 $(document).ready(function () {
