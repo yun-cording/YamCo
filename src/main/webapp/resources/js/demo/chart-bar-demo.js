@@ -32,7 +32,7 @@ var ctx = document.getElementById("myBarChart");
 var myBarChart = new Chart(ctx, {
   type: 'bar',
   data: {
-    labels: ["월요일", "화요일", "수요일", "목요일", "금요일", "토요일","일요일"],
+    labels: hitDay,
     datasets: [{
       label: "방문자수",
       backgroundColor: 'rgba(0, 176, 116, 1)',
@@ -100,7 +100,7 @@ var myBarChart = new Chart(ctx, {
       callbacks: {
         label: function(tooltipItem, chart) {
           var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
-          return datasetLabel + ' : ' + number_format(tooltipItem.yLabel);
+          return datasetLabel + ' : ' + number_format(tooltipItem.yLabel) + ' 명';
         }
       }
     },

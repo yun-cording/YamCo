@@ -109,7 +109,6 @@ public class U_recipe_DAO {
 	
 	// 성훈 임시 저장된 레시피 삭제
 	public int deleteRecipe(String m_idx) {
-		System.out.println("DAO 오니 ? " );
 		return sqlSessionTemplate.delete("u_recipe.limit_recipe_del",m_idx);
 	}
 	
@@ -123,5 +122,11 @@ public class U_recipe_DAO {
 	public List<U_recipe_meta_VO> getUserSearchList(U_recipe_meta_VO urmvo){
 		System.out.println("여기로 와라");
 		return sqlSessionTemplate.selectList("u_recipe.userSearchList", urmvo);
+	}
+
+	// 성훔 임시저장 레시피 글등록
+	public int limitWrite(U_recipe_VO uvo) {
+			int result = sqlSessionTemplate.update("u_recipe.limit_recipe_update",uvo);
+		return result;
 	}
 }

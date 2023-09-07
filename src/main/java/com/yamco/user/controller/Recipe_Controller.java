@@ -64,7 +64,9 @@ public class Recipe_Controller {
 		for (int i = 0; i < u_rcp_ing2.length; i++) {
 			u_rcp_ing += u_rcp_ing2[i] + ",";
 		}
-
+		//db 에 카테고리 값 넣기
+		uvo.setU_rcp_category(uvo.getU_rcp_category1()+","+uvo.getU_rcp_category2());
+		
 		System.out.println("u_rcp_ing : " + u_rcp_ing);
 		uvo.setU_rcp_ing(u_rcp_ing);
 		
@@ -158,16 +160,31 @@ public class Recipe_Controller {
 			String u_rcp_keyword1 = "";
 			String u_rcp_keyword2 = "";
 			if(urvo.getU_rcp_keyword().contains(",")) { // 키워드가 2개 입력됐을경우
-				
+				u_rcp_keyword1 = urvo.getU_rcp_keyword().split(",")[0];
+				u_rcp_keyword2 = urvo.getU_rcp_keyword().split(",")[1];
+				System.out.println("u_rcp_keyword1 : " + u_rcp_keyword1);
+				System.out.println("u_rcp_keyword2 : " + u_rcp_keyword2);
+				mv.addObject("u_rcp_keyword2",u_rcp_keyword2);
 			}else { // 키워드가 1개인 경우
-				
+				u_rcp_keyword1 = urvo.getU_rcp_keyword();
+				mv.addObject("u_rcp_keyword1",u_rcp_keyword1);
+				System.out.println("u_rcp_keyword1 : " + u_rcp_keyword1);
 			}
-				//u_rcp_keyword = uvo.getU_rcp_keyword1() + "," + uvo.getU_rcp_keyword2();
+			
+			int ing_count = urvo.getU_rcp_ing().replace(",", ",").length(); // 재료 추가버튼 겟수
+			String[] arr = urvo.getU_rcp_ing().split(",");
+			for (int i = 0; i < arr.length; i++) {
+				System.out.println("배열의 크기 : "+arr[i]);
+			}
+			int length = arr.length;
+			System.out.println("length길이는 : "+ length);
+			mv.addObject("arr",arr);
+			mv.addObject("length",length);
 			mv.setViewName("/user/recipe/limit_recipe_write");
 			mv.addObject("category_choice1", category_choice1);
 			mv.addObject("category_choice2", category_choice2);
 			mv.addObject("result", result2);
-			mv.addObject(urvo);
+			mv.addObject("urvo",urvo);
 			return mv;
 		}else if(result2.equals("cancelandgo")){
 			System.out.println("삭제하러 controller 오니?");
@@ -184,6 +201,8 @@ public class Recipe_Controller {
 		}
 	}
 
+	
+	
 	@PostMapping("/saveImage.do")
 	@ResponseBody
 	public Map<String, String> saveImg(U_recipe_VO uvo, HttpServletRequest request) {
