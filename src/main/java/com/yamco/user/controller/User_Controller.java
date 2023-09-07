@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.yamco.admin.model.service.Log_Service;
 import com.yamco.api.model.service.P_recipe_Service;
 import com.yamco.user.model.service.Member_Service;
 import com.yamco.user.model.service.U_recipe_Service;
@@ -31,15 +32,21 @@ public class User_Controller {
 	U_recipe_Service u_recipe_Service;
 	@Autowired
 	private Member_Service member_Service;
+	@Autowired
+	Log_Service log_Service;
 	
 	@GetMapping("/go_home.do")
 	public ModelAndView go_home() {
+		// DB에 방문자수 로그 찍기
+//		log_Service.visitorUp();
 		ModelAndView mv = new ModelAndView("/home");
 		return mv;
 	}
 
 	@RequestMapping("/go_ranking_search.do")
 	public ModelAndView go_ranking_search() {
+		// DB에 방문자수 로그 찍기
+//		log_Service.visitorUp();
 		return new ModelAndView("user/ranking/ranking_search");
 	}
 
@@ -83,6 +90,8 @@ public class User_Controller {
 
 	@RequestMapping("/go_user_list.do")
 	public ModelAndView goUserList() {
+		// 상우 DB에 방문자수 증가 로그 찍기
+		// log_Service.visitorUp();
 		return new ModelAndView("user/recipe/user_list");
 	}
 
