@@ -86,4 +86,20 @@
 	<update id="commentBlind" parameterType="arvo">
 		UPDATE comment SET c_status = 2 WHERE c_idx = #{c_idx}
 	</update>
+	<!-- 공지사항 목록 -->
+	<select id="ppl_notice" resultType="abvo">
+		SELECT * FROM notice WHERE notice_status=0
+	</select>
+	<!-- 광고 목록 -->
+	<select id="ppl_ppl" resultType="abvo">
+		SELECT * FROM ppl
+	</select>
+	<!-- 재료 목록 -->
+	<select id="ppl_fooding" resultType="abvo">
+		SELECT * FROM food_ing
+	</select>
+	<!-- 공지삭제 -->
+	<update id="noticeDel" parameterType="String">
+		UPDATE notice SET notice_status=1 WHERE notice_idx=#{notice_idx}
+	</update>
 </mapper>

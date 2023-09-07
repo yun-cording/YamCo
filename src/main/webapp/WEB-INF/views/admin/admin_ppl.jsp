@@ -20,14 +20,16 @@
     <link href="/resources/css/sb-admin-2.min.css" rel="stylesheet">
 
  <style type="text/css">
+.card-img-top{
+	width: 450px !important;
+	height: 150px !important;
+}
 .banner_size{
+	margin: 20px;
 	width: 450px;
 	height: 230px;
 	border: none;
-	margin-left: -80px;
-}
-.banner_left{
-	margin-left: 150px;
+	display: inline-block;
 }
 .banner_right{
 	margin-right: 150px;
@@ -112,8 +114,6 @@
     
 </style>
 
-   
-
 </head>
 <body id="page-top">
     <!-- Page Wrapper -->
@@ -129,14 +129,12 @@
                 <div class="container-fluid">
                     <h1 class="ml-5 mt-5 font-weight-bold">공지사항 배너등록</h1>
                     <hr>
-			
                     <!-- 여기에서 작업하시면 됩니다. -->
                     <!-- <h2>여기에서 작업하시면됩니다.</h2> -->
                     <!-- 작업 시작!! -->
-                   <div style="height: 150px;">
-                   <div class="row mb-5 margin_right_left">
+                   <div class="row mb-5 ml-4" >
 						<!-- 조회수 카드 -->
-						<div class="col">
+						<div class="col-3">
 							<div class="card border-left-success shadow h-100 py-2">
 								<div class="card-body">
 									<div class="row no-gutters align-items-center">
@@ -145,7 +143,7 @@
 												class="text-xs font-weight-bold text-success text-uppercase mb-1">
 												<span class="font-weight-bold font">공지사항 등록 현황</span>
 											</div>
-											<div class="h5 mb-0 font-weight-bold text-gray-800">75</div>
+											<div class="h5 mb-0 font-weight-bold text-gray-800">${notice_list.size() }</div>
 										</div>
 										<div class="col-auto">
 											<img src="/resources/images/notice.png" alt=""
@@ -156,7 +154,7 @@
 							</div>
 						</div>
 						<!-- 총 방문자수 -->
-						<div class="col">
+						<div class="col-3">
 							<div class="card border-left-success shadow h-100 py-2">
 								<div class="card-body">
 									<div class="row no-gutters align-items-center">
@@ -165,7 +163,7 @@
 												class="text-xs font-weight-bold text-success text-uppercase mb-1">
 												<span class="font-weight-bold font">광고 등록 현황</span>
 											</div>
-											<div class="h5 mb-0 font-weight-bold text-gray-800">75</div>
+											<div class="h5 mb-0 font-weight-bold text-gray-800">${ppl_list.size() }</div>
 										</div>
 										<div class="col-auto">
 											<img src="/resources/images/advertisement.png" alt=""
@@ -176,73 +174,37 @@
 							</div>
 						</div>
 					</div>
-                   
-                    
                     <!-- 버튼그룹 -->
-						<div class="btn-group btn-comp ml-5 mt-5" role="group" aria-label="Basic radio toggle button group" style="margin-top: -50px; position:relative; top: -80px;">
-						  <input type="radio" class="btn-check btn-comp visually-hidden" name="btnradio" id="btnradio1" autocomplete="off" checked>
-						  <label class="btn btn-outline-primary btn-group btn-comp" for="btnradio1">공지사항 관리</label>
-						
-						  <input type="radio" class="btn-check btn-comp visually-hidden" name="btnradio" id="btnradio2" autocomplete="off">
-						  <label class="btn btn-outline-primary btn-group btn-comp" for="btnradio2">광고 관리</label>
-						
-						  <input type="radio" class="btn-check btn-comp visually-hidden" name="btnradio" id="btnradio3" autocomplete="off">
-						  <label class="btn btn-outline-primary btn-group btn-comp" for="btnradio3">재료이미지 관리</label>
-						</div>
+					<div class="row ml-5 mt-5">
+						<button type="button" class="btn btn-success">공지사항 관리</button>
+						<button type="button" class="btn btn-success">광고 관리</button>
+						<button type="button" class="btn btn-success">재료이미지 관리</button>
                     </div>
                     
 				    <!-- 공지사항 넣는 부분 -->
-					<div id="bannerContainer" style="height: 90%; margin-top : -30px; margin-left: -130px; margin-bottom: 200px; background-color: white;">
-					    <%-- <c:forEach var="nvo" items="${noticeList}" varStatus="status"> --%>
-					  <%--   <c:forEach begin="1" end="6" step="1" varStatus="status">
-					        <c:set var="isOdd" value="${status.index % 2 == 1}" />
-					        <c:choose>
-						        <c:when test="${status.index <= 6}">
-							        <div id="banner_card_${status.index}" class="row card banner_size banner_${isOdd ? 'left' : 'left'} banner_top">
-							            <img src="resources/images/notice_exam.png" class="card-img-top" alt="...">
-							            <div class="card-body">	
-							                <h5 class="card-title">${nvo.notice_title} 공지사항 ${status.index}</h5>
-							                <p class="card-text">${nvo.notice_date} 2023/08/15</p>
-							            </div>
-						        	</div>
-						        </c:when>
-						        
-						        <c:otherwise>
-									<div id="banner_card_${status.index}" class="row card banner_size banner_${isOdd ? 'right' : 'right'} banner_top">
-							            <img src="resources/images/notice_exam.png" class="card-img-top" alt="...">
-							            <div class="card-body">
-							                <h5 class="card-title">${nvo.notice_title} 공지사항 ${status.index}</h5>
-							                <p class="card-text">${nvo.notice_date} 2023/08/15</p>
-							            </div>
-						        	</div>		        
-						        </c:otherwise>
-					        </c:choose>
-					        
-					   	 </c:forEach> --%>
-					   	 
-					   	 
-						<c:forEach begin="1" end="6" step="1" varStatus="status" var="k">
-							 <div id="banner_card_${status.index}" class="row card banner_size banner_${isOdd ? 'left' : 'left'} banner_top" style="float: left; margin-bottom: -50px; margin-left: 80px; right: -100px;">
-								<input type="radio" id="radio_btn_${status.index}" class="btn-check btn-comp" name="btnradio" id="btnradio1" autocomplete="off" checked style="float: left; position: relative; top: -20px; left: 0px; width: 15px;">
-					            <img src="resources/images/notice_exam.png" class="card-img-top" alt="...">
-					                <h5 class="card-title">${nvo.notice_title} 공지사항 ${status.index}</h5>
+				    <div class="row">
+					    <form action="">
+						<div id="bannerContaine">
+							<c:forEach items="${notice_list }" varStatus="status" var="k">
+								 <div id="banner_card_${status.index}" class="banner_size banner_${isOdd ? 'left' : 'left'} banner_top">
+								 	<label for="btnradio${status.index }">
+									<input type="radio" notice_idx=${k.notice_idx } class="btn-check btn-comp" name="btnradio" id="btnradio${status.index }" style="float: left; position: relative; top: -20px; left: 0px; width: 15px;">
+						            <img src="resources/images/${k.notice_img }" class="card-img-top" alt="..." >
+					                <h5 class="card-title mt-3">${k.notice_title }</h5>
 					                <p class="card-text">${nvo.notice_date} 2023/08/15</p>
-					                
-<!-- 					            <div class="card-body">
-					            </div>
- -->				        	</div>
-						  
-						</c:forEach>
-							   	 
-				    </div>
+						            </label>
+					        	</div>
+							</c:forEach>
+					    </div>
     
-				    <!-- 하단 버튼 세개 -->
-				    <div id="below_btns" class="below_btns_c" style="margin-bottom: -150px;">
-				    	<button type="button" class="btn btn-success">삭제된 게시글</button>
-				    </div>
-				    <div id="below_btns_r">
-						<button type="button" class="btn btn-success">등록</button>
-						<button type="button" class="btn btn-success gray_btn">삭제</button>
+					    <!-- 하단 버튼 세개 -->
+					    <div id="below_btns" class="below_btns_c" style="margin-bottom: -150px;">
+					    	<button type="button" class="btn btn-success">삭제된 공지</button>
+					    </div>
+					    <div id="below_btns_r">
+							<button type="button" class="btn btn-success gray_btn" id="deleteButton">삭제</button>
+					    </div>
+					    </form>
 				    </div>
                     <!-- 여기까지 작업하시면됩니다. -->
 
@@ -290,13 +252,21 @@
 	<!-- 버튼 클릭 시 색상변경  -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 	<script type="text/javascript">
-	$(document).ready(function(){
-	  $(".btn-comp").click(function(){
-	    /* $(".btn-comp").removeClass("active"); // 모든 버튼에서 active 클래스 제거 */
-	    $(this).addClass("active"); // 선택된 버튼에 active 클래스 추가
-	  });
-	});
-	</script>
+     $(document).ready(function() {
+         $("#deleteButton").click(function() {
+        	if(confirm('삭제하시겠습니까?')){
+        		alert("삭제되었습니다. 삭제된 공지는 하단 [삭제된 공지]에서 확인 가능합니다.")
+        		 var selectedNotice = $('input[name="btnradio"]:checked');
+                 if (selectedNotice.length > 0) {
+                     var selectedNoticeIdx = selectedNotice.attr("notice_idx")
+                     // 여기에서 imageId를 사용하여 이미지를 삭제하거나 처리할 수 있습니다.
+                     location.href="/notice_delete.go?notice_idx="+selectedNoticeIdx
+                 } else {
+                     alert("라디오 버튼을 선택하세요.");
+                 }	
+        	}
+         });
+     });
+ </script>
 </body>
-
 </html>
