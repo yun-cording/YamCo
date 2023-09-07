@@ -144,5 +144,10 @@ public class U_recipe_ServiceImpl implements U_recipe_Service {
 	public int limitWrite(U_recipe_VO uvo) {
 		return u_recipe_DAO.limitWrite(uvo);
 	}
-
+	
+	// 상우 사용자게시물 목록 전체 받아오기
+	@Override
+	public List<U_recipe_meta_VO> u_recipe_list() {
+		return u_recipe_DAO.u_recipe_list(); 
+	}
 }

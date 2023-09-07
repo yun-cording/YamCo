@@ -31,7 +31,7 @@
 		location.href = "/public_list.go";
 	}
 	function go_user_list(){
-		location.href = "/go_user_list.do";
+		location.href = "/user_list.go";
 	}
 	function go_main() {
 		location.href = "/go_main.do";

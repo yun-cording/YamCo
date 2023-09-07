@@ -11,6 +11,7 @@ import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,14 +25,18 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.yamco.admin.model.service.Log_Service;
 import com.yamco.user.model.service.U_recipe_Service;
 import com.yamco.user.model.vo.U_recipe_VO;
+import com.yamco.user.model.vo.U_recipe_meta_VO;
 
 @Controller
 public class Recipe_Controller {
 
 	@Autowired
 	U_recipe_Service u_recipe_Service;
+	@Autowired
+	Log_Service log_Service;
 
 	//레시피 저장 , 레시피 임시저장
 	@PostMapping("/write_go")
@@ -242,4 +247,30 @@ public class Recipe_Controller {
 		return null;
 	}
 
+	// TODO 상우 user recipe 시작
+	
+	// TODO 상우 user recipe list 출력
+	@RequestMapping("/user_list.go")
+	public ModelAndView u_recipe_list(HttpServletRequest request, HttpServletResponse response,
+			@RequestParam(value = "selectedWay", required = false) String selectedWay,
+			@RequestParam(value = "selectedCate", required = false) String selectedCate,
+			HttpSession session
+			) {
+		ModelAndView mv = new ModelAndView("user/recipe/user_list");
+		
+		// 냠냠's 쉐프레시피
+		// 상우 DB에 방문자수 로그 찍기 (랭킹)
+		log_Service.visitorUp(request, response);
+		
+		// 전체 리스트 받아오기
+		List<U_recipe_meta_VO> userList = u_recipe_Service.u_recipe_list();
+		
+		System.out.println(userList.size());
+		
+		mv.addObject("userList", userList);
+		
+		return mv;
+	}
+	
+	// TODO 상우 user recipe 종료
 }

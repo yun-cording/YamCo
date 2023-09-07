@@ -6,66 +6,10 @@
 <head>
 <meta charset="UTF-8">
 <title>유저레시피 상세페이지</title>
-
-<!-- 상우 메모장
-1차 재훈 컨펌내용 
-토마토 이미지 밑으로 O
-점수 위치 조정 O
-찌기 오른쪽으로 및 각 항목들 가운데정렬 체크 O
-난이도 초보냠냠이 토마토색 O
-조리법 밑에 간격 일정화 O
-수정 삭제 밑에 선 O
-별점은 토마토 이미지
-미리보기 크기 변경
-작성취소 약간 밑으로
-댓글 및 후기만 토마토색 or 검은색
-댓글부분 신고 등 모양 변경
-
- -->
-
-
 <link rel="icon" type="image/x-icon" href="resources/images/icon_tomato.png">
-<link rel="stylesheet" href="resources/css/user/recipe/public_recipe_detail.css" />
+<link rel="stylesheet" href="resources/css/user/recipe/user_recipe_detail.css?after" />
 <style type="text/css">
-* {
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
-}
 
-
-
- #mydiv{
-        width: 1920px;
-        margin:  auto;
-        /* height: 5000px; */
-
-    }
-
- #sidebar-right {
-    float: left;
-    width: 15.625%;
-}
-
-#sidebar-left {
-    width: 15.625%;
-    float: left;
-
-}
-
-#content {
-    width: 68.75%;
-    float: left;
-    margin-top: 0px;
-    background: white;
-}
-
-
-#footer {
-    left: 0px;
-    width: 100%;
-    clear: left;
-}
 </style>
 
 	

@@ -167,14 +167,7 @@ public class User_Controller2 {
 	
 	// TODO 상우 게시물 찜 누르기 완료
 
-	@RequestMapping("/user_list.go")
-	public ModelAndView userListGo(HttpServletRequest request, HttpServletResponse response) {
-		// 냠냠's 쉐프레시피
-		// 상우 DB에 방문자수 로그 찍기 (랭킹)
-		log_Service.visitorUp(request, response);
-		ModelAndView mv = new ModelAndView("/user/recipe/user_list");
-		return mv;
-	}
+	
 
 	@RequestMapping("/ranking_recipe.go")
 	public ModelAndView rankingRecipeGo(HttpServletRequest request, HttpServletResponse response) {
