@@ -106,13 +106,13 @@ document.addEventListener("DOMContentLoaded", function() {
 							<!-- dropdown 박스 -->
 							<select name="u_rcp_category1" id="cars" class="input_tomato"
 								style="float: right; margin-right: 50px; margin-top: -470px; color: #606060">
-								<option value="select_category" selected>카테고리를 선택하세요.</option>
-								<option value="select_steam">찌기</option>
-								<option value="select_boil">끓이기</option>
-								<option value="select_cook" >굽기</option>
-								<option value="select_stir" >볶기</option>
-								<option value="select_fry" >튀기기</option>
-								<option value="select_etc">기타</option>
+								<option value="카테고리를 선택하세요." selected>카테고리를 선택하세요.</option>
+								<option value="찌기">찌기</option>
+								<option value="끓이기">끓이기</option>
+								<option value="굽기" >굽기</option>
+								<option value="볶기" >볶기</option>
+								<option value="튀기기" >튀기기</option>
+								<option value="기타">기타</option>
 							</select> <br> <br>
 							<!-- </form> -->
 						</div>
@@ -123,20 +123,20 @@ document.addEventListener("DOMContentLoaded", function() {
 							<!-- dropdown 박스 -->
 							<select name="u_rcp_category2" id="cars" class="input_tomato"
 								style="float: right; margin-right: 50px; margin-top: -397px; color: #606060">
-								<option value="select_category" selected>카테고리를 선택하세요.</option>
-								<option value="select_choice1">1인분</option>
-								<option value="select_vegetable">채식</option>
-								<option value="select_soup" >국물류</option>
-								<option value="select_swings" >돈까스,일식</option>
-								<option value="select_meat" >고기,구이</option>
-								<option value="select_seafood">해산물</option>
-								<option value="select_snack">분식</option>
-								<option value="select_noodle">면류</option>
-								<option value="select_ricesoup">죽</option>
-								<option value="select_alcoholfood">술안주</option>
-								<option value="select_sidedish">반찬</option>
-								<option value="select_afterfood">후식</option>
-								<option value="select_etc">기타</option>
+								<option value="카테고리를 선택하세요." selected>카테고리를 선택하세요.</option>
+								<option value="1인분">1인분</option>
+								<option value="</">채식</option>
+								<option value="국물류" >국물류</option>
+								<option value="돈까스,일식" >돈까스,일식</option>
+								<option value="고기,구이" >고기,구이</option>
+								<option value="해산물">해산물</option>
+								<option value="분식">분식</option>
+								<option value="면류">면류</option>
+								<option value="죽">죽</option>
+								<option value="술안주">술안주</option>
+								<option value="반찬">반찬</option>
+								<option value="후식">후식</option>
+								<option value="기타">기타</option>
 							</select> <br> <br>
 						</div>
 
@@ -310,7 +310,7 @@ $(document).ready(function() {
 			return false;
 		}
 		
-		if($("#u_rcp_img1").val() == null ){ // 파일이 업로드 되었을때
+		if($("#fileInput").val() == null ){ // 파일이 업로드 되었을때
 			alert("파일을 업로드 해주세요.");
 		f.u_rcp_img1.focus();
 		return false;

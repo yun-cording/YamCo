@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.yamco.admin.model.vo.Admin_Dash_VO;
+import com.yamco.admin.model.vo.Admin_Report_Chk_VO;
 import com.yamco.admin.model.vo.Admin_Report_VO;
 import com.yamco.user.model.vo.Comment_VO;
 import com.yamco.user.model.vo.Comment_meta_VO;
@@ -118,6 +119,16 @@ public class AdminDAO {
 		}else {
 			return false; 
 		}
+	}
+	
+	// 신고 내역 관리 모든 신고내역 부르기
+	public List<Admin_Report_Chk_VO> getReportlist() {
+		List<Admin_Report_Chk_VO> list = sqlSessionTemplate.selectList("admin.getReportlist");
+		//List<Admin_Report_Chk_VO> count = sqlSessionTemplate.selectList("admin.commentReport_2");
+		//List<Admin_Report_Chk_VO> list = new ArrayList<Admin_Report_Chk_VO>();
+		//list.addAll(list2);
+		//list.addAll(count);
+		return list;
 	}
 
 }
