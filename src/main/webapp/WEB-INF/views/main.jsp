@@ -306,7 +306,7 @@ cursor: pointer;
 				<c:forEach items="${userList }" var="k">
 				<div class="recipe_one">
 							<a href="/사용자레시피?rcp_seq=${k.rcp_idx}">
-							<p><img src="resources/user_image/user_thumnail/${k.u_rcp_img }" class="recipe_thumbnail"></p>
+							<p><img src="/resources/user_image/user_thumnail/${k.u_rcp_img }" class="recipe_thumbnail"></p>
 							<p>${k.u_rcp_title }</p>
 							<div class="writer">
 								<img src="${k.m_image }" class="profile"><span>${k.m_nick }</span>

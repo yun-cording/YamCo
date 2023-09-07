@@ -3,6 +3,7 @@ package com.yamco.user.model.service;
 import java.util.List;
 import java.util.Map;
 
+import com.yamco.user.model.vo.Ref_VO;
 import com.yamco.user.model.vo.U_recipe_Search_VO;
 import com.yamco.user.model.vo.U_recipe_VO;
 import com.yamco.user.model.vo.U_recipe_meta_VO;
@@ -40,6 +41,9 @@ public interface U_recipe_Service {
 
 	// 임시저장 레시피 삭제 
 	public int deleteRecipe(String m_idx);
+	
+	// 냉장고 검색 (재훈)
+	public List<U_recipe_meta_VO> getRefSearch(Ref_VO rfvo); 
 	
 	
 }

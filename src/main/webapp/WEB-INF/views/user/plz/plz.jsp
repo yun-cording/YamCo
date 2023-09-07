@@ -13,7 +13,7 @@
 <script src="resources/js/user/sidebar.js?after"></script>
 <script src="resources/js/user/recipe/search_list.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
 <style type="text/css">
 * {
 	padding: 0;
@@ -175,16 +175,14 @@ clear: both;
 				</div>
 				<div class="guide"><span>※최대 3개의 재료까지 등록 가능합니다</span></div>
 				<div id="gif-container"><img class="ref" id="gif-image" src="/resources/images/move_refrige.gif"></div>
-				<form onsubmit="return submitForm(this);">
 				<div id="input-stack">
 					<div class="clean">
-						<div class="hidden-input hidden center"><img src="/resources/images/icon_input.png"><input class="input_text" type="text"></div>
-						<div class="hidden-input hidden center"><img src="/resources/images/icon_input.png"><input class="input_text" type="text"></div>
-						<div class="hidden-input hidden center"><img src="/resources/images/icon_input.png"><input class="input_text" type="text"></div>
+						<div class="hidden-input hidden center"><img src="/resources/images/icon_input.png"><input id="input1" class="input_text" type="text" name="input1"></div>
+						<div class="hidden-input hidden center"><img src="/resources/images/icon_input.png"><input id="input2" class="input_text" type="text" name="input2"></div>
+						<div class="hidden-input hidden center"><img src="/resources/images/icon_input.png"><input id="input3" class="input_text" type="text" name="input3"></div>
 					</div>
 				</div>
-					<div class="search"><button id="rcp_search_bt" class="bt" onclick="searchbt()">레시피 검색</button></div>
-			</form>
+					<div class="search"><button id="rcp_search_bt" class="bt" onclick="searchbt(0)">레시피 검색</button></div>
 			</div>
 			<!-- 냉장고 끝 -->
 			<div id="onoff" class="off">
@@ -194,10 +192,10 @@ clear: both;
 				<div class="col-10">
 					<span class="search_subject">검색된 냠냠's 쉐프레시피는 총</span> <span class="search_count">${u_list.size()}</span> <span class="search_subject">개 입니다.</span>
 				</div>
-				<div id="u_order_hit" class="col-1 tab-on" onclick="search_sort_hit_go()">
+				<div id="u_order_hit" class="col-1 tab-on" onclick="searchbt(0)">
 					<span>조회순</span>
 				</div>
-				<div id="u_order_grade" class="col-1 tab-off" onclick="search_sort_grade_go()">
+				<div id="u_order_grade" class="col-1 tab-off" onclick="searchbt(1)">
 					<span>평점순</span>
 				</div>
 			</div>
@@ -206,35 +204,14 @@ clear: both;
 			<!-- 레시피 출력 시작 -->
 			
 			<!-- 콘텐츠공간 -->
-			<div id="flexContainer">
-				<c:forEach begin="1" end="12">
-					<div class="recipe_one">
-						<p>
-							<img
-								src="https://mediahub.seoul.go.kr/wp-content/uploads/2020/10/d13ea4a756099add8375e6c795b827ab.jpg"
-								class="recipe_thumbnail">
-						</p>
-						<p>공공레시피명</p>
-						<div class="writer">
-							<img
-								src="https://png.pngtree.com/png-vector/20191115/ourmid/pngtree-beautiful-profile-line-vector-icon-png-image_1990469.jpg"
-								class="profile"> <span>작성자 이름</span>
-						</div>
-						<div class="like" style="text-align: right;">
-							<img class="icon"
-								src="https://img.medicalreport.kr/resources/2019/07/23/o0vYNCXzJDWRPejw.jpg"
-								alt=""> <span>4.9</span> <img class="icon"
-								src="https://cdn-icons-png.flaticon.com/512/8316/8316018.png"
-								alt=""> <span>42</span> <img class="icon"
-								src="https://cdn-icons-png.flaticon.com/512/2415/2415461.png"
-								alt=""> <span>7만</span>
-						</div>
-					</div>
-				</c:forEach>
+			<div id="flexContainer" class="flexContainer">
+				 
 			</div>
-			<div class="d-flex justify-content-center my-5">
+			<div id="plusbt" class="d-flex justify-content-center my-5">
+			<c:if test="${u_list.size()>4 }">
 				<button type="button" class="btn btn-lg text-white"
 				 style="background-color: tomato" id="btn_append">더보기</button>
+			</c:if>
 			</div>
 			<!-- 레시피 출력끝  -->
 			</div>
@@ -275,45 +252,83 @@ document.addEventListener("DOMContentLoaded", function() {
 	
 </script>
 <script type="text/javascript">
-function submitForm(form) {
-    // 입력된 값을 가져와서 컨트롤러로 보내는 로직을 작성
-    var inputValues = [];
-    var inputElements = form.querySelectorAll(".input_text");
-    inputElements.forEach(function (inputElement) {
-        inputValues.push(inputElement.value);
-    });
 
-    // AJAX 또는 다른 방법을 사용하여 컨트롤러로 입력 값을 전달
-	$.ajax({
-        url: '/your-controller-endpoint', // 컨트롤러의 엔드포인트 URL을 지정
-        type: 'POST', // 또는 'GET' 등 HTTP 요청 메서드를 선택
-        data: {
-            inputValues: inputValues // 서버에 전달할 데이터를 객체로 지정
-        },
-        success: function (response) {
-            // AJAX 요청이 성공한 경우 실행되는 콜백 함수
-            // 서버에서 받은 응답 데이터를 처리하고 화면에 표시
-            document.getElementById("onoff").innerHTML = response;
-            document.getElementById("onoff").style.display = "block";
-        },
-        error: function (error) {
-            // AJAX 요청이 실패한 경우 실행되는 콜백 함수
-            console.error('AJAX 요청 실패:', error);
+        var order ;
+       
+    function searchbt(order) {
+    	$("#flexContainer").empty();
+    	var inputValues = [
+            $("#input1").val().trim(),
+            $("#input2").val().trim(),
+            $("#input3").val().trim()
+        ];
+    	
+    	if ( $("#input1").val().trim() === "" && $("#input2").val().trim() === "" &&  $("#input3").val().trim() === "") {
+            return;
         }
-    });
-    
-    
-    // 폼 제출을 막음
-    return false;
-}
-
-
-function searchbt() {
+    	 var idx = 0;
+    	
+    	 loadMoreData();
+    	 function loadMoreData() {
+    	 $.ajax({
+             type: "POST",  // 요청 메서드 (POST로 설정)
+             url: "/openRef.do",  // 컨트롤러 URL을 입력하세요.
+             data: {inputValues: inputValues , order: order, idx: idx},  // 배열을 직접 보냅니다.
+             traditional: true,  // 배열을 전송할 때 jQuery가 기본적으로 사용하는 스타일을 사용합니다.
+             success: function(response) {
+            	 for (var i = idx; i < idx + 4 && i < response.length; i++) {
+                     var k = response[i];
+                     alert(i + "몇번쨰")
+                     var newRecipe = '';
+                     newRecipe += '<div class="u_recipe_one">';
+                     newRecipe += '    <a href="/사용자레시피?rcp_seq=' + k.rcp_idx + '">';
+                     newRecipe += '        <p><img src="' + k.u_rcp_img + '" class="recipe_thumbnail"></p>';
+                     newRecipe += '        <p>' + k.u_rcp_title + '</p>';
+                     newRecipe += '        <div class="writer">';
+                     newRecipe += '            <img src="' + k.m_image + '" class="profile"><span>' + k.m_nick + '</span>';
+                     newRecipe += '        </div>';
+                     newRecipe += '    </a>';
+                     newRecipe += '    <div class="like" style="text-align: right;">';
+                     newRecipe += '        <img class="icon" src="/resources/images/icon_tomato_ver2_1.png" alt="">';
+                     newRecipe += '        <span>' + (k.avg_grade ? k.avg_grade : 0) + '</span>';
+                     newRecipe += '        <img class="icon" src="https://cdn-icons-png.flaticon.com/512/8316/8316018.png" alt="">';
+                     newRecipe += '        <span>' + (k.c_count ? k.c_count : 0) + '</span>';
+                     newRecipe += '        <img class="icon" src="https://cdn-icons-png.flaticon.com/512/2415/2415461.png" alt="">';
+                     newRecipe += '        <span>' + (k.u_rcp_hit ? k.u_rcp_hit : 0) + '</span>';
+                     newRecipe += '    </div>';
+                     newRecipe += '</div>';
+            	  $("#flexContainer").append(newRecipe);
+            	 }
+            	 idx += 4;
+            	 if (idx >= response.length) {
+                     $("#btn_append").hide(); // 모든 데이터를 로드한 경우 버튼 숨기기
+                 }else{
+                	 var moreButton = '<button type="button" class="btn btn-lg text-white" style="background-color: tomato" id="btn_append">더보기</button>';
+                     $("#plusbt").empty().append(moreButton);
+                 }
+             },
+             error: function(error) {
+                 // 에러 처리 코드를 작성합니다.
+             }
+         });
+    	}
+    	
 	  var container = document.getElementById("onoff");
 	  if (container.classList.contains("off")) {
 		  container.classList.remove("off");
 	  }
+	  
+	// 더보기 버튼 클릭 시 추가 데이터 로딩
+	    $(document).on("click","#btn_append", function () {
+	        loadMoreData();
+	    });
+	
+	    if(order==1){
+			$("#u_order_hit").attr("class","col-1 tab-off")
+			$("#u_order_grade").attr("class","col-1 tab-on")
+		}
 }
+    
 
 </script>
 </body>
