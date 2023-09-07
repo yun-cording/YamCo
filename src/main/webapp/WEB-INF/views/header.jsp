@@ -22,6 +22,7 @@ $.ajax({
 		console.log(result);
 		if(result=="yes"){
 		if(confirm("작성중인 게시글이 있습니다.\n이어서 작성하시겠습니까?\n취소클릭시 기존글은 삭제되고 새글 작성페이지로 넘어갑니다.") == true){
+			result="yes";
 		location.href="/user_recipe_write.go?result="+result;
 		}else{
 			result = "cancelandgo";

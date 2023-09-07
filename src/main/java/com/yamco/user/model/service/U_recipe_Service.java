@@ -40,6 +40,9 @@ public interface U_recipe_Service {
 
 	// 임시저장 레시피 삭제 
 	public int deleteRecipe(String m_idx);
+
+	//
+	public int limitWrite(U_recipe_VO uvo);
 	
 	
 }
