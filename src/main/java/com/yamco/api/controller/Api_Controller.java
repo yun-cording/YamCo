@@ -64,6 +64,8 @@ public class Api_Controller {
 		// 상세페이지 현재페이지에 idx 담자
 		session.setAttribute("currentRcpIdx", rcpSeq);
 		
+		System.out.println("현재 페이지 rcpidx는 " + rcpSeq);
+		
 		// 공공리스트 전체 리스트 받아오자
 		List<JsonNode> rowList = p_recipe_Service.go_public_list();
 		
