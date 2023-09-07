@@ -35,9 +35,10 @@ public class Admin_Controller {
 
 	@RequestMapping("go_admin_dashboard.do")
 	public ModelAndView go_admin_dashboard(HttpSession session) {
-		ModelAndView mv = new ModelAndView("admin/admin_dashboard");
-		Admin_Dash_VO dash_VO = adminService.getDashTop();
-		mv.addObject("dash_VO", dash_VO);
+		ModelAndView mv= new ModelAndView("admin/admin_dashboard");
+		Admin_Dash_VO dash_VO = adminService.getDashBoard();
+		
+		mv.addObject("vo",dash_VO);
 		return mv;
 	}
 
@@ -103,9 +104,8 @@ public class Admin_Controller {
 		ModelAndView mv = new ModelAndView("admin/admin_memberchk_admin");
 		try {
 			mvo.setM_pw(passwordEncoder.encode(mvo.getM_pw()));
-			mvo.setM_status("2");
 			mvo.setM_login_type("1");
-			member_Service.getMemberJoin(mvo);
+			member_Service.getAdminJoin(mvo);
 			return mv;
 		} catch (Exception e) {
 			e.printStackTrace();

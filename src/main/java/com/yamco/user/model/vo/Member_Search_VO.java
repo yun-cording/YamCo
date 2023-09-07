@@ -9,7 +9,7 @@ public class Member_Search_VO {
 	private String regdate_start, regdate_end, out_date_start, out_date_end;
 	private String keyword_category, keyword_type, keyword, period_category, start_date, end_date, member_type,
 			member_lock, member_state;
-	private ArrayList<String> stateArr;
+	private ArrayList<String> statusArr, loginTypeArr;
 
 	public String getM_idx() {
 		return m_idx;
@@ -267,11 +267,21 @@ public class Member_Search_VO {
 		this.member_state = member_state;
 	}
 
-	public ArrayList<String> getStateArr() {
-		return stateArr;
+	public ArrayList<String> getStatusArr() {
+		return statusArr;
 	}
 
-	public void setStateArr(ArrayList<String> stateArr) {
-		this.stateArr = stateArr;
+	public void setStatusArr(ArrayList<String> statusArr) {
+		this.statusArr = statusArr;
 	}
+
+	public ArrayList<String> getLoginTypeArr() {
+		return loginTypeArr;
+	}
+
+	public void setLoginTypeArr(ArrayList<String> loginTypeArr) {
+		this.loginTypeArr = loginTypeArr;
+	}
+	
+	
 }

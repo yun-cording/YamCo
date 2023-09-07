@@ -38,6 +38,41 @@
 		<if test="m_image != null"> ,#{m_image}</if>
 		)
 	</insert>
+	
+	<!-- 관리자 회원가입 insert -->
+	<insert id="joinAdmin" parameterType="mvo">
+		insert into member
+		(m_id
+		<if test="m_pw != null">,m_pw</if>
+		<if test="m_phone != null">,m_phone</if>
+		<if test="m_gender != null">,m_gender </if>
+		<if test="m_birthday != null">,m_birthday </if>
+		<if test="m_nick != null">,m_nick </if>
+		,m_regdate
+		,m_status
+		<if test="m_fail_count != null">,m_fail_count </if>
+		<if test="m_out_date != null">,m_out_date </if>
+		<if test="m_login_type != null">,m_login_type </if>
+		<if test="m_token != null">,m_token </if>
+		<if test="m_t_time != null">,m_t_time </if>
+		<if test="m_image != null">,m_image</if>
+		)
+		values(
+		#{m_id}
+		<if test="m_pw != null">,#{m_pw}</if>
+		<if test="m_phone != null">,#{m_phone}</if>
+		<if test="m_gender != null">,#{m_gender}</if>
+		<if test="m_birthday != null">,#{m_birthday}</if>
+		<if test="m_nick != null"> ,#{m_nick}</if>
+		,sysdate(), 2
+		<if test="m_fail_count != null"> ,#{m_fail_count}</if>
+		<if test="m_out_date != null"> ,#{m_out_date}</if>
+		<if test="m_login_type != null">,#{m_login_type}</if>
+		<if test="m_token != null"> ,#{m_token}</if>
+		<if test="m_t_time != null"> ,#{m_t_time}</if>
+		<if test="m_image != null"> ,#{m_image}</if>
+		)
+	</insert>
 
 	<!-- 아이디 중복 검사 -->
 	<select id="idChk" parameterType="String" resultType="int">
@@ -46,7 +81,6 @@
 	</select>
 
 	<!-- 회원 검색 -->
-	<!-- 주의 : m_login_type이 2이상이면 소셜가입 계정이 검색됨 -->
 	<select id="selectListBySearchVO" parameterType="msvo"
 		resultType="mvo">
 		select * from member
@@ -66,22 +100,11 @@
 			<if test="m_nick != null">
 				and m_nick = #{m_nick}
 			</if>
-			<if test="member_state != 'all'">
-				<if test="m_status != null">
-					and m_status = #{m_status}
-				</if>
+			<if test="m_status != null">
+				and m_status = #{m_status}
 			</if>
 			<if test="m_login_type != null">
-				<choose>
-					<when test="m_login_type == 1">
-						and m_login_type = #{m_login_type}
-					</when>
-					<!-- m_login_type이 2이상이면 소셜가입 계정이 검색됨 -->
-					<otherwise>
-						and m_login_type <![CDATA[>=]]>
-						#{m_login_type}
-					</otherwise>
-				</choose>
+				and m_login_type = #{m_login_type}
 			</if>
 
 			<if test="like_id != null">
@@ -112,9 +135,15 @@
 				and m_fail_count <![CDATA[>=]]>
 				5
 			</if>
-			<if test="stateArr != null">
-				<foreach collection="stateArr" item="item"
+			<if test="statusArr != null">
+				<foreach collection="statusArr" item="item"
 					open="and m_status in (" close=")" separator=",">
+					#{item}
+				</foreach>
+			</if>
+			<if test="loginTypeArr != null">
+				<foreach collection="loginTypeArr" item="item"
+					open="and m_login_type in (" close=")" separator=",">
 					#{item}
 				</foreach>
 			</if>
@@ -220,34 +249,34 @@
 		<!-- m_out_date는 업데이트 하지 않는다. -->
 		<!-- m_login_type은 업데이트 하지 않는다 -->
 		<set>
-			<if test="m_pw">
+			<if test="m_pw != null">
 				m_pw = #{m_pw},
 			</if>
-			<if test="m_phone">
+			<if test="m_phone != null">
 				m_phone = #{m_phone},
 			</if>
-			<if test="m_gender">
+			<if test="m_gender != null">
 				m_gender = #{m_gender},
 			</if>
-			<if test="m_birthday">
+			<if test="m_birthday != null">
 				m_birthday = #{m_birthday},
 			</if>
-			<if test="m_nick">
+			<if test="m_nick != null">
 				m_nick = #{m_nick},
 			</if>
-			<if test="m_status">
+			<if test="m_status != null">
 				m_status = #{m_status},
 			</if>
-			<if test="m_token">
+			<if test="m_token != null">
 				m_token = #{m_token},
 			</if>
-			<if test="m_t_time">
+			<if test="m_t_time != null">
 				m_t_time = #{m_t_time},
 			</if>
-			<if test="m_image">
+			<if test="m_image != null">
 				m_image = #{m_image},
 			</if>
-			<if test="m_fail_count">
+			<if test="m_fail_count != null">
 				m_fail_count = #{m_fail_count}
 			</if>
 		</set>

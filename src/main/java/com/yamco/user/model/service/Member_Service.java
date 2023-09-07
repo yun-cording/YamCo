@@ -9,6 +9,9 @@ import com.yamco.user.model.vo.Member_meta_VO;
 public interface Member_Service {
 	// 자체 회원가입
 	public int getMemberJoin(Member_VO mvo);
+	
+	// 관리자 자체 회원가입
+	public int getAdminJoin(Member_VO mvo);
 
 	// 아이디 중복검사
 	public int getMemberIdChk(String m_id);

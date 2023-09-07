@@ -97,4 +97,24 @@ public class U_recipe_DAO {
 		return result;
 	}
 
+	public int getWrite(U_recipe_VO uvo) {
+		return sqlSessionTemplate.insert("u_recipe.write",uvo);
+	}
+	
+	// 임시 저장된 레시피 수 조회
+	public U_recipe_VO getLimit_recipe(String m_idx) {
+		U_recipe_VO urvo = sqlSessionTemplate.selectOne("u_recipe.limit_recipe",m_idx);
+		return urvo;
+	}
+	
+	// 성훈 임시 저장된 레시피 삭제
+	public int deleteRecipe(String m_idx) {
+		return sqlSessionTemplate.delete("u_recipe.limit_recipe_del",m_idx);
+	}
+
+	// 성훔 임시저장 레시피 글등록
+	public int limitWrite(U_recipe_VO uvo) {
+			int result = sqlSessionTemplate.update("u_recipe.limit_recipe_update",uvo);
+		return result;
+	}
 }

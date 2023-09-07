@@ -19,6 +19,11 @@ public class Member_DAO {
 	public int getMemberJoin(Member_VO mvo) {
 		return sqlSessionTemplate.insert("member.join", mvo);
 	}
+	
+	// 관리자 자체 회원가입
+	public int getAdminJoin(Member_VO mvo) {
+		return sqlSessionTemplate.insert("member.joinAdmin", mvo);
+	}
 
 	// 아이디 중복검사
 	public int getMemberIdChk(String m_id) {

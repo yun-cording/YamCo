@@ -4,7 +4,27 @@ function goSubmit(f) {
 }
 
 function dropOut(m_idx) {
-    location.href = "/go_admin_memberchk_drop_out.do?m_idx=" + m_idx;
+    swal({
+        title: "계정 탈퇴",
+        text: "해당 관리자 계정 탈퇴시키겠습니까?",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+      }).then((willDropOut) => {
+        if(willDropOut) {
+            swal({
+                title: "계정 탈퇴 시 복구 불가",
+                text: "정말로 계정 탈퇴를 진행할까요?",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+              }).then((willDropOutChk) => {
+                if(willDropOutChk) {
+                    location.href = "/go_admin_memberchk_drop_out.do?m_idx=" + m_idx;
+                }
+              });
+        }
+      });
 }
 
 $(document).ready(function () {

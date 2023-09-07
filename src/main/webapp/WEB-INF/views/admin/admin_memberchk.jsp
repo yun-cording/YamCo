@@ -409,7 +409,7 @@
 																	<td class="text-primary">정상</td>
 																	<!-- 해당 태그를 누르면 회원을 탈퇴시킨다 -->
 																	<!-- m_status = 3 -->
-																	<td><i class="fa-solid fa-user-slash text-danger hovercursorpointer" title="계정 탈퇴" onclick="dropOut(${k.m_idx})"></i></td>
+																	<td><i class="fa-solid fa-user-slash text-danger hovercursorpointer" title="계정 탈퇴" onclick="dropOut('${k.m_idx}')"></i></td>
 																</c:otherwise>
 															</c:choose>
 															<c:choose>
@@ -419,7 +419,7 @@
 																	<!-- m_fail_count = 0 -->
 																	<td><i
 																		class="fa-solid fa-lock-open text-secondary hovercursorpointer"
-																		title="계정 잠김 해제" onclick="openLock(${k.m_idx})"></i></td>
+																		title="계정 잠김 해제" onclick="openLock('${k.m_idx}')"></i></td>
 																</c:when>
 																<c:otherwise>
 																	<td class="text-primary">정상</td>
@@ -434,13 +434,13 @@
 																	<td class="text-danger">금지</td>
 																	<!-- 해당 태그를 누르면 회원을 작성 가능 상태로 만든다. -->
 																	<!-- m_status = 1 -->
-																	<td><i class="fa-solid fa-pencil text-primary hovercursorpointer" title="작성 금지 해제" onclick="openWrite(${k.m_idx})"></i></td>
+																	<td><i class="fa-solid fa-pencil text-primary hovercursorpointer" title="작성 금지 해제" onclick="openWrite('${k.m_idx}')"></i></td>
 																</c:when>
 																<c:otherwise>
 																	<td class="text-primary">정상</td>
 																	<!-- 해당 태그를 누르면 회원을 작성 불가 상태로 만든다. -->
 																	<!-- m_status = 4 -->
-																	<td><i class="fa-solid fa-ban text-danger hovercursorpointer" title="작성 금지" onclick="banWrite(${k.m_idx})"></i></td>
+																	<td><i class="fa-solid fa-ban text-danger hovercursorpointer" title="작성 금지" onclick="banWrite('${k.m_idx}')"></i></td>
 																</c:otherwise>
 															</c:choose>
 														</tr>
@@ -525,6 +525,9 @@
 	<script
 		src="https://cdn.datatables.net/select/1.7.0/js/dataTables.select.min.js"></script>
 
+	<!-- SweetAlert -->
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+	
 	<!-- 검색결과에 사용되는 datatable 관련 javascript -->
 	<script src="resources/js/admin/memberchk/admin_memberchk_datatable.js"></script>
 

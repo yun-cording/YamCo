@@ -302,7 +302,7 @@
 																	<c:otherwise>
 																		<%-- 해당 태그를 누르면 관리자를 탈퇴시킨다 --%>
 																		<%-- m_status = 5 --%>
-																		<i class="fa-solid fa-user-minus text-danger "
+																		<i class="fa-solid fa-user-minus text-danger hovercursorpointer"
 																			title="계정 탈퇴" onclick="dropOut(${k.m_idx})"></i>
 																	</c:otherwise>
 																</c:choose></td>
@@ -473,10 +473,9 @@
 		src="https://cdn.datatables.net/searchpanes/2.2.0/js/dataTables.searchPanes.min.js"></script>
 	<script
 		src="https://cdn.datatables.net/select/1.7.0/js/dataTables.select.min.js"></script>
-
-	<!-- 알럿창꾸미기 -->
-	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-	<script src="sweetalert2.min.js"></script>
+	
+	<!-- SweetAlert -->
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 	<script
 		src="resources/js/admin/memberchk/admin_memberchk_admin_datatable.js?after"></script>

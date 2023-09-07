@@ -17,9 +17,16 @@ public class Member_ServiceImpl implements Member_Service {
 	@Autowired
 	private Member_DAO member_DAO;
 
+	// 자체 회원가입
 	@Override
 	public int getMemberJoin(Member_VO mvo) {
 		return member_DAO.getMemberJoin(mvo);
+	}
+
+	// 관리자 자체 회원가입
+	@Override
+	public int getAdminJoin(Member_VO mvo) {
+		return member_DAO.getAdminJoin(mvo);
 	}
 
 	@Override
@@ -89,26 +96,32 @@ public class Member_ServiceImpl implements Member_Service {
 
 		String member_type = msvo.getMember_type();
 		if (member_type != null) {
+			ArrayList<String> loginTypeArr = new ArrayList<>();
 			if (member_type.equalsIgnoreCase("self")) {
-				msvo.setM_login_type("1"); // 1 자체가입 계정
+				loginTypeArr.add("1"); // 1 자체가입 계정
 			} else if (member_type.equalsIgnoreCase("social")) {
-				msvo.setM_login_type("2"); // 2 ~ 4 소셜가입 계정
+				loginTypeArr.add("2"); // 2 소셜가입 계정(카카오)
+				loginTypeArr.add("3"); // 3 소셜가입 계정(네이버)
+				loginTypeArr.add("4"); // 4 소셜가입 계정(구글)
 			}
+			msvo.setLoginTypeArr(loginTypeArr);
 		}
 
 		String member_state = msvo.getMember_state();
-		if (member_state == null) {
-			msvo.setM_status("1"); // 일반사용자
-		} else {
-			if (member_state.equalsIgnoreCase("ban")) {
-				msvo.setM_status("4"); // 작성금지회원
-			} else if (member_state.equalsIgnoreCase("dropout")) {
-				msvo.setM_status("3"); // 탈퇴회원
-			}
+		ArrayList<String> statusArr = new ArrayList<>();
+		if (member_state == null || member_state.equalsIgnoreCase("all")) {
+			statusArr.add("1"); // 일반사용자
+			statusArr.add("3"); // 탈퇴회원
+			statusArr.add("4"); // 작성금지회원
+		} else if (member_state.equalsIgnoreCase("dropout")) {
+			statusArr.add("3"); // 탈퇴회원
+		} else if (member_state.equalsIgnoreCase("ban")) {
+			statusArr.add("4"); // 작성금지회원
 		}
+		msvo.setStatusArr(statusArr);
 		return member_DAO.getMemberList(msvo);
 	}
-	
+
 	@Override
 	public List<Member_VO> getAdminList(Member_Search_VO msvo) {
 		String keyword = msvo.getKeyword();
@@ -156,12 +169,12 @@ public class Member_ServiceImpl implements Member_Service {
 			}
 		}
 
-		ArrayList<String> stateArr = new ArrayList<>();
-		stateArr.add("0");
-		stateArr.add("2");
-		stateArr.add("5");
-		msvo.setStateArr(stateArr);		
-		
+		ArrayList<String> statusArr = new ArrayList<>();
+		statusArr.add("0");
+		statusArr.add("2");
+		statusArr.add("5");
+		msvo.setStatusArr(statusArr);
+
 		return member_DAO.getMemberList(msvo);
 	}
 
@@ -212,7 +225,7 @@ public class Member_ServiceImpl implements Member_Service {
 	public int leaveMember(Member_VO mvo) {
 		return member_DAO.leaveMember(mvo);
 	}
-	
+
 	// 관리자 탈퇴
 	@Override
 	public int leaveAdmin(Member_VO mvo) {
@@ -242,7 +255,7 @@ public class Member_ServiceImpl implements Member_Service {
 	public List<String> getMyWishList(String m_idx) {
 		return member_DAO.getMyWishList(m_idx);
 	}
-	
+
 	// m_idx를 조건으로 Member_VO update 수행
 	@Override
 	public int getUpdate(Member_VO mvo) {
