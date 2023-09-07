@@ -9,12 +9,18 @@ import com.yamco.user.model.vo.Member_meta_VO;
 public interface Member_Service {
 	// 자체 회원가입
 	public int getMemberJoin(Member_VO mvo);
+	
+	// 관리자 자체 회원가입
+	public int getAdminJoin(Member_VO mvo);
 
 	// 아이디 중복검사
 	public int getMemberIdChk(String m_id);
 
 	// 회원 검색
 	public List<Member_VO> getMemberList(Member_Search_VO msvo);
+
+	// 관리자 검색
+	public List<Member_VO> getAdminList(Member_Search_VO msvo);
 	
 	// 명예의 전당 가져오기
 	public List<Member_meta_VO> getAwardList();
@@ -40,6 +46,9 @@ public interface Member_Service {
 	// 사용자 탈퇴
 	public int leaveMember(Member_VO mvo);
 	
+	// 관리자 탈퇴
+	public int leaveAdmin(Member_VO mvo);
+	
 	// 토큰, 날짜 생성
 	public int setMakeToken(Member_VO mvo);
 	
@@ -51,4 +60,7 @@ public interface Member_Service {
 	
 	// 찜목록
 	public List<String> getMyWishList(String m_idx);
+	
+	// m_idx를 조건으로 Member_VO update 수행
+	public int getUpdate(Member_VO mvo);
 }

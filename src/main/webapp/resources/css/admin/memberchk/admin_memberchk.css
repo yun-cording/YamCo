@@ -11,3 +11,11 @@ input[type='date']::before {
 input[type='date']:focus::before, input[type='date']:valid::before {
 	display: none;
 }
+
+.imgMaxSize {
+	max-width: 3rem;
+}
+
+.hovercursorpointer:hover {
+	cursor: pointer;
+}

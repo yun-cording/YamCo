@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.yamco.admin.model.vo.Admin_Dash_VO;
+import com.yamco.admin.model.vo.Member_count_summary_VO;
 import com.yamco.admin.model.vo.Admin_Report_VO;
 import com.yamco.user.model.vo.Comment_VO;
 import com.yamco.user.model.vo.Comment_meta_VO;
@@ -106,6 +107,10 @@ public class AdminDAO {
 		return dash_VO;
 	}
 
+	public Member_count_summary_VO getMemberCountSummary() {
+		return sqlSessionTemplate.selectOne("admin.memberCountSummary");
+	}
+	
 	public boolean blindDo(Admin_Report_VO vo) {
 		int res=0;
 		if(vo.getRcp_idx()!=null) { // rcp_idx가 있을때 --> 레시피
