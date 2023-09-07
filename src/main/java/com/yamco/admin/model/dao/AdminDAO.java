@@ -1,27 +1,123 @@
 package com.yamco.admin.model.dao;
 
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.yamco.admin.model.vo.Admin_Dash_VO;
+import com.yamco.admin.model.vo.Admin_Report_VO;
+import com.yamco.user.model.vo.Comment_VO;
+import com.yamco.user.model.vo.Comment_meta_VO;
+import com.yamco.user.model.vo.U_recipe_meta_VO;
+
 @Repository
 public class AdminDAO {
 	@Autowired
 	private SqlSessionTemplate sqlSessionTemplate;
 
-	public Admin_Dash_VO getDashTop() {
+	public Admin_Dash_VO getDashBoard() {
 		Admin_Dash_VO dash_VO = new Admin_Dash_VO();
-		String total_hit = sqlSessionTemplate.selectOne("admin.totalHit");
-		String total_visit="아직 못했음";
-		String client_new = sqlSessionTemplate.selectOne("admin.clientNew");
+		// 조회수 관련
+		String hit_total = sqlSessionTemplate.selectOne("admin.hitTotal");
+		String hit_user = sqlSessionTemplate.selectOne("admin.hitUser");
+		String hit_public = sqlSessionTemplate.selectOne("admin.hitPublic");
+		// 방문자수 관련
+		String visit_total = sqlSessionTemplate.selectOne("admin.visitTotal");
+		String visit_am = sqlSessionTemplate.selectOne("admin.visitAm");
+		String visit_pm = sqlSessionTemplate.selectOne("admin.visitPm");
+		// 레시피 관련
 		String recipe_new = sqlSessionTemplate.selectOne("admin.recipeNew");
-		dash_VO.setRecipe_new(recipe_new);
-		dash_VO.setTotal_hit(total_hit);
-		dash_VO.setClient_new(client_new);
-		dash_VO.setTotal_visit(total_visit);
+		String recipe_user = sqlSessionTemplate.selectOne("admin.recipeUser");
+		String recipe_total = String.valueOf(Integer.parseInt(recipe_user) + 200);
+		// 기타
+		String client_new = sqlSessionTemplate.selectOne("admin.clientNew");
+		String male_count = sqlSessionTemplate.selectOne("admin.maleCount");
+		String female_count = sqlSessionTemplate.selectOne("admin.femaleCount");
+		List<String> week_hit_count = sqlSessionTemplate.selectList("admin.weekHitCount");
+		List<String> week_visit_count = sqlSessionTemplate.selectList("admin.weekVisitCount");
+		List<String> daysOfWeek = new ArrayList<>(
+				Arrays.asList("'월요일'", "'화요일'", "'수요일'", "'목요일'", "'금요일'", "'토요일'", "'일요일'"));
+		DayOfWeek currentDayOfWeek = LocalDate.now().getDayOfWeek();
+		int currentDayIndex = currentDayOfWeek.getValue();
+		// 현재 요일을 기준으로 요일 배열을 회전
+		for (int i = 0; i < currentDayIndex; i++) {
+			String day = daysOfWeek.remove(0); // 첫 번째 요일을 제거하고
+			daysOfWeek.add(day); // 마지막으로 추가
+		}
+		// 신고관련
+		List<Admin_Report_VO> recipe_report_list = sqlSessionTemplate.selectList("admin.recipeReport");
+		List<Admin_Report_VO> comment_report_list = sqlSessionTemplate.selectList("admin.commentReport");
+		List<Admin_Report_VO> final_report_list = new ArrayList<Admin_Report_VO>();
+		for (Admin_Report_VO k : recipe_report_list) {
+			String idx = k.getRcp_idx();
+			U_recipe_meta_VO vo = sqlSessionTemplate.selectOne("u_recipe.metaData", idx); // 게시글 번호로 닉네임, 제목 가져오기
+			if(vo.getU_rcp_status().equals("0")) {
+				k.setM_nick(vo.getM_nick());
+				k.setU_rcp_title(vo.getU_rcp_title());
+				final_report_list.add(k);
+			}
+		}
+		for (Admin_Report_VO k : comment_report_list) {
+			Comment_VO cvo = new Comment_VO();
+			cvo.setC_idx(k.getC_idx());
+			Comment_meta_VO vo = sqlSessionTemplate.selectOne("comment.selectListByVO", cvo); // 댓글 번호로 닉네임, 내용 가져오기
+			if(vo.getC_status().equals("0")) {
+				k.setC_status(vo.getC_status());
+				k.setM_nick(vo.getM_nick());
+				k.setC_contents(vo.getC_contents());
+				final_report_list.add(k);
+			}
+		}
+		Collections.sort(final_report_list, new Comparator<Admin_Report_VO>() {
+			@Override
+			public int compare(Admin_Report_VO vo1, Admin_Report_VO vo2) {
+				int count1 = Integer.parseInt(vo1.getCount());
+				int count2 = Integer.parseInt(vo2.getCount());
+				return Integer.compare(count1, count2);
+			}
+		});
 		
+		
+		dash_VO.setFinal_report_list(final_report_list);
+		dash_VO.setRecipe_new(recipe_new);
+		dash_VO.setHit_total(hit_total);
+		dash_VO.setClient_new(client_new);
+		dash_VO.setVisit_total(visit_total);
+		dash_VO.setHit_public(hit_public);
+		dash_VO.setHit_user(hit_user);
+		dash_VO.setVisit_pm(visit_pm);
+		dash_VO.setVisit_am(visit_am);
+		dash_VO.setRecipe_user(recipe_user);
+		dash_VO.setRecipe_total(recipe_total);
+		dash_VO.setMale_count(male_count);
+		dash_VO.setFemale_count(female_count);
+		dash_VO.setWeek_hit_count(week_hit_count);
+		dash_VO.setWeek_visit_count(week_visit_count);
+		dash_VO.setDaysOfWeek(daysOfWeek);
+
 		return dash_VO;
+	}
+
+	public boolean blindDo(Admin_Report_VO vo) {
+		int res=0;
+		if(vo.getRcp_idx()!=null) { // rcp_idx가 있을때 --> 레시피
+			res = sqlSessionTemplate.update("admin.rcpBlind",vo);
+		}else {
+			res = sqlSessionTemplate.update("admin.commentBlind",vo);
+		}
+		if(res>0) {
+			return true;
+		}else {
+			return false; 
+		}
 	}
 
 }

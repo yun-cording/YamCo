@@ -28,6 +28,7 @@
 	<typeAlias type="com.yamco.user.model.vo.User_log_Search_VO" alias="ulsvo" />
 	<typeAlias type="com.yamco.user.model.vo.Comment_VO" alias="cvo" />
 	<typeAlias type="com.yamco.admin.model.vo.Admin_Dash_VO" alias="advo" />
+	<typeAlias type="com.yamco.admin.model.vo.Admin_Report_VO" alias="arvo" />
 	<typeAlias type="com.yamco.user.model.vo.Comment_meta_VO" alias="cmvo" />
 	</typeAliases>
 

@@ -21,4 +21,10 @@ public class Api_ServiceImpl implements Api_Service {
 	public int getNickChk(String m_nick) {
 		return api_DAO.getNickChk(m_nick);
 	}
+	// 조회수 올리기
+	@Override
+	public int hitUpdate(String rcp_idx) {
+		return api_DAO.hitUpdate(rcp_idx);
+	}
+	
 }

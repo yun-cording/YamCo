@@ -30,8 +30,9 @@ public class Admin_Controller {
 	@RequestMapping("go_admin_dashboard.do")
 	public ModelAndView go_admin_dashboard(HttpSession session) {
 		ModelAndView mv= new ModelAndView("admin/admin_dashboard");
-		Admin_Dash_VO dash_VO =  adminService.getDashTop();
-		mv.addObject("dash_VO",dash_VO);
+		Admin_Dash_VO dash_VO = adminService.getDashBoard();
+		
+		mv.addObject("vo",dash_VO);
 		return mv;
 	}
 
