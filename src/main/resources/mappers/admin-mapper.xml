@@ -91,4 +91,18 @@
 	<update id="commentBlind" parameterType="arvo">
 		UPDATE comment SET c_status = 2 WHERE c_idx = #{c_idx}
 	</update>
+	
+	<!-- 어드민 신고내역 관리 모든 신고내역 가져오기 -->
+	<select id="getReportlist" resultType="arcvo">
+	select * from admin_report_chk
+	</select>
+	
+	<!-- 댓글 신고 횟수 
+	<select id="commentReport_2" resultType="arcvo">
+		SELECT c_idx, COUNT(*) AS count
+		FROM report_t
+		WHERE c_idx IS NOT NULL
+		GROUP BY c_idx
+	</select>-->
+	
 </mapper>

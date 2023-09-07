@@ -107,68 +107,68 @@ document.addEventListener("DOMContentLoaded", function() {
 							<select name="u_rcp_category1" id="cars" class="input_tomato"
 								style="float: right; margin-right: 50px; margin-top: -470px; color: #606060">
 								<c:choose>
-								<c:when test="${ category_choice1 eq 'select_category'}">
-								<option value="select_category" selected>카테고리를 선택하세요.</option>
-								<option value="select_steam">찌기</option>
-								<option value="select_boil">끓이기</option>
-								<option value="select_cook" >굽기</option>
-								<option value="select_stir" >볶기</option>
-								<option value="select_fry" >튀기기</option>
-								<option value="select_etc">기타</option>
+								<c:when test="${ category_choice1 eq '카테고리를 선택하세요.'}">
+								<option value="카테고리를 선택하세요." selected>카테고리를 선택하세요.</option>
+								<option value="찌기">찌기</option>
+								<option value="끓이기">끓이기</option>
+								<option value="굽기" >굽기</option>
+								<option value="볶기" >볶기</option>
+								<option value="튀기기" >튀기기</option>
+								<option value="기타">기타</option>
 								</c:when>
 								
-								<c:when test="${ category_choice1 eq 'select_steam'}">
-								<option value="select_steam" selected>찌기</option>
-								<option value="select_boil">끓이기</option>
-								<option value="select_cook" >굽기</option>
-								<option value="select_stir" >볶기</option>
-								<option value="select_fry" >튀기기</option>
-								<option value="select_etc">기타</option>
+								<c:when test="${ category_choice1 eq '찌기'}">
+								<option value="찌기" selected>찌기</option>
+								<option value="끓이기">끓이기</option>
+								<option value="굽기" >굽기</option>
+								<option value="볶기" >볶기</option>
+								<option value="튀기기" >튀기기</option>
+								<option value="기타">기타</option>
 								</c:when>
 								
-								<c:when test="${ category_choice1 eq 'select_boil'}">
-								<option value="select_boil" selected>끓이기</option>
-								<option value="select_steam">찌기</option>
-								<option value="select_cook" >굽기</option>
-								<option value="select_stir" >볶기</option>
-								<option value="select_fry" >튀기기</option>
-								<option value="select_etc">기타</option>
+								<c:when test="${ category_choice1 eq '끓이기'}">
+								<option value="찌기">찌기</option>
+								<option value="끓이기" selected>끓이기</option>
+								<option value="굽기" >굽기</option>
+								<option value="볶기" >볶기</option>
+								<option value="튀기기" >튀기기</option>
+								<option value="기타">기타</option>
 								</c:when>
 								
-								<c:when test="${ category_choice1 eq 'select_cook'}">
-								<option value="select_cook" selected>굽기</option>
-								<option value="select_boil">끓이기</option>
-								<option value="select_steam">찌기</option>
-								<option value="select_stir" >볶기</option>
-								<option value="select_fry" >튀기기</option>
-								<option value="select_etc">기타</option>
+								<c:when test="${ category_choice1 eq '볶기'}">
+								<option value="찌기">찌기</option>
+								<option value="끓이기" >끓이기</option>
+								<option value="굽기" >굽기</option>
+								<option value="볶기" selected>볶기</option>
+								<option value="튀기기" >튀기기</option>
+								<option value="기타">기타</option>
 								</c:when>
 								
-								<c:when test="${ category_choice1 eq 'select_stir'}">
-								<option value="select_stir" selected>볶기</option>
-								<option value="select_steam">찌기</option>
-								<option value="select_boil">끓이기</option>
-								<option value="select_cook" >굽기</option>
-								<option value="select_fry" >튀기기</option>
-								<option value="select_etc">기타</option>
+								<c:when test="${ category_choice1 eq '튀기기'}">
+								<option value="찌기">찌기</option>
+								<option value="끓이기" >끓이기</option>
+								<option value="굽기" >굽기</option>
+								<option value="볶기" >볶기</option>
+								<option value="튀기기" selected>튀기기</option>
+								<option value="기타">기타</option>
 								</c:when>
 								
-								<c:when test="${ category_choice1 eq 'select_fry'}">
-								<option value="select_fry" selected>튀기기</option>
-								<option value="select_steam">찌기</option>
-								<option value="select_stir" >볶기</option>
-								<option value="select_boil">끓이기</option>
-								<option value="select_cook" >굽기</option>
-								<option value="select_etc">기타</option>
+								<c:when test="${ category_choice1 eq '기타'}">
+								<option value="찌기">찌기</option>
+								<option value="끓이기" >끓이기</option>
+								<option value="굽기" >굽기</option>
+								<option value="볶기" >볶기</option>
+								<option value="튀기기" >튀기기</option>
+								<option value="기타" selected>기타</option>
 								</c:when>
 								
-								<c:when test="${ category_choice1 eq 'select_etc'}">
-								<option value="select_etc" selected>기타</option>
-								<option value="select_steam">찌기</option>
-								<option value="select_stir" >볶기</option>
-								<option value="select_boil">끓이기</option>
-								<option value="select_cook" >굽기</option>
-								<option value="select_fry" >튀기기</option>
+								<c:when test="${ category_choice1 eq '굽기'}">
+								<option value="찌기">찌기</option>
+								<option value="끓이기" >끓이기</option>
+								<option value="굽기" selected>굽기</option>
+								<option value="볶기" >볶기</option>
+								<option value="튀기기" >튀기기</option>
+								<option value="기타" >기타</option>
 								</c:when>
 								</c:choose>
 							</select> <br> <br>
@@ -183,258 +183,245 @@ document.addEventListener("DOMContentLoaded", function() {
 							<select name="u_rcp_category2" id="cars" class="input_tomato"
 								style="float: right; margin-right: 50px; margin-top: -397px; color: #606060">
 								<c:choose>
-								<c:when test="${ category_choice2 eq 'select_category'}">
-								<option value="select_category" selected>카테고리를 선택하세요.</option>
-								<option value="select_choice1">1인분</option>
-								<option value="select_vegetable">채식</option>
-								<option value="select_soup" >국물류</option>
-								<option value="select_swings" >돈까스,일식</option>
-								<option value="select_meat" >고기,구이</option>
-								<option value="select_seafood">해산물</option>
-								<option value="select_snack">분식</option>
-								<option value="select_noodle">면류</option>
-								<option value="select_ricesoup">죽</option>
-								<option value="select_alcoholfood">술안주</option>
-								<option value="select_sidedish">반찬</option>
-								<option value="select_afterfood">후식</option>
-								<option value="select_etc">기타</option>
+								<c:when test="${ category_choice2 eq '카테고리를 선택하세요.'}">
+								<option value="카테고리를 선택하세요." selected>카테고리를 선택하세요.</option>
+								<option value="1인분">1인분</option>
+								<option value="채식">채식</option>
+								<option value="국물류" >국물류</option>
+								<option value="돈까스,일식" >돈까스,일식</option>
+								<option value="고기,구이" >고기,구이</option>
+								<option value="해산물">해산물</option>
+								<option value="분식">분식</option>
+								<option value="면류">면류</option>
+								<option value="죽">죽</option>
+								<option value="술안주">술안주</option>
+								<option value="반찬">반찬</option>
+								<option value="후식">후식</option>
+								<option value="기타">기타</option>
 								</c:when>
 								</c:choose>
 								<c:choose>
-								<c:when test="${ category_choice2 eq 'select_choice1'}">
-								<option value="select_category" >카테고리를 선택하세요.</option>
-								<option value="select_choice1" selected>1인분</option>
-								<option value="select_vegetable">채식</option>
-								<option value="select_soup" >국물류</option>
-								<option value="select_swings" >돈까스,일식</option>
-								<option value="select_meat" >고기,구이</option>
-								<option value="select_seafood">해산물</option>
-								<option value="select_snack">분식</option>
-								<option value="select_noodle">면류</option>
-								<option value="select_ricesoup">죽</option>
-								<option value="select_alcoholfood">술안주</option>
-								<option value="select_sidedish">반찬</option>
-								<option value="select_afterfood">후식</option>
-								<option value="select_etc">기타</option>
+								<c:when test="${ category_choice2 eq '1인분'}">
+								<option value="1인분" selected>1인분</option>
+								<option value="채식">채식</option>
+								<option value="국물류" >국물류</option>
+								<option value="돈까스,일식" >돈까스,일식</option>
+								<option value="고기,구이" >고기,구이</option>
+								<option value="해산물">해산물</option>
+								<option value="분식">분식</option>
+								<option value="면류">면류</option>
+								<option value="죽">죽</option>
+								<option value="술안주">술안주</option>
+								<option value="반찬">반찬</option>
+								<option value="후식">후식</option>
+								<option value="기타">기타</option>
 								</c:when>
 								</c:choose>
 								<c:choose>
-								<c:when test="${ category_choice2 eq 'select_vegetable'}">
-								<option value="select_category" >카테고리를 선택하세요.</option>
-								<option value="select_choice1" >1인분</option>
-								<option value="select_vegetable" selected>채식</option>
-								<option value="select_soup" >국물류</option>
-								<option value="select_swings" >돈까스,일식</option>
-								<option value="select_meat" >고기,구이</option>
-								<option value="select_seafood">해산물</option>
-								<option value="select_snack">분식</option>
-								<option value="select_noodle">면류</option>
-								<option value="select_ricesoup">죽</option>
-								<option value="select_alcoholfood">술안주</option>
-								<option value="select_sidedish">반찬</option>
-								<option value="select_afterfood">후식</option>
-								<option value="select_etc">기타</option>
+								<c:when test="${ category_choice2 eq '채식'}">
+								<option value="1인분" >1인분</option>
+								<option value="채식" selected>채식</option>
+								<option value="국물류" >국물류</option>
+								<option value="돈까스,일식" >돈까스,일식</option>
+								<option value="고기,구이" >고기,구이</option>
+								<option value="해산물">해산물</option>
+								<option value="분식">분식</option>
+								<option value="면류">면류</option>
+								<option value="죽">죽</option>
+								<option value="술안주">술안주</option>
+								<option value="반찬">반찬</option>
+								<option value="후식">후식</option>
+								<option value="기타">기타</option>
 								</c:when>
 								</c:choose>
 								<c:choose>
-								<c:when test="${ category_choice2 eq 'select_soup'}">
-								<option value="select_category" >카테고리를 선택하세요.</option>
-								<option value="select_choice1" >1인분</option>
-								<option value="select_vegetable">채식</option>
-								<option value="select_soup" selected >국물류</option>
-								<option value="select_swings" >돈까스,일식</option>
-								<option value="select_meat" >고기,구이</option>
-								<option value="select_seafood">해산물</option>
-								<option value="select_snack">분식</option>
-								<option value="select_noodle">면류</option>
-								<option value="select_ricesoup">죽</option>
-								<option value="select_alcoholfood">술안주</option>
-								<option value="select_sidedish">반찬</option>
-								<option value="select_afterfood">후식</option>
-								<option value="select_etc">기타</option>
+								<c:when test="${ category_choice2 eq '국물류'}">
+								<option value="1인분" >1인분</option>
+								<option value="채식" >채식</option>
+								<option value="국물류" selected>국물류</option>
+								<option value="돈까스,일식" >돈까스,일식</option>
+								<option value="고기,구이" >고기,구이</option>
+								<option value="해산물">해산물</option>
+								<option value="분식">분식</option>
+								<option value="면류">면류</option>
+								<option value="죽">죽</option>
+								<option value="술안주">술안주</option>
+								<option value="반찬">반찬</option>
+								<option value="후식">후식</option>
+								<option value="기타">기타</option>
 								</c:when>
 								</c:choose>
 								<c:choose>
-								<c:when test="${ category_choice2 eq 'select_swings'}">
-								<option value="select_category" >카테고리를 선택하세요.</option>
-								<option value="select_choice1" >1인분</option>
-								<option value="select_vegetable">채식</option>
-								<option value="select_soup" >국물류</option>
-								<option value="select_swings" selected>돈까스,일식</option>
-								<option value="select_meat" >고기,구이</option>
-								<option value="select_seafood">해산물</option>
-								<option value="select_snack">분식</option>
-								<option value="select_noodle">면류</option>
-								<option value="select_ricesoup">죽</option>
-								<option value="select_alcoholfood">술안주</option>
-								<option value="select_sidedish">반찬</option>
-								<option value="select_afterfood">후식</option>
-								<option value="select_etc">기타</option>
+								<c:when test="${ category_choice2 eq '돈까스,일식'}">
+								<option value="1인분" >1인분</option>
+								<option value="채식" >채식</option>
+								<option value="국물류" >국물류</option>
+								<option value="돈까스,일식" selected>돈까스,일식</option>
+								<option value="고기,구이" >고기,구이</option>
+								<option value="해산물">해산물</option>
+								<option value="분식">분식</option>
+								<option value="면류">면류</option>
+								<option value="죽">죽</option>
+								<option value="술안주">술안주</option>
+								<option value="반찬">반찬</option>
+								<option value="후식">후식</option>
+								<option value="기타">기타</option>
 								</c:when>
 								</c:choose>
 								<c:choose>
-								<c:when test="${ category_choice2 eq 'select_meat'}">
-								<option value="select_category" >카테고리를 선택하세요.</option>
-								<option value="select_choice1" >1인분</option>
-								<option value="select_vegetable">채식</option>
-								<option value="select_soup" >국물류</option>
-								<option value="select_swings" >돈까스,일식</option>
-								<option value="select_meat" selected>고기,구이</option>
-								<option value="select_seafood">해산물</option>
-								<option value="select_snack">분식</option>
-								<option value="select_noodle">면류</option>
-								<option value="select_ricesoup">죽</option>
-								<option value="select_alcoholfood">술안주</option>
-								<option value="select_sidedish">반찬</option>
-								<option value="select_afterfood">후식</option>
-								<option value="select_etc">기타</option>
+								<c:when test="${ category_choice2 eq '고기,구이'}">
+								<option value="1인분" >1인분</option>
+								<option value="채식" >채식</option>
+								<option value="국물류" >국물류</option>
+								<option value="돈까스,일식" >돈까스,일식</option>
+								<option value="고기,구이" selected>고기,구이</option>
+								<option value="해산물">해산물</option>
+								<option value="분식">분식</option>
+								<option value="면류">면류</option>
+								<option value="죽">죽</option>
+								<option value="술안주">술안주</option>
+								<option value="반찬">반찬</option>
+								<option value="후식">후식</option>
+								<option value="기타">기타</option>
 								</c:when>
 								</c:choose>
 								<c:choose>
-								<c:when test="${ category_choice2 eq 'select_seafood'}">
-								<option value="select_category" >카테고리를 선택하세요.</option>
-								<option value="select_choice1" >1인분</option>
-								<option value="select_vegetable">채식</option>
-								<option value="select_soup" >국물류</option>
-								<option value="select_swings" >돈까스,일식</option>
-								<option value="select_meat" >고기,구이</option>
-								<option value="select_seafood" selected>해산물</option>
-								<option value="select_snack">분식</option>
-								<option value="select_noodle">면류</option>
-								<option value="select_ricesoup">죽</option>
-								<option value="select_alcoholfood">술안주</option>
-								<option value="select_sidedish">반찬</option>
-								<option value="select_afterfood">후식</option>
-								<option value="select_etc">기타</option>
+								<c:when test="${ category_choice2 eq '해산물'}">
+								<option value="1인분" >1인분</option>
+								<option value="채식" >채식</option>
+								<option value="국물류" >국물류</option>
+								<option value="돈까스,일식" >돈까스,일식</option>
+								<option value="고기,구이" >고기,구이</option>
+								<option value="해산물" selected>해산물</option>
+								<option value="분식">분식</option>
+								<option value="면류">면류</option>
+								<option value="죽">죽</option>
+								<option value="술안주">술안주</option>
+								<option value="반찬">반찬</option>
+								<option value="후식">후식</option>
+								<option value="기타">기타</option>
 								</c:when>
 								</c:choose>
 								<c:choose>
-								<c:when test="${ category_choice2 eq 'select_snack'}">
-								<option value="select_category" >카테고리를 선택하세요.</option>
-								<option value="select_choice1" >1인분</option>
-								<option value="select_vegetable">채식</option>
-								<option value="select_soup" >국물류</option>
-								<option value="select_swings" >돈까스,일식</option>
-								<option value="select_meat" >고기,구이</option>
-								<option value="select_seafood">해산물</option>
-								<option value="select_snack" selected>분식</option>
-								<option value="select_noodle">면류</option>
-								<option value="select_ricesoup">죽</option>
-								<option value="select_alcoholfood">술안주</option>
-								<option value="select_sidedish">반찬</option>
-								<option value="select_afterfood">후식</option>
-								<option value="select_etc">기타</option>
+								<c:when test="${ category_choice2 eq '분식'}">
+								<option value="1인분" >1인분</option>
+								<option value="채식" >채식</option>
+								<option value="국물류" >국물류</option>
+								<option value="돈까스,일식" >돈까스,일식</option>
+								<option value="고기,구이" >고기,구이</option>
+								<option value="해산물">해산물</option>
+								<option value="분식" selected>분식</option>
+								<option value="면류">면류</option>
+								<option value="죽">죽</option>
+								<option value="술안주">술안주</option>
+								<option value="반찬">반찬</option>
+								<option value="후식">후식</option>
+								<option value="기타">기타</option>
 								</c:when>
 								</c:choose>
 								<c:choose>
-								<c:when test="${ category_choice2 eq 'select_noodle'}">
-								<option value="select_category" >카테고리를 선택하세요.</option>
-								<option value="select_choice1" >1인분</option>
-								<option value="select_vegetable" >채식</option>
-								<option value="select_soup" >국물류</option>
-								<option value="select_swings" >돈까스,일식</option>
-								<option value="select_meat" >고기,구이</option>
-								<option value="select_seafood">해산물</option>
-								<option value="select_snack">분식</option>
-								<option value="select_noodle" selected>면류</option>
-								<option value="select_ricesoup">죽</option>
-								<option value="select_alcoholfood">술안주</option>
-								<option value="select_sidedish">반찬</option>
-								<option value="select_afterfood">후식</option>
-								<option value="select_etc">기타</option>
+								<c:when test="${ category_choice2 eq '면류'}">
+								<option value="1인분" >1인분</option>
+								<option value="채식" >채식</option>
+								<option value="국물류" >국물류</option>
+								<option value="돈까스,일식" >돈까스,일식</option>
+								<option value="고기,구이" >고기,구이</option>
+								<option value="해산물">해산물</option>
+								<option value="분식">분식</option>
+								<option value="면류" selected>면류</option>
+								<option value="죽">죽</option>
+								<option value="술안주">술안주</option>
+								<option value="반찬">반찬</option>
+								<option value="후식">후식</option>
+								<option value="기타">기타</option>>
 								</c:when>
 								</c:choose>
 								<c:choose>
-								<c:when test="${ category_choice2 eq 'select_ricesoup'}">
-								<option value="select_category" >카테고리를 선택하세요.</option>
-								<option value="select_choice1" >1인분</option>
-								<option value="select_vegetable">채식</option>
-								<option value="select_soup" >국물류</option>
-								<option value="select_swings" >돈까스,일식</option>
-								<option value="select_meat" >고기,구이</option>
-								<option value="select_seafood">해산물</option>
-								<option value="select_snack">분식</option>
-								<option value="select_noodle">면류</option>
-								<option value="select_ricesoup" selected>죽</option>
-								<option value="select_alcoholfood">술안주</option>
-								<option value="select_sidedish">반찬</option>
-								<option value="select_afterfood">후식</option>
-								<option value="select_etc">기타</option>
+								<c:when test="${ category_choice2 eq '죽'}">
+								<option value="1인분" >1인분</option>
+								<option value="채식" >채식</option>
+								<option value="국물류" >국물류</option>
+								<option value="돈까스,일식" >돈까스,일식</option>
+								<option value="고기,구이" >고기,구이</option>
+								<option value="해산물">해산물</option>
+								<option value="분식">분식</option>
+								<option value="면류">면류</option>
+								<option value="죽" selected>죽</option>
+								<option value="술안주">술안주</option>
+								<option value="반찬">반찬</option>
+								<option value="후식">후식</option>
+								<option value="기타">기타</option>
 								</c:when>
 								</c:choose>
 								<c:choose>
-								<c:when test="${ category_choice2 eq 'select_alcoholfood'}">
-								<option value="select_category" >카테고리를 선택하세요.</option>
-								<option value="select_choice1" >1인분</option>
-								<option value="select_vegetable">채식</option>
-								<option value="select_soup" >국물류</option>
-								<option value="select_swings" >돈까스,일식</option>
-								<option value="select_meat" >고기,구이</option>
-								<option value="select_seafood">해산물</option>
-								<option value="select_snack">분식</option>
-								<option value="select_noodle">면류</option>
-								<option value="select_ricesoup">죽</option>
-								<option value="select_alcoholfood" selected>술안주</option>
-								<option value="select_sidedish">반찬</option>
-								<option value="select_afterfood">후식</option>
-								<option value="select_etc">기타</option>
+								<c:when test="${ category_choice2 eq '술안주'}">
+								<option value="1인분" >1인분</option>
+								<option value="채식" >채식</option>
+								<option value="국물류" >국물류</option>
+								<option value="돈까스,일식" >돈까스,일식</option>
+								<option value="고기,구이" >고기,구이</option>
+								<option value="해산물">해산물</option>
+								<option value="분식">분식</option>
+								<option value="면류">면류</option>
+								<option value="죽">죽</option>
+								<option value="술안주" selected>술안주</option>
+								<option value="반찬">반찬</option>
+								<option value="후식">후식</option>
+								<option value="기타">기타</option>
 								</c:when>
 								</c:choose>
 								
 								<c:choose>
-								<c:when test="${ category_choice2 eq 'select_sidedish'}">
-								<option value="select_category" >카테고리를 선택하세요.</option>
-								<option value="select_choice1" >1인분</option>
-								<option value="select_vegetable">채식</option>
-								<option value="select_soup" >국물류</option>
-								<option value="select_swings" >돈까스,일식</option>
-								<option value="select_meat" >고기,구이</option>
-								<option value="select_seafood">해산물</option>
-								<option value="select_snack">분식</option>
-								<option value="select_noodle">면류</option>
-								<option value="select_ricesoup">죽</option>
-								<option value="select_alcoholfood" >술안주</option>
-								<option value="select_sidedish" selected>반찬</option>
-								<option value="select_afterfood">후식</option>
-								<option value="select_etc">기타</option>
+								<c:when test="${ category_choice2 eq '반찬'}">
+								<option value="1인분" >1인분</option>
+								<option value="채식" selected>채식</option>
+								<option value="국물류" >국물류</option>
+								<option value="돈까스,일식" >돈까스,일식</option>
+								<option value="고기,구이" >고기,구이</option>
+								<option value="해산물">해산물</option>
+								<option value="분식">분식</option>
+								<option value="면류">면류</option>
+								<option value="죽">죽</option>
+								<option value="술안주">술안주</option>
+								<option value="반찬" selected>반찬</option>
+								<option value="후식">후식</option>
+								<option value="기타">기타</option>
 								</c:when>
 								</c:choose>
 								
 								<c:choose>
-								<c:when test="${ category_choice2 eq 'select_afterfood'}">
-								<option value="select_category" >카테고리를 선택하세요.</option>
-								<option value="select_choice1" >1인분</option>
-								<option value="select_vegetable">채식</option>
-								<option value="select_soup" >국물류</option>
-								<option value="select_swings" >돈까스,일식</option>
-								<option value="select_meat" >고기,구이</option>
-								<option value="select_seafood">해산물</option>
-								<option value="select_snack">분식</option>
-								<option value="select_noodle">면류</option>
-								<option value="select_ricesoup">죽</option>
-								<option value="select_alcoholfood" >술안주</option>
-								<option value="select_sidedish">반찬</option>
-								<option value="select_afterfood" selected>후식</option>
-								<option value="select_etc">기타</option>
+								<c:when test="${ category_choice2 eq '후식'}">
+								<option value="1인분" >1인분</option>
+								<option value="채식" >채식</option>
+								<option value="국물류" >국물류</option>
+								<option value="돈까스,일식" >돈까스,일식</option>
+								<option value="고기,구이" >고기,구이</option>
+								<option value="해산물">해산물</option>
+								<option value="분식">분식</option>
+								<option value="면류">면류</option>
+								<option value="죽">죽</option>
+								<option value="술안주">술안주</option>
+								<option value="반찬">반찬</option>
+								<option value="후식" selected>후식</option>
+								<option value="기타">기타</option>
 								</c:when>
 								</c:choose>
 								
 								<c:choose>
-								<c:when test="${ category_choice2 eq 'select_etc'}">
-								<option value="select_category" >카테고리를 선택하세요.</option>
-								<option value="select_choice1" >1인분</option>
-								<option value="select_vegetable">채식</option>
-								<option value="select_soup" >국물류</option>
-								<option value="select_swings" >돈까스,일식</option>
-								<option value="select_meat" >고기,구이</option>
-								<option value="select_seafood">해산물</option>
-								<option value="select_snack">분식</option>
-								<option value="select_noodle">면류</option>
-								<option value="select_ricesoup">죽</option>
-								<option value="select_alcoholfood" >술안주</option>
-								<option value="select_sidedish">반찬</option>
-								<option value="select_afterfood">후식</option>
-								<option value="select_etc" selected>기타</option>
+								<c:when test="${ category_choice2 eq '기타'}">
+								<option value="1인분" >1인분</option>
+								<option value="채식" selected>채식</option>
+								<option value="국물류" >국물류</option>
+								<option value="돈까스,일식" >돈까스,일식</option>
+								<option value="고기,구이" >고기,구이</option>
+								<option value="해산물">해산물</option>
+								<option value="분식">분식</option>
+								<option value="면류">면류</option>
+								<option value="죽">죽</option>
+								<option value="술안주">술안주</option>
+								<option value="반찬">반찬</option>
+								<option value="후식">후식</option>
+								<option value="기타" selected>기타</option>
 								</c:when>
 								</c:choose>
 								

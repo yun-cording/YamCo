@@ -12,6 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.yamco.admin.model.service.AdminService;
 import com.yamco.admin.model.vo.Admin_Dash_VO;
+import com.yamco.admin.model.vo.Admin_Report_Chk_VO;
 import com.yamco.admin.model.vo.Member_count_summary_VO;
 import com.yamco.user.model.service.Member_Service;
 import com.yamco.user.model.vo.Member_Search_VO;
@@ -26,10 +27,34 @@ public class Admin_Controller {
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
 
-	@RequestMapping("go_admin_report.do")
-	public ModelAndView go_admin_report() {
-		return new ModelAndView("admin/admin_report");
+	@RequestMapping("admin_report_recipe.do")
+	public ModelAndView go_admin_report() { 
+		ModelAndView mv = new ModelAndView("admin/admin_report");
+		List<Admin_Report_Chk_VO> list = adminService.getReportlist();
+		int result = 1 ;
+		mv.addObject("result",result);
+		mv.addObject("list",list);
+		return mv;
 	}
+	
+	@RequestMapping("/admin_report_comment.do")
+	public ModelAndView admin_report_comment() {
+		ModelAndView mv = new ModelAndView("admin/admin_report");
+		//List<Admin_Report_Chk_VO> list = adminService.get();
+		int result = 2;
+		mv.addObject("result",result);
+		return mv;
+	}
+	
+	@RequestMapping("/admin_report_result.do")
+	public ModelAndView admin_report_result() {
+		ModelAndView mv = new ModelAndView("admin/admin_report");
+		//List<Admin_Report_Chk_VO> list = adminService.get();
+		int result = 3;
+		mv.addObject("result",result);
+		return mv;
+	}
+	
 
 	@RequestMapping("go_admin_dashboard.do")
 	public ModelAndView go_admin_dashboard(HttpSession session) {
@@ -61,8 +86,7 @@ public class Admin_Controller {
 	public ModelAndView get_admin_memberchk_search(Member_Search_VO msvo) {
 		ModelAndView mv = new ModelAndView("admin/admin_memberchk");
 		List<Member_VO> result = member_Service.getMemberList(msvo);
-		mv.addObject("search_result", result);
-		
+		mv.addObject("search_result", result);		
 		Member_count_summary_VO countSummary = adminService.getMemberCountSummary();
 		mv.addObject("countSummary", countSummary);
 
