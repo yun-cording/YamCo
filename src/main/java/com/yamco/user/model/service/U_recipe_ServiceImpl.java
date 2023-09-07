@@ -138,5 +138,11 @@ public class U_recipe_ServiceImpl implements U_recipe_Service {
 	public int deleteRecipe(String m_idx) {
 		return u_recipe_DAO.deleteRecipe(m_idx);
 	}
+	
+	// 성훈 임시저장 게시글 등록
+	@Override
+	public int limitWrite(U_recipe_VO uvo) {
+		return u_recipe_DAO.limitWrite(uvo);
+	}
 
 }
