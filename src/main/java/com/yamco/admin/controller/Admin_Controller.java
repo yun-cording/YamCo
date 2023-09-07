@@ -79,12 +79,44 @@ public class Admin_Controller {
 
 	@RequestMapping("/go_admin_register.do")
 	public ModelAndView go_admin_register() {
-		return new ModelAndView("admin//admin_register");
+		return new ModelAndView("admin/admin_register");
 	}
 	@RequestMapping("/notice_delete.go")
-	public ModelAndView notice_deleteGo(String notice_idx) {
+	public ModelAndView notice_deleteGo(String idx,String kind) {
 		ModelAndView mv = new ModelAndView("redirect:/go_admin_ppl.do");
-		adminService.noticeDel(notice_idx);
+		if(kind.equals("0")) {
+			adminService.noticeDel(idx);
+		}else if(kind.equals("1")) {
+			adminService.pplDel(idx);
+		}else if(kind.equals("2")) {
+			adminService.foodingDel(idx);
+		}
+		return mv;
+	}
+	@RequestMapping("/deletedNotice.go")
+	public ModelAndView deletedNoticeGo() {
+		ModelAndView mv = new ModelAndView("admin/admin_deletedppl");
+		List<List<Admin_Banner_VO>> total_list = adminService.total_list();
+		List<List<Admin_Banner_VO>> total_delete_list = adminService.total_delete_list();
+		mv.addObject("notice_list",total_list.get(0));
+		mv.addObject("ppl_list",total_list.get(1));
+		mv.addObject("notice_list",total_delete_list.get(0));
+		mv.addObject("ppl_list",total_delete_list.get(1));
+		mv.addObject("fooding_list",total_delete_list.get(2));
+		return mv;
+	}
+	
+	@RequestMapping("/notice_regist.go")
+	public ModelAndView notice_registGo(String idx,String kind) {
+		ModelAndView mv = new ModelAndView("redirect:/deletedNotice.go");
+		if(kind.equals("0")) {
+			adminService.noticeUp(idx);
+		}else if(kind.equals("1")) {
+			adminService.pplUp(idx);
+		}else if(kind.equals("2")) {
+			adminService.foodingUp(idx);
+		}
+		
 		return mv;
 	}
 }

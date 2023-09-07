@@ -15,4 +15,16 @@ public interface AdminService {
 
 	public void noticeDel(String notice_idx);
 
+	public void pplDel(String ppl_idx);
+
+	public void foodingDel(String food_idx);
+
+	public List<List<Admin_Banner_VO>> total_delete_list();
+
+	public void noticeUp(String idx);
+
+	public void pplUp(String idx);
+
+	public void foodingUp(String idx);
+
 }

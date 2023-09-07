@@ -88,18 +88,50 @@
 	</update>
 	<!-- 공지사항 목록 -->
 	<select id="ppl_notice" resultType="abvo">
-		SELECT * FROM notice WHERE notice_status=0
+		SELECT * FROM notice WHERE notice_status = 0
 	</select>
 	<!-- 광고 목록 -->
 	<select id="ppl_ppl" resultType="abvo">
-		SELECT * FROM ppl
+		SELECT * FROM ppl WHERE ppl_status = 0
 	</select>
 	<!-- 재료 목록 -->
 	<select id="ppl_fooding" resultType="abvo">
-		SELECT * FROM food_ing
+		SELECT * FROM food_ing WHERE food_status = 0
 	</select>
 	<!-- 공지삭제 -->
 	<update id="noticeDel" parameterType="String">
 		UPDATE notice SET notice_status=1 WHERE notice_idx=#{notice_idx}
+	</update>
+	<!-- 광고삭제 -->
+	<update id="pplDel" parameterType="String">
+		UPDATE ppl SET ppl_status=1 WHERE ppl_idx=#{ppl_idx}
+	</update>
+	<!-- 재료삭제 -->
+	<update id="foodingDel" parameterType="String">
+		UPDATE food_ing SET food_status=1 WHERE food_idx=#{food_idx}
+	</update>
+	<!-- 삭제된 공지사항 목록 -->
+	<select id="ppl_deleted_notice" resultType="abvo">
+		SELECT * FROM notice WHERE notice_status = 1
+	</select>
+	<!-- 삭제된 광고 목록 -->
+	<select id="ppl_deleted_ppl" resultType="abvo">
+		SELECT * FROM ppl WHERE ppl_status = 1
+	</select>
+	<!-- 삭제된 재료 목록 -->
+	<select id="ppl_deleted_fooding" resultType="abvo">
+		SELECT * FROM food_ing WHERE food_status = 1
+	</select>
+	<!-- 공지등록 -->
+	<update id="noticeUp" parameterType="String">
+		UPDATE notice SET notice_status=0 WHERE notice_idx=#{notice_idx}
+	</update>
+	<!-- 광고등록 -->
+	<update id="pplUp" parameterType="String">
+		UPDATE ppl SET ppl_status=0 WHERE ppl_idx=#{ppl_idx}
+	</update>
+	<!-- 재료등록 -->
+	<update id="foodingUp" parameterType="String">
+		UPDATE food_ing SET food_status=0 WHERE food_idx=#{food_idx}
 	</update>
 </mapper>

@@ -140,4 +140,35 @@ public class AdminDAO {
 		sqlSessionTemplate.update("admin.noticeDel", notice_idx);
 	}
 
+	public void pplDel(String ppl_idx) {
+		sqlSessionTemplate.update("admin.pplDel", ppl_idx);
+	}
+
+	public void foodingDel(String food_idx) {
+		sqlSessionTemplate.update("admin.foodingDel",food_idx);
+	}
+
+	public List<List<Admin_Banner_VO>> total_delete_list() {
+		List<Admin_Banner_VO> list = new ArrayList<Admin_Banner_VO>();
+		List<List<Admin_Banner_VO>> total_delete_list = new ArrayList<List<Admin_Banner_VO>>();
+		list = sqlSessionTemplate.selectList("admin.ppl_deleted_notice");
+		total_delete_list.add(list);
+		list = sqlSessionTemplate.selectList("admin.ppl_deleted_ppl");
+		total_delete_list.add(list);
+		list = sqlSessionTemplate.selectList("admin.ppl_deleted_fooding");
+		total_delete_list.add(list);
+		return total_delete_list;
+	}
+
+	public void noticeUp(String idx) {
+		sqlSessionTemplate.update("admin.noticeUp",idx);
+	}
+
+	public void pplUp(String idx) {
+		sqlSessionTemplate.update("admin.pplUp",idx);
+	}
+
+	public void foodingUp(String idx) {
+		sqlSessionTemplate.update("admin.foodingUp", idx);
+	}
 }

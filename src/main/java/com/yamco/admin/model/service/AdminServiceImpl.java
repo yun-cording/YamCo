@@ -36,4 +36,29 @@ public class AdminServiceImpl implements AdminService {
 	public void noticeDel(String notice_idx) {
 		adminDAO.noticeDel(notice_idx);
 	}
+	@Override
+	public void pplDel(String ppl_idx) {
+		adminDAO.pplDel(ppl_idx);
+	}
+	@Override
+	public void foodingDel(String food_idx) {
+		adminDAO.foodingDel(food_idx);
+	}
+	
+	@Override
+	public List<List<Admin_Banner_VO>> total_delete_list() {
+		return adminDAO.total_delete_list();
+	}
+	@Override
+	public void noticeUp(String idx) {
+		adminDAO.noticeUp(idx);
+	}
+	@Override
+	public void pplUp(String idx) {
+		adminDAO.pplUp(idx);		
+	}
+	@Override
+	public void foodingUp(String idx) {
+		adminDAO.foodingUp(idx);		
+	}
 }

@@ -53,6 +53,11 @@
     <li class="nav-item">
         <a class="nav-link" href="/go_admin_ppl.do">
             <i class="fas fa-fw fa-table"></i>
+            <span>공지사항 / 광고 / 재료추천 관리</span></a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="/go_admin_ppl.do">
+            <i class="fas fa-fw fa-table"></i>
             <span>공지사항 배너 등록</span></a>
     </li>
     
