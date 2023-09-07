@@ -4,12 +4,14 @@
  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="admin">
 	<!-- 총 조회수 -->
-	<select id="totalHit" resultType="String">
+	<select id="hitTotal" resultType="String">
 		SELECT COUNT(*) from user_log
 		WHERE ul_status = 3
 	</select>
 	<!-- 총 방문자수 -->
-	
+	<select id="visitTotal" resultType="String">
+		SELECT COUNT(*) FROM user_log	WHERE ul_status = 4
+	</select>
 	<!-- 신규회원 (1주간) -->
 	<select id="clientNew" resultType="String">
 		SELECT COUNT(*) FROM member
@@ -20,5 +22,73 @@
 		SELECT COUNT(*) FROM u_recipe
 		WHERE u_rcp_time >= DATE(NOW() - INTERVAL 7 DAY);
 	</select>
-
+	
+	<!-- 회원수 요약 가져오기 -->
+	<select id="memberCountSummary" resultType="mcsvo">
+		SELECT * FROM member_count_summary;
+	</select>
+	<!-- 총 사용자 레시피 수 -->
+	<select id="recipeUser" resultType="String">
+		SELECT COUNT(*) FROM u_recipe
+	</select>
+	<!-- 오전 방문자 수 -->
+	<select id="visitAm" resultType="String">
+		SELECT sum(visitor_count) FROM visit_log
+		WHERE visit_period = '오전'
+	</select>
+	<!-- 오후 방문자 수 -->
+	<select id="visitPm" resultType="String">
+		SELECT sum(visitor_count) FROM visit_log
+		WHERE visit_period = '오후'
+	</select>
+	<!-- 남자 성별 수 -->
+	<select id="maleCount" resultType="String">
+		SELECT COUNT(*) FROM member
+		WHERE m_gender = 'M'
+	</select>
+	<!-- 여자 성별 수 -->
+	<select id="femaleCount" resultType="String">
+		SELECT COUNT(*) FROM member
+		WHERE m_gender = 'F'
+	</select>
+	<!-- 유저레시피 조회수 -->
+	<select id="hitUser" resultType="String">
+		SELECT COUNT(*) FROM user_log
+		WHERE ul_status = 3 AND <![CDATA[ rcp_idx >= 10000 ]]>
+	</select>
+	<!-- 공공레시피 조회수 -->
+	<select id="hitPublic" resultType="String">
+		SELECT COUNT(*) FROM user_log
+		WHERE ul_status = 3 AND <![CDATA[ rcp_idx < 10000 ]]>
+	</select>
+	<!-- 1주일 조회수 -->
+	<select id="weekHitCount" resultType="String">
+		SELECT hit_count FROM week_hit_count
+	</select>
+	<!-- 1주일 방문수 -->
+	<select id="weekVisitCount" resultType="String">
+		SELECT visit_count FROM week_visit_count
+	</select>
+	<!-- 레시피 신고 횟수 -->
+	<select id="recipeReport" resultType="arvo">
+		SELECT rcp_idx, COUNT(*) AS count
+		FROM report_t
+		WHERE rcp_idx IS NOT NULL
+		GROUP BY rcp_idx
+	</select>
+	<!-- 댓글 신고 횟수 -->
+	<select id="commentReport" resultType="arvo">
+		SELECT c_idx, COUNT(*) AS count
+		FROM report_t
+		WHERE c_idx IS NOT NULL
+		GROUP BY c_idx
+	</select>
+	<!-- 게시글 블라인드 처리 -->
+	<update id="rcpBlind" parameterType="arvo">
+		UPDATE u_recipe SET u_rcp_status = 3 WHERE rcp_idx = #{rcp_idx}	
+	</update>
+	<!-- 댓글 블라인드 처리 -->
+	<update id="commentBlind" parameterType="arvo">
+		UPDATE comment SET c_status = 2 WHERE c_idx = #{c_idx}
+	</update>
 </mapper>

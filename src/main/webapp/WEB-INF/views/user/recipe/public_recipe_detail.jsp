@@ -71,7 +71,7 @@
 						<c:if test="${liked_ornot != null}">
 						    <img class="lower_images" src="resources/images/heart.png" style="margin-left: 45px; position:relative; left: -93px;">
 						</c:if>
-					<img class="lower_images" src="resources/images/tableware.png" style="margin-left: 45px; position:relative; left: -95px;">
+					<img class="lower_images" src="resources/images/tableware.png" style="margin-left: 22px; position:relative; left: -95px;">
 					
 						<div style="width: 100px; height: 40px; margin-left: 26px; text-align: center; margin-top: 10px;">
 							<!-- span은 쓰레기다 -->
@@ -280,7 +280,6 @@
 							<div style="height: 60px; width: 200px; position:relative; top: -305px; left: 1200px;">
 								<input class="photo_insert" type="file" id="imgUpload" onchange="previewFile()" style="font-size: 16px; display:none;"></input>
 							</div>
-<<<<<<< HEAD
 							<div id="btns_photo" style="width: 120px; height: 172px; float: right; margin-top: -15px;">
 								<label class="round_btn_right photo_insert" id="add_photo" for="imgUpload">사진 추가</label>
 								<!-- ＃ 한주 헌정 수정 코드 (지분 100%) -->
@@ -290,13 +289,6 @@
 							<div id="cancel_write_btn">
 								<button class="round_btn_right" id="comment_write_do" name="comment_write_do">작성</button>
 								<button class="round_btn_right" id="cancel_btn" style="position: relative; top: -32px;">취소</button>
-=======
-							<!-- <button id="preview_btn">이미지 미리보기</button> -->
-							<img id="preview_btn" src="" alt="이미지 미리보기" style="max-width: 120px; max-height: 120px;">
-							<div style="position:relative; float:left;">
-								<button class="round_btn write_cancel_btn" id="comment_write_do" name="comment_write_do">작성</button>
-								<button class="round_btn write_cancel_btn" id="cancel_btn">취소</button>
->>>>>>> refs/heads/master
 							</div>
 					</form>
 				
@@ -340,8 +332,9 @@
 						        </div>
 						        <div class="left_float" id="comment_time"><p id="ctime_id">${cvo.c_time}</p></div>
 						    </div>
-						    
-						    	<img class="comment_img" src="resources/images/public_sample1.png">
+						    	
+						    	<!-- 댓글 컨텐츠 이미지 -->
+						    	<img class="comment_img" src="${cvo.c_img}">
 						    	<div id="comment_content">
 						    		
 						    		<div id="rev_del_report_div">
@@ -349,12 +342,20 @@
 								    	<!-- <a href="</comment_report.do"><span>신고하기</span></a> -->
 								    	<!-- <a href="/"><span id="comment_report">신고하기</span></a> -->
 								    	<!-- 내 글인 경우 수정 삭제 -->
-								    	<p class="content_size" id="content_size${loop.index}">${cvo.c_contents}</p>
-							    		<button class="round_btn revision_delete_btn comment_revision" id="comment_revision_btn${loop.index}">수정</button>
-								    	<button class="round_btn revision_delete_btn" id="comment_delete">삭제</button>
+								    	<%-- <p class="content_size" id="content_size${loop.index}">${cvo.c_contents}</p> --%>
+								    	<textarea class="content_size hidden" readonly style="height: 220px;  margin-bottom: 10px; border: 2px solid tomato;" id="content_textarea${loop.index}">${cvo.c_contents}</textarea>
 								    	
-								        <img class="like_btn" id="comment_like_btn_img${loop.index}" src="resources/images/thumbs-up.png" alt="좋아요 버튼">
-								    	<p id="like_number"><strong>${cvo.c_like}</strong></p>
+								    		<button class="round_btn revision_delete_btn comment_revision" id="comment_revision_btn${loop.index}" data-revision_btn="comment_like_btn_img${loop.index}">수정</button>
+									    	<button class="round_btn revision_delete_btn comment_delete_btn" id="comment_delete${loop.index}" data-delete_btn="comment_like_btn_img${loop.index}">삭제</button>
+								    	
+								        
+								        <img class="like_btn" id="comment_like_btn_img${loop.index}" src="resources/images/thumbs-up.png" alt="좋아요 버튼"
+											    data-button-id="comment_like_btn_img${loop.index}">
+								    	<p class="like_number" style="	height: 15px; float: right; color: tomato; font-size: 20px; text-align: center;
+	text-align: center;
+	position:relative; top: -35px; left: -105px;" id="like_number${loop.index}" data-likeNum_id="comment_like_btn_img${loop.index}"><strong>${cvo.c_like}</strong></p>
+								       
+								        
 								        <div id="comment_downline"></div>
 							        </div>
 						    	</div>
@@ -424,31 +425,253 @@
                }
             }else {
             	// 다 안걸리면 작업 하자
+        	    var buttonId = $(this).data("buttonId");
+            	var likeCnt = $(this).next().children('strong');
+        	    // 자료형 확인
+        	    console.log(typeof buttonId);
 
-                // 클릭한 버튼의 id 가져오기
-                var buttonId = $(this).attr("id");
-                console.log("좋아요 클릭해따");
-                // rcp_idx 가져오기
-                var rcpSeq = $(this).data("rcpSeq");
-                console.log(rcpSeq);
 
-                // XMLHttpRequest 생성
-                var xhr = new XMLHttpRequest();
-                xhr.open("GET", "/comment_like.do?rcpSeq=" + rcpSeq + "&buttonId=" + buttonId, true);
-                xhr.onreadystatechange = function () {
-                    if (xhr.readyState === 4) {
-                        if (xhr.status === 200) {
-                            // 요청 성공 
-                            alert("댓글 좋아요 완료");
-                        } else {
-                            // 요청 실패 시 실행할 코드 작성
-                            console.error("에러 발생: " + xhr.statusText);
+            	  // Ajax 요청 보내기
+                $.ajax({
+                    type: "GET",
+                    url: "/comment_like.do",
+                    data: { buttonId: buttonId },
+                    success: function (response) {
+                        // Ajax 요청 성공 시 실행되는 코드
+                        if (response.success) {
+                            // 좋아요 카운트 업데이트
+							var cHitValue = response.cHitValue; 
+                            // alert("총 좋아요 수 : " + cHitValue);
+                            var resultValue = response.resultValue;
+                            // 희준 헌정 코드 (부분수정)
+                            likeCnt.text(cHitValue);
+                            switch (resultValue) {
+                            case true:
+                                // 좋아요가 되어있는 경우
+                                  alert("댓글 좋아요 취소");
+                                break;
+                            case false:
+                                // 좋아요가 안 되어있는 경우
+                                	alert("댓글 좋아요 완료!");
+                                break;
+                            default:
+                            		alert("댓글 좋아요 체크 실패...(시무룩)");
+                                break;
                         }
+                            
+						    // p 요소의 data-likeNum_id 값을 가져옵니다.
+						    var likeNumId = $("#" + buttonId).data("likeNum-id");
+						    
+						    // likeNumId를 사용하여 해당 p 요소 내용을 업데이트합니다.
+						    $("#" + likeNumId).html("<strong>" + cHitValue + "</strong>");
+
+                            // 댓글란 새로고침
+                            // updateCommentSection();
+                        } else {
+                            alert("댓글 좋아요를 완료!");
+                            console.error();
+                        }
+                    },
+                    error: function (error) {
+                        // Ajax 요청 실패 시 실행되는 코드
+                        console.error("Ajax 요청 실패" + error);
+                        alert(error);
                     }
-                };
-                xhr.send();
+                });
+            	
             }
         });
+        
+        
+        
+
+       
+       // 댓글 삭제
+   	/* <button class="round_btn revision_delete_btn" id="comment_delete${loop.index}">삭제</button> */
+   	  /* delete_btn */
+        
+       // 댓글 수정
+     /*   $(".comment_revision").click(function () {
+    	   if (mNick == "null" || mNick === "null" || mNick == null || mNick === null || mNick === undefined || mNick == undefined || mNick == "" || mNick === "") {
+               var result = confirm("로그인이 필요합니다. 계속하시겠습니까?");
+               if (result) {
+                   window.location.href = "/go_login.do";
+               } else {
+                   // 사용자가 로그인을 취소하면 아무 작업도 하지 않습니다.
+               }
+            }else {
+            	// 다 안걸리면 작업 하자
+            	
+        	    var revision_id = $(this).data("revision_btn");
+        	    // 자료형 확인
+        	    alert.log("자료형은 : " + typeof revision_id);
+
+            	// Ajax 요청 보내기
+                $.ajax({
+                    type: "GET",
+                    url: "/comment_like.do",
+                    data: { buttonId: buttonId },
+                    success: function (response) {
+                        // Ajax 요청 성공 시 실행되는 코드
+                        if (response.success) {
+                            // 좋아요 카운트 업데이트
+							var cHitValue = response.cHitValue; 
+                            // alert("총 좋아요 수 : " + cHitValue);
+                            
+						    // p 요소의 data-likeNum_id 값을 가져옵니다.
+						    var likeNumId = $("#" + buttonId).data("likeNum-id");
+						    
+						    // likeNumId를 사용하여 해당 p 요소 내용을 업데이트합니다.
+						    $("#" + likeNumId).html("<strong>" + cHitValue + "</strong>");
+
+                            // 다른 필요한 업데이트를 수행할 수도 있습니다.
+
+                            alert("댓글 좋아요 완료!");
+                            updateCommentSection();
+                        } else {
+                            alert("댓글 좋아요를 완료!");
+                            console.error();
+                        }
+                    },
+                    error: function (error) {
+                        // Ajax 요청 실패 시 실행되는 코드
+                        console.error("Ajax 요청 실패" + error);
+                        alert(error);
+                    }
+                });
+            	
+            }
+        }); */
+        
+        
+        // 댓글 수정
+        $(".comment_revision").click(function() {
+        	// prev => 바로 이전에 있는 textarea 선택!!
+            var $textarea = $(this).prev('textarea');
+        	var $button = $(this);
+        	
+            var revisionBtnId = $button.data('revision_btn'); // data 속성을 통해 commentId를 가져옵니다.
+
+
+            $textarea.prop('readonly', false); // textarea를 수정 가능한 상태로 변경
+            // focus를 맨 뒤에 가도록 하기 위함.
+            var textareaValue = $textarea.val(); // 현재 textarea의 내용을 가져옵니다.
+            $textarea.val(''); // textarea 내용을 지웁니다.
+            $textarea.val(textareaValue); // textarea 내용을 다시 설정하여 커서를 내용 가장 마지막으로 이동시킵니다.
+            $textarea.prop('readonly', false); // textarea를 수정 가능한 상태로 변경
+            $textarea.focus(); // textarea에 포커스 주기
+            
+
+            // 수정 버튼을 "완료" 버튼으로 변경
+            $(this).text("완료");
+
+            // 완료 버튼 클릭 이벤트 핸들러
+            $(this).one("click", function() {
+              var newText = $textarea.val(); // 수정된 내용을 가져오기
+
+              // Ajax를 사용하여 서버에 업데이트된 내용 전송
+              $.ajax({
+                url: '/comment_revise.do', // 서버 URL 설정
+                method: 'POST', // 또는 'PUT' 등 적절한 HTTP 메소드 설정
+                data: { text: newText, revisionBtnId: revisionBtnId }, // 수정된 내용을 서버로 전송 (newText를 text로)
+                success: function(response) {
+                  // 성공적으로 서버에 업데이트된 경우
+                  alert("수정이 완료되었습니다.");
+                  // 수정 완료 후 다시 읽기 전용으로 변경
+                  $textarea.prop('readonly', true);
+
+                  // 완료 버튼을 다시 "수정" 버튼으로 변경
+                  $(this).text("수정");
+                  $textarea.prop('readonly', true); // textarea를 수정 가능한 상태로 변경
+
+                  // 여기에서 필요한 경우 자동 새로고침을 수행할 수 있습니다.
+                  location.reload(); // 페이지 새로고침
+                },
+                error: function(error) {
+                  // 서버 업데이트 중 오류 발생 시 처리
+                  alert("오류가 발생했습니다.");
+                  console.error(error);
+                }
+              });
+            });
+          });
+        
+        
+        
+        // 댓글 삭제
+        $(".comment_delete_btn").click(function() {
+        	 var result = confirm("댓글을 삭제하시겠습니까?");
+
+             if (result) {
+            	 $button = $(this);  
+                 var deleteBtnId = $button.data('delete_btn'); // data 속성을 통해 삭제버튼 id 가져오기
+                 
+                 $.ajax({
+                     url: '/comment_delete.do', // 서버 URL 설정
+                     method: 'POST', // 또는 'PUT' 등 적절한 HTTP 메소드 설정
+                     data: { deleteBtnId: deleteBtnId }, // 수정된 내용을 서버로 전송 (newText를 text로)
+                     success: function(response) {
+                       // 성공적으로 서버에 업데이트된 경우
+                       alert("삭제가 완료되었습니다.");
+
+                       location.reload(); // 페이지 새로고침
+                     },
+                     error: function(error) {
+                       // 서버 업데이트 중 오류 발생 시 처리
+                       alert("오류가 발생했습니다.");
+                       console.error(error);
+                     }
+                   });
+                 
+
+             }else{
+            	 // 아무것도 안함
+             }
+        });
+        	
+        	
+
+            
+        
+        
+        
+       // 댓글 좋아요 후 재요청
+      /*  function updateCommentSection() {
+    	    // 댓글 목록을 가져오는 Ajax 요청을 보냅니다.
+    	    $.ajax({
+    	        type: "GET",
+    	        url: "/get_comment_list.do", 
+    	        success: function (commentList) {
+    	            // 댓글 목록을 받아온 후, 이를 화면에 업데이트합니다.
+    	            var commentContainer = $("#comment_container"); // 댓글을 표시할 컨테이너
+
+    	            // 이전에 표시된 댓글을 모두 삭제합니다.
+    	            commentContainer.empty();
+
+    	            // 댓글 목록을 순회하며 각 댓글을 화면에 추가합니다.
+    	            for (var i = 0; i < commentList.length; i++) {
+    	                var comment = commentList[i];
+    	                var commentHtml = `
+    	                    <div class="comment">
+    	                        <p>${comment.text}</p>
+    	                        <img class="like_btn" id="comment_like_btn_img${i}" src="resources/images/thumbs-up.png" alt="좋아요 버튼"
+    	                            data-button-id="comment_like_btn_img${i}">
+    	                        <p class="like_number" style="height: 15px; float: right; color: tomato; font-size: 20px; text-align: center;
+    	                            text-align: center; position:relative; top: -35px; left: -105px;" id="like_number${i}" data-likeNum_id="comment_like_btn_img${i}">
+    	                            <strong>${comment.likes}</strong>
+    	                        </p>
+    	                    </div>
+    	                `;
+    	                commentContainer.append(commentHtml);
+    	            }
+    	        },
+    	        error: function (error) {
+    	            // Ajax 요청 실패 시 처리할 내용을 여기에 추가하세요.
+    	            console.error("댓글 목록을 가져오는데 실패했습니다: " + error);
+    	        }
+    	    });
+    	} */
+
         
         
         
@@ -470,21 +693,6 @@
             	alert()
                 // rcp_idx 가져오기
 
-                // XMLHttpRequest 생성
-              /*   var xhr = new XMLHttpRequest();
-                xhr.open("GET", "/comment_like.do?rcpSeq=" + rcpSeq + "&buttonId=" + buttonId, true);
-                xhr.onreadystatechange = function () {
-                    if (xhr.readyState === 4) {
-                        if (xhr.status === 200) {
-                            // 요청 성공 
-                            alert("댓글 좋아요 완료");
-                        } else {
-                            // 요청 실패 시 실행할 코드 작성
-                            console.error("에러 발생: " + xhr.statusText);
-                        }
-                    }
-                };
-                xhr.send(); */
             }
         });
         
