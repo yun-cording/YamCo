@@ -15,4 +15,11 @@ public class User_ServiceImpl implements User_Service {
 	public int comment_write(Comment_VO cvo) {
 		return commentDao.comment_write(cvo);
 	}
+
+	@Override
+	public int comment_like(String c_idx) {
+		return commentDao.comment_like(c_idx);
+	}
+	
+	
 }
