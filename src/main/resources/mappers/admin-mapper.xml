@@ -28,12 +28,12 @@
 	</select>
 	<!-- 오전 방문자 수 -->
 	<select id="visitAm" resultType="String">
-		SELECT COUNT(*) FROM visit_log
+		SELECT sum(visitor_count) FROM visit_log
 		WHERE visit_period = '오전'
 	</select>
 	<!-- 오후 방문자 수 -->
 	<select id="visitPm" resultType="String">
-		SELECT COUNT(*) FROM visit_log
+		SELECT sum(visitor_count) FROM visit_log
 		WHERE visit_period = '오후'
 	</select>
 	<!-- 남자 성별 수 -->
@@ -64,18 +64,26 @@
 	<select id="weekVisitCount" resultType="String">
 		SELECT visit_count FROM week_visit_count
 	</select>
-	<!-- 레시피 신고 -->
+	<!-- 레시피 신고 횟수 -->
 	<select id="recipeReport" resultType="arvo">
 		SELECT rcp_idx, COUNT(*) AS count
 		FROM report_t
 		WHERE rcp_idx IS NOT NULL
 		GROUP BY rcp_idx
 	</select>
-	<!-- 댓글 신고 -->
+	<!-- 댓글 신고 횟수 -->
 	<select id="commentReport" resultType="arvo">
 		SELECT c_idx, COUNT(*) AS count
 		FROM report_t
 		WHERE c_idx IS NOT NULL
 		GROUP BY c_idx
 	</select>
+	<!-- 게시글 블라인드 처리 -->
+	<update id="rcpBlind" parameterType="arvo">
+		UPDATE u_recipe SET u_rcp_status = 3 WHERE rcp_idx = #{rcp_idx}	
+	</update>
+	<!-- 댓글 블라인드 처리 -->
+	<update id="commentBlind" parameterType="arvo">
+		UPDATE comment SET c_status = 2 WHERE c_idx = #{c_idx}
+	</update>
 </mapper>

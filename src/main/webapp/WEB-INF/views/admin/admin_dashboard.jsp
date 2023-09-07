@@ -196,8 +196,8 @@
 													<td>${k.m_nick }</td>
 													<td>${k.u_rcp_title }</td>
 													<td>${k.c_contents }</td>
-													<td> <button class="btn btn-danger">블라인드 처리</button> </td>
-												</tr>											
+													<td> <button type="button" class="btn btn-danger" onclick="confirm_go( '${k.c_idx}','${k.rcp_idx }',this )">블라인드 처리</button> </td>
+												</tr>		
 											</c:forEach>
 											</tbody>
 										</table>
@@ -255,7 +255,10 @@
 	<!-- Bootstrap core JavaScript-->
 	<script src="/resources/vendor/jquery/jquery.min.js"></script>
 	<script src="/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
+	
+	<!-- SweetAlert -->
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+	
 	<!-- Core plugin JavaScript-->
 	<script src="/resources/vendor/jquery-easing/jquery.easing.min.js"></script>
 
@@ -282,6 +285,45 @@
 	<script src="resources/vendor/datatables/jquery.dataTables.min.js"></script>
 	<script src="resources/vendor/datatables/dataTables.bootstrap4.min.js"></script>
 	<script type="text/javascript">
+	function confirm_go(c_idx, rcp_idx,button) {
+		var sendData ='';
+		if(c_idx){
+			sendData='c_idx='+c_idx
+		}else{
+			sendData='rcp_idx='+rcp_idx
+		}
+		swal({
+			  title: "해당 게시글을 블라인드 처리하리겠습니까?",
+			  text: "블라인드 된 게시글은 조회할 수 없습니다.",
+			  icon: "warning",
+			  buttons: true,
+			  dangerMode: true,
+			})
+			.then((willDelete) => {
+			  if (willDelete) {
+				$.ajax({
+					url: '/blind.do',
+				    method: 'GET',
+				    data: sendData ,
+				    success: function (success) {
+				    	if(success){
+				    		swal("블라인드 처리되었습니다.", {
+						    	icon: "success",
+						    });
+				    		var myBtn = $(button)
+				    		var row = myBtn.parent().parent()
+				    		$("#dataTable").DataTable().row(row).remove().draw()
+				      	}
+				    },
+				    error: function (xhr, status, error) {
+				      swal("Ajax요청 실패");
+				    }
+				})  
+			  } else {
+			    swal("블라인드 요청이 중단되었습니다.");
+			  }
+			});
+	}
     $(document).ready(function () {
         $('#dataTable').dataTable({
             "columnDefs": [

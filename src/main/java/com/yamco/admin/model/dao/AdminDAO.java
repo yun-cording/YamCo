@@ -59,17 +59,22 @@ public class AdminDAO {
 		for (Admin_Report_VO k : recipe_report_list) {
 			String idx = k.getRcp_idx();
 			U_recipe_meta_VO vo = sqlSessionTemplate.selectOne("u_recipe.metaData", idx); // 게시글 번호로 닉네임, 제목 가져오기
-			k.setM_nick(vo.getM_nick());
-			k.setU_rcp_title(vo.getU_rcp_title());
-			final_report_list.add(k);
+			if(vo.getU_rcp_status().equals("0")) {
+				k.setM_nick(vo.getM_nick());
+				k.setU_rcp_title(vo.getU_rcp_title());
+				final_report_list.add(k);
+			}
 		}
 		for (Admin_Report_VO k : comment_report_list) {
 			Comment_VO cvo = new Comment_VO();
 			cvo.setC_idx(k.getC_idx());
 			Comment_meta_VO vo = sqlSessionTemplate.selectOne("comment.selectListByVO", cvo); // 댓글 번호로 닉네임, 내용 가져오기
-			k.setM_nick(vo.getM_nick());
-			k.setC_contents(vo.getC_contents());
-			final_report_list.add(k);
+			if(vo.getC_status().equals("0")) {
+				k.setC_status(vo.getC_status());
+				k.setM_nick(vo.getM_nick());
+				k.setC_contents(vo.getC_contents());
+				final_report_list.add(k);
+			}
 		}
 		Collections.sort(final_report_list, new Comparator<Admin_Report_VO>() {
 			@Override
@@ -99,6 +104,20 @@ public class AdminDAO {
 		dash_VO.setDaysOfWeek(daysOfWeek);
 
 		return dash_VO;
+	}
+
+	public boolean blindDo(Admin_Report_VO vo) {
+		int res=0;
+		if(vo.getRcp_idx()!=null) { // rcp_idx가 있을때 --> 레시피
+			res = sqlSessionTemplate.update("admin.rcpBlind",vo);
+		}else {
+			res = sqlSessionTemplate.update("admin.commentBlind",vo);
+		}
+		if(res>0) {
+			return true;
+		}else {
+			return false; 
+		}
 	}
 
 }
