@@ -19,6 +19,11 @@ public class Member_DAO {
 	public int getMemberJoin(Member_VO mvo) {
 		return sqlSessionTemplate.insert("member.join", mvo);
 	}
+	
+	// 관리자 자체 회원가입
+	public int getAdminJoin(Member_VO mvo) {
+		return sqlSessionTemplate.insert("member.joinAdmin", mvo);
+	}
 
 	// 아이디 중복검사
 	public int getMemberIdChk(String m_id) {
@@ -65,8 +70,14 @@ public class Member_DAO {
 
 	}
 
+	//회원 탈퇴
 	public int leaveMember(Member_VO mvo) {
 		return sqlSessionTemplate.update("member.leave", mvo);
+	}
+
+	//관리자 탈퇴
+	public int leaveAdmin(Member_VO mvo) {
+		return sqlSessionTemplate.update("member.leaveAdmin", mvo);
 	}
 	
 	// 토큰, 날짜 생성
@@ -86,5 +97,10 @@ public class Member_DAO {
 	// 찜목록
 	public List<String> getMyWishList(String m_idx) {
 		return sqlSessionTemplate.selectList("member.wishList", m_idx);
+	}
+	
+	// m_idx를 조건으로 Member_VO update 수행
+	public int getUpdate(Member_VO mvo) {
+		return sqlSessionTemplate.update("member.update", mvo);
 	}
 }

@@ -566,9 +566,11 @@ input[type="file"]::-ms-input-placeholder {
 
 .content_size{
 	width: 600px;
-	height: 220px;
 	text-align: left;
 	float: right;
+	height: 220px;
+	outline: none; border: 2px solid tomato;
+	margin-bottom: 10px;
 }
 #comment_content{
 	/* span에서 margin-left 한번더 줘서 글자가 이상하게 */
@@ -647,7 +649,7 @@ input[type="file"]::-ms-input-placeholder {
 	width: 320px;
 }
 
-#like_number{
+.like_number{
 	height: 15px; float: right; color: tomato; font-size: 20px; text-align: center;
 	text-align: center;
 	position:relative; top: -35px; left: -105px;
