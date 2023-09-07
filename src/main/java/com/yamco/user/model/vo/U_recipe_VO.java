@@ -1,8 +1,30 @@
 package com.yamco.user.model.vo;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class U_recipe_VO {
 	private String rcp_idx, m_idx, u_rcp_title, u_rcp_comment, u_rcp_category, u_rcp_ing, u_rcp_main, u_rcp_level,
-			u_rcp_keyword, u_rcp_blind, m_nick, u_rcp_status, u_rcp_hit, u_rcp_ctype, u_rcp_time, u_rcp_img;
+	u_rcp_keyword, u_rcp_blind, m_nick, u_rcp_status, u_rcp_hit, u_rcp_ctype, u_rcp_time, u_rcp_img;	
+	
+	//성훈 필요 추가
+	private String u_rcp_category1 , u_rcp_category2 , u_rcp_keyword1 , u_rcp_keyword2 , u_rcp_tip;
+	private MultipartFile s_file; // 서머노트 용
+	
+	public MultipartFile getS_file() {
+		return s_file;
+	}
+
+	public void setS_file(MultipartFile s_file) {
+		this.s_file = s_file;
+	}// 서머노트 용도
+	
+	public String getU_rcp_tip() {
+		return u_rcp_tip;
+	}
+
+	public void setU_rcp_tip(String u_rcp_tip) {
+		this.u_rcp_tip = u_rcp_tip;
+	}
 
 	public String getRcp_idx() {
 		return rcp_idx;
@@ -131,4 +153,38 @@ public class U_recipe_VO {
 	public void setU_rcp_img(String u_rcp_img) {
 		this.u_rcp_img = u_rcp_img;
 	}
+
+	public String getU_rcp_category1() {
+		return u_rcp_category1;
+	}
+
+	public void setU_rcp_category1(String u_rcp_category1) {
+		this.u_rcp_category1 = u_rcp_category1;
+	}
+
+	public String getU_rcp_category2() {
+		return u_rcp_category2;
+	}
+
+	public void setU_rcp_category2(String u_rcp_category2) {
+		this.u_rcp_category2 = u_rcp_category2;
+	}
+
+	public String getU_rcp_keyword1() {
+		return u_rcp_keyword1;
+	}
+
+	public void setU_rcp_keyword1(String u_rcp_keyword1) {
+		this.u_rcp_keyword1 = u_rcp_keyword1;
+	}
+
+	public String getU_rcp_keyword2() {
+		return u_rcp_keyword2;
+	}
+
+	public void setU_rcp_keyword2(String u_rcp_keyword2) {
+		this.u_rcp_keyword2 = u_rcp_keyword2;
+	}
+		
+	
 }

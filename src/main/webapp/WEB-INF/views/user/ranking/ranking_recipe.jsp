@@ -80,8 +80,19 @@
 								<c:when test="${not empty k.hit_1mon}">
 									<div class="recipe_one">
 										<p>
-											<a href="/public_recipe_detail.go?rcp_idx=${k.rcp_idx }">
-												<img src="../resources/images/rankingmedal/${vs.count}.png"
+											<%-- 공공레시피와 사용자레시피의 url을 다르게 설정한다 --%>
+											<c:choose>
+												<c:when test="${k.rcp_idx < 10000 }">
+													<c:set var="rcp_url"
+														value="/go_publicDet.do?rcp_seq=${k.rcp_idx }" />
+												</c:when>
+												<c:otherwise>
+													<c:set var="rcp_url"
+														value="/public_recipe_detail.go?rcp_idx=${k.rcp_idx }" />
+												</c:otherwise>
+											</c:choose>
+											<a href="${rcp_url }"> <img
+												src="../resources/images/rankingmedal/${vs.count}.png"
 												class="medal"> <c:choose>
 													<%-- u_rcp_img가 없는 경우 기본 이미지 출력 --%>
 													<c:when test="${k.u_rcp_img == null}">
@@ -103,9 +114,8 @@
 											<%-- m_image가 없는 경우 기본 이미지 출력 --%>
 											<c:choose>
 												<c:when test="${k.m_image == null}">
-													<img
-														src="https://png.pngtree.com/png-vector/20191115/ourmid/pngtree-beautiful-profile-line-vector-icon-png-image_1990469.jpg"
-														class="profile" alt="멋진 기본 프로필 이미지">
+													<img src="/resources/images/icon_input.png" class="profile"
+														alt="기본 프로필 이미지">
 												</c:when>
 												<c:otherwise>
 													<%-- m_image가 유효한 값이 아닐 경우 문자열 그대로 출력됨 --%>

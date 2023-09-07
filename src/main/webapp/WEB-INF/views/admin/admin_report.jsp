@@ -13,12 +13,22 @@
 <script src="sweetalert2.min.js"></script>
 <script type="text/javascript">
     function chk() {
-    	 Swal.fire({
-    		  position: 'middle',
-    		  icon: 'success',
-    		  title: '블라인드 처리 되었습니다.',
-    		  showConfirmButton: true,
-    		  timer: 2000
+    	Swal.fire({
+    		  title: '블라인드 처리 하시겠습니까?',
+    		  text: "누구가에겐 고통이 될수 있습니다.",
+    		  icon: 'warning',
+    		  showCancelButton: true,
+    		  confirmButtonColor: '#3085d6',
+    		  cancelButtonColor: '#d33',
+    		  confirmButtonText: '블라인드 처리하기'
+    		}).then((result) => {
+    		  if (result.isConfirmed) {
+    		    Swal.fire(
+    		      '처리 완료!',
+    		      '블라인드 처리되었습니다.',
+    		      'success'
+    		    )
+    		  }
     		})
 	}
     </script>

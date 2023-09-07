@@ -4,16 +4,19 @@ import java.io.File;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,14 +26,17 @@ import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.yamco.admin.model.service.Log_Service;
 import com.yamco.api.model.service.P_recipe_Service;
 import com.yamco.api.model.vo.P_recipe_VO;
 import com.yamco.user.model.service.Comment_Service;
 import com.yamco.user.model.service.Images_Service;
+import com.yamco.user.model.service.Main_Service;
 import com.yamco.user.model.service.Member_Service;
 import com.yamco.user.model.service.RandomService;
 import com.yamco.user.model.service.U_recipe_Service;
@@ -39,6 +45,11 @@ import com.yamco.user.model.service.User_log_Service;
 import com.yamco.user.model.vo.Comment_VO;
 import com.yamco.user.model.vo.Comment_meta_VO;
 import com.yamco.user.model.vo.Member_VO;
+
+import com.yamco.user.model.vo.Random_VO;
+import com.yamco.user.model.vo.Random_save_VO;
+import com.yamco.user.model.vo.U_recipe_VO;
+
 import com.yamco.user.model.vo.Member_meta_VO;
 import com.yamco.user.model.vo.Notice_VO;
 import com.yamco.user.model.vo.Random_save_VO;
@@ -53,6 +64,8 @@ public class User_Controller2 {
 	private RandomService randomService;
 	@Autowired
 	private Images_Service images_Service;
+	@Autowired
+	private Main_Service main_service;
 
 	@Autowired
 	private U_recipe_Service u_recipe_Service;
@@ -67,6 +80,8 @@ public class User_Controller2 {
 	@Autowired
 	private User_Service user_Service;
 	@Autowired
+	private Log_Service log_Service;
+	@Autowired
 	private Comment_Service comment_Service;
 
 	@RequestMapping("/main.go")
@@ -79,9 +94,31 @@ public class User_Controller2 {
 		mv.addObject("saveVO", saveVO);
 		// TODO 재훈 랜덤 재료(자정 초기화) 끝
 		// TODO 재훈 공지,광고 가져오기 시작
-		List<Notice_VO> nvo = images_Service.getNoticeList();
+
+		List<Notice_VO> list  = images_Service.getNoticeList();
+		mv.addObject("noticeList", list);
 
 		// TODO 재훈 공지,광고 가져오기 끝
+		// TODO 재훈 최신 레시피 가져오기 시작
+		
+		List<U_recipe_meta_VO> user_list  = main_service.getUsertrendList();
+		mv.addObject("userList", user_list);
+		
+		// TODO 재훈 최신 레시피 가져오기 끝
+		
+		// TODO 재훈 베스트 레시피 가져오기 시작
+		
+		List<U_recipe_meta_VO> best_list  = main_service.getbestList();
+		mv.addObject("bestList", best_list);
+		
+		// TODO 재훈 베스트 레시피 가져오기 끝
+		
+		// TODO 재훈 베스트 레시피 가져오기 시작
+		
+		List<Member_meta_VO> award_list  = main_service.getmainAwardList();
+		mv.addObject("award_list", award_list);
+		
+		// TODO 재훈 베스트 레시피 가져오기 끝
 		// TODO 재훈 메인 끝
 		// TODO 희준 bestList초기화 시작
 		List<U_recipe_meta_VO> bestList = new ArrayList<U_recipe_meta_VO>();
@@ -130,14 +167,25 @@ public class User_Controller2 {
 		return mv;
 	}
 
+	
+	// TODO 상우 게시물 찜 누르기 시작
+	
+	// TODO 상우 게시물 찜 누르기 완료
+
 	@RequestMapping("/user_list.go")
-	public ModelAndView userListGo() {
+	public ModelAndView userListGo(HttpServletRequest request, HttpServletResponse response) {
+		// 냠냠's 쉐프레시피
+		// 상우 DB에 방문자수 로그 찍기 (랭킹)
+		log_Service.visitorUp(request, response);
 		ModelAndView mv = new ModelAndView("/user/recipe/user_list");
 		return mv;
 	}
 
 	@RequestMapping("/ranking_recipe.go")
-	public ModelAndView rankingRecipeGo() {
+	public ModelAndView rankingRecipeGo(HttpServletRequest request, HttpServletResponse response) {
+		// 랭킹
+		// 상우 DB에 방문자수 로그 찍기 (랭킹)
+		log_Service.visitorUp(request, response);
 		ModelAndView mv = new ModelAndView("/user/ranking/ranking_recipe");
 		return mv;
 	}
@@ -159,7 +207,9 @@ public class User_Controller2 {
 	}
 
 	@RequestMapping("/award.go")
-	public ModelAndView awardGo() {
+	public ModelAndView awardGo(HttpServletRequest request, HttpServletResponse response) {
+		// 상우 DB에 방문자수 로그 찍기 (랭킹)
+		log_Service.visitorUp(request, response);
 		ModelAndView mv = new ModelAndView("/user/award/award");
 		List<Member_meta_VO> awardList = member_Service.getAwardList();
 		Map<String, U_recipe_meta_VO> recipeMap = new HashMap<>();
@@ -192,7 +242,10 @@ public class User_Controller2 {
 	}
 
 	@RequestMapping("/plz.go")
-	public ModelAndView plzGo() {
+	public ModelAndView plzGo(HttpServletRequest request, HttpServletResponse response) {
+		// 냉부해
+		// 상우 DB에 방문자수 로그 찍기
+		log_Service.visitorUp(request, response);
 		ModelAndView mv = new ModelAndView("/user/plz/plz");
 		return mv;
 	}
@@ -226,12 +279,8 @@ public class User_Controller2 {
 		ModelAndView mv = new ModelAndView("/social_join");
 		return mv;
 	}
-
-	@RequestMapping("/user_recipe_write.go")
-	public ModelAndView userRecipeWriteGo() {
-		ModelAndView mv = new ModelAndView("/user/recipe/user_recipe_write");
-		return mv;
-	}
+	
+	// /user_recipe_write.go recipe_controller로 이동 
 
 	@RequestMapping("/myinfo.go")
 	public ModelAndView myinfoGo(HttpSession session) {
@@ -385,23 +434,19 @@ public class User_Controller2 {
 		List<Comment_meta_VO> result = comment_Service.getSelectList(cvo);
 
 		// 공공데이터에서 레시피 제목 가져오기
-		for (Iterator iterator = result.iterator(); iterator.hasNext();) {
-			Comment_meta_VO comment_meta_VO = (Comment_meta_VO) iterator.next();
-			String rcp_seq = comment_meta_VO.getRcp_idx();
+		for (Iterator<Comment_meta_VO> iterator = result.iterator(); iterator.hasNext();) {
+			Comment_meta_VO cmvo = (Comment_meta_VO) iterator.next();
+			String rcp_seq = cmvo.getRcp_idx();
 			// 댓글을 단 게시글이 공공데이터일 경우 parsing
 			if (Integer.parseInt(rcp_seq) < 10000) {
 				// TODO 공공데이터 시작
 				List<JsonNode> rowList = p_recipe_Service.go_public_list();
-				List<P_recipe_VO> prvo = p_recipe_Service.article_summary();
 				for (int i = 0; i < rowList.size(); i++) {
-					P_recipe_VO vo = new P_recipe_VO();
 					JsonNode node = rowList.get(i);
-					vo = prvo.get(i);
 					String node_rcpSeq = node.get("RCP_SEQ").asText();
 					if (rcp_seq.equals(node_rcpSeq)) {
 						String node_rcpNm = node.get("RCP_NM").asText();
-						comment_meta_VO.setU_rcp_title(node_rcpNm);
-						System.out.println("node_rcpNm : " + node_rcpNm);
+						cmvo.setU_rcp_title(node_rcpNm);
 					}
 				}
 				// TODO 공공데이터 끝
@@ -506,6 +551,63 @@ public class User_Controller2 {
 		// TODO 공공데이터 끝
 		return mv;
 	}
+	
+	// TODO 상우 사용자 댓글 좋아요
+	@RequestMapping("/comment_like.do")
+	@ResponseBody // JSON 응답을 반환
+	public Map<String, Object> comment_like(@RequestParam(value = "buttonId", required = true) String buttonId,
+	        @RequestParam(value = "rcpSeq", required = true) String rcpSeq, HttpSession session, HttpServletRequest request) {
+	    Map<String, Object> response = new HashMap<>();
+		// 이 게시물에 들어간 댓글 전체 받아오기
+		// List<Comment_VO> comments_list_all = p_recipe_Service.load_all_comments(String.valueOf(rcpSeq));
+//		System.out.println("rcp_idx는 : " + rcpSeq);
+	    
+	    try {
+	    	HttpSession session1 = request.getSession();
+			String currentRcpIdx = (String) session1.getAttribute("currentRcpIdx");
+
+			if (currentRcpIdx != null) {
+			    // 세션에서 값을 가져왔으므로 이 값을 사용하여 원하는 작업을 수행할 수 있습니다.
+			} else {
+			    // 세션에 해당 속성이 없는 경우 처리할 내용을 여기에 작성하세요.
+			}
+			
+			System.out.println("rcpidx는 : " + currentRcpIdx);
+			System.out.println("버튼 ID는 : " + buttonId);
+			
+			// 숫자 부분을 추출하는 정규 표현식
+			Pattern pattern = Pattern.compile("\\d+$");
+	        Matcher matcher = pattern.matcher(buttonId);
+	        String numberPart = "";
+
+	        if (matcher.find()) {
+	            numberPart = matcher.group(); // 추출한 숫자 부분
+	        }
+			
+	        int array_idx = Integer.parseInt(numberPart);
+			System.out.println("배열 인덱스는 : " + array_idx);
+			
+			String c_idx = "";
+			// 해당 댓글의 c_idx 추출
+			List<Comment_VO> comments_list_all = p_recipe_Service.load_all_comments(String.valueOf(currentRcpIdx));
+			if (array_idx >= 0 && array_idx < comments_list_all.size()) {
+			    Comment_VO commentVo = comments_list_all.get(array_idx);
+
+		    // Comment_VO 객체에서 c_idx 추출
+		    c_idx = commentVo.getC_idx();
+			}
+			
+//			System.out.println("c_idx는 : " + c_idx);
+			user_Service.comment_like(c_idx);
+			System.out.println("댓글 좋아요 완료!");
+			
+		} catch (Exception e) {
+	        response.put("success", false);
+	        response.put("message", "댓글 좋아요 처리 중 오류 발생");
+	    }
+	    return response;
+	}
+	// TODO 상우 사용자 댓글 좋아요 완료
 
 	@RequestMapping("/changeMyInfo.go")
 	public ModelAndView changeMyInfoGo(HttpSession session) {
@@ -640,6 +742,8 @@ public class User_Controller2 {
 			e.printStackTrace();
 			System.out.println("이미지 저장 실패");
 		}
+		
+		// ★ 이미지 실제 경로에 업로드
 
 //		 if (!image.isEmpty()) {
 //	            try {
@@ -689,8 +793,9 @@ public class User_Controller2 {
 		return new ModelAndView("user/recipe/public_recipe_detail");
 
 	}
-
-	// TODO 상우 사용자 댓글작성
+	// TODO 상우 사용자 댓글작성 완료
+	
+	
 	@RequestMapping("/changeMyPw.go")
 	public ModelAndView changeMyPwGo() {
 		return new ModelAndView("/mypage/changeMypw");
