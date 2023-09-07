@@ -51,6 +51,7 @@
 					</c:forEach>
 				</div>
 				<div class="horizontal-line"></div>
+			<!-- upper 끝 -->	
 			</div>
 				
 			<div id="upper2">
@@ -194,11 +195,11 @@
 						<!-- 조리과정 끝 -->					   		
 						</div>	
 						
-						<!-- 수정, 삭제버튼, 신고 -->				
-						<div class="div_margin_width" style="height: 60px; float: left;">
-							<span style="color: lightgray; font-size: 12px; float: right; position: relative; top: 50px; left: -45px;">신고하기</span>
-							<img id="report_btn" src="resources/images/alarm.png" style="width: 40px; height: 40px; float: right;">
-						</div>
+				<!-- 수정, 삭제버튼, 신고 -->				
+				<div class="div_margin_width" style="height: 60px; float: left;">
+					<span style="color: lightgray; font-size: 12px; float: right; position: relative; top: 50px; left: -45px;">신고하기</span>
+					<img id="report_btn" src="resources/images/alarm.png" style="width: 40px; height: 40px; float: right;">
+				</div>
 													
 				<!-- 이런 레시피는 어떠세요? 추천 -->
 				<div style="width: 1320px; height: 100px; float: left; text-align: center;">
@@ -334,7 +335,15 @@
 						    </div>
 						    	
 						    	<!-- 댓글 컨텐츠 이미지 -->
-						    	<img class="comment_img" src="${cvo.c_img}">
+						    	<img class="comment_img" id="commentImage" src="${cvo.c_img}" alt="">
+						    	<script type="text/javascript">
+								    // 이미지를 로드할 때 발생하는 이벤트 리스너
+								    document.getElementById('commentImage').addEventListener('error', function() {
+								        // 이미지 로드에 실패한 경우, default 이미지 경로로 교체
+								        this.src = 'resources/images/comment/sample_white.png'; // default 이미지 경로를 여기에 넣어주세요
+								    });
+								</script>
+						    	
 						    	<div id="comment_content">
 						    		
 						    		<div id="rev_del_report_div">
@@ -409,6 +418,8 @@
 	});
 	
 </script> -->
+
+
 
 <script type="text/javascript">
     $(document).ready(function () {

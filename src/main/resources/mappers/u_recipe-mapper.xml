@@ -297,4 +297,9 @@
 	<select id="u_recipe_list" resultType="urmvo">
 		select * from u_recipe_metadata
 	</select>
+	
+	<!-- 상우 user_recipe detail 불러오기 -->
+	<select id="u_recipe_detail" resultType="urmvo">
+		select * from u_recipe_metadata where rcp_idx = #{rcp_idx}
+	</select>
 </mapper>

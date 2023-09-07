@@ -122,4 +122,11 @@ public class U_recipe_DAO {
 	public List<U_recipe_meta_VO> u_recipe_list() {
 		return sqlSessionTemplate.selectList("u_recipe.u_recipe_list");
 	}
+	
+	// TODO 상우 user_recipe detail(한개만) 출력
+	public U_recipe_meta_VO u_recipe_detail(String rcp_idx) {
+		return sqlSessionTemplate.selectOne("u_recipe.u_recipe_detail", rcp_idx);
+	}
+		
+	
 }

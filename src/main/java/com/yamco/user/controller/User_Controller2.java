@@ -939,11 +939,14 @@ public class User_Controller2 {
 			@RequestParam(value = "image", required = false) MultipartFile image, HttpSession session,
 			HttpServletRequest request) {
 
-		try {
-			String path = request.getSession().getServletContext().getRealPath("/resources/images/comment");
-			MultipartFile file = image;
-			if (file.isEmpty()) {
-				// 빈 경로
+		 try {
+		        String path = request.getSession().getServletContext().getRealPath("/resources/images/comment");
+		        MultipartFile file = image;
+		        String imagePath = null; // 이미지 경로를 저장할 변수
+
+	        if (file.isEmpty()) {
+	            // 이미지가 업로드되지 않았을 경우 기본 이미지 경로를 설정합니다.
+	            imagePath = "resources/images/comment/sample_white.png";
 //		        bv.setF_name("");
 			} else {
 				// 같은 이름 없도록 UUID 사용
@@ -1003,8 +1006,10 @@ public class User_Controller2 {
 		cvo.setC_img("resources/images/comment/" + image.getOriginalFilename());
 		cvo.setC_grade(rate);
 
-		// 여기네
+		// 여기네 (세션에서 값 null로 나옴)
+		System.out.println("오류 체크");
 		String s_rcp_idx = (String) session.getAttribute("rcp_idx");
+		System.out.println(s_rcp_idx);
 
 		// System.out.println("자료형은 : " +
 		// session.getAttribute("rcp_idx").getClass().getName());

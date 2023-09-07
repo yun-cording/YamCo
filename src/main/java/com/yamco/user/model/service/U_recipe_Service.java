@@ -46,4 +46,7 @@ public interface U_recipe_Service {
 	
 	// 상우 사용자게시물 목록 전체 받아오기
 	public List<U_recipe_meta_VO> u_recipe_list();
+	
+	// 상우 사용자게시물 목록 상세페이지 받아오기
+	public U_recipe_meta_VO u_recipe_detail(String rcp_idx);
 }
