@@ -72,7 +72,6 @@ public class Admin_Controller {
 	public ModelAndView go_admin_contentchk(U_recipe_meta_VO urmvo) {
 		ModelAndView mv = new ModelAndView("admin/admin_contentchk");
 		List<U_recipe_meta_VO> result = u_recipe_Service.getUserContentList(urmvo);
-		System.out.println(result);
 		mv.addObject("content_result", result);
 		return mv;
 	}
@@ -91,5 +90,10 @@ public class Admin_Controller {
 	@RequestMapping("/go_admin_register.do")
 	public ModelAndView go_admin_register() {
 		return new ModelAndView("admin//admin_register");
+	}
+	
+	@RequestMapping("/content_search.go")
+	public ModelAndView content_search(U_recipe_meta_VO urmvo) {
+	 return null;
 	}
 }

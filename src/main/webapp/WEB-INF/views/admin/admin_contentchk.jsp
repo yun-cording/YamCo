@@ -34,11 +34,10 @@ select option[value=""][disabled] {
     <script type="text/javascript">
     	$(function() {
 			$("#reset_search").click(function() {
-				$(".select_box").val("0");
+				$(".select_box").val("카테고리");
 				$(".input_txf").val("");
-				$(".start_date").val("");
-				$(".end_date").val("");
-				$("input:radio[name='btn_date']").prop("checked", false);
+				$("#startday").val("");
+				$("#endday").val("");
 				$("input:radio[name='btn_status']").prop("checked", false);
 			});
 		});
@@ -55,8 +54,117 @@ select option[value=""][disabled] {
     	            }
     	    });
     	});
+    	
+    	$(document).ready(function () {
+    	    // 1일 버튼 클릭시
+    	    $("#btn_1day").on("click", function () {
+    	        var inputStartday = $("#startday");
+    	        var inputEndday = $("#endday");
+
+    	        if (inputStartday.val() === "") {
+    	            if (inputEndday.val() === "") { //시작일, 종료일 둘 다 입력값이 없는 경우(오늘 날짜로 값 지정)
+    	                var today = new Date().toISOString().substr(0, 10); // 오늘 날짜를 YYYY-MM-DD 형식으로 가져옴
+    	                inputStartday.val(today);
+    	                inputEndday.val(today);
+    	            }
+    	            else { //종료일을 기준으로 시작일도 같게 함
+    	                inputStartday.val(inputEndday.val());
+    	            }
+    	        } else if (inputEndday.val() === "") { //시작일을 기준으로 종료일도 같게 함
+    	            inputEndday.val(inputStartday.val());
+    	        } else {  //시작일, 종료일 둘 다 입력값이 있는 경우(오늘 날짜로 값 지정)
+    	            var today = new Date().toISOString().substr(0, 10);
+    	            inputStartday.val(today);
+    	            inputEndday.val(today);
+    	        }
+    	    });
+    	    
+
+    	    // 7일 버튼 클릭시
+    	    $("#btn_7day").on("click", function () {
+    	        var inputStartday = $("#startday");
+    	        var inputEndday = $("#endday");
+
+    	        if (inputStartday.val() === "") {
+    	            if (inputEndday.val() === "") { //시작일, 종료일 둘 다 입력값이 없는 경우(오늘 날짜를 기준으로 일주일 지정)
+    	                var startday = new Date().toISOString().substr(0, 10);
+    	                var oneWeekLater = new Date();
+    	                oneWeekLater.setDate(oneWeekLater.getDate() + 7);
+    	                var endday = oneWeekLater.toISOString().substr(0, 10);
+    	                inputStartday.val(startday); // 오늘 날짜로 값 지정
+    	                inputEndday.val(endday); // 일주일 후로 값 지정
+    	            }
+    	            else { //종료일을 기준으로 일주일 전을 시작일로 정함
+    	                var endday = new Date(inputEndday.val());
+    	                var startday = new Date(endday.toISOString().substr(0, 10));
+    	                startday.setDate(endday.getDate() - 7);
+    	                inputStartday.val(startday.toISOString().substr(0, 10));
+    	            }
+    	        } else if (inputEndday.val() === "") { //시작일을 기준으로 일주일 후를 종료일로 정함
+    	            var startday = new Date(inputStartday.val());
+    	            var endday = new Date(startday.toISOString().substr(0, 10));
+    	            endday.setDate(startday.getDate() + 7);
+    	            inputEndday.val(endday.toISOString().substr(0, 10));
+    	        } else {  //시작일, 종료일 둘 다 입력값이 있는 경우(오늘 날짜를 기준으로 일주일 지정)
+    	            var startday = new Date().toISOString().substr(0, 10);
+    	            var oneWeekLater = new Date();
+    	            oneWeekLater.setDate(oneWeekLater.getDate() + 7);
+    	            var endday = oneWeekLater.toISOString().substr(0, 10);
+    	            inputStartday.val(startday);
+    	            inputEndday.val(endday);
+    	        }
+    	    });
+
+    	    //1달 버튼 클릭시
+    	    $("#btn_1month").on("click", function () {
+    	        var inputStartday = $("#startday");
+    	        var inputEndday = $("#endday");
+
+    	        if (inputStartday.val() === "" && inputEndday.val() === "") {
+    	            if (inputEndday.val() === "") { //시작일, 종료일 둘 다 입력값이 없는 경우(오늘 날짜를 기준으로 한달 지정)
+    	                var startday = new Date().toISOString().substr(0, 10);
+    	                var oneWeekLater = new Date();
+    	                oneWeekLater.setMonth(oneWeekLater.getMonth() + 1);
+    	                var endday = oneWeekLater.toISOString().substr(0, 10);
+    	                inputStartday.val(startday); // 오늘 날짜로 값 지정
+    	                inputEndday.val(endday); // 한달 후로 값 지정
+    	            }
+    	            else { //종료일을 기준으로 한달 전을 시작일로 정함
+    	                var endday = new Date(inputEndday.val());
+    	                var startday = new Date(endday.toISOString().substr(0, 10));
+    	                startday.setMonth(endday.getMonth() - 1);
+    	                inputStartday.val(startday.toISOString().substr(0, 10));
+    	            }
+    	        } else if (inputEndday.val() === "") { //시작일을 기준으로 한달 후를 종료일로 정함
+    	            var startday = new Date(inputStartday.val());
+    	            var endday = new Date(startday.toISOString().substr(0, 10));
+    	            endday.setMonth(startday.getMonth() + 1);
+    	            inputEndday.val(endday.toISOString().substr(0, 10));
+    	        } else { //시작일, 종료일 둘 다 입력값이 있는 경우(오늘 날짜를 기준으로 한달 지정)
+    	            var startday = new Date().toISOString().substr(0, 10);
+    	            var oneWeekLater = new Date();
+    	            oneWeekLater.setMonth(oneWeekLater.getMonth() + 1);
+    	            var endday = oneWeekLater.toISOString().substr(0, 10);
+    	            inputStartday.val(startday);
+    	            inputEndday.val(endday);
+    	        }
+    	    });
+    	});
+    	
+    	function search_go(f) {
+			var category =  $(".category").val();
+			alert(category);
+			var title = $(".input_txf").val();
+			alert(title);
+			var start_date = $("#startday").val();
+			alert(start_date);
+			var end_date = $("#endday").val();
+			alert(end_date);
+			var status = $("input:radio[name='btn_status']:checked").val();
+			alert(status);
+			f.submit();
+		}
     </script>
-   
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom fonts for this template-->
     <link href="/resources/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -97,7 +205,7 @@ select option[value=""][disabled] {
 					<div class="row justify-content-between">			
 						<div
 							class="col-6 mt-4 p-3 text-center rounded shadow w-75">
-							<form action="" method="post">	
+							<form action="/content_search.go" method="post">	
 							<div class="card h-100">
 								<h6
 									class="card-header bg-light text-black-50 fw-bold small text-start">
@@ -108,23 +216,23 @@ select option[value=""][disabled] {
 										<div class="col-auto fw-bold text-nowrap">검색어</div>
 										<div class="col col-lg-auto mx-auto">
 											<div class="dropdown">
-												<select class="btn-light form-select select_box">
-													<option value="0" disabled selected>카테고리</option>
-													<option value="1">1인분</option>
-													<option value="2">채식</option>
-													<option value="3">국물류</option>
-													<option class="dropdown-item"  value="4">돈까스,
+												<select class="btn-light form-select select_box category">
+													<option value="카테고리" disabled selected>카테고리</option>
+													<option value="1인분">1인분</option>
+													<option value="채식">채식</option>
+													<option value="국물류">국물류</option>
+													<option class="dropdown-item"  value="돈까스,일식">돈까스,
 															일식</option>
-													<option class="dropdown-item" value="5">고기,
+													<option class="dropdown-item" value="고기,구이">고기,
 															구이</option>
-													<option class="dropdown-item" value="6">해산물</option>
-													<option class="dropdown-item" value="7">분식</option>
-													<option class="dropdown-item" value="8">면류</option>
-													<option class="dropdown-item" value="9">죽</option>
-													<option class="dropdown-item" value="10">술안주</option>
-													<option class="dropdown-item" value="11">반찬</option>
-													<option class="dropdown-item" value="12">후식</option>
-													<option class="dropdown-item" value="13">기타</option>
+													<option class="dropdown-item" value="해산물">해산물</option>
+													<option class="dropdown-item" value="분식">분식</option>
+													<option class="dropdown-item" value="면류">면류</option>
+													<option class="dropdown-item" value="죽">죽</option>
+													<option class="dropdown-item" value="술안주">술안주</option>
+													<option class="dropdown-item" value="반찬">반찬</option>
+													<option class="dropdown-item" value="후식">후식</option>
+													<option class="dropdown-item" value="기타">기타</option>
 											</select>
 											</div>
 										</div>
@@ -137,56 +245,50 @@ select option[value=""][disabled] {
 									</div>
 								</li>
 								<li class="list-group-item">
-									<div class="row justify-content-around align-items-center">
-										<div class="col-4 col-xxl-auto fw-bold text-nowrap">기간
-											조건</div>
-										<div class="col-8 col-xxl">
-											<div class="row px-4 mt-3">
-												<div class="col pl-0 pr-0 pr-md-2 mb-2">
-													<input type="date" name="start-date" class="btn btn-outline-secondary text-center rounded w-100 fw-bold start_date">
+											<div class="row justify-content-between align-items-center">
+												<div class="col-4 col-xl-auto fw-bold text-nowrap">기간
+													조건</div>
+												
+												<div
+													class="col-6 mt-2 pe-1 col-xxl mt-xxl-0 input-date-wrapper">
+													<input type="date" id="startday" name="start_date"
+														data-placeholder="시작일" required aria-required="true"
+														class="btn btn-outline-secondary text-center rounded w-100 fw-bold">
 												</div>
-												<div class="col pl-0 pl-md-2 pr-0">
-													<input type="date" name="end-date" class="btn btn-outline-secondary text-center rounded w-100 fw-bold end_date">
+												<div class="col-6 mt-2 ps-1 col-xxl mt-xxl-0">
+													<input type="date" id="endday" name="end_date"
+														data-placeholder="종료일" required aria-required="true"
+														class="btn btn-outline-secondary text-center rounded w-100 fw-bold">
 												</div>
-										<div class="col">
-											<div class="btn_group" role="group"
-												aria-label="Basic radio toggle button group">
-												<div class="btn_empty">
-													<input type="radio" class="btn-check" name="btn_date"
-														id="btnradio1" autocomplete="off"> <label
-														class="btn btn-outline-success" for="btnradio1">1일</label>
+												<div class="col-4 mt-2 pe-1 col-xxl-auto mt-xxl-0">
+													<button type="button" id="btn_1day"
+														class="btn btn-outline-success w-100">1일</button>
 												</div>
-												<div class="btn_empty">
-													<input type="radio" class="btn-check" name="btn_date"
-														id="btnradio2" autocomplete="off"> <label
-														class="btn btn-outline-success" for="btnradio2">1주일</label>
+												<div class="col-4 mt-2 p-1 col-xxl-auto mt-xxl-0">
+													<button type="button" id="btn_7day"
+														class="btn btn-outline-success w-100">7일</button>
 												</div>
-												<div class="btn_empty">
-													<input type="radio" class="btn-check" name="btn_date"
-														id="btnradio3" autocomplete="off"> <label
-														class="btn btn-outline-success" for="btnradio3">1개월</label>
+												<div class="col-4 mt-2 ps-1 col-xxl-auto mt-xxl-0">
+													<button type="button" id="btn_1month"
+														class="btn btn-outline-success w-100">1달</button>
 												</div>
 											</div>
-										</div>
-											</div>											
-										</div>
-									</div>
-								</li>
+										</li>
 								<li class="list-group-item">
 									<div class="row justify-content-around align-items-center">
 										<div class="col-12 col-xxl-auto text-xxl-start fw-bold">게시글
 											상태</div>
 										<div class="col">
-											<div class="btn_group" role="group"
+											<div class="btn_group status" role="group"
 												aria-label="Basic radio toggle button group">
 												<div class="btn_empty d-grid gap-2 col-6 mx-auto">
 													<input type="radio" class="btn-check" name="btn_status"
-														id="btnradio4"> <label
+														id="btnradio4" value="게시중"> <label
 														class="btn btn-outline-success" for="btnradio4">게시중</label>
 												</div>
 												<div class="btn_empty d-grid gap-2 col-6 mx-auto">
 													<input type="radio" class="btn-check" name="btn_status"
-														id="btnradio5"> <label
+														id="btnradio5" value="블라인드"> <label
 														class="btn btn-outline-danger" for="btnradio5">블라인드</label>
 												</div>
 											</div>
@@ -205,7 +307,7 @@ select option[value=""][disabled] {
 													</button>
 												</div>
 												<div class="col-auto">
-													<button type="button" class="btn btn-success w-100 fw-bold" id="u_content_search" onclick="search.go()">검색</button>
+													<button type="button" class="btn btn-success w-100 fw-bold" id="u_content_search" onclick="search_go(this.form)">검색</button>
 												</div>
 											</div>
 										</div>
@@ -295,7 +397,7 @@ select option[value=""][disabled] {
                                             <td>${k.u_rcp_hit}</td>
                                             <td>${k.u_rcp_time}</td>
                                             <td>${k.u_rcp_blind}</td>
-                                            <td>${k.u_rcp_status == "3" ? "게시중" : "블라인드"}</td>
+                                            <td>${k.u_rcp_status == "3" ? "블라인드" : "게시중"}</td>
                                             <td class="d-flex justify-content-center">
 	                                            		<div class="row">
 												<div class="col-auto">
