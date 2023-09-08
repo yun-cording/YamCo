@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.yamco.admin.model.service.AdminService;
+import com.yamco.admin.model.vo.Admin_Banner_VO;
 import com.yamco.admin.model.vo.Admin_Dash_VO;
 import com.yamco.admin.model.vo.Admin_Report_Chk_VO;
 import com.yamco.admin.model.vo.Member_count_summary_VO;
@@ -149,16 +150,6 @@ public class Admin_Controller {
 		return mv;
 	}
 
-	@RequestMapping("go_admin_notice.do")
-	public ModelAndView go_admin_notice() {
-		return new ModelAndView("admin/admin_notice");
-	}
-
-	@RequestMapping("go_admin_faq.do")
-	public ModelAndView go_admin_faq() {
-		return new ModelAndView("admin/admin_faq");
-	}
-
 	@RequestMapping("go_admin_contentchk.do")
 	public ModelAndView go_admin_contentchk() {
 		return new ModelAndView("admin/admin_contentchk");
@@ -170,12 +161,55 @@ public class Admin_Controller {
 	}
 
 	@RequestMapping("/go_admin_ppl.do")
-	public ModelAndView admin_test_sw() {
-		return new ModelAndView("admin/admin_ppl");
+	public ModelAndView admin_pplDo() {
+		ModelAndView mv =new ModelAndView("admin/admin_ppl");
+		List<List<Admin_Banner_VO>> total_list = adminService.total_list();
+		mv.addObject("notice_list",total_list.get(0));
+		mv.addObject("ppl_list",total_list.get(1));
+		mv.addObject("fooding_list",total_list.get(2));
+		return mv;
 	}
 
 	@RequestMapping("/go_admin_register.do")
 	public ModelAndView go_admin_register() {
-		return new ModelAndView("admin//admin_register");
+		return new ModelAndView("admin/admin_register");
+	}
+	@RequestMapping("/notice_delete.go")
+	public ModelAndView notice_deleteGo(String idx,String kind) {
+		ModelAndView mv = new ModelAndView("redirect:/go_admin_ppl.do");
+		if(kind.equals("0")) {
+			adminService.noticeDel(idx);
+		}else if(kind.equals("1")) {
+			adminService.pplDel(idx);
+		}else if(kind.equals("2")) {
+			adminService.foodingDel(idx);
+		}
+		return mv;
+	}
+	@RequestMapping("/deletedNotice.go")
+	public ModelAndView deletedNoticeGo() {
+		ModelAndView mv = new ModelAndView("admin/admin_deletedppl");
+		List<List<Admin_Banner_VO>> total_list = adminService.total_list();
+		List<List<Admin_Banner_VO>> total_delete_list = adminService.total_delete_list();
+		mv.addObject("notice_list",total_list.get(0));
+		mv.addObject("ppl_list",total_list.get(1));
+		mv.addObject("notice_list",total_delete_list.get(0));
+		mv.addObject("ppl_list",total_delete_list.get(1));
+		mv.addObject("fooding_list",total_delete_list.get(2));
+		return mv;
+	}
+	
+	@RequestMapping("/notice_regist.go")
+	public ModelAndView notice_registGo(String idx,String kind) {
+		ModelAndView mv = new ModelAndView("redirect:/deletedNotice.go");
+		if(kind.equals("0")) {
+			adminService.noticeUp(idx);
+		}else if(kind.equals("1")) {
+			adminService.pplUp(idx);
+		}else if(kind.equals("2")) {
+			adminService.foodingUp(idx);
+		}
+		
+		return mv;
 	}
 }

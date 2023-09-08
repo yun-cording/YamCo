@@ -12,6 +12,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.yamco.admin.model.vo.Admin_Banner_VO;
 import com.yamco.admin.model.vo.Admin_Dash_VO;
 import com.yamco.admin.model.vo.Admin_Report_Chk_VO;
 import com.yamco.admin.model.vo.Member_count_summary_VO;
@@ -71,11 +72,13 @@ public class AdminDAO {
 			Comment_VO cvo = new Comment_VO();
 			cvo.setC_idx(k.getC_idx());
 			Comment_meta_VO vo = sqlSessionTemplate.selectOne("comment.selectListByVO", cvo); // 댓글 번호로 닉네임, 내용 가져오기
-			if(vo.getC_status().equals("0")) {
-				k.setC_status(vo.getC_status());
-				k.setM_nick(vo.getM_nick());
-				k.setC_contents(vo.getC_contents());
-				final_report_list.add(k);
+			if(vo!=null) {
+				if(vo.getC_status().equals("0")) {
+					k.setC_status(vo.getC_status());
+					k.setM_nick(vo.getM_nick());
+					k.setC_contents(vo.getC_contents());
+					final_report_list.add(k);
+				}
 			}
 		}
 		Collections.sort(final_report_list, new Comparator<Admin_Report_VO>() {
@@ -136,4 +139,52 @@ public class AdminDAO {
 		return list;
 	}
 
+	public List<List<Admin_Banner_VO>> total_list() {
+		List<Admin_Banner_VO> list = new ArrayList<Admin_Banner_VO>();
+		List<List<Admin_Banner_VO>> total_list = new ArrayList<List<Admin_Banner_VO>>();
+		list = sqlSessionTemplate.selectList("admin.ppl_notice");
+		total_list.add(list);
+		list = sqlSessionTemplate.selectList("admin.ppl_ppl");
+		total_list.add(list);
+		list = sqlSessionTemplate.selectList("admin.ppl_fooding");
+		total_list.add(list);
+		
+		return total_list;
+	}
+
+	public void noticeDel(String notice_idx) {
+		sqlSessionTemplate.update("admin.noticeDel", notice_idx);
+	}
+
+	public void pplDel(String ppl_idx) {
+		sqlSessionTemplate.update("admin.pplDel", ppl_idx);
+	}
+
+	public void foodingDel(String food_idx) {
+		sqlSessionTemplate.update("admin.foodingDel",food_idx);
+	}
+
+	public List<List<Admin_Banner_VO>> total_delete_list() {
+		List<Admin_Banner_VO> list = new ArrayList<Admin_Banner_VO>();
+		List<List<Admin_Banner_VO>> total_delete_list = new ArrayList<List<Admin_Banner_VO>>();
+		list = sqlSessionTemplate.selectList("admin.ppl_deleted_notice");
+		total_delete_list.add(list);
+		list = sqlSessionTemplate.selectList("admin.ppl_deleted_ppl");
+		total_delete_list.add(list);
+		list = sqlSessionTemplate.selectList("admin.ppl_deleted_fooding");
+		total_delete_list.add(list);
+		return total_delete_list;
+	}
+
+	public void noticeUp(String idx) {
+		sqlSessionTemplate.update("admin.noticeUp",idx);
+	}
+
+	public void pplUp(String idx) {
+		sqlSessionTemplate.update("admin.pplUp",idx);
+	}
+
+	public void foodingUp(String idx) {
+		sqlSessionTemplate.update("admin.foodingUp", idx);
+	}
 }
