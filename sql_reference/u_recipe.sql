@@ -41,6 +41,8 @@ LEFT JOIN
     user_log_recipe_hit_today ul_today ON r.rcp_idx = ul_today.rcp_idx
 LEFT JOIN 
     u_recipe_wish_count w ON r.rcp_idx = w.rcp_idx;
+LEFT JOIN 
+	 
 
 #p_recipe, u_recipe 테이블 정보에 comment테이블의 댓글수와 평점을 더한 뷰
 CREATE VIEW recipe_comment_summary AS
