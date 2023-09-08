@@ -145,5 +145,22 @@ public class U_recipe_ServiceImpl implements U_recipe_Service {
 	public List<U_recipe_meta_VO> getRefSearch(Ref_VO rfvo) {
 		return u_recipe_DAO.getRefSearch(rfvo);
 	}
-
+	
+	// 성훈 임시저장 게시글 등록
+	@Override
+	public int limitWrite(U_recipe_VO uvo) {
+		return u_recipe_DAO.limitWrite(uvo);
+	}
+	
+	// 상우 사용자게시물 목록 전체 받아오기
+	@Override
+	public List<U_recipe_meta_VO> u_recipe_list() {
+		return u_recipe_DAO.u_recipe_list(); 
+	}
+	
+	// 상우 사용자게시물 목록 상세페이지 받아오기
+	@Override
+	public U_recipe_meta_VO u_recipe_detail(String rcp_idx) {
+		return u_recipe_DAO.u_recipe_detail(rcp_idx);
+	}
 }

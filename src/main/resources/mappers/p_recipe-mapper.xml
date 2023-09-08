@@ -4,8 +4,9 @@
  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="p_recipe">
 	<!-- 게시물 rcp_idx에 따라 평점, 댓글수, 조회수 가져오기 -->
+		<!-- SELECT * FROM p_recipe_comment_summary -->
 	<select id="article_summary" resultType="prvo">
-		SELECT * FROM p_recipe_comment_summary
+		SELECT rcp_idx, total_comments, avg_c_grade, ROUND(p_rcp_hit) as p_rcp_hit FROM p_recipe_comment_summary
 	</select>
 	<select id="article_rating" resultType="String" parameterType="String">
 		SELECT avg_c_grade FROM comment_avg_c_grade WHERE rcp_idx = #{rcp_idx}
@@ -20,6 +21,7 @@
 	</select>
 	<!-- rcp_idx에 댓글 쓴거 다 불러오기 -->
     <select id="load_all_comments" parameterType="String" resultType="cvo">
-		SELECT * FROM comment WHERE rcp_idx = #{rcp_idx}
+		SELECT * FROM comment WHERE rcp_idx = #{rcp_idx} order by c_like desc
 	</select>
+	
 </mapper>

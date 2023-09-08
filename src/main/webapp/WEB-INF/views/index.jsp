@@ -28,10 +28,10 @@
 		location.href = "/go_admin.do";
 	}
 	function go_public_list(){
-		location.href = "/go_public_list.do";
+		location.href = "/public_list.go";
 	}
 	function go_user_list(){
-		location.href = "/go_user_list.do";
+		location.href = "/user_list.go";
 	}
 	function go_main() {
 		location.href = "/go_main.do";
@@ -90,9 +90,6 @@
 	// 상우 사용자, 공공 상세페이지, 글쓰기, 수정하기, 관리자 ▼
 	function user_recipe_det() {
 		location.href = "/go_userDet.do";
-	}
-	function public_recipe_det() {
-		location.href = "/go_publicDet.do";
 	}
 	function user_recipe_write() {
 		location.href = "/go_userWrite.do";

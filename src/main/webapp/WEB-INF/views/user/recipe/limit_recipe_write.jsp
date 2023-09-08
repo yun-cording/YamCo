@@ -71,8 +71,7 @@ document.addEventListener("DOMContentLoaded", function() {
 				<div id="content">
 					<!-- 레시피 제목 -->
 					<div class="left_margin" style="margin-top: 60px; float: left;">
-						<span class="font_32">레시피 제목 : </span> <input type="text" name="u_rcp_title"
-							value=${urvo.u_rcp_title }class="input_tomato" placeholder="레시피 제목을 입력해주세요.">
+						<span class="font_32">레시피 제목 : </span> <input type="text" name="u_rcp_title"	value="${urvo.u_rcp_title }" class="input_tomato" placeholder="레시피 제목을 입력해주세요.">
 					</div>
 
 					<!-- 대표사진 등록 -->
@@ -80,7 +79,7 @@ document.addEventListener("DOMContentLoaded", function() {
 						<div>
 							<span class="font_32">대표사진 등록 </span> <label for="fileInput"
 								id="fileInputLabel" class="input_tomato"> <!-- class="custom-file-input" -->
-								<input type="file" id="fileInput" accept="image/*" name="u_rcp_img"></input> <!-- class="input_tomato" -->
+								<input type="file" id="fileInput" accept="image/*" name="u_rcp_img1"></input> <!-- class="input_tomato" -->
 								<span>사진첨부하기 +</span>
 							</label>
 							<div style="margin-top: 35px;">
@@ -108,47 +107,68 @@ document.addEventListener("DOMContentLoaded", function() {
 							<select name="u_rcp_category1" id="cars" class="input_tomato"
 								style="float: right; margin-right: 50px; margin-top: -470px; color: #606060">
 								<c:choose>
-								<c:when test="${ category_choice1 == 'select_category'}">
-								<option value="select_category" selected>카테고리를 선택하세요.</option>
+								<c:when test="${ category_choice1 eq '카테고리를 선택하세요.'}">
+								<option value="카테고리를 선택하세요." selected>카테고리를 선택하세요.</option>
+								<option value="찌기">찌기</option>
+								<option value="끓이기">끓이기</option>
+								<option value="굽기" >굽기</option>
+								<option value="볶기" >볶기</option>
+								<option value="튀기기" >튀기기</option>
+								<option value="기타">기타</option>
 								</c:when>
-								<c:when test="${ category_choice1 != 'select_category'}">
-								<option value="select_category">카테고리를 선택하세요.</option>
+								
+								<c:when test="${ category_choice1 eq '찌기'}">
+								<option value="찌기" selected>찌기</option>
+								<option value="끓이기">끓이기</option>
+								<option value="굽기" >굽기</option>
+								<option value="볶기" >볶기</option>
+								<option value="튀기기" >튀기기</option>
+								<option value="기타">기타</option>
 								</c:when>
-								<c:when test="${ category_choice1 == 'select_steam'}">
-								<option value="select_steam" selected>찌기</option>
+								
+								<c:when test="${ category_choice1 eq '끓이기'}">
+								<option value="찌기">찌기</option>
+								<option value="끓이기" selected>끓이기</option>
+								<option value="굽기" >굽기</option>
+								<option value="볶기" >볶기</option>
+								<option value="튀기기" >튀기기</option>
+								<option value="기타">기타</option>
 								</c:when>
-								<c:when test="${ category_choice1 != 'select_steam'}">
-								<option value="select_steam">찌기</option>
+								
+								<c:when test="${ category_choice1 eq '볶기'}">
+								<option value="찌기">찌기</option>
+								<option value="끓이기" >끓이기</option>
+								<option value="굽기" >굽기</option>
+								<option value="볶기" selected>볶기</option>
+								<option value="튀기기" >튀기기</option>
+								<option value="기타">기타</option>
 								</c:when>
-								<c:when test="${ category_choice1 == 'select_boil'}">
-								<option value="select_boil" selected>끓이기</option>
+								
+								<c:when test="${ category_choice1 eq '튀기기'}">
+								<option value="찌기">찌기</option>
+								<option value="끓이기" >끓이기</option>
+								<option value="굽기" >굽기</option>
+								<option value="볶기" >볶기</option>
+								<option value="튀기기" selected>튀기기</option>
+								<option value="기타">기타</option>
 								</c:when>
-								<c:when test="${ category_choice1 != 'select_boil'}">
-								<option value="select_boil">끓이기</option>
+								
+								<c:when test="${ category_choice1 eq '기타'}">
+								<option value="찌기">찌기</option>
+								<option value="끓이기" >끓이기</option>
+								<option value="굽기" >굽기</option>
+								<option value="볶기" >볶기</option>
+								<option value="튀기기" >튀기기</option>
+								<option value="기타" selected>기타</option>
 								</c:when>
-								<c:when test="${ category_choice1 == 'select_cook'}">
-								<option value="select_cook" selected>굽기</option>
-								</c:when>
-								<c:when test="${ category_choice1 != 'select_cook'}">
-								<option value="select_cook" >굽기</option>
-								</c:when>
-								<c:when test="${ category_choice1 == 'select_stir'}">
-								<option value="select_stir" selected>볶기</option>
-								</c:when>
-								<c:when test="${ category_choice1 != 'select_stir'}">
-								<option value="select_stir" >볶기</option>
-								</c:when>
-								<c:when test="${ category_choice1 == 'select_fry'}">
-								<option value="select_fry" selected>튀기기</option>
-								</c:when>
-								<c:when test="${ category_choice1 != 'select_fry'}">
-								<option value="select_fry" >튀기기</option>
-								</c:when>
-								<c:when test="${ category_choice1 == 'select_etc'}">
-								<option value="select_etc" selected>기타</option>
-								</c:when>
-								<c:when test="${ category_choice1 != 'select_etc'}">
-								<option value="select_etc">기타</option>
+								
+								<c:when test="${ category_choice1 eq '굽기'}">
+								<option value="찌기">찌기</option>
+								<option value="끓이기" >끓이기</option>
+								<option value="굽기" selected>굽기</option>
+								<option value="볶기" >볶기</option>
+								<option value="튀기기" >튀기기</option>
+								<option value="기타" >기타</option>
 								</c:when>
 								</c:choose>
 							</select> <br> <br>
@@ -163,49 +183,248 @@ document.addEventListener("DOMContentLoaded", function() {
 							<select name="u_rcp_category2" id="cars" class="input_tomato"
 								style="float: right; margin-right: 50px; margin-top: -397px; color: #606060">
 								<c:choose>
-								<c:when test="${ category_choice1 == 'select_category'}">
-								<option value="select_category" selected>카테고리를 선택하세요.</option>
-								</c:when>
-								<c:when test="${ category_choice1 != 'select_category'}">
-								<option value="select_category">카테고리를 선택하세요.</option>
-								</c:when>
-								<c:when test="${ category_choice1 == 'select_steam'}">
-								<option value="select_rice" selected>밥</option>
-								</c:when>
-								<c:when test="${ category_choice1 != 'select_steam'}">
-								<option value="select_rice">밥</option>
-								</c:when>
-								<c:when test="${ category_choice1 == 'select_boil'}">
-								<option value="select_soup" selected>국&찌개</option>
-								</c:when>
-								<c:when test="${ category_choice1 != 'select_boil'}">
-								<option value="select_soup">국&찌개</option>
-								</c:when>
-								<c:when test="${ category_choice1 == 'select_cook'}">
-								<option value="select_bestone" selected>일품</option>
-								</c:when>
-								<c:when test="${ category_choice1 != 'select_cook'}">
-								<option value="select_bestone" >일품</option>
-								</c:when>
-								<c:when test="${ category_choice1 == 'select_stir'}">
-								<option value="select_side" selected>반찬</option>
-								</c:when>
-								<c:when test="${ category_choice1 != 'select_stir'}">
-								<option value="select_side" >반찬</option>
-								</c:when>
-								<c:when test="${ category_choice1 == 'select_fry'}">
-								<option value="select_afterEat" selected>후식</option>
-								</c:when>
-								<c:when test="${ category_choice1 != 'select_fry'}">
-								<option value="select_afterEat" >후식</option>
-								</c:when>
-								<c:when test="${ category_choice1 == 'select_etc'}">
-								<option value="select_etc" selected>기타</option>
-								</c:when>
-								<c:when test="${ category_choice1 != 'select_etc'}">
-								<option value="select_etc">기타</option>
+								<c:when test="${ category_choice2 eq '카테고리를 선택하세요.'}">
+								<option value="카테고리를 선택하세요." selected>카테고리를 선택하세요.</option>
+								<option value="1인분">1인분</option>
+								<option value="채식">채식</option>
+								<option value="국물류" >국물류</option>
+								<option value="돈까스,일식" >돈까스,일식</option>
+								<option value="고기,구이" >고기,구이</option>
+								<option value="해산물">해산물</option>
+								<option value="분식">분식</option>
+								<option value="면류">면류</option>
+								<option value="죽">죽</option>
+								<option value="술안주">술안주</option>
+								<option value="반찬">반찬</option>
+								<option value="후식">후식</option>
+								<option value="기타">기타</option>
 								</c:when>
 								</c:choose>
+								<c:choose>
+								<c:when test="${ category_choice2 eq '1인분'}">
+								<option value="1인분" selected>1인분</option>
+								<option value="채식">채식</option>
+								<option value="국물류" >국물류</option>
+								<option value="돈까스,일식" >돈까스,일식</option>
+								<option value="고기,구이" >고기,구이</option>
+								<option value="해산물">해산물</option>
+								<option value="분식">분식</option>
+								<option value="면류">면류</option>
+								<option value="죽">죽</option>
+								<option value="술안주">술안주</option>
+								<option value="반찬">반찬</option>
+								<option value="후식">후식</option>
+								<option value="기타">기타</option>
+								</c:when>
+								</c:choose>
+								<c:choose>
+								<c:when test="${ category_choice2 eq '채식'}">
+								<option value="1인분" >1인분</option>
+								<option value="채식" selected>채식</option>
+								<option value="국물류" >국물류</option>
+								<option value="돈까스,일식" >돈까스,일식</option>
+								<option value="고기,구이" >고기,구이</option>
+								<option value="해산물">해산물</option>
+								<option value="분식">분식</option>
+								<option value="면류">면류</option>
+								<option value="죽">죽</option>
+								<option value="술안주">술안주</option>
+								<option value="반찬">반찬</option>
+								<option value="후식">후식</option>
+								<option value="기타">기타</option>
+								</c:when>
+								</c:choose>
+								<c:choose>
+								<c:when test="${ category_choice2 eq '국물류'}">
+								<option value="1인분" >1인분</option>
+								<option value="채식" >채식</option>
+								<option value="국물류" selected>국물류</option>
+								<option value="돈까스,일식" >돈까스,일식</option>
+								<option value="고기,구이" >고기,구이</option>
+								<option value="해산물">해산물</option>
+								<option value="분식">분식</option>
+								<option value="면류">면류</option>
+								<option value="죽">죽</option>
+								<option value="술안주">술안주</option>
+								<option value="반찬">반찬</option>
+								<option value="후식">후식</option>
+								<option value="기타">기타</option>
+								</c:when>
+								</c:choose>
+								<c:choose>
+								<c:when test="${ category_choice2 eq '돈까스,일식'}">
+								<option value="1인분" >1인분</option>
+								<option value="채식" >채식</option>
+								<option value="국물류" >국물류</option>
+								<option value="돈까스,일식" selected>돈까스,일식</option>
+								<option value="고기,구이" >고기,구이</option>
+								<option value="해산물">해산물</option>
+								<option value="분식">분식</option>
+								<option value="면류">면류</option>
+								<option value="죽">죽</option>
+								<option value="술안주">술안주</option>
+								<option value="반찬">반찬</option>
+								<option value="후식">후식</option>
+								<option value="기타">기타</option>
+								</c:when>
+								</c:choose>
+								<c:choose>
+								<c:when test="${ category_choice2 eq '고기,구이'}">
+								<option value="1인분" >1인분</option>
+								<option value="채식" >채식</option>
+								<option value="국물류" >국물류</option>
+								<option value="돈까스,일식" >돈까스,일식</option>
+								<option value="고기,구이" selected>고기,구이</option>
+								<option value="해산물">해산물</option>
+								<option value="분식">분식</option>
+								<option value="면류">면류</option>
+								<option value="죽">죽</option>
+								<option value="술안주">술안주</option>
+								<option value="반찬">반찬</option>
+								<option value="후식">후식</option>
+								<option value="기타">기타</option>
+								</c:when>
+								</c:choose>
+								<c:choose>
+								<c:when test="${ category_choice2 eq '해산물'}">
+								<option value="1인분" >1인분</option>
+								<option value="채식" >채식</option>
+								<option value="국물류" >국물류</option>
+								<option value="돈까스,일식" >돈까스,일식</option>
+								<option value="고기,구이" >고기,구이</option>
+								<option value="해산물" selected>해산물</option>
+								<option value="분식">분식</option>
+								<option value="면류">면류</option>
+								<option value="죽">죽</option>
+								<option value="술안주">술안주</option>
+								<option value="반찬">반찬</option>
+								<option value="후식">후식</option>
+								<option value="기타">기타</option>
+								</c:when>
+								</c:choose>
+								<c:choose>
+								<c:when test="${ category_choice2 eq '분식'}">
+								<option value="1인분" >1인분</option>
+								<option value="채식" >채식</option>
+								<option value="국물류" >국물류</option>
+								<option value="돈까스,일식" >돈까스,일식</option>
+								<option value="고기,구이" >고기,구이</option>
+								<option value="해산물">해산물</option>
+								<option value="분식" selected>분식</option>
+								<option value="면류">면류</option>
+								<option value="죽">죽</option>
+								<option value="술안주">술안주</option>
+								<option value="반찬">반찬</option>
+								<option value="후식">후식</option>
+								<option value="기타">기타</option>
+								</c:when>
+								</c:choose>
+								<c:choose>
+								<c:when test="${ category_choice2 eq '면류'}">
+								<option value="1인분" >1인분</option>
+								<option value="채식" >채식</option>
+								<option value="국물류" >국물류</option>
+								<option value="돈까스,일식" >돈까스,일식</option>
+								<option value="고기,구이" >고기,구이</option>
+								<option value="해산물">해산물</option>
+								<option value="분식">분식</option>
+								<option value="면류" selected>면류</option>
+								<option value="죽">죽</option>
+								<option value="술안주">술안주</option>
+								<option value="반찬">반찬</option>
+								<option value="후식">후식</option>
+								<option value="기타">기타</option>>
+								</c:when>
+								</c:choose>
+								<c:choose>
+								<c:when test="${ category_choice2 eq '죽'}">
+								<option value="1인분" >1인분</option>
+								<option value="채식" >채식</option>
+								<option value="국물류" >국물류</option>
+								<option value="돈까스,일식" >돈까스,일식</option>
+								<option value="고기,구이" >고기,구이</option>
+								<option value="해산물">해산물</option>
+								<option value="분식">분식</option>
+								<option value="면류">면류</option>
+								<option value="죽" selected>죽</option>
+								<option value="술안주">술안주</option>
+								<option value="반찬">반찬</option>
+								<option value="후식">후식</option>
+								<option value="기타">기타</option>
+								</c:when>
+								</c:choose>
+								<c:choose>
+								<c:when test="${ category_choice2 eq '술안주'}">
+								<option value="1인분" >1인분</option>
+								<option value="채식" >채식</option>
+								<option value="국물류" >국물류</option>
+								<option value="돈까스,일식" >돈까스,일식</option>
+								<option value="고기,구이" >고기,구이</option>
+								<option value="해산물">해산물</option>
+								<option value="분식">분식</option>
+								<option value="면류">면류</option>
+								<option value="죽">죽</option>
+								<option value="술안주" selected>술안주</option>
+								<option value="반찬">반찬</option>
+								<option value="후식">후식</option>
+								<option value="기타">기타</option>
+								</c:when>
+								</c:choose>
+								
+								<c:choose>
+								<c:when test="${ category_choice2 eq '반찬'}">
+								<option value="1인분" >1인분</option>
+								<option value="채식" selected>채식</option>
+								<option value="국물류" >국물류</option>
+								<option value="돈까스,일식" >돈까스,일식</option>
+								<option value="고기,구이" >고기,구이</option>
+								<option value="해산물">해산물</option>
+								<option value="분식">분식</option>
+								<option value="면류">면류</option>
+								<option value="죽">죽</option>
+								<option value="술안주">술안주</option>
+								<option value="반찬" selected>반찬</option>
+								<option value="후식">후식</option>
+								<option value="기타">기타</option>
+								</c:when>
+								</c:choose>
+								
+								<c:choose>
+								<c:when test="${ category_choice2 eq '후식'}">
+								<option value="1인분" >1인분</option>
+								<option value="채식" >채식</option>
+								<option value="국물류" >국물류</option>
+								<option value="돈까스,일식" >돈까스,일식</option>
+								<option value="고기,구이" >고기,구이</option>
+								<option value="해산물">해산물</option>
+								<option value="분식">분식</option>
+								<option value="면류">면류</option>
+								<option value="죽">죽</option>
+								<option value="술안주">술안주</option>
+								<option value="반찬">반찬</option>
+								<option value="후식" selected>후식</option>
+								<option value="기타">기타</option>
+								</c:when>
+								</c:choose>
+								
+								<c:choose>
+								<c:when test="${ category_choice2 eq '기타'}">
+								<option value="1인분" >1인분</option>
+								<option value="채식" selected>채식</option>
+								<option value="국물류" >국물류</option>
+								<option value="돈까스,일식" >돈까스,일식</option>
+								<option value="고기,구이" >고기,구이</option>
+								<option value="해산물">해산물</option>
+								<option value="분식">분식</option>
+								<option value="면류">면류</option>
+								<option value="죽">죽</option>
+								<option value="술안주">술안주</option>
+								<option value="반찬">반찬</option>
+								<option value="후식">후식</option>
+								<option value="기타" selected>기타</option>
+								</c:when>
+								</c:choose>
+								
 							</select> <br> <br>
 						</div>
 
@@ -217,41 +436,39 @@ document.addEventListener("DOMContentLoaded", function() {
 							<div
 								style="float: right; margin-top: -260px; margin-right: -470px;">
 								<c:choose>
+								
 								<c:when test="${ level == 'newbie_lev'}">
 								  <input type="radio" id="html" class="radio_font checkmark"name="u_rcp_level" value="newbie_lev" checked>  
 									<label for="html" class="radio_font">초급 냠냠</label>  
-									</c:when> 
-									<c:when test="${ level != 'newbie_lev'}">
-								  <input type="radio" id="html" class="radio_font checkmark"name="u_rcp_level" value="newbie_lev" >  
-									<label for="html" class="radio_font">초급 냠냠</label>  
-									</c:when>
-									<c:when test="${ level == 'middle_lev'}">
-									<input type="radio" id="css" class="radio_font checkmark"name="u_rcp_level" value="middle_lev" checked>  
-									<label for="css" class="radio_font">중급 냠냠</label>   
-									</c:when>
-									<c:when test="${ level != 'middle_lev'}">
-									<input type="radio" id="css" class="radio_font checkmark"name="u_rcp_level" value="middle_lev">  
-									<label for="css" class="radio_font">중급 냠냠</label>   
-									</c:when>  
-									<c:when test="${ level == 'advanced_lev'}">
+									<input type="radio" id="css" class="radio_font checkmark"name="u_rcp_level" value="middle_lev" >  
+									<label for="css" class="radio_font">중급 냠냠</label>  
 									<input type="radio" id="javascript" class="radio_font checkmark" name="u_rcp_level" value="advanced_lev" checked>   
 									<label	for="javascript" class="radio_font">상급 냠냠</label>
-									</c:when>
-									<c:when test="${ level != 'advanced_lev'}">
-									<input type="radio" id="javascript" class="radio_font checkmark" name="u_rcp_level" value="advanced_lev" >   
+									</c:when> 
+								</c:choose>
+										
+								<c:choose>
+								<c:when test="${ level == 'middle_lev'}">
+								  <input type="radio" id="html" class="radio_font checkmark"name="u_rcp_level" value="newbie_lev" >  
+									<label for="html" class="radio_font">초급 냠냠</label>  
+									<input type="radio" id="css" class="radio_font checkmark"name="u_rcp_level" value="middle_lev" checked>  
+									<label for="css" class="radio_font">중급 냠냠</label>  
+									<input type="radio" id="javascript" class="radio_font checkmark" name="u_rcp_level" value="advanced_lev" checked>   
 									<label	for="javascript" class="radio_font">상급 냠냠</label>
-									</c:when>
-									
-									<c:otherwise>
-									  <input type="radio" id="html" class="radio_font checkmark"name="u_rcp_level" value="newbie_lev" checked>  
+									</c:when> 
+								</c:choose>		
+								
+								<c:choose>
+								<c:when test="${ level == 'advanced_lev'}">
+								  <input type="radio" id="html" class="radio_font checkmark"name="u_rcp_level" value="newbie_lev" >  
 									<label for="html" class="radio_font">초급 냠냠</label>  
 									<input type="radio" id="css" class="radio_font checkmark"name="u_rcp_level" value="middle_lev" >  
-									<label for="css" class="radio_font">중급 냠냠</label>   
-									<input type="radio" id="javascript" class="radio_font checkmark" name="u_rcp_level" value="advanced_lev" >  
+									<label for="css" class="radio_font">중급 냠냠</label>  
+									<input type="radio" id="javascript" class="radio_font checkmark" name="u_rcp_level" value="advanced_lev" checked>   
 									<label	for="javascript" class="radio_font">상급 냠냠</label>
-									</c:otherwise>
-									
-									</c:choose>
+									</c:when> 
+								</c:choose>		
+							
 							</div>
 						</div>
 
@@ -262,9 +479,18 @@ document.addEventListener("DOMContentLoaded", function() {
 							<div style="margin-top: 30px;">
 								<span class="font_32"
 									style="color: #606060; float: left; margin-left: 60px; margin-top: -5px;">#</span>
-								<input type="text" class="input_tomato" id="hashtag"
-									name="u_rcp_keyword1" style="margin-left: 20px;" value="${urvo.u_rcp_keyword }"
+									<c:choose>
+									<c:when test="${length == 1 }">
+									<input type="text" class="input_tomato" id="hashtag" name="u_rcp_keyword1" style="margin-left: 20px;" value="${u_rcp_keyword1 }"
 									placeholder="해시태그를 입력후 enter를 눌러주세요." required oninvalid="this.setCustomValidity('해시태그를 입력해세요.')" oninput="this.setCustomValidity('')">
+									</c:when>
+									<c:when test="${length == 2 }">
+									<input type="text" class="input_tomato" id="hashtag" name="u_rcp_keyword1" style="margin-left: 20px;" value="${u_rcp_keyword1 }"
+									placeholder="해시태그를 입력후 enter를 눌러주세요." required oninvalid="this.setCustomValidity('해시태그를 입력해세요.')" oninput="this.setCustomValidity('')">
+									<input type="text" class="input_tomato" id="hashtag1" name="u_rcp_keyword2" style="margin-left: 20px;" value="${u_rcp_keyword2 }"
+									placeholder="해시태그를 입력후 enter를 눌러주세요." required oninvalid="this.setCustomValidity('해시태그를 입력해세요.')" oninput="this.setCustomValidity('')">
+									</c:when>
+									</c:choose>
 							</div>
 						</div>
 
@@ -279,7 +505,7 @@ document.addEventListener("DOMContentLoaded", function() {
 								<div style="margin-top: 50px;">
 									<!-- <form style="margin-top: -20px;" action="/action_page.php"> -->
 									<div style="margin-top: -20px;">
-										<textarea id="content-textarea" class="left_margin"	placeholder="해당 요리에 대한 간단한 설명이나 Tip을 적어주세요." name="u_rcp_tip"></textarea>
+										<textarea id="content-textarea" class="left_margin"	placeholder="해당 요리에 대한 간단한 설명이나 Tip을 적어주세요." name="u_rcp_tip" >${urvo.u_rcp_tip }</textarea>
 									</div>
 									<!-- </form> -->
 								</div>
@@ -291,8 +517,7 @@ document.addEventListener("DOMContentLoaded", function() {
 								<div>
 									<!-- 재료를 입력해주세요. -->
 									<div style="margin-top: 30px;">
-										<span class="font_32 left_margin" style="float: left;">재료를
-											입력해주세요</span>
+										<span class="font_32 left_margin" style="float: left;">재료를입력해주세요</span>
 										<button type="button" id="increase_ing" class="input_tomato" onclick="increase_input()">재료추가	+</button>
 									</div>
 									<div class="container" id="ingredientsContainer"
@@ -424,7 +649,7 @@ $(document).ready(function() {
 		
 	if(confirm("저장 하시겠습니까?") == true){
 			//alert("저장해");
-		f.action="/write_go?u_rcp_ing2="+u_rcp_ing2+"&u_rcp_status="+u_rcp_status;
+		f.action="/limit_write_go?u_rcp_ing2="+u_rcp_ing2+"&u_rcp_status="+u_rcp_status;
 		}else{
 			//alert("저장안해");	
 			return false;
@@ -433,56 +658,27 @@ $(document).ready(function() {
 	}
 	
 	function limitWrite_go(f) {
-		var result = ${result};
-		console.log(result);
-		if(result == 'have'){// have 임시저장글이 있지만 새로 작성하는상태에서 임시저장을 누른 경우
-			if(confirm("기존 임시저장글은 삭제됩니다.\n임시저장하시겠습니까?") == true){
-				
-				if(f.u_rcp_title.value.trim().length<=0){
-					alert("제목을 입력해 주세요.");
-					f.u_rcp_title.focus();
-					return false;
-				}
-				
-				var u_rcp_status = 2;
-				 var u_rcp_ing2 = [];
-				for (var i = 0; i < fieldCount; i++) {
-					u_rcp_ing2[i-1] = $("#ing_box"+i).val();
-				} 
-				
-				f.action="/write_go?u_rcp_ing2="+u_rcp_ing2+"&u_rcp_status="+u_rcp_status;
-				f.submit();	
-				
-			}
-			else{
-				return false;
-			}
 		
-		}else{
-		if(confirm("임시저장은 한개의 게시글만 가능합니다.\n임시저장 하시겠습니까?") == true){
-			// if() db에 로그인된 사용자의 m_idx를 가지고 u_recipe테이블에가서 기존글 확인하고
-			// confirm창으로 기존에 임시저장된 게시글이 있습니다. 계속하시면 기존 임시저장글은 삭제됩니다. 진행하시겠습니까? 처리
+		if(confirm("임시저장은 한개의 레시피만 가능합니다.\n임시저장 하시겠습니까?") == true){
 			// true일 경우 controller 에서 update문으로 새로 작성한 임시저장글로 업데이트
 		 if(f.u_rcp_title.value.trim().length<=0){
 			alert("제목을 입력해 주세요.");
 			f.u_rcp_title.focus();
 			return false;
 		}
-		
+			
 		var u_rcp_status = 2;
 		 var u_rcp_ing2 = [];
 		for (var i = 0; i < fieldCount; i++) {
 			u_rcp_ing2[i-1] = $("#ing_box"+i).val();
 		} 
 		
-		f.action="/write_go?u_rcp_ing2="+u_rcp_ing2+"&u_rcp_status="+u_rcp_status;
+		f.action="/limit_write_go?u_rcp_ing2="+u_rcp_ing2+"&u_rcp_status="+u_rcp_status;
 		f.submit();	
 		
 	}else{
 		return false;
 	}
-			
-}// 임시저장된 게시글이 없을때 임시저장되는문 끝
 		
 }
 </script>
@@ -508,7 +704,8 @@ document.addEventListener("DOMContentLoaded", function() {
 						<div>
 							<table class="left_margin" id="summer_table" style="margin-top: 30px;">
 								<tr>
-									<td colspan="2"><textarea rows="10" cols="60" name="u_rcp_main" class="left_margin" id="u_rcp_main"	style="margin-left: 100px;"></textarea></td>
+									<td colspan="2"><textarea rows="10" cols="60" name="u_rcp_main" class="left_margin" id="u_rcp_main"	style="margin-left: 100px;">${urvo.u_rcp_main }
+									</textarea></td>
 								</tr>
 							</table>
 						</div>

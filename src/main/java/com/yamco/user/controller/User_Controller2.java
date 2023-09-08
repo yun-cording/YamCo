@@ -4,22 +4,24 @@ import java.io.File;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -31,6 +33,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.yamco.admin.model.service.Log_Service;
 import com.yamco.api.model.service.P_recipe_Service;
 import com.yamco.api.model.vo.P_recipe_VO;
 import com.yamco.user.model.service.Comment_Service;
@@ -45,10 +48,12 @@ import com.yamco.user.model.vo.Comment_VO;
 import com.yamco.user.model.vo.Comment_meta_VO;
 import com.yamco.user.model.vo.Member_VO;
 
+
 import com.yamco.user.model.vo.Random_VO;
 import com.yamco.user.model.vo.Random_save_VO;
 import com.yamco.user.model.vo.Ref_VO;
 import com.yamco.user.model.vo.U_recipe_VO;
+
 
 import com.yamco.user.model.vo.Member_meta_VO;
 import com.yamco.user.model.vo.Notice_VO;
@@ -79,6 +84,8 @@ public class User_Controller2 {
 	private P_recipe_Service p_recipe_Service;
 	@Autowired
 	private User_Service user_Service;
+	@Autowired
+	private Log_Service log_Service;
 	@Autowired
 	private Comment_Service comment_Service;
 
@@ -165,14 +172,18 @@ public class User_Controller2 {
 		return mv;
 	}
 
-	@RequestMapping("/user_list.go")
-	public ModelAndView userListGo() {
-		ModelAndView mv = new ModelAndView("/user/recipe/user_list");
-		return mv;
-	}
+	
+	// TODO 상우 게시물 찜 누르기 시작
+	
+	// TODO 상우 게시물 찜 누르기 완료
+
+	
 
 	@RequestMapping("/ranking_recipe.go")
-	public ModelAndView rankingRecipeGo() {
+	public ModelAndView rankingRecipeGo(HttpServletRequest request, HttpServletResponse response) {
+		// 랭킹
+		// 상우 DB에 방문자수 로그 찍기 (랭킹)
+		log_Service.visitorUp(request, response);
 		ModelAndView mv = new ModelAndView("/user/ranking/ranking_recipe");
 		return mv;
 	}
@@ -194,7 +205,9 @@ public class User_Controller2 {
 	}
 
 	@RequestMapping("/award.go")
-	public ModelAndView awardGo() {
+	public ModelAndView awardGo(HttpServletRequest request, HttpServletResponse response) {
+		// 상우 DB에 방문자수 로그 찍기 (랭킹)
+		log_Service.visitorUp(request, response);
 		ModelAndView mv = new ModelAndView("/user/award/award");
 		List<Member_meta_VO> awardList = member_Service.getAwardList();
 		Map<String, U_recipe_meta_VO> recipeMap = new HashMap<>();
@@ -227,7 +240,10 @@ public class User_Controller2 {
 	}
 
 	@RequestMapping("/plz.go")
-	public ModelAndView plzGo() {
+	public ModelAndView plzGo(HttpServletRequest request, HttpServletResponse response) {
+		// 냉부해
+		// 상우 DB에 방문자수 로그 찍기
+		log_Service.visitorUp(request, response);
 		ModelAndView mv = new ModelAndView("/user/plz/plz");
 		return mv;
 	}
@@ -533,6 +549,298 @@ public class User_Controller2 {
 		// TODO 공공데이터 끝
 		return mv;
 	}
+	
+	// TODO 상우 사용자 댓글 좋아요
+	@RequestMapping("/comment_like.do")
+	@ResponseBody // JSON 응답을 반환
+	public Map<String, Object> comment_like(@RequestParam(value = "buttonId", required = true) String buttonId,
+	        @RequestParam(value = "rcpSeq", required = false) String rcpSeq, HttpSession session, HttpServletRequest request) {
+	    Map<String, Object> response = new HashMap<>();
+		// 이 게시물에 들어간 댓글 전체 받아오기
+		// List<Comment_VO> comments_list_all = p_recipe_Service.load_all_comments(String.valueOf(rcpSeq));
+//		System.out.println("rcp_idx는 : " + rcpSeq);
+	    System.out.println("댓글 조항요 가즈아");
+	    
+		HttpSession session1 = request.getSession();
+		String currentRcpIdx = (String) session1.getAttribute("currentRcpIdx");
+	    
+	    // 댓글 좋아요했는가 체크
+	    
+	    // 사람 idx 받아오기
+		String m_idx = (String) session1.getAttribute("m_idx");
+	    
+	    // 댓글 idx 받아오기
+		// 숫자 부분을 추출하는 정규 표현식
+		Pattern pattern = Pattern.compile("\\d+$");
+        Matcher matcher = pattern.matcher(buttonId);
+        String numberPart = "";
+
+        if (matcher.find()) {
+            numberPart = matcher.group(); // 추출한 숫자 부분
+            System.out.println("find 했다!");
+        }
+		
+        int array_idx = Integer.parseInt(numberPart);
+		System.out.println("배열 인덱스는 : " + array_idx);
+		
+		String c_idx = "";
+		// 해당 댓글의 c_idx 추출
+		List<Comment_VO> comments_list_all = p_recipe_Service.load_all_comments(String.valueOf(currentRcpIdx));
+		if (array_idx >= 0 && array_idx < comments_list_all.size()) {
+		    Comment_VO commentVo = comments_list_all.get(array_idx);
+
+		    // Comment_VO 객체에서 c_idx 추출
+		    c_idx = commentVo.getC_idx();
+		    System.out.println("해당 댓글의 c_idx는" + c_idx);
+		}else {
+			System.out.println("일치하는 댓글 없당!");
+		}
+	    
+		int liked_ornot = 0;
+		System.out.println("최종 c_idx, m_idx는 : " + c_idx + m_idx);
+		
+		// 좋아요했는가
+		liked_ornot = comment_Service.comment_likeornot(c_idx, m_idx);
+		System.out.println("컨트롤러 체크해서 좋아요했는가 : " + liked_ornot);
+		
+		// liked_ornot이 1이면 좋아요 취소 반환
+	    response.put("resultValue", true);
+
+		// 아니라면 좋아요 반환
+	    response.put("resultValue", false);
+		
+		// 확인 후 insert 혹은 delete
+		comment_Service.insertOrUpdateCommentLike(c_idx, m_idx, String.valueOf(liked_ornot));
+		
+		System.out.println("최종 좋아요 여부 : " + liked_ornot);
+	    
+		// 좋아요 했으면 
+	    
+	    try {
+			System.out.println("rcpidx는 : " + currentRcpIdx);
+			System.out.println("버튼 ID는 : " + buttonId);
+			
+//			System.out.println("c_idx는 : " + c_idx);
+			user_Service.comment_like(c_idx);
+			
+			// ★ 상우 해당 c_idx에 대해 좋아요를 눌렀을 경우, 중복으로 작동 안됨
+			
+			// 전체 리스트 다시 받아오기
+			comments_list_all = p_recipe_Service.load_all_comments(String.valueOf(currentRcpIdx));
+			
+			int cHitValue = 0; // 댓글의 c_hit 값을 저장할 변수, 초기값은 -1 또는 다른 적절한 값으로 설정
+
+			for (Comment_VO commentVO : comments_list_all) {
+				System.out.println(commentVO.getC_idx());
+
+			    if (commentVO.getC_idx().equals(c_idx)) {
+			    	System.out.println("c_idx는 : " + c_idx);
+			        cHitValue = Integer.parseInt(commentVO.getC_like());
+			        break; // 
+			    }else {
+			    	System.out.println("일치 없음 ㅠㅠ");
+			    }
+			}
+			
+			
+
+			// cHitValue 변수에는 c_idx 변수와 일치하는 댓글의 c_hit 값이 저장됩니다.
+			// 이 값을 사용하여 필요한 작업을 수행할 수 있습니다.
+
+			
+			response.put("cHitValue", cHitValue);
+			response.put("success", true);
+	        response.put("message", "댓글 좋아요 완료함!");
+			
+		} catch (Exception e) {
+			// update된 변수를 같이 가져와서 update랑 조회 해서
+			// map에 좋아요수 담아서 
+	        response.put("success", false);
+	        response.put("message", "댓글 좋아요 처리 중 오류 발생");
+	    }
+	    return response;
+	}
+	
+	// 댓글 리로딩  
+	@RequestMapping("/get_comment_list.do")
+	@ResponseBody // JSON 응답을 반환
+	public Map<String, Object> get_comment_list(@RequestParam(value = "buttonId", required = true) String buttonId,
+	        String rcpSeq, HttpSession session, HttpServletRequest request) {
+	    Map<String, Object> response = new HashMap<>();
+	    
+	    try {
+	    	HttpSession session1 = request.getSession();
+			String currentRcpIdx = (String) session1.getAttribute("currentRcpIdx");
+			
+			System.out.println("rcpidx는 : " + currentRcpIdx);
+			System.out.println("버튼 ID는 : " + buttonId);
+			
+			// 숫자 부분을 추출하는 정규 표현식
+			Pattern pattern = Pattern.compile("\\d+$");
+	        Matcher matcher = pattern.matcher(buttonId);
+	        String numberPart = "";
+
+	        if (matcher.find()) {
+	            numberPart = matcher.group(); // 추출한 숫자 부분
+	            System.out.println("find 했다!");
+	        }
+			
+	        int array_idx = Integer.parseInt(numberPart);
+			System.out.println("배열 인덱스는 : " + array_idx);
+			
+			String c_idx = "";
+			// 해당 댓글의 c_idx 추출
+			List<Comment_VO> comments_list_all = p_recipe_Service.load_all_comments(String.valueOf(currentRcpIdx));
+			if (array_idx >= 0 && array_idx < comments_list_all.size()) {
+			    Comment_VO commentVo = comments_list_all.get(array_idx);
+
+			    // Comment_VO 객체에서 c_idx 추출
+			    c_idx = commentVo.getC_idx();
+			    System.out.println("해당 댓글의 c_idx는" + c_idx);
+			}else {
+				System.out.println("일치하는 댓글 없당!");
+			}
+			
+			int cHitValue = 0; // 댓글의 c_hit 값을 저장할 변수, 초기값은 -1 또는 다른 적절한 값으로 설정
+
+			for (Comment_VO commentVO : comments_list_all) {
+				System.out.println(commentVO.getC_idx());
+
+			    if (commentVO.getC_idx().equals(c_idx)) {
+			    	System.out.println("c_idx는 : " + c_idx);
+			        cHitValue = Integer.parseInt(commentVO.getC_like());
+			        System.out.println("담은 총 좋아요 수 " + cHitValue);
+			        break; // 
+			    }else {
+			    	System.out.println("일치 없음 ㅠㅠ");
+			    }
+			}
+			
+			
+
+			// cHitValue 변수에는 c_idx 변수와 일치하는 댓글의 c_hit 값이 저장됩니다.
+			// 이 값을 사용하여 필요한 작업을 수행할 수 있습니다.
+
+			
+			response.put("cHitValue", cHitValue);
+			System.out.println("총 좋아요 수" + cHitValue);
+			response.put("success", true);
+	        response.put("message", "댓글 좋아요 완료함!");
+			
+		} catch (Exception e) {
+			// update된 변수를 같이 가져와서 update랑 조회 해서
+			// map에 좋아요수 담아서 
+	        response.put("success", false);
+	        response.put("message", "댓글 좋아요 처리 중 오류 발생");
+	    }
+	    return response;
+	}
+	
+	// TODO 상우 사용자 댓글 좋아요 완료
+	
+	// TODO 상우 댓글 수정 시작
+	 @RequestMapping("/comment_revise.do")
+	    @ResponseBody
+	    public String reviseComment(@RequestParam("revisionBtnId") String revisionBtnId, @RequestParam("text") String newText,
+	    		HttpSession session, HttpServletRequest request) {
+		 	HttpSession session1 = request.getSession();
+			String currentRcpIdx = (String) session.getAttribute("currentRcpIdx");
+			
+			// 숫자 부분을 추출하는 정규 표현식 (id 받아와서 숫자만 추출해서, idx 체크하기)
+			Pattern pattern = Pattern.compile("\\d+$");
+	        Matcher matcher = pattern.matcher(revisionBtnId);
+	        String numberPart = "";
+
+	        if (matcher.find()) {
+	            numberPart = matcher.group(); // 추출한 숫자 부분
+	            System.out.println("find 했다!");
+	        }
+			
+	        int array_idx = Integer.parseInt(numberPart);
+			System.out.println("배열 인덱스는 : " + array_idx);
+			
+			String c_idx = "";
+
+	        try {
+	        	List<Comment_VO> comments_list_all = p_recipe_Service.load_all_comments(String.valueOf(currentRcpIdx));
+				if (array_idx >= 0 && array_idx < comments_list_all.size()) {
+				    Comment_VO commentVo = comments_list_all.get(array_idx);
+
+				    // Comment_VO 객체에서 c_idx 추출
+				    c_idx = commentVo.getC_idx();
+				    System.out.println("해당 댓글의 c_idx는" + c_idx);
+				}else {
+					System.out.println("일치하는 댓글 없당!");
+				}
+	        	
+				System.out.println("수정할 내용 : " + newText);
+				// 보낼 때부터 Map으로 보내면 오류 나나?
+				System.out.println("완료 : " + comment_Service.comment_revision(newText, c_idx));
+	        	
+				
+	            
+	            return "Success"; // 성공적으로 업데이트된 경우 반환할 응답 메시지
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	            return "Error"; // 오류 발생 시 반환할 응답 메시지
+	        }
+	    }
+	
+	
+	// TODO 상우 댓글 수정 완료
+	 
+	 // TODO 상우 댓글 삭제 시작
+	 @RequestMapping("/comment_delete.do")
+	 @ResponseBody
+	 public String reviseComment(@RequestParam("deleteBtnId") String deleteBtnId,
+			 HttpSession session, HttpServletRequest request) {
+		 
+		 System.out.println("삭제버튼 이름 " + deleteBtnId);
+		 HttpSession session1 = request.getSession();
+		 String currentRcpIdx = (String) session1.getAttribute("currentRcpIdx");
+		 System.out.println("삭제버튼 rcpidx는 " + currentRcpIdx);
+		 
+		 // 숫자 부분을 추출하는 정규 표현식 (id 받아와서 숫자만 추출해서, idx 체크하기)
+		 Pattern pattern = Pattern.compile("\\d+$");
+		 Matcher matcher = pattern.matcher(deleteBtnId);
+		 String numberPart = "";
+		 
+		 if (matcher.find()) {
+			 numberPart = matcher.group(); // 추출한 숫자 부분
+			 System.out.println("find 했다!");
+		 }
+		 
+		 int array_idx = Integer.parseInt(numberPart);
+		 System.out.println("배열 인덱스는 : " + array_idx);
+		 
+		 String c_idx = "";
+		 
+		 try {
+			 List<Comment_VO> comments_list_all = p_recipe_Service.load_all_comments(String.valueOf(currentRcpIdx));
+			 if (array_idx >= 0 && array_idx < comments_list_all.size()) {
+				 Comment_VO commentVo = comments_list_all.get(array_idx);
+				 
+				 // Comment_VO 객체에서 c_idx 추출
+				 c_idx = commentVo.getC_idx();
+				 System.out.println("해당 댓글의 c_idx는" + c_idx);
+			 }else {
+				 System.out.println("일치하는 댓글 없당!");
+			 }
+			
+			 comment_Service.comment_delete(c_idx);
+			 System.out.println("삭제 완료!");
+			 
+			 return "Success"; // 성공적으로 업데이트된 경우 반환할 응답 메시지
+		 } catch (Exception e) {
+			 e.printStackTrace();
+			 return "Error"; // 오류 발생 시 반환할 응답 메시지
+		 }
+	 }
+	 
+	 
+	 // TODO 상우 댓글 수정 완료
+	
+	
 
 	@RequestMapping("/changeMyInfo.go")
 	public ModelAndView changeMyInfoGo(HttpSession session) {
@@ -640,11 +948,14 @@ public class User_Controller2 {
 			@RequestParam(value = "image", required = false) MultipartFile image, HttpSession session,
 			HttpServletRequest request) {
 
-		try {
-			String path = request.getSession().getServletContext().getRealPath("/resources/images/comment");
-			MultipartFile file = image;
-			if (file.isEmpty()) {
-				// 빈 경로
+		 try {
+		        String path = request.getSession().getServletContext().getRealPath("/resources/images/comment");
+		        MultipartFile file = image;
+		        String imagePath = null; // 이미지 경로를 저장할 변수
+
+	        if (file.isEmpty()) {
+	            // 이미지가 업로드되지 않았을 경우 기본 이미지 경로를 설정합니다.
+	            imagePath = "resources/images/comment/sample_white.png";
 //		        bv.setF_name("");
 			} else {
 				// 같은 이름 없도록 UUID 사용
@@ -667,6 +978,8 @@ public class User_Controller2 {
 			e.printStackTrace();
 			System.out.println("이미지 저장 실패");
 		}
+		
+		// ★ 이미지 실제 경로에 업로드
 
 //		 if (!image.isEmpty()) {
 //	            try {
@@ -702,8 +1015,10 @@ public class User_Controller2 {
 		cvo.setC_img("resources/images/comment/" + image.getOriginalFilename());
 		cvo.setC_grade(rate);
 
-		// 여기네
+		// 여기네 (세션에서 값 null로 나옴)
+		System.out.println("오류 체크");
 		String s_rcp_idx = (String) session.getAttribute("rcp_idx");
+		System.out.println(s_rcp_idx);
 
 		// System.out.println("자료형은 : " +
 		// session.getAttribute("rcp_idx").getClass().getName());
@@ -716,8 +1031,9 @@ public class User_Controller2 {
 		return new ModelAndView("user/recipe/public_recipe_detail");
 
 	}
-
-	// TODO 상우 사용자 댓글작성
+	// TODO 상우 사용자 댓글작성 완료
+	
+	
 	@RequestMapping("/changeMyPw.go")
 	public ModelAndView changeMyPwGo() {
 		return new ModelAndView("/mypage/changeMypw");
@@ -751,19 +1067,8 @@ public class User_Controller2 {
 				rfvo.setInput2(inputValues[1]);
 				rfvo.setInput3(inputValues[2]);
 				rfvo.setOrder(order);
-				System.out.println(rfvo.getInput1());
 
-				System.out.println("오니?");
 				List<U_recipe_meta_VO> search_list = u_recipe_Service.getRefSearch(rfvo); // 냉장고 검색결과
-				for (U_recipe_meta_VO k : search_list) {
-					System.out.println(k.getU_rcp_ing());
-					System.out.println(k.getU_rcp_img());
-					System.out.println(k.getU_rcp_title());
-					System.out.println(k.getU_rcp_hit());
-					System.out.println(k.getM_nick());
-				}
-				
-		System.out.println("갔니?");
 		return search_list ;
 	}
 	//TODO 재훈 냉장고 열기 끝

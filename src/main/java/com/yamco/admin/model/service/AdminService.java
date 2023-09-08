@@ -1,9 +1,38 @@
 package com.yamco.admin.model.service;
 
+import java.util.List;
+
+import com.yamco.admin.model.vo.Admin_Banner_VO;
 import com.yamco.admin.model.vo.Admin_Dash_VO;
+import com.yamco.admin.model.vo.Admin_Report_Chk_VO;
+import com.yamco.admin.model.vo.Member_count_summary_VO;
+import com.yamco.admin.model.vo.Admin_Report_VO;
 
 public interface AdminService {
-	// 대시보드 상단카드 4개
-	public Admin_Dash_VO getDashTop();
+	public Admin_Dash_VO getDashBoard();
 
+	public boolean blindDo(Admin_Report_VO vo);
+	
+	// 신고내역 관리 모든 신고내역 불러오기
+	public List<Admin_Report_Chk_VO> getReportlist();
+
+	public List<List<Admin_Banner_VO>> total_list();
+
+	public void noticeDel(String notice_idx);
+
+	public void pplDel(String ppl_idx);
+
+	public void foodingDel(String food_idx);
+
+	public List<List<Admin_Banner_VO>> total_delete_list();
+
+	public void noticeUp(String idx);
+
+	public void pplUp(String idx);
+
+	public void foodingUp(String idx);
+
+
+	// 회원수 요약 가져오기
+	public Member_count_summary_VO getMemberCountSummary();
 }

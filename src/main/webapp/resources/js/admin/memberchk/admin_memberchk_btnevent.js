@@ -3,6 +3,72 @@ function goSubmit(f) {
     f.submit();
 }
 
+function dropOut(m_idx) {
+    swal({
+        title: "계정 탈퇴",
+        text: "해당 사용자의 계정 탈퇴시키겠습니까?",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+      }).then((willDropOut) => {
+        if(willDropOut) {
+            swal({
+                title: "계정 탈퇴 시 복구 불가",
+                text: "정말로 계정 탈퇴를 진행할까요?",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+              }).then((willDropOutChk) => {
+                if(willDropOutChk) {
+                    location.href = "/go_admin_memberchk_update.do?m_idx=" + m_idx + "&m_status=3";
+                }
+              });
+        }
+      });
+}
+
+function openLock(m_idx) {
+    swal({
+        title: "계정 잠김 해제",
+        text: "해당 사용자의 계정 잠김을 해제하시겠습니까?",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+      }).then((willOpenLock) => {
+        if(willOpenLock) {
+            location.href = "/go_admin_memberchk_update.do?m_idx=" + m_idx + "&m_fail_count=0";
+        }
+      });
+}
+
+function openWrite(m_idx) {
+    swal({
+        title: "작성 금지 해제",
+        text: "해당 사용자의 게시물 작성을 허용하시겠습니까?",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+      }).then((willOpenLock) => {
+        if(willOpenLock) {
+            location.href = "/go_admin_memberchk_update.do?m_idx=" + m_idx + "&m_status=1";
+        }
+      });
+}
+
+function banWrite(m_idx) {
+    swal({
+        title: "작성 금지",
+        text: "해당 사용자의 게시물 작성을 금지하시겠습니까?",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+      }).then((willOpenLock) => {
+        if(willOpenLock) {
+            location.href = "/go_admin_memberchk_update.do?m_idx=" + m_idx + "&m_status=4";
+        }
+      });
+}
+
 $(document).ready(function () {
     // 1일 버튼 클릭시
     $("#btn_1day").on("click", function () {

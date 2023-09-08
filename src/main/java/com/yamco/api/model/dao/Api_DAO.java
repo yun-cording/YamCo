@@ -19,4 +19,8 @@ public class Api_DAO {
 	public int getNickChk(String m_nick) {
 		return sqlSessionTemplate.selectOne("api.nickChk", m_nick);
 	}
+	// 조회수 올리기
+	public int hitUpdate(String rcp_idx) {
+		return sqlSessionTemplate.update("api.hit_update", rcp_idx);
+	}
 }
