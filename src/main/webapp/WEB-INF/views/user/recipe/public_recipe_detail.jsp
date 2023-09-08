@@ -66,13 +66,16 @@
 					<img class="lower_images" src="resources/images/hashtag.png" style="margin-left: 138px;">
 					<!-- 이미지가 검은하트 or 빨간 하트 -->
 					<button class="lower_images" id="like_btn_id"></button>
-						<c:if test="${liked_ornot == null}">
-						    <img class="lower_images" src="resources/images/black_heart.png" style="margin-left: 45px; position:relative; left: -93px;">
-						</c:if>ㅇ
-						<c:if test="${liked_ornot != null}">
-						    <img class="lower_images" src="resources/images/heart.png" style="margin-left: 45px; position:relative; left: -93px;">
-						</c:if>
-					<img class="lower_images" src="resources/images/tableware.png" style="margin-left: 22px; position:relative; left: -95px;">
+					<c:choose>
+					    <c:when test="${liked_ornot.equals('0')}">
+					        <img id="like_image" class="lower_images" src="resources/images/black_heart.png" style="margin-left: 45px; position:relative; left: -93px;">
+					    </c:when>
+					    <c:otherwise>
+					        <img id="like_image" class="lower_images" src="resources/images/heart.png" style="margin-left: 45px; position:relative; left: -93px;">
+					    </c:otherwise>
+					</c:choose>
+
+					<img class="lower_images" src="resources/images/tableware.png" style="margin-left: 45px; position:relative; left: -95px;">
 					
 						<div style="width: 100px; height: 40px; margin-left: 26px; text-align: center; margin-top: 10px;">
 							<!-- span은 쓰레기다 -->
@@ -426,6 +429,59 @@
 <script type="text/javascript">
     $(document).ready(function () {
         var mNick = '<%= session.getAttribute("m_nick") %>'; // JSP 코드로부터 m_nick 값을 가져옴
+    
+       	// 찜 누르기
+        var likeButton = document.getElementById("like_btn_id");
+	       likeButton.addEventListener("click", function () {
+        	
+         	// 세션에서 받아온 사용자 정보
+            var m_idx = '<%= session.getAttribute("m_idx") %>'; 
+            var rcp_idx = '<%= session.getAttribute("rcp_idx") %>'; // 세션에서 받아온 레시피 정보
+            
+            // alert(m_idx);
+            // alert(rcp_idx);
+            
+            // String임!!
+            // var typeOfMIdx = typeof m_idx;
+            // alert(typeOfMIdx);
+
+        	
+            $.ajax({
+                url: "/wish_ornot.do", 
+                type: "GET", // POST 요청
+                data: {
+    				m_idx: m_idx, 
+    				rcp_idx: rcp_idx              
+                },
+                success: function (response) {
+                    // 성공적으로 처리된 경우
+					alert("성공적");
+                    // 이미지 변경 로직 추가
+                    var resultValue = response.resultValue;
+                    if (resultValue === "1") {
+                        // 좋아요가 되었으면 => 이미지를 하트 이미지로 변경
+                        $("#like_image").attr("src", "resources/images/heart.png");
+                        alert("좋아요 완료!");
+                    } else if (resultValue === "0") {
+                        // 좋아요를 취소했으면 => 이미지를 검은 하트 이미지로 변경
+                        $("#like_image").attr("src", "resources/images/black_heart.png");
+                        alert("좋아요 취소 완료!");
+                    }
+                },
+                error: function (xhr, status, error) {
+                    // 에러 발생 시 처리
+                    // console.error("데이터 전송 실패");
+                    alert("댓글 좋아요 실패!");
+                    console.log("XHR Status:", status);
+                    console.log("Error:", error);
+
+                    // 에러 메시지를 페이지에 표시할 요소에 추가
+                    $("#error_message").text("댓글 좋아요 실패: " + error);
+                },
+            });
+        });
+        
+        
 		
        // 댓글 좋아요
        $(".like_btn").click(function () {
@@ -760,6 +816,7 @@
 	                    var previewImage = document.getElementById("preview_btn");
 	                    previewImage.src = "";
 	                    $("#content-textarea").val(""); // textarea 내용을 빈 문자열로 설정
+	                    location.reload(); // 페이지 새로고침
 	                },
 	                error: function () {
 	                    // 오류 발생 시 처리
@@ -840,27 +897,13 @@ document.addEventListener("DOMContentLoaded", function () {
 	
 	
 	
-	// 좋아요 버튼 요소를 가져옵니다.
-	var likeButton = document.getElementById("like_btn_id");
 
-	// 버튼 클릭 이벤트 핸들러를 추가합니다.
-	likeButton.addEventListener("click", function () {
-	    // liked_ornot 값을 가져옵니다. liked_ornot 값을 서버에서 받아온다고 가정합니다.
-	    var liked_ornot = "${liked_ornot}"; // 이 부분을 서버에서 실제 값으로 대체해야 합니다.
-	    alert("게시글 찜 완료!");
-	    // alert("좋아요 값은" + liked_ornot);
+	
+	
+	
 
-	    if (liked_ornot === "") {
-	        // liked_ornot이 null인 경우
-	        alert("좋아요를 누릅니다.");
-	        // 추가적인 동작을 수행하거나 서버로 데이터를 전송할 수 있습니다.
-	        window.location.href = "/go_login.do";
-	    } else if (liked_ornot === '1') {
-	        // liked_ornot이 '1'인 경우
-	        alert("좋아요 취소를 누릅니다.");
-	        // 추가적인 동작을 수행하거나 서버로 데이터를 전송할 수 있습니다.
-	    }
-	});
+
+
 
 	// JSP 코드로부터 m_nick 값을 가져옴
     var mNick = '<%= session.getAttribute("m_nick") %>';

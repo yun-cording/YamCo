@@ -13,7 +13,7 @@
 	</select>
 	<!-- 게시물 rcp_idx를 m_idx에서 좋아요 했는지 확인 -->
     <select id="liked_ornot" parameterType="Map" resultType="String">
-		SELECT rcp_idx FROM wish_list WHERE m_idx = #{m_idx} and rcp_idx = #{rcp_idx}
+		select rcp_idx from wish_list where m_idx = #{m_idx} and rcp_idx = #{rcp_idx}
 	</select>
 	<!-- m_idx회원의 게시물 rcp_idx에 대한 좋아요 추가 -->
     <insert id="liked_check" parameterType="Map">

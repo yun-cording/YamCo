@@ -155,18 +155,63 @@
 		UPDATE food_ing SET food_status=0 WHERE food_idx=#{food_idx}
 	</update>
 	
-	<!-- 어드민 신고내역 관리 모든 신고내역 가져오기 -->
-	<select id="getReportlist" resultType="arcvo">
-	select * from admin_report_chk
+	<!-- 신고테이블 전부 가져오기 -->
+	<select id="getReportAll" resultType="arcvo">
+	select * from report_t
 	</select>
 	
-	<!-- 댓글 신고 횟수 
-	<select id="commentReport_2" resultType="arcvo">
-		SELECT c_idx, COUNT(*) AS count
-		FROM report_t
-		WHERE c_idx IS NOT NULL
-		GROUP BY c_idx
-	</select>-->
+	<!-- 게시글 신고내역 관리 모든 신고내역 가져오기 -->
+	<select id="getReportlist" resultType="arcvo">
+	SELECT
+    report_t.rcp_idx,
+    member.m_nick,
+    report_t.r_type,
+    u_recipe.m_nick ,
+    u_recipe.u_rcp_title,
+    report_t.r_reply,
+    CASE WHEN report_t.r_replytime IS NULL THEN 'Yes' ELSE 'No' END AS is_r_replytime_null,
+    CASE WHEN u_recipe.u_rcp_blind = 1 THEN 'Yes' ELSE 'No' END AS u_rcp_blind_corresponding_to_rcp_idx
+FROM
+    report_t
+JOIN
+    member ON report_t.m_idx = member.m_idx
+JOIN
+    u_recipe ON report_t.rcp_idx = u_recipe.rcp_idx;
+	</select>
+	
+	<!--  -->
+	<select id="recipe_attacknick" parameterType="String" resultType="String">
+	select m_nick from member where m_idx = #{m_idx}
+	</select>
+	
+	<select id="getRecipe_info" parameterType="String" resultType="arcvo">
+		select u_rcp_title , m_nick from u_recipe where rcp_idx =#{rcp_idx}
+	</select>
+	
+	
+	<select id="comment_attacknick" parameterType="String" resultType="String">
+	select m_nick from member where m_idx = #{m_idx}
+	</select>
+	
+	<select id="comment_defencenick" parameterType="String" resultType="String">
+	select m_nick from comment where c_idx = #{c_idx}
+	</select>
+	
+	
+	<!-- 처리 덜된 신고당한 댓글리스트 가져오기 -->
+	<select id="getCommentList" resultType="arcvo">
+	
+	</select>
+	
+	<!-- 신고응답 처리 완료된 게시글 불러오기 -->
+	<select id="getReportRecipeResult" resultType="arcvo">
+	
+	</select>
+	
+	<!-- 신고응답 처리 완료된 댓글 불러오기 -->
+	<select id="getReportCommentResult" resultType="arcvo">
+	
+	</select>
 	
 	<!-- 게시글 블라인드 취소 처리 -->
 	<update id="rcpBlindCancel" parameterType="arvo">

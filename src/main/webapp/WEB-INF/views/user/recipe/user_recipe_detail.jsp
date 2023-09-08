@@ -57,7 +57,7 @@
 						<c:if test="${liked_ornot != null}">
 						    <img class="lower_images" src="resources/images/heart.png" style="margin-left: 45px; position:relative; left: -93px;">
 						</c:if>
-					<img class="lower_images" src="resources/images/tableware.png" style="margin-left: 22px; position:relative; left: -95px;">
+					<img class="lower_images" src="resources/images/tableware.png" style="margin-left: 45px; position:relative; left: -95px;">
 						<div style="width: 100px; height: 40px; margin-left: 26px; text-align: center; margin-top: 10px;">
 						        <p id="ing_dets">
 									<p class="lower_text" style="margin-left: 107px; width: 100px; height: 40px; text-align: center;"># ${uvo.u_rcp_keyword}
