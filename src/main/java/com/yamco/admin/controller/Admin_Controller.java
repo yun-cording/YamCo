@@ -23,8 +23,10 @@ import com.yamco.admin.model.vo.Admin_Dash_VO;
 import com.yamco.admin.model.vo.Admin_Report_Chk_VO;
 import com.yamco.admin.model.vo.Member_count_summary_VO;
 import com.yamco.user.model.service.Member_Service;
+import com.yamco.user.model.service.U_recipe_Service;
 import com.yamco.user.model.vo.Member_Search_VO;
 import com.yamco.user.model.vo.Member_VO;
+import com.yamco.user.model.vo.U_recipe_meta_VO;
 
 @Controller
 public class Admin_Controller {
@@ -32,6 +34,8 @@ public class Admin_Controller {
 	private Member_Service member_Service;
 	@Autowired
 	private AdminService adminService;
+	@Autowired
+	private U_recipe_Service u_recipe_Service;
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
 	
@@ -142,8 +146,14 @@ public class Admin_Controller {
 	}
 
 	@RequestMapping("go_admin_contentchk.do")
-	public ModelAndView go_admin_contentchk() {
-		return new ModelAndView("admin/admin_contentchk");
+	public ModelAndView go_admin_contentchk(U_recipe_meta_VO urmvo) {
+		ModelAndView mv = new ModelAndView("admin/admin_contentchk");
+		List<U_recipe_meta_VO> result = u_recipe_Service.getUserContentList(urmvo);
+		Admin_Dash_VO dash_VO = adminService.getDashBoard();
+		
+		mv.addObject("vo",dash_VO);
+		mv.addObject("content_result", result);
+		return mv;
 	}
 
 	@RequestMapping("go_tableExam.do")
@@ -232,4 +242,13 @@ public class Admin_Controller {
 
 		return mv;
 	}
+	
+	@RequestMapping("/content_search.go")
+	public ModelAndView getUserSearchList(U_recipe_meta_VO urmvo) {
+		ModelAndView mv = new ModelAndView("admin/admin_contentchk");
+		List<U_recipe_meta_VO> result = u_recipe_Service.getUserSearchList(urmvo);
+		System.out.println(result.size());
+		mv.addObject("content_result", result);
+		return mv;
+	}	
 }

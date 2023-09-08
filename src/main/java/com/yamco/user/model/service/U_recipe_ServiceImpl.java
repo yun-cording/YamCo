@@ -121,46 +121,98 @@ public class U_recipe_ServiceImpl implements U_recipe_Service {
 	public int getHitUp(String rcp_idx, String m_idx) {
 		return u_recipe_DAO.getHitUp(rcp_idx, m_idx);
 	}
-	
+
 	// 레시피 글쓰기
 	@Override
 	public int getWrite(U_recipe_VO uvo) {
 		return u_recipe_DAO.getWrite(uvo);
 	}
-	
+
 	// 임시저장된 레시피 수 조회
 	@Override
 	public U_recipe_VO getLimit_recipe(String m_idx) {
 		return u_recipe_DAO.getLimit_recipe(m_idx);
 	}
-	
+
 	// 성훈 임시저장된 레시피 삭제
 	@Override
 	public int deleteRecipe(String m_idx) {
 		return u_recipe_DAO.deleteRecipe(m_idx);
 	}
-	
+
 	// 재훈 냉장고 검색
 	@Override
 	public List<U_recipe_meta_VO> getRefSearch(Ref_VO rfvo) {
 		return u_recipe_DAO.getRefSearch(rfvo);
 	}
-	
+
 	// 성훈 임시저장 게시글 등록
 	@Override
 	public int limitWrite(U_recipe_VO uvo) {
 		return u_recipe_DAO.limitWrite(uvo);
 	}
-	
+
 	// 상우 사용자게시물 목록 전체 받아오기
 	@Override
 	public List<U_recipe_meta_VO> u_recipe_list() {
-		return u_recipe_DAO.u_recipe_list(); 
+		return u_recipe_DAO.u_recipe_list();
 	}
-	
+
 	// 상우 사용자게시물 목록 상세페이지 받아오기
 	@Override
 	public U_recipe_meta_VO u_recipe_detail(String rcp_idx) {
 		return u_recipe_DAO.u_recipe_detail(rcp_idx);
+	}
+
+	// 사용자 게시판 리스트 가져오기
+	@Override
+	public List<U_recipe_meta_VO> getUserContentList(U_recipe_meta_VO urmvo) {
+		return u_recipe_DAO.getUserContentList(urmvo);
+	}
+
+	// 사용자 게시판 리스트 가져오기(검색)
+	@Override
+	public List<U_recipe_meta_VO> getUserSearchList(U_recipe_meta_VO urmvo) {
+		String category = urmvo.getHave_category();
+//			if(category != null) {
+//				urmvo.setHave_category(category);
+		System.out.println(category + " : 1");
+//			}
+//			
+		String input = urmvo.getInput();
+//			if(input != null && !input.isBlank() && !input.equals("")) {
+//				urmvo.setHave_title(input);
+		System.out.println(input + " : 2");
+//			}
+//			
+		String start_date = urmvo.getStart_date();
+		String end_date = urmvo.getEnd_date();
+//			
+//			if(start_date != null && !start_date.isBlank()) {
+//				urmvo.setStart_date(start_date);
+		System.out.println(start_date + " : 3");
+//			}
+//			
+//			if(end_date != null && !end_date.isBlank()) {
+//				LocalDate end = LocalDate.parse(end_date);
+//				end = end.plusDays(1);
+//				end_date = end.toString();
+//				urmvo.setEnd_date(end_date);
+		System.out.println(end_date + " : 4");
+//			}
+//			
+		String btn_status = urmvo.getBtn_status();
+		System.out.println(btn_status + " : 5");
+
+		if (btn_status != null && !btn_status.isBlank()) {
+			if (btn_status.equalsIgnoreCase("게시중")) {
+				urmvo.setBtn_status("0");
+				System.out.println(urmvo.getBtn_status() + " : 6");
+			} else {
+				urmvo.setBtn_status("3");
+				System.out.println(urmvo.getBtn_status() + " : 7");
+			}
+		}
+		return u_recipe_DAO.getUserSearchList(urmvo);
 	}
 }
