@@ -81,7 +81,7 @@
 			
 	<div style="text-align:center; margin-top:120px;">
 	<button type="submit" class="buttons" id="join" style="background:gray;" onclick="socialJoin_go(this.form)" disabled=""><span>회원가입</span></button>
-	<button type="button" class="buttons" style="background:gray;" onclick="history.go(-1)"><span>돌아가기</span></button>
+	<button type="button" class="buttons" style="background:gray;" onclick="location.href='/member_join.go'"><span>돌아가기</span></button>
 	</div>
 	<input type="hidden" value="${m_id }" name="m_id">
 	</div>
