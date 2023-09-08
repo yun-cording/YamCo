@@ -20,7 +20,7 @@
 			<!-- idx가 1만 이상 -->
 				<c:choose>
 					<c:when test="${k.idx>=10000 }">
-						<a href="/사용자레시피?=${k.idx }">
+						<a href="/user_recipe_detail.do?rcp_idx=${k.idx }">
 							<div class="recent_center">
 								<img	src="${k.img }" alt="" >
 								<p class="cate">${k.cate } | ${k.title }</p>

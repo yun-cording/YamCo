@@ -281,7 +281,7 @@ document.addEventListener("DOMContentLoaded", function() {
                      var k = response[i];
                      var newRecipe = '';
                      newRecipe += '<div class="u_recipe_one">';
-                     newRecipe += '    <a href="/사용자레시피?rcp_seq=' + k.rcp_idx + '">';
+                     newRecipe += '    <a href="/user_recipe_detail.do?rcp_idx=' + k.rcp_idx + '">';
                      newRecipe += '        <p><img src="' + k.u_rcp_img + '" class="recipe_thumbnail"></p>';
                      newRecipe += '        <p>' + k.u_rcp_title + '</p>';
                      newRecipe += '        <div class="writer">';
