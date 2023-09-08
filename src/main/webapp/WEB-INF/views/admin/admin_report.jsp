@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,46 +12,71 @@
 <!-- 알럿창꾸미기 -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="sweetalert2.min.js"></script>
-<script type="text/javascript">
-    function chk() {
-    	Swal.fire({
-    		  title: '블라인드 처리 하시겠습니까?',
-    		  text: "누구가에겐 고통이 될수 있습니다.",
-    		  icon: 'warning',
-    		  showCancelButton: true,
-    		  confirmButtonColor: '#3085d6',
-    		  cancelButtonColor: '#d33',
-    		  confirmButtonText: '블라인드 처리하기'
-    		}).then((result) => {
-    		  if (result.isConfirmed) {
-    		    Swal.fire(
-    		      '처리 완료!',
-    		      '블라인드 처리되었습니다.',
-    		      'success'
-    		    )
-    		  }
-    		})
-	}
-    </script>
-
-
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" ></script>
 <!-- Custom fonts for this template-->
-<link href="/resources/vendor/fontawesome-free/css/all.min.css"
-	rel="stylesheet" type="text/css">
-	
+<link href="/resources/vendor/fontawesome-free/css/all.min.css"	rel="stylesheet" type="text/css">	
 	<!-- Custom styles for this template-->
 	<link href="/resources/css/sb-admin-2.min.css?after" rel="stylesheet">	
 	
-<link
-	href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+<link	href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
 	rel="stylesheet">
 
 <!-- Custom styles for this page -->
-<link href="resources/vendor/datatables/dataTables.bootstrap4.min.css"
-	rel="stylesheet">
+<link href="resources/vendor/datatables/dataTables.bootstrap4.min.css"	rel="stylesheet">
+<script type="text/javascript">
+function btnradio1() {
+	location.href="/admin_report_recipe.do";
+}
 
+function btnradio() {
+	location.href="/admin_report_comment.do";
+}
+
+function btnradio3() {
+	location.href="/admin_report_result.do";
+}
+
+function confirm_go(c_idx, rcp_idx,button) {
+	var sendData ='';
+	if(c_idx){
+		sendData='c_idx='+c_idx
+	}else{
+		sendData='rcp_idx='+rcp_idx
+	}
+	swal({
+		  title: "해당 게시글을 블라인드 처리하리겠습니까?",
+		  text: "블라인드 된 게시글은 조회할 수 없습니다.",
+		  icon: "warning",
+		  buttons: true,
+		  dangerMode: true,
+		})
+		.then((willDelete) => {
+		  if (willDelete) {
+			$.ajax({
+				url: '/blind.do',
+			    method: 'GET',
+			    data: sendData ,
+			    success: function (success) {
+			    	if(success){
+			    		swal("블라인드 처리되었습니다.", {
+					    	icon: "success",
+					    });
+			    		var myBtn = $(button)
+			    		var row = myBtn.parent().parent()
+			    		$("#dataTable").DataTable().row(row).remove().draw()
+			      	}
+			    },
+			    error: function (xhr, status, error) {
+			      swal("Ajax요청 실패");
+			    }
+			})  
+		  } else {
+		    swal("블라인드 요청이 중단되었습니다.");
+		  }
+		});
+}
+</script>
 </head>
 <body id="page-top">
 	<!-- Page Wrapper -->
@@ -70,19 +96,22 @@
 					
 					<!-- 버튼시작 -->
 					<div class="btn-group" role="group"	aria-label="Basic radio toggle button group" style="margin-left:26px;">
-						<input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked> 
-							<label class="btn btn-outline-success" for="btnradio1">게시글</label>
+						<input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked
+						onclick="btnradio1()"> 
+							<label class="btn btn-outline-success" for="btnradio1" >게시글</label>
 							 
-							<input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off"> 
+							<input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off"
+							onclick="btnradio2()"> 
 							<label class="btn btn-outline-success" for="btnradio2">댓글</label>
 							 
-							<input type="radio" class="btn-check" name="btnradio" id="btnradio3"autocomplete="off"> 
+							<input type="radio" class="btn-check" name="btnradio" id="btnradio3"autocomplete="off"
+							onclick="btnradio3()"> 
 							<label class="btn btn-outline-success" for="btnradio3">처리된 내용들</label>
 					</div>
 					<!-- 버튼 끝 -->
 
 					<!-- 라디오 버튼 시작 -->
-					<div style="margin-left: 26px;">
+					<!-- <div style="margin-left: 26px;">
 						<div class="form-check form-check-inline">
 							<input class="form-check-input" type="radio"
 								name="inlineRadioOptions" id="inlineRadio1" value="option1">
@@ -108,7 +137,7 @@
 								name="inlineRadioOptions" id="inlineRadio5" value="option5">
 							<label class="form-check-label" for="inlineRadio5">기타</label>
 						</div>
-					</div>
+					</div> -->
 					<!-- 라디오 버튼 끝 -->
 
 					<!-- Begin Page Content -->
@@ -117,12 +146,16 @@
 						<div class="card shadow mb-4">
 							<div class="card-body">
 								<div class="table-responsive">
-									<table class="table table-bordered" id="dataTable" width="100%"	cellspacing="0">
+									
+										<c:choose>
+										<c:when test="${result == 1 }">
+										<table class="table table-bordered" id="dataTable" width="100%"	cellspacing="0">
 										<colgroup>
 											<col width="5%" />
 											<col width="10%" />
+											<col width="5%" />
+											<col width="5%" />
 											<col width="7%" />
-											<col width="10%" />
 											<col width="15%" />
 											<col width="32%" />
 											<col width="10%" />
@@ -132,7 +165,8 @@
 											<tr>
 												<th scope="col">신고번호</th>
 												<th scope="col">신고자</th>
-												<th scope="col">신고 누적 횟수</th>
+												<th scope="col">신고 횟수</th>
+												<th scope="col">신고 유형</th>
 												<th scope="col">피신고자 닉네임</th>
 												<th scope="col">게시글 제목</th>
 												<th scope="col">작성 내용</th>
@@ -141,295 +175,30 @@
 											</tr>
 										</thead>
 										<tbody>
-											<tr>
-												<th scope="row">7</th>
-												<td>ysh</td>
-												<td>4</td>
-												<td>심바gray의 50가지 레시피</td>
-												<td>myBigSecret...</td>
-												<td>**************</td>
+										<c:forEach items="${list}" var="k"  >
+										<tr>
+												<td>${k.r_idx }</td>
+												<td>${k.m_id }</td>
+												<td>${k.count }</td>
+												<td>${k.r_type }</td>
+												<td>${k.m_nick }</td>
+												<td>${k.u_rcp_title }</td>
+												<td>${k.r_reply }</td>
 												<td><button type="button" style="color: white;" class="btn bg-success bg-opacity-100 "
 														data-bs-toggle="modal" data-bs-target="#exampleModal"
 														data-bs-whatever="@mdo">답변 미작성</button></td>
-												<td><button class="btn btn-danger" onclick="chk()">블라인드
-														처리하기</button></td>
+												<td> <button type="button" class="btn btn-danger" onclick="confirm_go( '${k.c_idx}','${k.rcp_idx }',this )">블라인드 처리</button> </td>
 											</tr>
-											<tr>
-												<th scope="row">7</th>
-												<td>ysh</td>
-												<td>4</td>
-												<td>심바gray의 50가지 레시피</td>
-												<td>myBigSecret...</td>
-												<td>**************</td>
-												<td><button type="button" style="color: white; disabled;" class="btn bg-secondary"
-														data-bs-toggle="modal" data-bs-target="#exampleModal"
-														data-bs-whatever="@mdo">답변 작성완료</button></td>
-												<td><button class="btn btn-secondary" onclick="chk()">블라인드
-														처리완료</button></td>
-											</tr>
-											<tr>
-												<th scope="row">7</th>
-												<td>ysh</td>
-												<td>4</td>
-												<td>심바gray의 50가지 레시피</td>
-												<td>myBigSecret...</td>
-												<td>**************</td>
-												<td><button type="button" style="color: white;" class="btn bg-success bg-opacity-75"
-														data-bs-toggle="modal" data-bs-target="#exampleModal"
-														data-bs-whatever="@mdo">답변 미작성</button></td>
-												<td><button class="btn btn-danger" onclick="chk()">블라인드
-														처리하기</button></td>
-											</tr>
-											<tr>
-												<th scope="row">7</th>
-												<td>ysh</td>
-												<td>4</td>
-												<td>심바gray의 50가지 레시피</td>
-												<td>myBigSecret...</td>
-												<td>**************</td>
-												<td><button type="button" style="color: white;" class="btn bg-success bg-opacity-75"
-														data-bs-toggle="modal" data-bs-target="#exampleModal"
-														data-bs-whatever="@mdo">답변 미작성</button></td>
-												<td><button class="btn btn-danger" onclick="chk()">블라인드
-														처리하기</button></td>
-											</tr>
-											<tr>
-												<th scope="row">7</th>
-												<td>ysh</td>
-												<td>4</td>
-												<td>심바gray의 50가지 레시피</td>
-												<td>myBigSecret...</td>
-												<td>**************</td>
-												<td><button type="button" style="color: white;" class="btn bg-success bg-opacity-75"
-														data-bs-toggle="modal" data-bs-target="#exampleModal"
-														data-bs-whatever="@mdo">답변 미작성</button></td>
-												<td><button class="btn btn-danger" onclick="chk()">블라인드
-														처리하기</button></td>
-											</tr>
-											<tr>
-												<th scope="row">7</th>
-												<td>ysh</td>
-												<td>4</td>
-												<td>심바gray의 50가지 레시피</td>
-												<td>myBigSecret...</td>
-												<td>**************</td>
-												<td><button type="button" style="color: white;" class="btn bg-success bg-opacity-75"
-														data-bs-toggle="modal" data-bs-target="#exampleModal"
-														data-bs-whatever="@mdo">답변 미작성</button></td>
-												<td><button class="btn btn-danger" onclick="chk()">블라인드
-														처리하기</button></td>
-											</tr>
-											<tr>
-												<th scope="row">7</th>
-												<td>ysh</td>
-												<td>4</td>
-												<td>심바gray의 50가지 레시피</td>
-												<td>myBigSecret...</td>
-												<td>**************</td>
-												<td><button type="button" style="color: white;" class="btn bg-success bg-opacity-75"
-														data-bs-toggle="modal" data-bs-target="#exampleModal"
-														data-bs-whatever="@mdo">답변 미작성</button></td>
-												<td><button class="btn btn-danger" onclick="chk()">블라인드
-														처리하기</button></td>
-											</tr>
-											<tr>
-												<th scope="row">7</th>
-												<td>ysh</td>
-												<td>4</td>
-												<td>심바gray의 50가지 레시피</td>
-												<td>myBigSecret...</td>
-												<td>**************</td>
-												<td><button type="button" style="color: white;" class="btn bg-success bg-opacity-75"
-														data-bs-toggle="modal" data-bs-target="#exampleModal"
-														data-bs-whatever="@mdo">답변 미작성</button></td>
-												<td><button class="btn btn-danger" onclick="chk()">블라인드
-														처리하기</button></td>
-											</tr>
-											<tr>
-												<th scope="row">7</th>
-												<td>ysh</td>
-												<td>4</td>
-												<td>심바gray의 50가지 레시피</td>
-												<td>myBigSecret...</td>
-												<td>**************</td>
-												<td><button type="button" style="color: white;" class="btn bg-success bg-opacity-75"
-														data-bs-toggle="modal" data-bs-target="#exampleModal"
-														data-bs-whatever="@mdo">답변 미작성</button></td>
-												<td><button class="btn btn-danger" onclick="chk()">블라인드
-														처리하기</button></td>
-											</tr>
-											<tr>
-												<th scope="row">7</th>
-												<td>ysh</td>
-												<td>4</td>
-												<td>심바gray의 50가지 레시피</td>
-												<td>myBigSecret...</td>
-												<td>**************</td>
-												<td><button type="button" style="color: white;" class="btn bg-success bg-opacity-75"
-														data-bs-toggle="modal" data-bs-target="#exampleModal"
-														data-bs-whatever="@mdo">답변 미작성</button></td>
-												<td><button class="btn btn-danger" onclick="chk()">블라인드
-														처리하기</button></td>
-											</tr>
-											<tr>
-												<th scope="row">7</th>
-												<td>ysh</td>
-												<td>4</td>
-												<td>심바gray의 50가지 레시피</td>
-												<td>myBigSecret...</td>
-												<td>**************</td>
-												<td><button type="button" style="color: white;" class="btn bg-success bg-opacity-75"
-														data-bs-toggle="modal" data-bs-target="#exampleModal"
-														data-bs-whatever="@mdo">답변 미작성</button></td>
-												<td><button class="btn btn-danger" onclick="chk()">블라인드
-														처리하기</button></td>
-											</tr>
-											<tr>
-												<th scope="row">7</th>
-												<td>ysh</td>
-												<td>4</td>
-												<td>심바gray의 50가지 레시피</td>
-												<td>myBigSecret...</td>
-												<td>**************</td>
-												<td><button type="button" style="color: white;" class="btn bg-success bg-opacity-75"
-														data-bs-toggle="modal" data-bs-target="#exampleModal"
-														data-bs-whatever="@mdo">답변 미작성</button></td>
-												<td><button class="btn btn-danger" onclick="chk()">블라인드
-														처리하기</button></td>
-											</tr>
-											<tr>
-												<th scope="row">7</th>
-												<td>ysh</td>
-												<td>4</td>
-												<td>심바gray의 50가지 레시피</td>
-												<td>myBigSecret...</td>
-												<td>**************</td>
-												<td><button type="button" style="color: white;" class="btn bg-success bg-opacity-75"
-														data-bs-toggle="modal" data-bs-target="#exampleModal"
-														data-bs-whatever="@mdo">답변 미작성</button></td>
-												<td><button class="btn btn-danger" onclick="chk()">블라인드
-														처리하기</button></td>
-											</tr>
-											<tr>
-												<th scope="row">7</th>
-												<td>ysh</td>
-												<td>4</td>
-												<td>심바gray의 50가지 레시피</td>
-												<td>myBigSecret...</td>
-												<td>**************</td>
-												<td><button type="button" style="color: white;" class="btn bg-success bg-opacity-75"
-														data-bs-toggle="modal" data-bs-target="#exampleModal"
-														data-bs-whatever="@mdo">답변 미작성</button></td>
-												<td><button class="btn btn-danger" onclick="chk()">블라인드
-														처리하기</button></td>
-											</tr>
-											<tr>
-												<th scope="row">7</th>
-												<td>ysh</td>
-												<td>4</td>
-												<td>심바gray의 50가지 레시피</td>
-												<td>myBigSecret...</td>
-												<td>**************</td>
-												<td><button type="button" class="btn bg-success bg-opacity-75"
-														data-bs-toggle="modal" data-bs-target="#exampleModal"
-														data-bs-whatever="@mdo">답변 미작성</button></td>
-												<td><button class="btn btn-danger" onclick="chk()">블라인드
-														처리하기</button></td>
-											</tr>
-											<tr>
-												<th scope="row">7</th>
-												<td>ysh</td>
-												<td>4</td>
-												<td>심바gray의 50가지 레시피</td>
-												<td>myBigSecret...</td>
-												<td>**************</td>
-												<td><button type="button" class="btn bg-success bg-opacity-75"
-														data-bs-toggle="modal" data-bs-target="#exampleModal"
-														data-bs-whatever="@mdo">답변 미작성</button></td>
-												<td><button class="btn btn-secondary" onclick="chk()">블라인드
-														처리하기</button></td>
-											</tr>
-											<tr>
-												<th scope="row">7</th>
-												<td>ysh</td>
-												<td>4</td>
-												<td>심바gray의 50가지 레시피</td>
-												<td>myBigSecret...</td>
-												<td>**************</td>
-												<td><button type="button" class="btn bg-success bg-opacity-75"
-														data-bs-toggle="modal" data-bs-target="#exampleModal"
-														data-bs-whatever="@mdo">답변 미작성</button></td>
-												<td><button class="btn btn-secondary" onclick="chk()">블라인드
-														처리하기</button></td>
-											</tr>
-											<tr>
-												<th scope="row">7</th>
-												<td>ysh</td>
-												<td>4</td>
-												<td>심바gray의 50가지 레시피</td>
-												<td>myBigSecret...</td>
-												<td>**************</td>
-												<td><button type="button" class="btn bg-success bg-opacity-75"
-														data-bs-toggle="modal" data-bs-target="#exampleModal"
-														data-bs-whatever="@mdo">답변 미작성</button></td>
-												<td><button class="btn btn-secondary" onclick="chk()">블라인드
-														처리하기</button></td>
-											</tr>
-											<tr>
-												<th scope="row">7</th>
-												<td>ysh</td>
-												<td>4</td>
-												<td>심바gray의 50가지 레시피</td>
-												<td>myBigSecret...</td>
-												<td>**************</td>
-												<td><button type="button" class="btn bg-success bg-opacity-75"
-														data-bs-toggle="modal" data-bs-target="#exampleModal"
-														data-bs-whatever="@mdo">답변 미작성</button></td>
-												<td><button class="btn btn-secondary" onclick="chk()">블라인드
-														처리하기</button></td>
-											</tr>
-											<tr>
-												<th scope="row">7</th>
-												<td>ysh</td>
-												<td>4</td>
-												<td>심바gray의 50가지 레시피</td>
-												<td>myBigSecret...</td>
-												<td>**************</td>
-												<td><button type="button" class="btn bg-success bg-opacity-75"
-														data-bs-toggle="modal" data-bs-target="#exampleModal"
-														data-bs-whatever="@mdo">답변 미작성</button></td>
-												<td><button class="btn btn-secondary" onclick="chk()">블라인드
-														처리하기</button></td>
-											</tr>
-											<tr>
-												<th scope="row">7</th>
-												<td>ysh</td>
-												<td>4</td>
-												<td>심바gray의 50가지 레시피</td>
-												<td>myBigSecret...</td>
-												<td>**************</td>
-												<td><button type="button" class="btn bg-success bg-opacity-75"
-														data-bs-toggle="modal" data-bs-target="#exampleModal"
-														data-bs-whatever="@mdo">답변 미작성</button></td>
-												<td><button class="btn btn-secondary" onclick="chk()">블라인드
-														처리하기</button></td>
-											</tr>
-											<tr>
-												<th scope="row">7</th>
-												<td>ysh</td>
-												<td>4</td>
-												<td>심바gray의 50가지 레시피</td>
-												<td>myBigSecret...</td>
-												<td>**************</td>
-												<td><button type="button" class="btn bg-success bg-opacity-75"
-														data-bs-toggle="modal" data-bs-target="#exampleModal"
-														data-bs-whatever="@mdo">답변 미작성</button></td>
-												<td><button class="btn btn-secondary" onclick="chk()">블라인드
-														처리하기</button></td>
-											</tr>
-											
+										</c:forEach>
 										</tbody>
-									</table>
+										</table>
+										</c:when>
+										<c:when test=""></c:when>
+										<c:when test=""></c:when>
+										</c:choose>
+										
+										
+									
 								</div>
 							</div>
 						</div>
@@ -470,8 +239,6 @@
 						
 					</div>
 					<!-- 여기까지 작업하시면됩니다. -->
-
-
 				</div>
 			</div>
 		</div>

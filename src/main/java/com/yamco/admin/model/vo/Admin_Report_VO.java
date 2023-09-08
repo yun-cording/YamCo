@@ -1,8 +1,7 @@
 package com.yamco.admin.model.vo;
 
-import org.springframework.stereotype.Repository;
 
-@Repository
+
 public class Admin_Report_VO {
 	private String c_idx, count, rcp_idx, u_rcp_title, c_contents, m_nick, u_rcp_status, c_status;
 
