@@ -187,4 +187,19 @@ public class AdminDAO {
 	public void foodingUp(String idx) {
 		sqlSessionTemplate.update("admin.foodingUp", idx);
 	}
+
+	// 공지사항 추가
+	public int insertNotice(Admin_Banner_VO abvo) {
+		return sqlSessionTemplate.insert("admin.insertNotice", abvo);
+	}
+
+	// 광고(ppl) 추가
+	public int insertPpl(Admin_Banner_VO abvo) {
+		return sqlSessionTemplate.insert("admin.insertPpl", abvo);
+	}
+
+	// 재료(food_ing) 추가
+	public int insertFood_ing(Admin_Banner_VO abvo) {
+		return sqlSessionTemplate.insert("admin.insertFood_ing", abvo);
+	}
 }

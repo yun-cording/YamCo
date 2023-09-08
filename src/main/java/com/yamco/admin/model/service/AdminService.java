@@ -26,6 +26,9 @@ public interface AdminService {
 
 	public List<List<Admin_Banner_VO>> total_delete_list();
 
+	// 공지사항, 광고(ppl), 재료(food_ing) 추가
+	public int insertAdminImage(String category, String title, String img);
+
 	public void noticeUp(String idx);
 
 	public void pplUp(String idx);
