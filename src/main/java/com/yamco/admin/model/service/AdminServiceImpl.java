@@ -75,4 +75,8 @@ public class AdminServiceImpl implements AdminService {
 	public Member_count_summary_VO getMemberCountSummary() {
 		return adminDAO.getMemberCountSummary();
 	}
+	@Override
+	public boolean blindCancelDo(Admin_Report_VO vo) {
+		return adminDAO.blindCancelDo(vo);
+	}
 }

@@ -300,16 +300,18 @@
 	
 	<select id="userSearchList" parameterType="urmvo" resultType="urmvo">
 		select * from u_recipe_metadata 
-			<where>	
-					
-			<if test="input != null">
-				and u_rcp_title like '%#{input}%'
+			<where>						
+			<if test="have_category != null">
+				 u_rcp_category = #{have_category}
+			</if>					
+			<if test="input != null and input != ''">
+				and u_rcp_title like #{input}
 			</if>			
 			<if test="start_date != null and start_date != ''">
-				and u_rcp_time >= '#{start_date}'
+				and u_rcp_time >= #{start_date}
 			</if>			
 			<if test="end_date != null and end_date != ''">
-				and u_rcp_time<![CDATA[<]]> '#{end_date}'
+				and #{end_date} > u_rcp_time  
 			</if>			
 			<if test="btn_status != null and btn_status != ''">
 				and u_rcp_status = #{btn_status}

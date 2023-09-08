@@ -187,4 +187,13 @@ public class AdminDAO {
 	public void foodingUp(String idx) {
 		sqlSessionTemplate.update("admin.foodingUp", idx);
 	}
+
+	public boolean blindCancelDo(Admin_Report_VO vo) {
+		int res = sqlSessionTemplate.update("admin.rcpBlindCancel",vo);
+		if(res>0) {
+			return true;
+		}else {
+			return false; 
+		}
+	}
 }

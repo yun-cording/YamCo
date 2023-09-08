@@ -121,6 +121,12 @@ public class U_recipe_DAO {
 	// 채림 사용자 게시판 리스트 가져오기(검색)
 	public List<U_recipe_meta_VO> getUserSearchList(U_recipe_meta_VO urmvo){
 		System.out.println("여기로 와라");
+		System.out.println("dao havecat"+urmvo.getHave_category());
+		System.out.println("dao in"+urmvo.getInput());
+		System.out.println("dao sd"+urmvo.getStart_date());
+		System.out.println("dao ed"+urmvo.getEnd_date());
+		System.out.println("dao st"+urmvo.getBtn_status());
+		urmvo.setInput("%"+urmvo.getInput()+"%");
 		return sqlSessionTemplate.selectList("u_recipe.userSearchList", urmvo);
 	}
 

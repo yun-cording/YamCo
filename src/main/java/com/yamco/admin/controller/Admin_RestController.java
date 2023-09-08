@@ -16,4 +16,9 @@ public class Admin_RestController {
 	public boolean blindDo(Admin_Report_VO vo) {
 		return adminService.blindDo(vo);
 	}
+	
+	@RequestMapping("/blindCancel.do")
+	public boolean blindCancelDo(Admin_Report_VO vo) {
+		return adminService.blindCancelDo(vo);
+	}
 }

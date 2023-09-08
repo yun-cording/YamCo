@@ -12,11 +12,11 @@
 
     <title>냠냠레시피 관리자</title>
     <style type="text/css">
-    	.btn_group{
-    align-items: center;
-    justify-content: center;
-    display: flex;
-}
+    	.btn_group{ 
+    align-items: center; 
+     justify-content: center; 
+     display: flex; 
+ } 
 .btn_empty{
     margin: 5px;
 }
@@ -24,12 +24,18 @@
 .date_size{
    	width: 300px;
    	height: 30px;
-}	
+}
+
+  [type="radio"] {  
+    appearance: none;  
+  }	    
    
 select option[value=""][disabled] {
 	display: none;
 }
 </style>
+	<!-- SweetAlert -->
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script> 
     <script type="text/javascript">
     	$(function() {
@@ -39,6 +45,8 @@ select option[value=""][disabled] {
 				$("#startday").val("");
 				$("#endday").val("");
 				$("input:radio[name='btn_status']").prop("checked", false);
+				$("#regist_label").removeClass("btn-success").addClass("btn-outline-success").removeClass("text-white")
+				$("#blind_label").removeClass("btn-danger").addClass("btn-outline-danger").removeClass("text-white")
 			});
 		});
     	
@@ -56,6 +64,15 @@ select option[value=""][disabled] {
     	});
     	
     	$(document).ready(function () {
+    		$(".blind_toggle").each(function() {
+    			var btn = $(this)
+				var stat = btn.attr("order")
+				if(stat==0){
+					btn.addClass("btn-danger").text("블라인드").removeClass("btn-secondary")
+				}else if(stat=='3'){
+					btn.addClass("btn-secondary").removeClass("btn-danger").text("블라인드 취소")
+				}
+			})
     	    // 1일 버튼 클릭시
     	    $("#btn_1day").on("click", function () {
     	        var inputStartday = $("#startday");
@@ -164,8 +181,90 @@ select option[value=""][disabled] {
 			alert(status);
 			f.submit();
 		}
+    	function confirm_go(rcp_idx,button) {
+    		var order = $(button).attr("order")
+    		var sendData ='';
+    			sendData='rcp_idx='+rcp_idx
+    		if(order ==0){
+	    		swal({
+	    			  title: "해당 게시글을 블라인드 처리하리겠습니까?",
+	    			  text: "블라인드 된 게시글은 조회할 수 없습니다.",
+	    			  icon: "warning",
+	    			  buttons: true,
+	    			  dangerMode: true,
+	    			})
+	    			.then((willDelete) => {
+	    			  if (willDelete) {
+	    				$.ajax({
+	    					url: '/blind.do',
+	    				    method: 'GET',
+	    				    data: sendData ,
+	    				    success: function (success) {
+	    				    	if(success){
+	    				    		swal("블라인드 처리되었습니다.", {
+	    						    	icon: "success",
+	    						    });
+	    				    		var myBtn = $(button)
+	    				    		myBtn.text("블라인드 취소").removeClass("btn-danger").addClass("btn-secondary")
+	    				    		myBtn.attr("order","3")
+	    				    		myBtn.parent().parent().parent().prev().text("블라인드")
+	    				      	}
+	    				    },
+	    				    error: function (xhr, status, error) {
+	    				      swal("Ajax요청 실패");
+	    				    }
+	    				})  
+	    			  } else {
+	    			    swal("블라인드 요청이 중단되었습니다.");
+	    			  }
+	    			});
+    		}else{
+    			swal({
+	    			  title: "해당 게시글을 블라인드 취소 처리하리겠습니까?",
+	    			  icon: "warning",
+	    			  buttons: true,
+	    			  dangerMode: true,
+	    			})
+	    			.then((willDelete) => {
+	    			  if (willDelete) {
+	    				$.ajax({
+	    					url: '/blindCancel.do',
+	    				    method: 'GET',
+	    				    data: sendData ,
+	    				    success: function (success) {
+	    				    	if(success){
+	    				    		swal("블라인드 취소 처리되었습니다.", {
+	    						    	icon: "success",
+	    						    });
+	    				    		var myBtn = $(button)
+	    				    		myBtn.addClass("btn-danger").text("블라인드").removeClass("btn-secondary")
+	    				    		myBtn.attr("order","0")
+	    				    		myBtn.parent().parent().parent().prev().text("게시중")
+	    				      	}
+	    				    },
+	    				    error: function (xhr, status, error) {
+	    				      swal("Ajax요청 실패");
+	    				    }
+	    				})  
+	    			  } else {
+	    			    swal("블라인드 취소 요청이 중단되었습니다.");
+	    			  }
+	    			});
+    		}
+    	}
+    	
+    	function regist_go() {
+			$("#regist_label").addClass("btn-success").removeClass("btn-outline-sucess").addClass("text-white")
+			$("#blind_label").removeClass("btn-danger").addClass("btn-outline-danger").removeClass("text-white")
+			
+		}
+    	
+    	function blind_go() {
+    		$("#blind_label").addClass("btn-danger").removeClass("btn-outline-danger").addClass("text-white")
+			$("#regist_label").removeClass("btn-success").addClass("btn-outline-success").removeClass("text-white")
+		}
     </script>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    
     <!-- Custom fonts for this template-->
     <link href="/resources/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link
@@ -175,9 +274,7 @@ select option[value=""][disabled] {
     <link href="/resources/css/sb-admin-2.min.css" rel="stylesheet">
     <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
-	<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
-	rel="stylesheet">
+	
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
 
@@ -204,7 +301,7 @@ select option[value=""][disabled] {
 					<!-- 여기에서 작업하시면 됩니다. -->	
 					<div class="row justify-content-between">			
 						<div
-							class="col-6 mt-4 p-3 text-center rounded shadow w-75">
+							class="col-8 mt-4 p-3 text-center rounded shadow w-75">
 							<form action="/content_search.go" method="post">	
 							<div class="card h-100">
 								<h6
@@ -282,14 +379,14 @@ select option[value=""][disabled] {
 											<div class="btn_group status" role="group"
 												aria-label="Basic radio toggle button group">
 												<div class="btn_empty d-grid gap-2 col-6 mx-auto">
-													<input type="radio" class="btn-check" name="btn_status"
-														id="btnradio4" value="게시중"> <label
-														class="btn btn-outline-success" for="btnradio4">게시중</label>
+													
+													<input type="radio" class="btn-check" name="btn_status" id="btnradio4" autocomplete="off" checked>
+													<label class="btn btn-outline-success" id="regist_label" for="btnradio4" onclick="regist_go()">게시중</label>
+
 												</div>
 												<div class="btn_empty d-grid gap-2 col-6 mx-auto">
-													<input type="radio" class="btn-check" name="btn_status"
-														id="btnradio5" value="블라인드"> <label
-														class="btn btn-outline-danger" for="btnradio5">블라인드</label>
+													<input type="radio" class="btn-check" name="btn_status" id="btnradio5" autocomplete="off">
+													<label class="btn btn-outline-danger" id="blind_label" for="btnradio5" onclick="blind_go()">블라인드</label>
 												</div>
 											</div>
 										</div>
@@ -317,9 +414,9 @@ select option[value=""][disabled] {
 							</div>
 							</form>
 						</div> 
-						<div class="col-3 mt-4" style="padding-right: 4%; padding-left: 4%;">
+						<div class="col-4 mt-4" style="padding-right: 4%; padding-left: 4%;">
 						<div class="row">
-							<div class="card border-left-success shadow h-100 py-2">
+							<div class="card border-left-success shadow h-100 py-2 w-100">
 								<div class="card-body">
 									<div class="row no-gutters align-items-center">
 										<div class="col mr-2">
@@ -327,7 +424,7 @@ select option[value=""][disabled] {
 												class="text-xs font-weight-bold text-success text-uppercase mb-1">
 												<span class="font-weight-bold font">총 조회수</span>
 											</div>
-											<div class="h5 mb-0 font-weight-bold text-gray-800">75</div>
+											<div class="h5 mb-0 font-weight-bold text-gray-800">${vo.hit_total }</div>
 										</div>
 										<div class="col-auto">
 											<img src="/resources/images/search 1.png" alt=""
@@ -336,7 +433,9 @@ select option[value=""][disabled] {
 									</div>
 								</div>
 							</div>
-							<div class="card border-left-success shadow h-100 py-2 mt-5">
+							</div>
+							<div class="row">
+							<div class="card border-left-success shadow h-100 py-2 mt-5 w-100">
 								<div class="card-body">
 									<div class="row no-gutters align-items-center">
 										<div class="col mr-2">
@@ -344,7 +443,7 @@ select option[value=""][disabled] {
 												class="text-xs font-weight-bold text-success text-uppercase mb-1">
 												<span class="font-weight-bold font">신규 등록 레시피</span>
 											</div>
-											<div class="h5 mb-0 font-weight-bold text-gray-800">153</div>
+											<div class="h5 mb-0 font-weight-bold text-gray-800">${vo.recipe_new }</div>
 										</div>
 										<div class="col-auto">
 											<img src="/resources/images/blogger 1.png" alt=""
@@ -387,7 +486,7 @@ select option[value=""][disabled] {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                    <c:forEach items="${content_result}" var="k" varStatus=""> 
+                                    <c:forEach items="${content_result}" var="k" varStatus="vs"> 
                                         <tr>
                                             <td>${k.rcp_idx}</td>
                                             <td>${k.u_rcp_category}</td>
@@ -402,11 +501,8 @@ select option[value=""][disabled] {
 	                                            		<div class="row">
 												<div class="col-auto">
 													<button type="button"
-														class="btn btn-danger w-60" id="reset_search">
+														class="btn w-60 blind_toggle" id="blind_btn" order="${k.u_rcp_status }" onclick="confirm_go(${k.rcp_idx},this)">
 														블라인드</button>
-												</div>
-												<div class="col-auto">
-													<button type="button" class="btn btn-secondary w-60" id="u_content_search">블라인드 취소</button>
 												</div>
 											</div>
                                             </td>

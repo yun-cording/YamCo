@@ -175,13 +175,13 @@ public class U_recipe_ServiceImpl implements U_recipe_Service {
 			System.out.println(start_date + " : 3");
 //		}
 //		
-//		if(end_date != null && !end_date.isBlank()) {
-//			LocalDate end = LocalDate.parse(end_date);
-//			end = end.plusDays(1);
-//			end_date = end.toString();
-//			urmvo.setEnd_date(end_date);
+		if(end_date != null && !end_date.isBlank()) {
+			LocalDate end = LocalDate.parse(end_date);
+			end = end.plusDays(1);
+			end_date = end.toString();
+			urmvo.setEnd_date(end_date);
 			System.out.println(end_date + " : 4");
-//		}
+		}
 //		
 		  String btn_status = urmvo.getBtn_status();
 		  System.out.println(btn_status + " : 5");

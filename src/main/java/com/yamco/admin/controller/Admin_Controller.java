@@ -158,6 +158,9 @@ public class Admin_Controller {
 	public ModelAndView go_admin_contentchk(U_recipe_meta_VO urmvo) {
 		ModelAndView mv = new ModelAndView("admin/admin_contentchk");
 		List<U_recipe_meta_VO> result = u_recipe_Service.getUserContentList(urmvo);
+		Admin_Dash_VO dash_VO = adminService.getDashBoard();
+		
+		mv.addObject("vo",dash_VO);
 		mv.addObject("content_result", result);
 		return mv;
 	}
@@ -223,12 +226,8 @@ public class Admin_Controller {
 	@RequestMapping("/content_search.go")
 	public ModelAndView getUserSearchList(U_recipe_meta_VO urmvo) {
 		ModelAndView mv = new ModelAndView("admin/admin_contentchk");
-		String category = urmvo.getHave_category();
-		if(category != null) {
-			urmvo.setU_rcp_category(category);
-		}
 		List<U_recipe_meta_VO> result = u_recipe_Service.getUserSearchList(urmvo);
-		System.out.println(result.get(0).getRcp_idx());
+		System.out.println(result.size());
 		mv.addObject("content_result", result);
 		return mv;
 	}	

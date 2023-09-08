@@ -153,4 +153,9 @@
 		GROUP BY c_idx
 	</select>-->
 	
+	<!-- 게시글 블라인드 취소 처리 -->
+	<update id="rcpBlindCancel" parameterType="arvo">
+		UPDATE u_recipe SET u_rcp_status = 0 WHERE rcp_idx = #{rcp_idx}	
+	</update>
+	
 </mapper>
