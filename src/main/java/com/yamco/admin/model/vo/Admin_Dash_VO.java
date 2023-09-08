@@ -8,7 +8,7 @@ public class Admin_Dash_VO {
 	private String hit_total, hit_user, hit_public, visit_total, visit_am, visit_pm, recipe_new, recipe_user,
 			recipe_total, client_new, male_count, female_count;
 	private List<String> week_hit_count, week_visit_count, daysOfWeek;
-	private List<Admin_Report_VO> final_report_list;
+	private List<Admin_Report_VO> final_report_list, recent_report_list;
 	public final String getHit_total() {
 		return hit_total;
 	}
@@ -135,6 +135,14 @@ public class Admin_Dash_VO {
 
 	public final void setFinal_report_list(List<Admin_Report_VO> final_report_list) {
 		this.final_report_list = final_report_list;
+	}
+
+	public final List<Admin_Report_VO> getRecent_report_list() {
+		return recent_report_list;
+	}
+
+	public final void setRecent_report_list(List<Admin_Report_VO> recent_report_list) {
+		this.recent_report_list = recent_report_list;
 	}
 
 }

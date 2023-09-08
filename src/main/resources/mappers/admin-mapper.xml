@@ -218,4 +218,9 @@ JOIN
 		UPDATE u_recipe SET u_rcp_status = 0 WHERE rcp_idx = #{rcp_idx}	
 	</update>
 	
+	<!-- 최근신고 -->
+	<select id="recentReport" resultType="arvo">
+		SELECT * FROM report_t ORDER BY r_time desc
+	</select>
+	
 </mapper>
