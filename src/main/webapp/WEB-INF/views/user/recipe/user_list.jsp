@@ -54,27 +54,28 @@
 			<!-- 레시피 출력 -->
 			<!-- 콘텐츠공간 -->
 			<div class="flexContainer">
-				<c:forEach begin="1" end="12">
+				<c:forEach var="recipe" items="${userList}">
 					<div class="recipe_one">
-						<p><a href="/public_recipe_detail.go">
+						<!-- rcp_idx 추가하자 -->
+						<p><a href="/user_recipe_detail.do?rcp_idx=${recipe.rcp_idx}">
 							<img
-								src="https://mediahub.seoul.go.kr/wp-content/uploads/2020/10/d13ea4a756099add8375e6c795b827ab.jpg"
+								src="${recipe.u_rcp_img}"
 								class="recipe_thumbnail"></a>
 						</p>
-						<p>사용자 레시피명</p>
+						<p>${recipe.u_rcp_title}</p>
 						<div class="writer">
 							<img
 								src="https://png.pngtree.com/png-vector/20191115/ourmid/pngtree-beautiful-profile-line-vector-icon-png-image_1990469.jpg"
-								class="profile"> <span>작성자 이름</span>
+								class="profile"> <span>${recipe.m_nick}</span>
 						</div>
 						<div class="like" style="text-align: right;">
 							<img class="icon"
 								src="https://img.medicalreport.kr/resources/2019/07/23/o0vYNCXzJDWRPejw.jpg"
-								alt=""> <span>4.9</span> <img class="icon"
+								alt=""> <span>${recipe.avg_grade}</span> <img class="icon"
 								src="https://cdn-icons-png.flaticon.com/512/8316/8316018.png"
-								alt=""> <span>42</span> <img class="icon"
+								alt=""> <span>${recipe.m_nick}</span> <img class="icon"
 								src="https://cdn-icons-png.flaticon.com/512/2415/2415461.png"
-								alt=""> <span>7만</span>
+								alt=""> <span>${recipe.u_rcp_hit}</span>
 						</div>
 					</div>
 				</c:forEach>
