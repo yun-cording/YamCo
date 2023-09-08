@@ -32,6 +32,7 @@ public class P_recipe_DAO {
 
 	public String liked_ornot(String m_idx, String rcp_idx) {
 		String result = "0";
+		
 		if (m_idx != null && m_idx.isEmpty()) {
 			Map<String, String> map = new HashMap<String, String>();
 			map.put("m_idx", m_idx);
