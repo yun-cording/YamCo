@@ -88,13 +88,6 @@ public class User_Controller {
 		return new ModelAndView("admin/admin_index");
 	}
 
-	@RequestMapping("/go_user_list.do")
-	public ModelAndView goUserList() {
-		// 상우 DB에 방문자수 증가 로그 찍기
-		// log_Service.visitorUp();
-		return new ModelAndView("user/recipe/user_list");
-	}
-
 	@RequestMapping("go_main.do")
 	public ModelAndView go_main() {
 		return new ModelAndView("/main");

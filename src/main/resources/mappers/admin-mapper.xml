@@ -115,6 +115,21 @@
 	<update id="foodingDel" parameterType="String">
 		UPDATE food_ing SET food_status=1 WHERE food_idx=#{food_idx}
 	</update>
+	<!-- 공지사항 추가 -->
+	<insert id="insertNotice" parameterType="abvo">
+		INSERT into notice(notice_title, notice_img, notice_status, notice_date)
+		VALUES(#{notice_title}, #{notice_img}, 0, sysdate())
+	</insert>
+	<!-- 광고(ppl) 추가 -->
+	<insert id="insertPpl" parameterType="abvo">
+		INSERT into ppl(ppl_title, ppl_img, ppl_status, ppl_date)
+		VALUES(#{ppl_title}, #{ppl_img}, 0, sysdate())
+	</insert>
+	<!-- 재료(food_ing) 추가 -->
+	<insert id="insertFood_ing" parameterType="abvo">
+		INSERT into food_ing(food_title, food_img, food_status, food_date)
+		VALUES(#{food_title}, #{food_img}, 0, sysdate())
+	</insert>
 	<!-- 삭제된 공지사항 목록 -->
 	<select id="ppl_deleted_notice" resultType="abvo">
 		SELECT * FROM notice WHERE notice_status = 1

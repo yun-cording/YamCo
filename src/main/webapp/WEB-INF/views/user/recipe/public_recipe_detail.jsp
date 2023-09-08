@@ -51,6 +51,7 @@
 					</c:forEach>
 				</div>
 				<div class="horizontal-line"></div>
+			<!-- upper 끝 -->	
 			</div>
 				
 			<div id="upper2">
@@ -194,11 +195,11 @@
 						<!-- 조리과정 끝 -->					   		
 						</div>	
 						
-						<!-- 수정, 삭제버튼, 신고 -->				
-						<div class="div_margin_width" style="height: 60px; float: left;">
-							<span style="color: lightgray; font-size: 12px; float: right; position: relative; top: 50px; left: -45px;">신고하기</span>
-							<img id="report_btn" src="resources/images/alarm.png" style="width: 40px; height: 40px; float: right;">
-						</div>
+				<!-- 수정, 삭제버튼, 신고 -->				
+				<div class="div_margin_width" style="height: 60px; float: left;">
+					<span style="color: lightgray; font-size: 12px; float: right; position: relative; top: 50px; left: -45px;">신고하기</span>
+					<img id="report_btn" src="resources/images/alarm.png" style="width: 40px; height: 40px; float: right;">
+				</div>
 													
 				<!-- 이런 레시피는 어떠세요? 추천 -->
 				<div style="width: 1320px; height: 100px; float: left; text-align: center;">
@@ -334,7 +335,18 @@
 						    </div>
 						    	
 						    	<!-- 댓글 컨텐츠 이미지 -->
-						    	<img class="comment_img" src="${cvo.c_img}">
+						    	<img class="comment_img" id="commentImage" src="${cvo.c_img}" alt="">
+						    	<script type="text/javascript">
+									var elements = document.getElementsByClassName("comment_img");
+									
+									for (var i = 0; i < elements.length; i++) {
+									    elements[i].addEventListener('error', function() {
+									        // 이미지 로드에 실패한 경우, default 이미지 경로로 교체
+									        this.src = 'resources/images/comment/sample_white.png'; // default 이미지 경로를 여기에 넣어주세요
+									    });
+									}
+								</script>
+						    	
 						    	<div id="comment_content">
 						    		
 						    		<div id="rev_del_report_div">
@@ -408,6 +420,8 @@
 	});
 	
 </script> -->
+
+
 
 <script type="text/javascript">
     $(document).ready(function () {
@@ -617,7 +631,7 @@
                      },
                      error: function(error) {
                        // 서버 업데이트 중 오류 발생 시 처리
-                       alert("오류가 발생했습니다.");
+                       alert("삭제 중 오류가 발생했습니다. (관리자에게 문의하세요.)");
                        console.error(error);
                      }
                    });
@@ -833,8 +847,8 @@ document.addEventListener("DOMContentLoaded", function () {
 	likeButton.addEventListener("click", function () {
 	    // liked_ornot 값을 가져옵니다. liked_ornot 값을 서버에서 받아온다고 가정합니다.
 	    var liked_ornot = "${liked_ornot}"; // 이 부분을 서버에서 실제 값으로 대체해야 합니다.
-	    alert("실행");
-	    alert("좋아요 값은" + liked_ornot);
+	    alert("게시글 찜 완료!");
+	    // alert("좋아요 값은" + liked_ornot);
 
 	    if (liked_ornot === "") {
 	        // liked_ornot이 null인 경우
