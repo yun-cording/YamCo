@@ -111,7 +111,7 @@ public class PublicLoginController {
 				}
 				alert = "<script>alert('로그인 성공.');</script>";
 				mv.addObject("alert", alert);
-				mv.setViewName("main");
+				mv.setViewName("redirect:/main.go");
 				}else {
 					mv.setViewName("/login/social_join");
 					mv.addObject("m_id", m_vo.getM_id());

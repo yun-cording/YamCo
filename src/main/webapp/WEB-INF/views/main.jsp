@@ -305,7 +305,7 @@ cursor: pointer;
 			<div class="flexbetween">
 				<c:forEach items="${userList }" var="k">
 				<div class="recipe_one">
-							<a href="/사용자레시피?rcp_seq=${k.rcp_idx}">
+							<a href="/user_recipe_detail.do?rcp_idx=${k.rcp_idx}">
 							
 							<p><img src="resources/user_image/user_thumnail/${k.u_rcp_img }" class="recipe_thumbnail"></p>
 							<p>${k.u_rcp_title }</p>
@@ -337,7 +337,7 @@ cursor: pointer;
 			<div class="flexbetween">
 				<c:forEach items="${bestList }" var="k">
 				<div class="recipe_one">
-							<a href="/사용자레시피?rcp_seq=${k.rcp_idx}">
+							<a href="/user_recipe_detail.do?rcp_idx=${k.rcp_idx}">
 							<p><img src="${k.u_rcp_img }" class="recipe_thumbnail"></p>
 							<p>${k.u_rcp_title }</p>
 							<div class="writer">
@@ -449,7 +449,7 @@ cursor: pointer;
 	    showImage(currentIndex);
 
 	 	// 5초마다 이미지 변경
-	    setInterval(changeImage, 5000);
+	    setInterval(changeImage, 3000);
 	 	
 	    function awardgo() {
 	    	location.href ="/award.go" ;
