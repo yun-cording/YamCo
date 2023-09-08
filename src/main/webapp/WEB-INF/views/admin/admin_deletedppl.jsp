@@ -120,7 +120,7 @@
 				<jsp:include page="admin_header.jsp" />
                 
                 <div class="container-fluid">
-                    <h1 class="ml-5 mt-5 font-weight-bold">공지사항 배너등록</h1>
+                    <h1 class="ml-5 mt-5 font-weight-bold">공지사항 관리페이지</h1>
                     <hr>
                     <!-- 여기에서 작업하시면 됩니다. -->
                     <!-- <h2>여기에서 작업하시면됩니다.</h2> -->
@@ -133,7 +133,7 @@
 										<div class="col mr-2">
 											<div
 												class="text-xs font-weight-bold text-success text-uppercase mb-1">
-												<span class="font-weight-bold font">공지사항 등록 현황</span>
+												<span class="font-weight-bold font">삭제된 공지사항 현황</span>
 											</div>
 											<div class="h5 mb-0 font-weight-bold text-gray-800">${notice_list.size() }</div>
 										</div>
@@ -152,7 +152,7 @@
 										<div class="col mr-2">
 											<div
 												class="text-xs font-weight-bold text-success text-uppercase mb-1">
-												<span class="font-weight-bold font">광고 등록 현황</span>
+												<span class="font-weight-bold font">삭제된 광고 현황</span>
 											</div>
 											<div class="h5 mb-0 font-weight-bold text-gray-800">${ppl_list.size() }</div>
 										</div>
@@ -177,7 +177,7 @@
 							<button class="btn btn-success mr-3"> > </button>
 						</div>
                     </div>
-                    <h2 class="ml-5 mt-5 font-weight-bold" id="subtitle">게시중인 공지사항</h2>
+                    <h2 class="ml-5 mt-5 font-weight-bold" id="subtitle"> 삭제된 공지사항</h2>
                     <hr>
 				    <!-- 공지사항 넣는 부분 -->
 				    <div class="flexContainer">
@@ -214,8 +214,8 @@
    					</div>
 					    <!-- 하단 버튼 세개 -->
 				        <div class="row justify-content-between mb-3">
-						    <button type="button" class="btn btn-success" id="deleteNotice">삭제된 게시물 보기</button>
-						    <button type="button" class="btn btn-success mr-5" id="deleteButton">삭제</button>
+						    <button type="button" class="btn btn-success" id="registPPL">등록중인 게시물 보기</button>
+						    <button type="button" class="btn btn-success mr-5" id="registButton">등록</button>
 					    </div>
 				    </div>
                     <!-- 여기까지 작업하시면됩니다. -->
@@ -263,44 +263,42 @@
 	<script type="text/javascript">
 	var kind = "0";
 	function notice_view() {
-		$("#subtitle").text("게시중인 공지사항")
+		$("#subtitle").text("삭제된 공지사항")
 		kind="0";
 		$(".notice").show();
 		$(".ppl").hide();
 		$(".fooding").hide();
 	}
 	function ppl_view() {
-		$("#subtitle").text("게시중인 광고")
+		$("#subtitle").text("삭제된 광고")
 		kind="1";
 		$(".notice").hide();
 		$(".ppl").show();
 		$(".fooding").hide();
 	}
 	function fooding_view() {
-		$("#subtitle").text("추천중인 재료")
+		$("#subtitle").text("삭제된 재료")
 		kind="2"
 		$(".notice").hide();
 		$(".ppl").hide();
 		$(".fooding").show();	
 	}
      $(document).ready(function() {
-    	 $("li.nav-item").removeClass("active")
-    	 $("li.nav-item:eq(2)").addClass("active")
-         $("#deleteButton").click(function() {
-        	if(confirm('삭제하시겠습니까?')){
+         $("#registButton").click(function() {
+        	if(confirm('등록하시겠습니까?')){
         		 var selectedNotice = $('input[name="btnradio"]:checked');
                  if (selectedNotice.length > 0) {
                      var idx = selectedNotice.attr("idx")
                      // 여기에서 imageId를 사용하여 이미지를 삭제하거나 처리할 수 있습니다.
-                     location.href="/notice_delete.go?idx="+idx+"&kind="+kind
-                     alert("삭제되었습니다. 삭제된 공지는 하단 [삭제된 공지]에서 확인 가능합니다.")		 
+                     location.href="/notice_regist.go?idx="+idx+"&kind="+kind
+                     alert("등록되었습니다. 등록된 공지는 하단 [삭제된 공지]에서 확인 가능합니다.")		 
                  } else {
-                     alert("항목을  선택하세요.");
+                     alert("라디오 버튼을 선택하세요.");
                  }	
         	}
          });
-         $("#deleteNotice").on("click", function() {
-			location.href="/deletedNotice.go"
+         $("#registPPL").on("click", function() {
+			location.href="/go_admin_ppl.do"
 		})
      });
  </script>
