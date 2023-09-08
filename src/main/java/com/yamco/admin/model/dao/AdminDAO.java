@@ -128,16 +128,6 @@ public class AdminDAO {
 			return false; 
 		}
 	}
-	
-	// 신고 내역 관리 모든 신고내역 부르기
-	public List<Admin_Report_Chk_VO> getReportlist() {
-		List<Admin_Report_Chk_VO> list = sqlSessionTemplate.selectList("admin.getReportlist");
-		//List<Admin_Report_Chk_VO> count = sqlSessionTemplate.selectList("admin.commentReport_2");
-		//List<Admin_Report_Chk_VO> list = new ArrayList<Admin_Report_Chk_VO>();
-		//list.addAll(list2);
-		//list.addAll(count);
-		return list;
-	}
 
 	public List<List<Admin_Banner_VO>> total_list() {
 		List<Admin_Banner_VO> list = new ArrayList<Admin_Banner_VO>();
@@ -186,5 +176,60 @@ public class AdminDAO {
 
 	public void foodingUp(String idx) {
 		sqlSessionTemplate.update("admin.foodingUp", idx);
+	}
+
+	// report_t 테이블 가져오기
+	public List<Admin_Report_Chk_VO> getReportAll() {
+		List<Admin_Report_Chk_VO> list = sqlSessionTemplate.selectList("admin.getReportAll");;
+		List<Admin_Report_Chk_VO> c_list = null;
+		List<Admin_Report_Chk_VO> rcp_list = null;
+		
+		for (Admin_Report_Chk_VO k : list) {
+			if(k.getC_idx() != null) {
+				//
+				String recipe_attacknick = sqlSessionTemplate.selectOne("admin.recipe_attacknick",k.getM_id());
+				System.out.println("recipe_attacknick : "+recipe_attacknick);
+				String recipe_defencenick = sqlSessionTemplate.selectOne("admin.recipe_defencenick",k.getC_idx());
+				System.out.println("recipe_defencenick : "+recipe_defencenick);
+				k.setRecipe_attacknick(recipe_attacknick);;
+				k.setRecipe_defencenick(recipe_defencenick);
+				
+			}else if(k.getRcp_idx() != null ){
+				String comment_attacknick  = sqlSessionTemplate.selectOne("admin.comment_attacknick",k.getM_id());// 신고자 닉네임가져오기
+				System.out.println("comment_attacknick : "+comment_attacknick);
+				String comment_defencenick = sqlSessionTemplate.selectOne("admin.comment_defencenick",k.getRcp_idx()); // 작성자 닉네임
+				System.out.println("comment_defencenick : "+comment_defencenick);
+				k.setComment_attacknick(comment_attacknick);
+				k.setComment_defencenick(comment_defencenick);
+			}
+			
+		}
+		return list;
+	}
+	
+	
+	
+	// 게시글 신고내역 관리 모든 신고내역 가져오기
+		public List<Admin_Report_Chk_VO> getReportlist() {
+			List<Admin_Report_Chk_VO> list = sqlSessionTemplate.selectList("admin.getReportlist");
+			return list; //list.addAll(count);
+		}
+	
+	// 신고당한 댓글리스트 가져오기
+	public List<Admin_Report_Chk_VO> getCommentList() {
+		List<Admin_Report_Chk_VO> list = sqlSessionTemplate.selectList("admin.getCommentList"); 
+		return list;
+	}
+	
+	// 신고응답 처리 완료된 게시글 불러오기
+	public List<Admin_Report_Chk_VO> getReportRecipeResult() {
+		List<Admin_Report_Chk_VO> list = sqlSessionTemplate.selectList("admin.getReportRecipeResult"); 
+		return list;
+	}
+
+	//신고응답 처리 완료된 댓글 불러오기
+	public List<Admin_Report_Chk_VO> getReportCommentResult() {
+		List<Admin_Report_Chk_VO> list = sqlSessionTemplate.selectList("admin.getReportCommentResult"); 
+		return list;
 	}
 }

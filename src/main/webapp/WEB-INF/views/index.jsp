@@ -105,7 +105,7 @@
 
 <script type="text/javascript">
 function go_admin_report() {
-	location.href = "/go_admin_report.do";
+	location.href = "/admin_report_recipe.do";
 }
 function go_admin_dashboard() {
 		location.href = "/go_admin_dashboard.do";

@@ -27,42 +27,65 @@ public class Admin_Controller {
 	private AdminService adminService;
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
-
-	@RequestMapping("admin_report_recipe.do")
-	public ModelAndView go_admin_report() { 
+	
+	@RequestMapping("/admin_report_All.do")
+	public ModelAndView go_admin_All() {
 		ModelAndView mv = new ModelAndView("admin/admin_report");
-		List<Admin_Report_Chk_VO> list = adminService.getReportlist();
-		int result = 1 ;
-		mv.addObject("result",result);
-		mv.addObject("list",list);
+		List<Admin_Report_Chk_VO> list = adminService.admin_report_All();
+		int result = 1;
+		mv.addObject("result", result);
+		mv.addObject("list", list);
 		return mv;
 	}
 	
+	@RequestMapping("/admin_report_recipe.do")
+	public ModelAndView go_admin_report() {
+		ModelAndView mv = new ModelAndView("admin/admin_report");
+		List<Admin_Report_Chk_VO> list = adminService.admin_report_All();
+		int result = 1;
+		mv.addObject("result", result);
+		mv.addObject("list", list);
+		return mv;
+	}
+
 	@RequestMapping("/admin_report_comment.do")
 	public ModelAndView admin_report_comment() {
-		ModelAndView mv = new ModelAndView("admin/admin_report");
-		//List<Admin_Report_Chk_VO> list = adminService.get();
+		ModelAndView mv = new ModelAndView("admin/admin_report"); 
+		List<Admin_Report_Chk_VO> list = adminService.admin_report_All();
 		int result = 2;
-		mv.addObject("result",result);
+		mv.addObject("result", result);
+		mv.addObject("list", list);
+		return mv;
+	}
+
+	@RequestMapping("/admin_report_recipe_result.do")
+	public ModelAndView admin_report_recipe_result() {
+		ModelAndView mv = new ModelAndView("admin/admin_report"); 
+		List<Admin_Report_Chk_VO> list = adminService.admin_report_All();
+		int result = 3;
+		mv.addObject("result", result);
+		mv.addObject("list", list);
 		return mv;
 	}
 	
-	@RequestMapping("/admin_report_result.do")
-	public ModelAndView admin_report_result() {
-		ModelAndView mv = new ModelAndView("admin/admin_report");
-		//List<Admin_Report_Chk_VO> list = adminService.get();
-		int result = 3;
-		mv.addObject("result",result);
+	@RequestMapping("/admin_report_comment_result.do")
+	public ModelAndView admin_report_comment_result() {
+		ModelAndView mv = new ModelAndView("admin/admin_report"); 
+		List<Admin_Report_Chk_VO> list = adminService.getReportCommentResult();
+		int result = 4;
+		mv.addObject("result", result);
+		mv.addObject("list", list);
 		return mv;
 	}
+	
 	
 
 	@RequestMapping("go_admin_dashboard.do")
 	public ModelAndView go_admin_dashboard(HttpSession session) {
-		ModelAndView mv= new ModelAndView("admin/admin_dashboard");
+		ModelAndView mv = new ModelAndView("admin/admin_dashboard");
 		Admin_Dash_VO dash_VO = adminService.getDashBoard();
-		
-		mv.addObject("vo",dash_VO);
+
+		mv.addObject("vo", dash_VO);
 		return mv;
 	}
 
@@ -87,7 +110,7 @@ public class Admin_Controller {
 	public ModelAndView get_admin_memberchk_search(Member_Search_VO msvo) {
 		ModelAndView mv = new ModelAndView("admin/admin_memberchk");
 		List<Member_VO> result = member_Service.getMemberList(msvo);
-		mv.addObject("search_result", result);		
+		mv.addObject("search_result", result);
 		Member_count_summary_VO countSummary = adminService.getMemberCountSummary();
 		mv.addObject("countSummary", countSummary);
 
@@ -99,7 +122,7 @@ public class Admin_Controller {
 		ModelAndView mv = new ModelAndView("admin/admin_memberchk_admin");
 		List<Member_VO> result = member_Service.getAdminList(msvo);
 		mv.addObject("search_result", result);
-		
+
 		Member_count_summary_VO countSummary = adminService.getMemberCountSummary();
 		mv.addObject("countSummary", countSummary);
 
@@ -110,18 +133,18 @@ public class Admin_Controller {
 	public ModelAndView get_admin_memberchk_open_lock(Member_VO mvo) {
 		ModelAndView mv = new ModelAndView("admin/admin_memberchk");
 		String m_status = mvo.getM_status();
-		if(m_status != null && m_status.equalsIgnoreCase("3")) {
+		if (m_status != null && m_status.equalsIgnoreCase("3")) {
 			member_Service.leaveMember(mvo);
 		} else {
-		member_Service.getUpdate(mvo);
+			member_Service.getUpdate(mvo);
 		}
 		Member_count_summary_VO countSummary = adminService.getMemberCountSummary();
 		mv.addObject("countSummary", countSummary);
 
 		return mv;
 	}
-	
-	//관리자 회원가입	
+
+	// 관리자 회원가입
 	@RequestMapping("/admin_join.do")
 	public ModelAndView getMemberJoin(Member_VO mvo) {
 		ModelAndView mv = new ModelAndView("admin/admin_memberchk_admin");
@@ -137,13 +160,13 @@ public class Admin_Controller {
 		return null;
 	}
 
-	//관리자 탈퇴
+	// 관리자 탈퇴
 	@RequestMapping("/go_admin_memberchk_drop_out.do")
 	public ModelAndView get_admin_memberchk_drop_out(Member_VO mvo) {
 		ModelAndView mv = new ModelAndView("admin/admin_memberchk_admin");
 		String m_status = mvo.getM_status();
 		member_Service.leaveAdmin(mvo);
-		
+
 		Member_count_summary_VO countSummary = adminService.getMemberCountSummary();
 		mv.addObject("countSummary", countSummary);
 
@@ -162,11 +185,11 @@ public class Admin_Controller {
 
 	@RequestMapping("/go_admin_ppl.do")
 	public ModelAndView admin_pplDo() {
-		ModelAndView mv =new ModelAndView("admin/admin_ppl");
+		ModelAndView mv = new ModelAndView("admin/admin_ppl");
 		List<List<Admin_Banner_VO>> total_list = adminService.total_list();
-		mv.addObject("notice_list",total_list.get(0));
-		mv.addObject("ppl_list",total_list.get(1));
-		mv.addObject("fooding_list",total_list.get(2));
+		mv.addObject("notice_list", total_list.get(0));
+		mv.addObject("ppl_list", total_list.get(1));
+		mv.addObject("fooding_list", total_list.get(2));
 		return mv;
 	}
 
@@ -174,42 +197,44 @@ public class Admin_Controller {
 	public ModelAndView go_admin_register() {
 		return new ModelAndView("admin/admin_register");
 	}
+
 	@RequestMapping("/notice_delete.go")
-	public ModelAndView notice_deleteGo(String idx,String kind) {
+	public ModelAndView notice_deleteGo(String idx, String kind) {
 		ModelAndView mv = new ModelAndView("redirect:/go_admin_ppl.do");
-		if(kind.equals("0")) {
+		if (kind.equals("0")) {
 			adminService.noticeDel(idx);
-		}else if(kind.equals("1")) {
+		} else if (kind.equals("1")) {
 			adminService.pplDel(idx);
-		}else if(kind.equals("2")) {
+		} else if (kind.equals("2")) {
 			adminService.foodingDel(idx);
 		}
 		return mv;
 	}
+
 	@RequestMapping("/deletedNotice.go")
 	public ModelAndView deletedNoticeGo() {
 		ModelAndView mv = new ModelAndView("admin/admin_deletedppl");
 		List<List<Admin_Banner_VO>> total_list = adminService.total_list();
 		List<List<Admin_Banner_VO>> total_delete_list = adminService.total_delete_list();
-		mv.addObject("notice_list",total_list.get(0));
-		mv.addObject("ppl_list",total_list.get(1));
-		mv.addObject("notice_list",total_delete_list.get(0));
-		mv.addObject("ppl_list",total_delete_list.get(1));
-		mv.addObject("fooding_list",total_delete_list.get(2));
+		mv.addObject("notice_list", total_list.get(0));
+		mv.addObject("ppl_list", total_list.get(1));
+		mv.addObject("notice_list", total_delete_list.get(0));
+		mv.addObject("ppl_list", total_delete_list.get(1));
+		mv.addObject("fooding_list", total_delete_list.get(2));
 		return mv;
 	}
-	
+
 	@RequestMapping("/notice_regist.go")
-	public ModelAndView notice_registGo(String idx,String kind) {
+	public ModelAndView notice_registGo(String idx, String kind) {
 		ModelAndView mv = new ModelAndView("redirect:/deletedNotice.go");
-		if(kind.equals("0")) {
+		if (kind.equals("0")) {
 			adminService.noticeUp(idx);
-		}else if(kind.equals("1")) {
+		} else if (kind.equals("1")) {
 			adminService.pplUp(idx);
-		}else if(kind.equals("2")) {
+		} else if (kind.equals("2")) {
 			adminService.foodingUp(idx);
 		}
-		
+
 		return mv;
 	}
 }
