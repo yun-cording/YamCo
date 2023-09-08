@@ -25,10 +25,6 @@ public class P_recipe_DAO {
 	public String article_rating(String rcp_idx) {
 		return sqlSessionTemplate.selectOne("p_recipe.article_rating", rcp_idx);
 	}
-	// DB에서 좋아요한 목록 받아오기
-//	public List<String> liked_ornot(String m_idx) {
-//		return sqlSessionTemplate.selectOne("p_recipe.liked_ornot", m_idx);
-//	}
 
 	public String liked_ornot(String m_idx, String rcp_idx) {
 		String result = "0";
@@ -49,6 +45,11 @@ public class P_recipe_DAO {
 
 		return result;
 	}
+	
+	// DB에서 좋아요한 목록 받아오기
+//	public List<String> liked_ornot(String m_idx) {
+//		return sqlSessionTemplate.selectOne("p_recipe.liked_ornot", m_idx);
+//	}
 
 	public List<Comment_VO> load_comments(String m_nick, String rcp_idx) {
 		Map<String, String> map = new HashMap<String, String>();
