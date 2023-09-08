@@ -70,12 +70,10 @@ public class Api_Controller {
 		// 상세페이지 현재페이지에 idx 담자
 		session.setAttribute("currentRcpIdx", rcpSeq);
 		
-		System.out.println("현재 페이지 rcpidx는 " + rcpSeq);
-		
 		// 공공리스트 전체 리스트 받아오자
 		List<JsonNode> rowList = p_recipe_Service.go_public_list();
 		
-		// ★ 왜 두번 실행?? (double 로 바꿔서 0.5씩 올리게 해둠)
+		// ★ 왜 두번 실행?? (double 로 바꿔서 0.5씩 올리게 해둠) (해결)
 		u_recipe_Service.getHitUp(rcpSeq, m_idx);
 		
 		// 그중에서 rcpSeq가 받아온 값과 일치하는 녀석만 정보를 빼오자.
@@ -203,7 +201,6 @@ public class Api_Controller {
 		System.out.println(random_list.size());
 		mv.addObject("detail_list", detail_list);
 		mv.addObject("img_list", img_list);
-		System.out.println("이미지 리스트 사이즈 : " + img_list.size());
 		mv.addObject("avg_rating", avg_rating);
 //		mv.addObject("manualMap", manualMap);
 		// System.out.println("detail list 갔다!");

@@ -9,6 +9,7 @@ import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.TransactionDefinition;
 import org.springframework.transaction.TransactionStatus;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
 
 import com.yamco.user.model.vo.Ref_VO;
@@ -74,14 +75,29 @@ public class U_recipe_DAO {
 	}
 
 	// 조회수 상승
+	@Transactional
 	public int getHitUp(String rcp_idx, String m_idx) {
+		
+		System.out.println("hitup dao시작");
 		// 트랜잭션 처리
+		System.out.println("dao rcp_idx : " + rcp_idx);
 		int result = 0;
 		TransactionDefinition def = new DefaultTransactionDefinition();
 		TransactionStatus status = transactionManager.getTransaction(def);
+		
+		System.out.println("DAO에서 rcp_idx는 : " + rcp_idx);
 
 		try {
-			result += sqlSessionTemplate.update("u_recipe.hitUp", rcp_idx);
+			if (Integer.parseInt(rcp_idx) >= 10001) {
+				// 사용자레시피 조회수 올리기
+				result += sqlSessionTemplate.update("u_recipe.hitUp", rcp_idx);
+			}else {
+				// 공공레시피 조회수 올리기
+				result += sqlSessionTemplate.update("api.hit_update", rcp_idx);
+			}
+			
+			System.out.println("힛업 했다!");
+			System.out.println(result);
 			User_log_VO ulvo = new User_log_VO();
 			ulvo.setRcp_idx(rcp_idx);
 			if (m_idx != null && !m_idx.isBlank()) {
@@ -89,12 +105,18 @@ public class U_recipe_DAO {
 			}
 			ulvo.setUl_status("3"); // 3 : 조회
 			result += sqlSessionTemplate.insert("user_log.insert", ulvo);
-			transactionManager.commit(status);
+			// 오류가 안 나고 넘어오는 경우에도 rollback
+			if (result == 2) {
+				transactionManager.commit(status);
+			}else {
+				transactionManager.rollback(status);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			transactionManager.rollback(status);
 		}
-
+		System.out.println("getHitUp 완료!");
+		System.out.println(result);
 		return result;
 	}
 

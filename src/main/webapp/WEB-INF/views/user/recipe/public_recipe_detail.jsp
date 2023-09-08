@@ -451,7 +451,9 @@
             // String임!!
             // var typeOfMIdx = typeof m_idx;
             // alert(typeOfMIdx);
-
+	
+            
+            // 버튼 눌렀을 때 로그인 안되 어있으면 login 페이지로 넘기자
         	
             $.ajax({
                 url: "/wish_ornot.do", 

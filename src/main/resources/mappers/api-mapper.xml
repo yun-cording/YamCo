@@ -9,10 +9,12 @@
 	<select id="idChk" parameterType="String" resultType="mvo">
 		SELECT * FROM member WHERE m_id = #{m_id}
 	</select>
+	
 	<!-- 닉네임체크 -->
 	<select id="nickChk" parameterType="String" resultType="int">
 		select count(*) from member where m_nick = #{m_nick}
 	</select>
+	
 	<!-- 상세페이지 들어갈 때 조회수 올리기 -->
 	<update id="hit_update" parameterType="String">
 		update p_recipe set p_rcp_hit = p_rcp_hit + 1 where rcp_idx = #{rcp_idx}

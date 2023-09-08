@@ -343,7 +343,7 @@ public class Recipe_Controller {
 			}
 		}
 		
-//	
+		u_recipe_Service.getHitUp(rcp_idx, m_idx);
 //		
 //		
 //		// TODO 상우 이런 레시피는 어떠세요?(레시피 추천) 시작

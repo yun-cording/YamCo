@@ -8,13 +8,16 @@
 	<select id="article_summary" resultType="prvo">
 		SELECT rcp_idx, total_comments, avg_c_grade, ROUND(p_rcp_hit) as p_rcp_hit FROM p_recipe_comment_summary
 	</select>
+	
 	<select id="article_rating" resultType="String" parameterType="String">
 		SELECT avg_c_grade FROM comment_avg_c_grade WHERE rcp_idx = #{rcp_idx}
 	</select>
+	
 	<!-- 게시물 rcp_idx를 m_idx에서 좋아요 했는지 확인 -->
     <select id="liked_ornot" parameterType="Map" resultType="String">
 		select rcp_idx from wish_list where m_idx = #{m_idx} and rcp_idx = #{rcp_idx}
 	</select>
+	
 	<!-- m_idx회원의 게시물 rcp_idx에 대한 좋아요 추가 -->
     <insert id="liked_check" parameterType="Map">
     	INSERT INTO wish_list(m_idx, rcp_idx) VALUES(#{m_idx}, #{rcp_idx})
@@ -23,10 +26,12 @@
     <delete id="liked_uncheck" parameterType="Map">
     	DELETE FROM wish_list WHERE m_idx = #{m_idx} and rcp_idx = #{rcp_idx}
 	</delete>
+	
 	<!-- m_idx가 rcp_idx에 댓글 쓴거 다 불러오기 -->
     <select id="load_comments" parameterType="Map" resultType="cvo">
 		SELECT * FROM comment WHERE m_nick = #{m_nick} and rcp_idx = #{rcp_idx}
 	</select>
+	
 	<!-- rcp_idx에 댓글 쓴거 다 불러오기 -->
     <select id="load_all_comments" parameterType="String" resultType="cvo">
 		SELECT * FROM comment WHERE rcp_idx = #{rcp_idx} order by c_like desc
