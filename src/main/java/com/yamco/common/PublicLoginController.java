@@ -99,6 +99,8 @@ public class PublicLoginController {
 					mv.addObject("alert", alert);
 					return mv;
 				}
+				
+				if(m_vo.getM_nick() != null) {
 				session.setAttribute("m_idx", m_vo.getM_idx());
 				session.setAttribute("m_nick", m_vo.getM_nick());
 				session.setAttribute("loginChk", true);
@@ -109,7 +111,11 @@ public class PublicLoginController {
 				}
 				alert = "<script>alert('로그인 성공.');</script>";
 				mv.addObject("alert", alert);
-				mv.setViewName("main");
+				mv.setViewName("redirect:/main.go");
+				}else {
+					mv.setViewName("/login/social_join");
+					mv.addObject("m_id", m_vo.getM_id());
+				}
 				return mv;
 			}
 		} catch (Exception e) {
@@ -158,5 +164,11 @@ public class PublicLoginController {
 		}
 		return null;
 	}
-	// TODO 채림 비밀번호 찾기 비밀번호 변경 작업 끗		
+	// TODO 채림 비밀번호 찾기 비밀번호 변경 작업 끗
+	// TODO 채림 이용약관 띄우기 작업 시작
+//	@RequestMapping("/terms1.go")
+//	public ModelAndView getTerms1() {
+//		return new ModelAndView("login/terms01");
+//	}
+	// TODO 채림 이용약관 띄우기 작업 끗
 }

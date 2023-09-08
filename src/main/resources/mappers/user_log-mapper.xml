@@ -113,7 +113,6 @@
 	<select id="bestListIdx" resultType="String">
 		select rcp_idx from user_log_recipe_hit_today
 		order by hit_today DESC
-		LIMIT 5
 	</select>
 	
 	<!-- 상우 상세페이지 들어갈 때 조회수 올리기 -->

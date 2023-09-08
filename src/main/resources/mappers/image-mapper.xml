@@ -16,6 +16,6 @@
 		SELECT * FROM food_save LIMIT 1
 	</select>
 	<select id="noticelist" resultType="nvo">
-		SELECT * FROM notice 
+		SELECT * FROM notice where notice_status = 0
 	</select>
 </mapper>
