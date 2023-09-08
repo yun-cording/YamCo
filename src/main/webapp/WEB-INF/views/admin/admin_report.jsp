@@ -46,7 +46,8 @@ function btnradio4() {
 	location.href="/admin_report_recipe.do?result=4" ;
 }
 
- function confirm_go(c_idx, rcp_idx,button) { 블라인드 처리하기 작동함수
+
+ function confirm_go(c_idx, rcp_idx,button) { // 블라인드 처리하기 작동함수
 	var sendData ='';
 	if(c_idx){
 		sendData='c_idx='+c_idx
@@ -87,10 +88,9 @@ function btnradio4() {
 }
 
  
+ 
 var result = "${result}";
-	alert(result);
  $(document).ready(function() {
-	console.log(result);
 	
 	if(result == '1'){
 		$("#btnradio1").prop("checked", true);

@@ -46,7 +46,6 @@ public class Admin_Controller {
 		return mv;
 	}
 	
-	
 
 	@RequestMapping("go_admin_dashboard.do")
 	public ModelAndView go_admin_dashboard(HttpSession session) {
