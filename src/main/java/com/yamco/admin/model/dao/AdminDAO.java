@@ -178,6 +178,7 @@ public class AdminDAO {
 		sqlSessionTemplate.update("admin.foodingUp", idx);
 	}
 
+
 	// report_t 테이블 가져오기
 	public List<Admin_Report_Chk_VO> getReportAll() {
 		List<Admin_Report_Chk_VO> list = sqlSessionTemplate.selectList("admin.getReportAll");;
@@ -231,5 +232,20 @@ public class AdminDAO {
 	public List<Admin_Report_Chk_VO> getReportCommentResult() {
 		List<Admin_Report_Chk_VO> list = sqlSessionTemplate.selectList("admin.getReportCommentResult"); 
 		return list;
+	}
+	// 공지사항 추가
+	public int insertNotice(Admin_Banner_VO abvo) {
+		return sqlSessionTemplate.insert("admin.insertNotice", abvo);
+	}
+
+	// 광고(ppl) 추가
+	public int insertPpl(Admin_Banner_VO abvo) {
+		return sqlSessionTemplate.insert("admin.insertPpl", abvo);
+	}
+
+	// 재료(food_ing) 추가
+	public int insertFood_ing(Admin_Banner_VO abvo) {
+		return sqlSessionTemplate.insert("admin.insertFood_ing", abvo);
+
 	}
 }

@@ -1,13 +1,19 @@
 package com.yamco.admin.controller;
 
+import java.io.File;
 import java.util.List;
+import java.util.UUID;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.yamco.admin.model.service.AdminService;
@@ -193,10 +199,6 @@ public class Admin_Controller {
 		return mv;
 	}
 
-	@RequestMapping("/go_admin_register.do")
-	public ModelAndView go_admin_register() {
-		return new ModelAndView("admin/admin_register");
-	}
 
 	@RequestMapping("/notice_delete.go")
 	public ModelAndView notice_deleteGo(String idx, String kind) {
@@ -233,6 +235,37 @@ public class Admin_Controller {
 			adminService.pplUp(idx);
 		} else if (kind.equals("2")) {
 			adminService.foodingUp(idx);
+		}
+
+
+		return mv;
+	}
+
+	@RequestMapping("/go_admin_register.do")
+	public ModelAndView go_admin_register() {
+		return new ModelAndView("admin/admin_register");
+	}
+
+	@RequestMapping("/saveAdminImage.do")
+	public ModelAndView saveImg(MultipartFile upload_img, @RequestParam("category") String category,
+			@RequestParam("title") String title, HttpServletRequest request) {
+		ModelAndView mv = new ModelAndView("admin/admin_register");
+
+		if (upload_img != null && upload_img.getSize() > 0) { // upload_img의 사이즈가 0보다 클경우 즉 파일이 있을경우
+			// 첨부파일 위치
+			String path = request.getSession().getServletContext().getRealPath("/resources/images");
+
+			UUID uuid = UUID.randomUUID();
+			String fname = uuid + "_" + upload_img.getOriginalFilename();
+
+			try {
+				// 업로드(저장용도) path 경로에 있는 fname파일을 upload_img.transferTo에 업로드하겠다.
+				upload_img.transferTo(new File(path, fname));
+				
+				adminService.insertAdminImage(category, title, fname);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 
 		return mv;
