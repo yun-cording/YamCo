@@ -326,7 +326,7 @@ button:hover {
 		<div class="flexContainer">
 			<c:forEach items="${wishList }" var="k">
 				<div class="recipe_one" style="display: none">
-					<a href="/사용자레시피?rcp_seq=${k.rcp_idx}">
+					<a href="/user_recipe_detail.do?rcp_idx=${k.rcp_idx}">
 						<p><img src="${k.u_rcp_img }" class="recipe_thumbnail"></p>
 						<p>${k.u_rcp_title }</p>
 						<div class="writer">

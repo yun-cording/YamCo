@@ -1,9 +1,51 @@
 package com.yamco.admin.model.vo;
 
 public class Admin_Report_Chk_VO {
-	private String r_idx, m_idx, c_idx, rcp_idx, r_type, r_time, r_replytime, r_reply, r_status , count , m_id
-	, m_nick , u_rcp_title ;
+	private String r_idx, m_idx, c_idx, rcp_idx, r_type, r_time, r_replytime, r_reply, r_status , m_id
+	, m_nick , u_rcp_title , u_rcp_status ;
 	
+	private String recipe_attacknick , recipe_defencenick , comment_attacknick , comment_defencenick; // m_attacknick 신고자 , m_defencenick 피신고자
+	
+	public String getRecipe_attacknick() {
+		return recipe_attacknick;
+	}
+
+	public void setRecipe_attacknick(String recipe_attacknick) {
+		this.recipe_attacknick = recipe_attacknick;
+	}
+
+	public String getRecipe_defencenick() {
+		return recipe_defencenick;
+	}
+
+	public void setRecipe_defencenick(String recipe_defencenick) {
+		this.recipe_defencenick = recipe_defencenick;
+	}
+
+	public String getComment_attacknick() {
+		return comment_attacknick;
+	}
+
+	public void setComment_attacknick(String comment_attacknick) {
+		this.comment_attacknick = comment_attacknick;
+	}
+
+	public String getComment_defencenick() {
+		return comment_defencenick;
+	}
+
+	public void setComment_defencenick(String comment_defencenick) {
+		this.comment_defencenick = comment_defencenick;
+	}
+
+	public String getU_rcp_status() {
+		return u_rcp_status;
+	}
+
+	public void setU_rcp_status(String u_rcp_status) {
+		this.u_rcp_status = u_rcp_status;
+	}
+
 	public String getU_rcp_title() {
 		return u_rcp_title;
 	}
@@ -26,14 +68,6 @@ public class Admin_Report_Chk_VO {
 
 	public void setM_id(String m_id) {
 		this.m_id = m_id;
-	}
-
-	public String getCount() {
-		return count;
-	}
-
-	public void setCount(String count) {
-		this.count = count;
 	}
 
 	public String getR_idx() {
