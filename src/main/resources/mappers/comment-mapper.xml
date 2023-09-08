@@ -54,4 +54,35 @@
 			</if>
 		</where>
 	</select>
+	
+	<!-- 상우 댓글 수정 -->
+	<update id="comment_revision" parameterType="map">
+		update comment
+		set c_contents = #{newText}
+		where c_idx = #{c_idx} 
+	</update>
+	
+	<!-- 상우 댓글 삭제 -->
+	<delete id="comment_delete" parameterType="String">
+		delete from comment where c_idx = #{c_idx} 
+	</delete>
+	
+	<!-- 상우 댓글 좋아요 여부 확인 -->
+	<select id="comment_likeornot" parameterType="map" resultType="int">
+		SELECT COUNT(*) from comment_like where c_idx = #{c_idx} and m_idx = #{m_idx} 
+	</select>
+	
+	<!-- 데이터 확인 후 삭제 또는 삽입 -->
+	<update id="insertOrUpdateCommentLike" parameterType="map">
+	    <choose>
+	        <!-- 데이터가 이미 존재하는 경우 삭제 -->
+	        <when test="liked_ornot == 1">
+	            DELETE FROM comment_like where c_idx = #{c_idx} and m_idx = #{m_idx} 
+	        </when>
+	        <!-- 데이터가 없는 경우 삽입 -->
+	        <otherwise>
+	            insert into comment_like (c_idx, m_idx) VALUES (#{c_idx}, #{m_idx});
+	        </otherwise>
+	    </choose>
+	</update>
 </mapper>

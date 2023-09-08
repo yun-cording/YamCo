@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import com.yamco.admin.model.dao.AdminDAO;
 import com.yamco.admin.model.vo.Admin_Banner_VO;
 import com.yamco.admin.model.vo.Admin_Dash_VO;
+import com.yamco.admin.model.vo.Admin_Report_Chk_VO;
+import com.yamco.admin.model.vo.Member_count_summary_VO;
 import com.yamco.admin.model.vo.Admin_Report_VO;
 
 @Service
@@ -60,5 +62,17 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public void foodingUp(String idx) {
 		adminDAO.foodingUp(idx);		
+	}
+	
+	@Override
+	public List<Admin_Report_Chk_VO> getReportlist() {
+		return adminDAO.getReportlist();
+	}
+	
+	
+	//회원수 요약 가져오기
+	@Override
+	public Member_count_summary_VO getMemberCountSummary() {
+		return adminDAO.getMemberCountSummary();
 	}
 }

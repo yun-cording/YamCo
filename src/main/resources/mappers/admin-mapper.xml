@@ -22,6 +22,11 @@
 		SELECT COUNT(*) FROM u_recipe
 		WHERE u_rcp_time >= DATE(NOW() - INTERVAL 7 DAY);
 	</select>
+	
+	<!-- 회원수 요약 가져오기 -->
+	<select id="memberCountSummary" resultType="mcsvo">
+		SELECT * FROM member_count_summary;
+	</select>
 	<!-- 총 사용자 레시피 수 -->
 	<select id="recipeUser" resultType="String">
 		SELECT COUNT(*) FROM u_recipe
@@ -134,4 +139,18 @@
 	<update id="foodingUp" parameterType="String">
 		UPDATE food_ing SET food_status=0 WHERE food_idx=#{food_idx}
 	</update>
+	
+	<!-- 어드민 신고내역 관리 모든 신고내역 가져오기 -->
+	<select id="getReportlist" resultType="arcvo">
+	select * from admin_report_chk
+	</select>
+	
+	<!-- 댓글 신고 횟수 
+	<select id="commentReport_2" resultType="arcvo">
+		SELECT c_idx, COUNT(*) AS count
+		FROM report_t
+		WHERE c_idx IS NOT NULL
+		GROUP BY c_idx
+	</select>-->
+	
 </mapper>

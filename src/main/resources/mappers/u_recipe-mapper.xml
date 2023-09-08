@@ -267,7 +267,15 @@
 	<delete id="limit_recipe_del" parameterType="String">
 	delete from u_recipe where m_idx = #{m_idx} and u_rcp_status = 2;
 	</delete>
-
+	
+	<!-- 임시저장된 레시피 글저장 -->
+	<update id="limit_recipe_update" parameterType="urvo">
+	update u_recipe set u_rcp_title = #{u_rcp_title} , u_rcp_category = #{u_rcp_category} , 
+	u_rcp_ing = #{u_rcp_ing} , u_rcp_main = #{r_rcp_main} , u_rcp_level = #{u_rcp_level} , 
+	u_rcp_keyword = #{u_rcp_keyword} , u_rcp_tip = #{u_rcp_tip} , u_rcp_status = #{u_rcp_status} ,
+	u_rcp_img = #{u_rcp_img} where m_idx = #{m_idx} and u_status = 2;
+	</update>
+	
 	<!-- 재훈 메인페이지 최근레시피 리스트 가져오기  -->
 	<select id="maintrendlist" resultType="urmvo">
 		select * from
@@ -284,5 +292,5 @@
 		order by hit_7day desc LIMIT 8
 	</select>
 	<!-- 재훈 베스트 리스트 1주일기준 상위 8개 가져오기 끝 -->
-
+	
 </mapper>

@@ -38,6 +38,41 @@
 		<if test="m_image != null"> ,#{m_image}</if>
 		)
 	</insert>
+	
+	<!-- 관리자 회원가입 insert -->
+	<insert id="joinAdmin" parameterType="mvo">
+		insert into member
+		(m_id
+		<if test="m_pw != null">,m_pw</if>
+		<if test="m_phone != null">,m_phone</if>
+		<if test="m_gender != null">,m_gender </if>
+		<if test="m_birthday != null">,m_birthday </if>
+		<if test="m_nick != null">,m_nick </if>
+		,m_regdate
+		,m_status
+		<if test="m_fail_count != null">,m_fail_count </if>
+		<if test="m_out_date != null">,m_out_date </if>
+		<if test="m_login_type != null">,m_login_type </if>
+		<if test="m_token != null">,m_token </if>
+		<if test="m_t_time != null">,m_t_time </if>
+		<if test="m_image != null">,m_image</if>
+		)
+		values(
+		#{m_id}
+		<if test="m_pw != null">,#{m_pw}</if>
+		<if test="m_phone != null">,#{m_phone}</if>
+		<if test="m_gender != null">,#{m_gender}</if>
+		<if test="m_birthday != null">,#{m_birthday}</if>
+		<if test="m_nick != null"> ,#{m_nick}</if>
+		,sysdate(), 2
+		<if test="m_fail_count != null"> ,#{m_fail_count}</if>
+		<if test="m_out_date != null"> ,#{m_out_date}</if>
+		<if test="m_login_type != null">,#{m_login_type}</if>
+		<if test="m_token != null"> ,#{m_token}</if>
+		<if test="m_t_time != null"> ,#{m_t_time}</if>
+		<if test="m_image != null"> ,#{m_image}</if>
+		)
+	</insert>
 
 	<!-- 아이디 중복 검사 -->
 	<select id="idChk" parameterType="String" resultType="int">
@@ -68,22 +103,21 @@
 			<if test="m_status != null">
 				and m_status = #{m_status}
 			</if>
-			<!-- m_login_type이 2이상이면 소셜가입 계정이 검색됨 -->
 			<if test="m_login_type != null">
-				and m_login_type <![CDATA[>=]]>
-				#{m_login_type}
+				and m_login_type = #{m_login_type}
 			</if>
+
 			<if test="like_id != null">
-				and m_id Like '%#{like_id}%'
+				and m_id Like CONCAT('%',#{like_id},'%')
 			</if>
 			<if test="like_phone != null">
-				and m_phone Like '%#{like_phone}%'
+				and m_phone Like CONCAT('%',#{like_phone},'%')
 			</if>
 			<if test="like_birthday != null">
-				and m_birthday Like '%#{like_birthday}%'
+				and m_birthday Like CONCAT('%',#{like_birthday},'%')
 			</if>
 			<if test="like_nick != null">
-				and m_nick Like '%#{like_nick}%'
+				and m_nick Like CONCAT('%',#{like_nick},'%')
 			</if>
 			<if test="regdate_start != null">
 				and m_regdate <![CDATA[>=]]>
@@ -101,17 +135,33 @@
 				and m_fail_count <![CDATA[>=]]>
 				5
 			</if>
+			<if test="statusArr != null">
+				<foreach collection="statusArr" item="item"
+					open="and m_status in (" close=")" separator=",">
+					#{item}
+				</foreach>
+			</if>
+			<if test="loginTypeArr != null">
+				<foreach collection="loginTypeArr" item="item"
+					open="and m_login_type in (" close=")" separator=",">
+					#{item}
+				</foreach>
+			</if>
 		</where>
 	</select>
 
 	<!-- 명예의 전당 가져오기 -->
 	<select id="selectAwardList" resultType="mmvo">
-		select * from member_metadata where tot_hit_1mon is not null and tot_hit_1mon != 0 order by tot_hit_1mon desc limit 100
+		select * from
+		member_metadata where tot_hit_1mon is not null and tot_hit_1mon != 0
+		order by tot_hit_1mon desc limit 100
 	</select>
-	
+
 	<!-- 재훈 메인 명예의 전당 3명가져오기 -->
 	<select id="mainAwardList" resultType="mmvo">
-		select * from member_metadata where tot_hit_1mon is not null and tot_hit_1mon != 0 order by tot_hit_1mon desc limit 3
+		select * from
+		member_metadata where tot_hit_1mon is not null and tot_hit_1mon != 0
+		order by tot_hit_1mon desc limit 3
 	</select>
 
 	<!-- 닉네임 중복 검사 -->
@@ -120,56 +170,117 @@
 		count(*) from member where m_nick = #{m_nick}
 	</select>
 
-	 <!-- 닉네임 설정하기 -->
-    <update id="upNick" parameterType="mvo">
-        update member set m_nick = #{m_nick} where m_id = #{m_id}
-    </update>   
-    <!-- 자체 로그인 --> 
-   <select id="login" parameterType="mvo" resultType="mvo">
-   		select * from member where m_id = #{m_id}
-   </select>
-   
-   <!-- 틀린 횟수 업데이트 -->
-   <update id="failCountUp" parameterType="mvo">
-   		update member set m_fail_count = #{m_fail_count} where m_id = #{m_id}
-   </update>
-   
-   <!-- 비밀번호 변경 -->
-   <update id="changePw" parameterType="mvo">
-   		update member set m_pw = #{m_pw} where m_id = #{m_id}
-   </update>
-    <!-- idx로 mvo가져오기 -->
-    <select id="getOne" parameterType="String" resultType="mvo">
-    	select * from member where m_idx=#{m_idx}
-    </select>
-    <!-- 내정보변경 -->
-    <update id="changeMyInfo" parameterType="mvo">
-    	update member set m_nick=#{m_nick}, m_phone = #{m_phone}, m_image = #{m_image} 
-    	where m_idx = #{m_idx}
-    </update>
-    <!-- 회원탈퇴 -->
-    <update id="leave">
-    	update member set m_status=3, m_out_date=CURDATE() where m_idx=#{m_idx}
-    </update>
-    
-    <!-- 토큰, 날짜 생성 -->
-    <update id="token" parameterType="mvo">
-    	update member set m_token = #{m_token}, m_t_time = sysdate() where m_id = #{m_id}
-    </update>
-    
-    <!-- 비밀번호 변경 대상자 검색 -->
-    <select id="emailId" parameterType="mvo" resultType="mvo">
-    	select * from member where m_token != ''
-    </select>
-    
-    <!-- 변경 완료 후 토큰 삭제 -->
-    <update id="tokenDelete" parameterType="mvo">
-    	update member set m_token = null, m_t_time = null where m_id = #{m_id}
-    </update>
-    
-    <!-- 찜목록 -->
-    <select id="wishList" parameterType="String" resultType="String">
-    	select rcp_idx from wish_list where m_idx = #{m_idx}
-    </select>
-    
+	<!-- 닉네임 설정하기 -->
+	<update id="upNick" parameterType="mvo">
+		update member set m_nick =
+		#{m_nick} where m_id = #{m_id}
+	</update>
+	<!-- 자체 로그인 -->
+	<select id="login" parameterType="mvo" resultType="mvo">
+		select * from
+		member where m_id = #{m_id}
+	</select>
+
+	<!-- 틀린 횟수 업데이트 -->
+	<update id="failCountUp" parameterType="mvo">
+		update member set
+		m_fail_count = #{m_fail_count} where m_id = #{m_id}
+	</update>
+
+	<!-- 비밀번호 변경 -->
+	<update id="changePw" parameterType="mvo">
+		update member set m_pw =
+		#{m_pw} where m_id = #{m_id}
+	</update>
+	<!-- idx로 mvo가져오기 -->
+	<select id="getOne" parameterType="String" resultType="mvo">
+		select *
+		from member where m_idx=#{m_idx}
+	</select>
+	<!-- 내정보변경 -->
+	<update id="changeMyInfo" parameterType="mvo">
+		update member set
+		m_nick=#{m_nick}, m_phone = #{m_phone}, m_image =
+		#{m_image}
+		where m_idx
+		= #{m_idx}
+	</update>
+	<!-- 회원탈퇴 -->
+	<update id="leave">
+		update member set m_status=3, m_out_date=CURDATE()
+		where m_idx=#{m_idx}
+	</update>
+	<!-- 관리자탈퇴 -->
+	<update id="leaveAdmin">
+		update member set m_status=5, m_out_date=CURDATE()
+		where m_idx=#{m_idx}
+	</update>
+
+	<!-- 토큰, 날짜 생성 -->
+	<update id="token" parameterType="mvo">
+		update member set m_token =
+		#{m_token}, m_t_time = sysdate() where m_id =
+		#{m_id}
+	</update>
+
+	<!-- 비밀번호 변경 대상자 검색 -->
+	<select id="emailId" parameterType="mvo" resultType="mvo">
+		select *
+		from member where m_token != ''
+	</select>
+
+	<!-- 변경 완료 후 토큰 삭제 -->
+	<update id="tokenDelete" parameterType="mvo">
+		update member set m_token
+		= null, m_t_time = null where m_id = #{m_id}
+	</update>
+
+	<!-- 찜목록 -->
+	<select id="wishList" parameterType="String" resultType="String">
+		select
+		rcp_idx from wish_list where m_idx = #{m_idx}
+	</select>
+
+	<!-- m_idx를 조건으로 Member_VO update 수행 -->
+	<update id="update" parameterType="mvo">
+		update member
+		<!-- m_id는 업데이트 하지 않는다 -->
+		<!-- m_regdate는 업데이트 하지 않는다 -->
+		<!-- m_out_date는 업데이트 하지 않는다. -->
+		<!-- m_login_type은 업데이트 하지 않는다 -->
+		<set>
+			<if test="m_pw != null">
+				m_pw = #{m_pw},
+			</if>
+			<if test="m_phone != null">
+				m_phone = #{m_phone},
+			</if>
+			<if test="m_gender != null">
+				m_gender = #{m_gender},
+			</if>
+			<if test="m_birthday != null">
+				m_birthday = #{m_birthday},
+			</if>
+			<if test="m_nick != null">
+				m_nick = #{m_nick},
+			</if>
+			<if test="m_status != null">
+				m_status = #{m_status},
+			</if>
+			<if test="m_token != null">
+				m_token = #{m_token},
+			</if>
+			<if test="m_t_time != null">
+				m_t_time = #{m_t_time},
+			</if>
+			<if test="m_image != null">
+				m_image = #{m_image},
+			</if>
+			<if test="m_fail_count != null">
+				m_fail_count = #{m_fail_count}
+			</if>
+		</set>
+		where m_idx = #{m_idx}
+	</update>
+
 </mapper>

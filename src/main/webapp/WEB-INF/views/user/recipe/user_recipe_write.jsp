@@ -106,13 +106,13 @@ document.addEventListener("DOMContentLoaded", function() {
 							<!-- dropdown 박스 -->
 							<select name="u_rcp_category1" id="cars" class="input_tomato"
 								style="float: right; margin-right: 50px; margin-top: -470px; color: #606060">
-								<option value="select_category" selected>카테고리를 선택하세요.</option>
-								<option value="select_steam">찌기</option>
-								<option value="select_boil">끓이기</option>
-								<option value="select_cook" >굽기</option>
-								<option value="select_stir" >볶기</option>
-								<option value="select_fry" >튀기기</option>
-								<option value="select_etc">기타</option>
+								<option value="카테고리를 선택하세요." selected>카테고리를 선택하세요.</option>
+								<option value="찌기">찌기</option>
+								<option value="끓이기">끓이기</option>
+								<option value="굽기" >굽기</option>
+								<option value="볶기" >볶기</option>
+								<option value="튀기기" >튀기기</option>
+								<option value="기타">기타</option>
 							</select> <br> <br>
 							<!-- </form> -->
 						</div>
@@ -123,13 +123,20 @@ document.addEventListener("DOMContentLoaded", function() {
 							<!-- dropdown 박스 -->
 							<select name="u_rcp_category2" id="cars" class="input_tomato"
 								style="float: right; margin-right: 50px; margin-top: -397px; color: #606060">
-								<option value="select_category">카테고리를 선택하세요.</option>
-								<option value="select_rice">밥</option>
-								<option value="select_soup">국&찌개</option>
-								<option value="select_bestone" >일품</option>
-								<option value="select_side" >반찬</option>
-								<option value="select_afterEat" >후식</option>
-								<option value="select_etc">기타</option>
+								<option value="카테고리를 선택하세요." selected>카테고리를 선택하세요.</option>
+								<option value="1인분">1인분</option>
+								<option value="</">채식</option>
+								<option value="국물류" >국물류</option>
+								<option value="돈까스,일식" >돈까스,일식</option>
+								<option value="고기,구이" >고기,구이</option>
+								<option value="해산물">해산물</option>
+								<option value="분식">분식</option>
+								<option value="면류">면류</option>
+								<option value="죽">죽</option>
+								<option value="술안주">술안주</option>
+								<option value="반찬">반찬</option>
+								<option value="후식">후식</option>
+								<option value="기타">기타</option>
 							</select> <br> <br>
 						</div>
 
@@ -303,6 +310,12 @@ $(document).ready(function() {
 			return false;
 		}
 		
+		if($("#fileInput").val() == null ){ // 파일이 업로드 되었을때
+			alert("파일을 업로드 해주세요.");
+		f.u_rcp_img1.focus();
+		return false;
+		}
+		
 	var u_rcp_status = 0;
 	 var u_rcp_ing2 = [];
 	 console.log("filedCount : " + fieldCount);
@@ -320,12 +333,7 @@ $(document).ready(function() {
 	}	
 	
 	function limitWrite_go(f) {
-	// result = have 일 경우 임시저장글이 있는 상태에서 새글 작성하러 온 상태에서 임시저장 누르게 된 경우
-	// result = pass 임시저장글이 없는 상태에서 새글 작성하러와서 임시저장하는 경우
-		//var result = ${result};
-		//console.log("user_recipe_write : "+result);
-		//if(result=='pass'){ // 임시저장게시글이 없는 상태에서 임시저장하는 경우
-		
+
 		if(confirm("임시저장은 한개의 레시피만 가능합니다.\n임시저장 하시겠습니까?") == true){
 			// true일 경우 controller 에서 update문으로 새로 작성한 임시저장글로 업데이트
 		 if(f.u_rcp_title.value.trim().length<=0){
@@ -345,32 +353,7 @@ $(document).ready(function() {
 	}else{
 		return false;
 	}
-	//}// 임시저장게시글이 없는 상태에서 임시저장하는 경우 끝
 	
-/* 	else if(result=='have'){ // 임시저장글이 있는 상태에서 임시저장하는 경우
-		if(confirm("기존 임시저장 레시피가 있습니다.\n임시저장하실 경우 기존 레시피는 삭제됩니다.\n임시저장 하시겠습니까?") == true){
-			// confirm창으로 기존에 임시저장된 게시글이 있습니다. 계속하시면 기존 임시저장글은 삭제됩니다. 진행하시겠습니까? 처리
-			// true일 경우 controller 에서 update문으로 새로 작성한 임시저장글로 업데이트
-		 if(f.u_rcp_title.value.trim().length<=0){
-			alert("제목을 입력해 주세요.");
-			f.u_rcp_title.focus();
-			return false;
-		}
-			
-		var u_rcp_status = 2;
-		 var u_rcp_ing2 = [];
-		for (var i = 0; i < fieldCount; i++) {
-			u_rcp_ing2[i-1] = $("#ing_box"+i).val();
-		} 
-		console.log("임시저장레시피가 있는 경우 : " + result);
-		f.action="/limit_write_go?u_rcp_ing2="+u_rcp_ing2+"&u_rcp_status="+u_rcp_status+"&result="+result;
-		f.submit();	
-		
-	}else{
-		return false;
-	}	
-} */// 임시저장글이 있는 상태에서 임시저장하는 경우 기존글은 삭제됨 끝
-
 }
 </script>
 <script type="text/javascript">
