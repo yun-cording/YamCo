@@ -31,6 +31,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.yamco.admin.model.service.Log_Service;
+import com.yamco.api.model.dao.P_recipe_DAO;
 import com.yamco.api.model.service.P_recipe_Service;
 import com.yamco.api.model.vo.P_recipe_VO;
 import com.yamco.user.model.service.Comment_Service;
@@ -78,6 +79,8 @@ public class User_Controller2 {
 	private Log_Service log_Service;
 	@Autowired
 	private Comment_Service comment_Service;
+	@Autowired
+	private P_recipe_DAO p_Recipe_DAO;
 
 	@RequestMapping("/main.go")
 	public ModelAndView homeGo(HttpSession session) {
@@ -165,34 +168,35 @@ public class User_Controller2 {
 	
 	// TODO 상우 게시물 찜 누르기 시작
 	@RequestMapping("/wish_ornot.do")
-	public Map<String, Object> wish_ornot(HttpServletRequest request, HttpServletResponse response, HttpSession session,
-			@RequestParam(value = "m_idx", required = true) String m_idx,
-			@RequestParam(value = "rcp_idx", required = true) String rcp_idx
+	// ajax 사용할 때는 이거 무조건 넣어야 함!! response (반응형)
+	@ResponseBody
+	public Map<String, String> wish_ornot(HttpServletRequest request, HttpServletResponse response, HttpSession session,
+			@RequestParam(value = "m_idx", required = false) String m_idx,
+			@RequestParam(value = "rcp_idx", required = false) String rcp_idx
 			) {
 		// 세션에서 String 형태로 rcp_idx 받아오자
-	    Map<String, Object> response_map = new HashMap<>();
+	    Map<String, String> response_map = new HashMap<>();
 	    
 	    System.out.println(rcp_idx + "rcp_idx");
 	    System.out.println(m_idx + "m_idx");
 
 	    // m_idx 받아오기
-//	    String m_idx = (String) session.getAttribute("m_idx");
-//	    String rcp_idx = (String) session.getAttribute("rcp_idx");
+	    m_idx = (String) session.getAttribute("m_idx");
+	    rcp_idx = (String) session.getAttribute("rcp_idx");
 
-		// 상우 DB에 방문자수 로그 찍기 (랭킹)
-		ModelAndView mv = new ModelAndView("/user/ranking/ranking_recipe");
-		
 		// rcp_idx, m_idx 보내야 함.
-		String liked_ornot = "1";
+		String liked_ornot_result = "0";
 		
 		// DB에서 받아오는 로직 추가
+		liked_ornot_result = p_Recipe_DAO.liked_ornot(m_idx, rcp_idx);
+		System.out.println(liked_ornot_result);
 		
-		if (liked_ornot == "1") {
+		if (liked_ornot_result == "1") {
 			// liked_ornot이 1이면(좋아요를 insert 했다면) 좋아요 되어있음 반환
-			response_map.put("resultValue", true);
-		}else if (liked_ornot == "0") {
+			response_map.put("resultValue", "1");
+		}else if (liked_ornot_result == "0") {
 			// 아니라면 좋아요 해제함 반환
-			response_map.put("resultValue", false);
+			response_map.put("resultValue", "0");
 		}
 		
 		return response_map;
