@@ -35,6 +35,8 @@ public interface AdminService {
 
 	// 회원수 요약 가져오기
 	public Member_count_summary_VO getMemberCountSummary();
+
+	public boolean blindCancelDo(Admin_Report_VO vo);
 	
 	// 신고내역 관리 모든 신고내역 불러오기
 	public List<Admin_Report_Chk_VO> getReportlist();

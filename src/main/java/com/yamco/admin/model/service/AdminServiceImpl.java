@@ -106,7 +106,6 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	// 회원수 요약 가져오기
-
 	@Override
 	public Member_count_summary_VO getMemberCountSummary() {
 		return adminDAO.getMemberCountSummary();
@@ -135,11 +134,14 @@ public class AdminServiceImpl implements AdminService {
 	public List<Admin_Report_Chk_VO> getReportCommentResult() {
 		return adminDAO.getReportCommentResult();
 	}
-	
 	// 신고 내역 전부 불러오기
 	@Override
 	public List<List<Admin_Report_Chk_VO>> admin_report_All() {
 		return adminDAO.getReportAll();
 	}
-	
+
+	@Override
+	public boolean blindCancelDo(Admin_Report_VO vo) {
+		return adminDAO.blindCancelDo(vo);
+	}
 }

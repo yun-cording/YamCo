@@ -178,6 +178,15 @@ public class AdminDAO {
 		sqlSessionTemplate.update("admin.foodingUp", idx);
 	}
 
+	public boolean blindCancelDo(Admin_Report_VO vo) {
+		int res = sqlSessionTemplate.update("admin.rcpBlindCancel",vo);
+		if(res>0) {
+			return true;
+		}else {
+			return false; 
+		}
+	}
+
 
 	// report_t 테이블 가져오기
 	public List<List<Admin_Report_Chk_VO>> getReportAll() {

@@ -1,5 +1,6 @@
 package com.yamco.common;
 
+import java.util.Date;
 import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
@@ -90,7 +91,6 @@ public class PublicLoginController {
 					System.out.println("5번 틀림");
 					mv.addObject("alert", alert);
 				}
-				
 				return mv;
 			}else {
 				if(fail_count >= 5) {
@@ -110,7 +110,9 @@ public class PublicLoginController {
 					return mv;
 				}
 				alert = "<script>alert('로그인 성공.');</script>";
+				String history_go = "<script>history.go(-2);</script>";
 				mv.addObject("alert", alert);
+				mv.addObject("history_go", history_go);
 				mv.setViewName("redirect:/main.go");
 				}else {
 					mv.setViewName("/login/social_join");

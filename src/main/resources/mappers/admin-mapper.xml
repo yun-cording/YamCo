@@ -197,4 +197,28 @@ JOIN
 	select m_nick from comment where c_idx = #{c_idx}
 	</select>
 	
+<<<<<<< HEAD
+=======
+	
+	<!-- 처리 덜된 신고당한 댓글리스트 가져오기 -->
+	<select id="getCommentList" resultType="arcvo">
+	
+	</select>
+	
+	<!-- 신고응답 처리 완료된 게시글 불러오기 -->
+	<select id="getReportRecipeResult" resultType="arcvo">
+	
+	</select>
+	
+	<!-- 신고응답 처리 완료된 댓글 불러오기 -->
+	<select id="getReportCommentResult" resultType="arcvo">
+	
+	</select>
+	
+	<!-- 게시글 블라인드 취소 처리 -->
+	<update id="rcpBlindCancel" parameterType="arvo">
+		UPDATE u_recipe SET u_rcp_status = 0 WHERE rcp_idx = #{rcp_idx}	
+	</update>
+	
+>>>>>>> refs/heads/master
 </mapper>
