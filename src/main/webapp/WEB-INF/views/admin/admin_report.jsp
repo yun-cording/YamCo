@@ -25,17 +25,6 @@
 <!-- Custom styles for this page -->
 <link href="resources/vendor/datatables/dataTables.bootstrap4.min.css"	rel="stylesheet">
 <script type="text/javascript">
-function btnradio1() {
-	location.href="/admin_report_recipe.do";
-}
-
-function btnradio() {
-	location.href="/admin_report_comment.do";
-}
-
-function btnradio3() {
-	location.href="/admin_report_result.do";
-}
 
 function confirm_go(c_idx, rcp_idx,button) {
 	var sendData ='';
@@ -163,7 +152,7 @@ function confirm_go(c_idx, rcp_idx,button) {
 										</colgroup>
 										<thead>
 											<tr>
-												<th scope="col">신고번호</th>
+												<th scope="col">신고당한 게시글번호</th>
 												<th scope="col">신고자</th>
 												<th scope="col">신고 횟수</th>
 												<th scope="col">신고 유형</th>
@@ -177,7 +166,7 @@ function confirm_go(c_idx, rcp_idx,button) {
 										<tbody>
 										<c:forEach items="${list}" var="k"  >
 										<tr>
-												<td>${k.r_idx }</td>
+												<td>${k.rcp_idx }</td>
 												<td>${k.m_id }</td>
 												<td>${k.count }</td>
 												<td>${k.r_type }</td>
@@ -193,8 +182,93 @@ function confirm_go(c_idx, rcp_idx,button) {
 										</tbody>
 										</table>
 										</c:when>
-										<c:when test=""></c:when>
-										<c:when test=""></c:when>
+										<c:when test="${result == 2 }">
+										<table class="table table-bordered" id="dataTable" width="100%"	cellspacing="0">
+										<colgroup>
+											<col width="13%" />
+											<col width="20%" />
+											<col width="13%" />
+											<col width="13%" />
+											<col width="20%" />
+											<col width="10%" />
+											<col width="11%" />
+										</colgroup>
+										<thead>
+											<tr>
+												<th scope="col">신고당한 댓글번호</th>
+												<th scope="col">신고자</th>
+												<th scope="col">신고 횟수</th>
+												<th scope="col">신고 유형</th>
+												<th scope="col">피신고자 닉네임</th>
+												<th scope="col">답변</th>
+												<th scope="col">블라인드 처리</th>
+											</tr>
+										</thead>
+										<tbody>
+										<c:forEach items="${list}" var="k"  >
+										<tr>
+												<td>${k.c_idx }</td>
+												<td>${k.m_id }</td>
+												<td>${k.count }</td>
+												<td>${k.r_type }</td>
+												<td>${k.m_nick }</td>
+												<td><button type="button" style="color: white;" class="btn bg-success bg-opacity-100 "
+														data-bs-toggle="modal" data-bs-target="#exampleModal"
+														data-bs-whatever="@mdo">답변 미작성</button></td>
+												<td> <button type="button" class="btn btn-danger" onclick="confirm_go( '${k.c_idx}','${k.rcp_idx }',this )">블라인드 처리</button> </td>
+											</tr>
+										</c:forEach>
+										</tbody>
+										</table>
+										</c:when>
+										<c:when test="${result == 3 }">
+										<table class="table table-bordered" id="dataTable" width="100%"	cellspacing="0">
+										<colgroup>
+											<col width="5%" />
+											<col width="5%" />
+											<col width="10%" />
+											<col width="5%" />
+											<col width="5%" />
+											<col width="10%" />
+											<col width="15%" />
+											<col width="24%" />
+											<col width="10%" />
+											<col width="11%" />
+										</colgroup>
+										<thead>
+											<tr>
+												<th scope="col">신고당한 게시글번호</th>
+												<th scope="col">신고당한 댓글번호</th>
+												<th scope="col">신고자</th>
+												<th scope="col">신고 횟수</th>
+												<th scope="col">신고 유형</th>
+												<th scope="col">피신고자 닉네임</th>
+												<th scope="col">게시글 제목</th>
+												<th scope="col">작성 내용</th>
+												<th scope="col">답변</th>
+												<th scope="col">블라인드 처리</th>
+											</tr>
+										</thead>
+										<tbody>
+										<c:forEach items="${list}" var="k"  >
+										<tr>
+												<td>${k.r_idx }</td>
+												<td>${k.c_idx }</td>
+												<td>${k.m_id }</td>
+												<td>${k.count }</td>
+												<td>${k.r_type }</td>
+												<td>${k.m_nick }</td>
+												<td>${k.u_rcp_title }</td>
+												<td>${k.r_reply }</td>
+												<td><button type="button" style="color: white;" class="btn bg-success bg-opacity-100 "
+														data-bs-toggle="modal" data-bs-target="#exampleModal"
+														data-bs-whatever="@mdo">답변 미작성</button></td>
+												<td> <button type="button" class="btn btn-danger" onclick="confirm_go( '${k.c_idx}','${k.rcp_idx }',this )">블라인드 처리</button> </td>
+											</tr>
+										</c:forEach>
+										</tbody>
+										</table>
+										</c:when>
 										</c:choose>
 										
 										
