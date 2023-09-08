@@ -188,7 +188,7 @@ function go_admin_register() {
 	
   <button onclick="go_tableExam()">go_tableExam</button>
 	<button onclick="location.href='/simbatest'">심바테스트중</button>	
-	<button onclick="go_drag()">드레그앤드랍테스트</button>	
+	<button onclick="go_drag()">드레그앤드랍테스트</button>
 	
 </body>
 </html>
