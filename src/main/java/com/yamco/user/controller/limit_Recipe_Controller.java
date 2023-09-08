@@ -26,7 +26,7 @@ public class limit_Recipe_Controller {
 	@PostMapping("/limit_write_go")
 	public ModelAndView get_write(U_recipe_VO uvo, HttpServletRequest request,
 			@RequestPart("u_rcp_img1") MultipartFile u_rcp_img1, String[] u_rcp_ing2, String u_rcp_status) {
-		ModelAndView mv = new ModelAndView("redirect:/go_home.do");
+		ModelAndView mv = new ModelAndView("redirect:/");
 		HttpSession session = request.getSession();
 
 		System.out.println("recipe_status : " + u_rcp_status);

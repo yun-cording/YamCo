@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:set var="result" value="${result }" />
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -24,20 +26,27 @@
 
 <!-- Custom styles for this page -->
 <link href="resources/vendor/datatables/dataTables.bootstrap4.min.css"	rel="stylesheet">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"	crossorigin="anonymous"></script>
+<script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css"/>
 <script type="text/javascript">
 function btnradio1() {
-	location.href="/admin_report_recipe.do";
+	location.href="/admin_report_recipe.do?result=1" ;
 }
-
-function btnradio() {
-	location.href="/admin_report_comment.do";
+function btnradio2() {
+	location.href="/admin_report_recipe.do?result=2" ;			
 }
 
 function btnradio3() {
-	location.href="/admin_report_result.do";
+	location.href="/admin_report_recipe.do?result=3" ;
 }
 
-function confirm_go(c_idx, rcp_idx,button) {
+function btnradio4() {
+	location.href="/admin_report_recipe.do?result=4" ;
+}
+
+ function confirm_go(c_idx, rcp_idx,button) { 블라인드 처리하기 작동함수
 	var sendData ='';
 	if(c_idx){
 		sendData='c_idx='+c_idx
@@ -76,6 +85,26 @@ function confirm_go(c_idx, rcp_idx,button) {
 		  }
 		});
 }
+
+ 
+var result = "${result}";
+	alert(result);
+ $(document).ready(function() {
+	console.log(result);
+	
+	if(result == '1'){
+		$("#btnradio1").prop("checked", true);
+	}else if(result == '2'){
+		$("#btnradio2").prop("checked", true);
+	}else if(result == '3'){
+		$("#btnradio3").prop("checked", true);
+	}else if(result == '4'){
+		$("#btnradio4").prop("checked", true);
+	}else{
+		$("#btnradio1").prop("checked", true);
+	}
+	
+});
 </script>
 </head>
 <body id="page-top">
@@ -93,52 +122,25 @@ function confirm_go(c_idx, rcp_idx,button) {
 					<h1 class="ml-5 mt-5 font-weight-bold">신고내역 관리</h1>
 					<hr>
 					<!-- 여기에서 작업하시면 됩니다. -->
-					
+										
 					<!-- 버튼시작 -->
 					<div class="btn-group" role="group"	aria-label="Basic radio toggle button group" style="margin-left:26px;">
-						<input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked
+						<input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off"
 						onclick="btnradio1()"> 
 							<label class="btn btn-outline-success" for="btnradio1" >게시글</label>
 							 
 							<input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off"
 							onclick="btnradio2()"> 
 							<label class="btn btn-outline-success" for="btnradio2">댓글</label>
-							 
+							
 							<input type="radio" class="btn-check" name="btnradio" id="btnradio3"autocomplete="off"
 							onclick="btnradio3()"> 
-							<label class="btn btn-outline-success" for="btnradio3">처리된 내용들</label>
+							<label class="btn btn-outline-success" for="btnradio3">처리된 게시글들</label>
+							<input type="radio" class="btn-check" name="btnradio" id="btnradio4"autocomplete="off"
+							onclick="btnradio4()"> 
+							<label class="btn btn-outline-success" for="btnradio4">처리된 댓글들</label>
 					</div>
 					<!-- 버튼 끝 -->
-
-					<!-- 라디오 버튼 시작 -->
-					<!-- <div style="margin-left: 26px;">
-						<div class="form-check form-check-inline">
-							<input class="form-check-input" type="radio"
-								name="inlineRadioOptions" id="inlineRadio1" value="option1">
-							<label class="form-check-label" for="inlineRadio1">욕설/비하</label>
-						</div>
-						<div class="form-check form-check-inline">
-							<input class="form-check-input" type="radio"
-								name="inlineRadioOptions" id="inlineRadio2" value="option2">
-							<label class="form-check-label" for="inlineRadio2">성희롱</label>
-						</div>
-						<div class="form-check form-check-inline">
-							<input class="form-check-input" type="radio"
-								name="inlineRadioOptions" id="inlineRadio3" value="option3">
-							<label class="form-check-label" for="inlineRadio3">광고</label>
-						</div>
-						<div class="form-check form-check-inline">
-							<input class="form-check-input" type="radio"
-								name="inlineRadioOptions" id="inlineRadio4" value="option4">
-							<label class="form-check-label" for="inlineRadio4">허위정보</label>
-						</div>
-						<div class="form-check form-check-inline">
-							<input class="form-check-input" type="radio"
-								name="inlineRadioOptions" id="inlineRadio5" value="option5">
-							<label class="form-check-label" for="inlineRadio5">기타</label>
-						</div>
-					</div> -->
-					<!-- 라디오 버튼 끝 -->
 
 					<!-- Begin Page Content -->
 					<div class="container-fluid" style="text-align: center;">
@@ -146,42 +148,38 @@ function confirm_go(c_idx, rcp_idx,button) {
 						<div class="card shadow mb-4">
 							<div class="card-body">
 								<div class="table-responsive">
-									
 										<c:choose>
 										<c:when test="${result == 1 }">
 										<table class="table table-bordered" id="dataTable" width="100%"	cellspacing="0">
 										<colgroup>
-											<col width="5%" />
+											<col width="12%" />
 											<col width="10%" />
-											<col width="5%" />
-											<col width="5%" />
-											<col width="7%" />
+											<col width="9%" />
+											<col width="10%" />
 											<col width="15%" />
-											<col width="32%" />
+											<col width="23%" />
 											<col width="10%" />
 											<col width="11%" />
 										</colgroup>
 										<thead>
 											<tr>
-												<th scope="col">신고번호</th>
+												<th scope="col">게시글번호</th>
 												<th scope="col">신고자</th>
-												<th scope="col">신고 횟수</th>
 												<th scope="col">신고 유형</th>
-												<th scope="col">피신고자 닉네임</th>
+												<th scope="col">작성자</th>
 												<th scope="col">게시글 제목</th>
-												<th scope="col">작성 내용</th>
+												<th scope="col">신고 내용</th>
 												<th scope="col">답변</th>
 												<th scope="col">블라인드 처리</th>
 											</tr>
 										</thead>
 										<tbody>
-										<c:forEach items="${list}" var="k"  >
+										<c:forEach items="${rcp_list}" var="k"  >
 										<tr>
-												<td>${k.r_idx }</td>
-												<td>${k.m_id }</td>
-												<td>${k.count }</td>
+												<td>${k.rcp_idx }</td>
+												<td>${k.recipe_attacknick }</td>
 												<td>${k.r_type }</td>
-												<td>${k.m_nick }</td>
+												<td>${k.recipe_defencenick }</td>
 												<td>${k.u_rcp_title }</td>
 												<td>${k.r_reply }</td>
 												<td><button type="button" style="color: white;" class="btn bg-success bg-opacity-100 "
@@ -193,8 +191,162 @@ function confirm_go(c_idx, rcp_idx,button) {
 										</tbody>
 										</table>
 										</c:when>
-										<c:when test=""></c:when>
-										<c:when test=""></c:when>
+										<c:when test="${result == 2 }">
+										<table class="table table-bordered" id="dataTable" width="100%"	cellspacing="0">
+										<colgroup>
+											<col width="13%" />
+											<col width="24%" />
+											<col width="13%" />
+											<col width="24%" />
+											<col width="13%" />
+											<col width="13%" />
+										</colgroup>
+										<thead>
+											<tr>
+												<th scope="col">신고당한 댓글번호</th>
+												<th scope="col">신고자</th>
+												<th scope="col">신고 유형</th>
+												<th scope="col">댓글 작성자</th>
+												<th scope="col">답변</th>
+												<th scope="col">블라인드 처리</th>
+											</tr>
+										</thead>
+										<tbody>
+										<c:forEach items="${c_list}" var="k"  >
+										<tr>
+												<td>${k.c_idx }</td>
+												<td>${k.comment_attacknick }</td>
+												<td>${k.r_type }</td>
+												<td>${k.comment_defencenick }</td>
+												<td><button type="button" style="color: white;" class="btn bg-success bg-opacity-100 "
+														data-bs-toggle="modal" data-bs-target="#exampleModal"
+														data-bs-whatever="@mdo">답변 미작성</button></td>
+												<td> <button type="button" class="btn btn-danger" onclick="confirm_go( '${k.c_idx}','${k.rcp_idx }',this )">블라인드 처리</button> </td>
+											</tr>
+										</c:forEach>
+										</tbody>
+										</table>
+										</c:when>
+										<c:when test="${result == 3 }">
+										<table class="table table-bordered" id="dataTable" width="100%"	cellspacing="0">
+										<colgroup>
+											<col width="12%" />
+											<col width="10%" />
+											<col width="9%" />
+											<col width="10%" />
+											<col width="15%" />
+											<col width="23%" />
+											<col width="10%" />
+											<col width="11%" />
+										</colgroup>
+										<thead>
+											<tr>
+												<th scope="col">게시글번호</th>
+												<th scope="col">신고자</th>
+												<th scope="col">신고 유형</th>
+												<th scope="col">작성자</th>
+												<th scope="col">게시글 제목</th>
+												<th scope="col">신고 내용</th>
+												<th scope="col">답변</th>
+												<th scope="col">블라인드 처리</th>
+											</tr>
+										</thead>
+										<tbody>
+										<c:forEach items="${rcp_list}" var="k"  >
+										<tr>
+												<td>${k.rcp_idx }</td>
+												<td>${k.recipe_attacknick }</td>
+												<td>${k.r_type }</td>
+												<td>${k.recipe_defencenick }</td>
+												<td>${k.u_rcp_title }</td>
+												<td>${k.r_reply }</td>
+												<td><button type="button" style="color: white;" class="btn bg-success bg-opacity-100 "
+														data-bs-toggle="modal" data-bs-target="#exampleModal"
+														data-bs-whatever="@mdo">답변 미작성</button></td>
+												<td> <button type="button" class="btn btn-danger" onclick="confirm_go( '${k.c_idx}','${k.rcp_idx }',this )">블라인드 처리</button> </td>
+											</tr>
+										</c:forEach>
+										</tbody>
+										</table>
+										</c:when>
+										<c:when test="${result == 4 }">
+										<table class="table table-bordered" id="dataTable" width="100%"	cellspacing="0">
+										<colgroup>
+											<col width="13%" />
+											<col width="24%" />
+											<col width="13%" />
+											<col width="24%" />
+											<col width="13%" />
+											<col width="13%" />
+										</colgroup>
+										<thead>
+											<tr>
+												<th scope="col">신고당한 댓글번호</th>
+												<th scope="col">신고자</th>
+												<th scope="col">신고 유형</th>
+												<th scope="col">댓글 작성자</th>
+												<th scope="col">답변</th>
+												<th scope="col">블라인드 처리</th>
+											</tr>
+										</thead>
+										<tbody>
+										<c:forEach items="${c_list}" var="k"  >
+										<tr>
+												<td>${k.c_idx }</td>
+												<td>${k.comment_attacknick }</td>
+												<td>${k.r_type }</td>
+												<td>${k.comment_defencenick }</td>
+												<td><button type="button" style="color: white;" class="btn bg-success bg-opacity-100 "
+														data-bs-toggle="modal" data-bs-target="#exampleModal"
+														data-bs-whatever="@mdo">답변 미작성</button></td>
+												<td> <button type="button" class="btn btn-danger" onclick="confirm_go( '${k.c_idx}','${k.rcp_idx }',this )">블라인드 처리</button> </td>
+											</tr>
+										</c:forEach>
+										</tbody>
+										</table>
+										</c:when>
+										<c:otherwise>
+										<table class="table table-bordered" id="dataTable" width="100%"	cellspacing="0">
+										<colgroup>
+											<col width="12%" />
+											<col width="10%" />
+											<col width="9%" />
+											<col width="10%" />
+											<col width="15%" />
+											<col width="23%" />
+											<col width="10%" />
+											<col width="11%" />
+										</colgroup>
+										<thead>
+											<tr>
+												<th scope="col">게시글번호</th>
+												<th scope="col">신고자</th>
+												<th scope="col">신고 유형</th>
+												<th scope="col">작성자</th>
+												<th scope="col">게시글 제목</th>
+												<th scope="col">신고 내용</th>
+												<th scope="col">답변</th>
+												<th scope="col">블라인드 처리</th>
+											</tr>
+										</thead>
+										<tbody>
+										<c:forEach items="${rcp_list}" var="k"  >
+										<tr>
+												<td>${k.rcp_idx }</td>
+												<td>${k.recipe_attacknick }</td>
+												<td>${k.r_type }</td>
+												<td>${k.recipe_defencenick }</td>
+												<td>${k.u_rcp_title }</td>
+												<td>${k.r_reply }</td>
+												<td><button type="button" style="color: white;" class="btn bg-success bg-opacity-100 "
+														data-bs-toggle="modal" data-bs-target="#exampleModal"
+														data-bs-whatever="@mdo">답변 미작성</button></td>
+												<td> <button type="button" class="btn btn-danger" onclick="confirm_go( '${k.c_idx}','${k.rcp_idx }',this )">블라인드 처리</button> </td>
+											</tr>
+										</c:forEach>
+										</tbody>
+										</table>
+										</c:otherwise>
 										</c:choose>
 										
 										
@@ -287,4 +439,4 @@ function confirm_go(c_idx, rcp_idx,button) {
 
 </body>
 
-</html>
+</html> 
