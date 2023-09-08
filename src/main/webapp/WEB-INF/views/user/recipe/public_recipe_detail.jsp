@@ -75,7 +75,7 @@
 					    </c:otherwise>
 					</c:choose>
 
-					<img class="lower_images" src="resources/images/tableware.png" style="margin-left: 22px; position:relative; left: -95px;">
+					<img class="lower_images" src="resources/images/tableware.png" style="margin-left: 45px; position:relative; left: -95px;">
 					
 						<div style="width: 100px; height: 40px; margin-left: 26px; text-align: center; margin-top: 10px;">
 							<!-- span은 쓰레기다 -->
