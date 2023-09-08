@@ -842,26 +842,50 @@ document.addEventListener("DOMContentLoaded", function () {
 	
 	
 	// 좋아요 버튼 요소를 가져옵니다.
-	var likeButton = document.getElementById("like_btn_id");
+    var likeButton = document.getElementById("like_btn_id");
+ 	// 세션에서 받아온 사용자 정보
+    var m_idx = '<%= session.getAttribute("m_idx") %>'; 
+    var rcp_idx = '<%= session.getAttribute("rcp_idx") %>'; // 세션에서 받아온 레시피 정보
+    
 
-	// 버튼 클릭 이벤트 핸들러를 추가합니다.
-	likeButton.addEventListener("click", function () {
-	    // liked_ornot 값을 가져옵니다. liked_ornot 값을 서버에서 받아온다고 가정합니다.
-	    var liked_ornot = "${liked_ornot}"; // 이 부분을 서버에서 실제 값으로 대체해야 합니다.
-	    alert("게시글 찜 완료!");
-	    // alert("좋아요 값은" + liked_ornot);
+    likeButton.addEventListener("click", function () {
+        $.ajax({
+            url: "/wish_ornot.do", // 컨트롤러 엔드포인트 URL
+            type: "POST", // POST 요청
+            data: {
+				m_idx: m_idx, rcp_idx: rcp_idx              
+            },
+            // processData와 contentType 옵션은 생략
+            success: function (response) {
+                // 성공적으로 처리된 경우
 
-	    if (liked_ornot === "") {
-	        // liked_ornot이 null인 경우
-	        alert("좋아요를 누릅니다.");
-	        // 추가적인 동작을 수행하거나 서버로 데이터를 전송할 수 있습니다.
-	        window.location.href = "/go_login.do";
-	    } else if (liked_ornot === '1') {
-	        // liked_ornot이 '1'인 경우
-	        alert("좋아요 취소를 누릅니다.");
-	        // 추가적인 동작을 수행하거나 서버로 데이터를 전송할 수 있습니다.
-	    }
-	});
+                // 이미지 변경 로직 추가
+                var resultValue = response.resultValue;
+                if (resultValue === true) {
+                    // 좋아요가 되었으면 => 이미지를 하트 이미지로 변경
+                    $("#like_image").attr("src", "resources/images/heart.png");
+                    alert("좋아요 했다!");
+                } else if (resultValue === false) {
+                    // 좋아요를 취소했으면 => 이미지를 검은 하트 이미지로 변경
+                    $("#like_image").attr("src", "resources/images/black_heart.png");
+                    alert("좋아요 취소 했다!");
+                }
+            },
+            error: function (xhr, status, error) {
+                // 에러 발생 시 처리
+                console.error("데이터 전송 실패");
+                alert("댓글 좋아요 실패!");
+                console.log("XHR Status:", status);
+                console.log("Error:", error);
+            },
+        });
+    });
+	
+	
+	
+
+
+
 
 	// JSP 코드로부터 m_nick 값을 가져옴
     var mNick = '<%= session.getAttribute("m_nick") %>';

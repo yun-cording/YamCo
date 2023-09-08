@@ -21,7 +21,6 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -164,6 +163,39 @@ public class User_Controller2 {
 
 	
 	// TODO 상우 게시물 찜 누르기 시작
+	@RequestMapping("/wish_ornot.do")
+	public Map<String, Object> wish_ornot(HttpServletRequest request, HttpServletResponse response, HttpSession session,
+			@RequestParam(value = "m_idx", required = true) String m_idx,
+			@RequestParam(value = "rcp_idx", required = true) String rcp_idx
+			) {
+		// 세션에서 String 형태로 rcp_idx 받아오자
+	    Map<String, Object> response_map = new HashMap<>();
+	    
+	    System.out.println(rcp_idx + "rcp_idx");
+	    System.out.println(m_idx + "m_idx");
+
+	    // m_idx 받아오기
+//	    String m_idx = (String) session.getAttribute("m_idx");
+//	    String rcp_idx = (String) session.getAttribute("rcp_idx");
+
+		// 상우 DB에 방문자수 로그 찍기 (랭킹)
+		ModelAndView mv = new ModelAndView("/user/ranking/ranking_recipe");
+		
+		// rcp_idx, m_idx 보내야 함.
+		String liked_ornot = "1";
+		
+		// DB에서 받아오는 로직 추가
+		
+		if (liked_ornot == "1") {
+			// liked_ornot이 1이면(좋아요를 insert 했다면) 좋아요 되어있음 반환
+			response_map.put("resultValue", true);
+		}else if (liked_ornot == "0") {
+			// 아니라면 좋아요 해제함 반환
+			response_map.put("resultValue", false);
+		}
+		
+		return response_map;
+	}
 	
 	// TODO 상우 게시물 찜 누르기 완료
 
@@ -586,18 +618,22 @@ public class User_Controller2 {
 			System.out.println("일치하는 댓글 없당!");
 		}
 	    
-		int liked_ornot = 0;
+		String liked_ornot = "0";
 		System.out.println("최종 c_idx, m_idx는 : " + c_idx + m_idx);
 		
 		// 좋아요했는가
-		liked_ornot = comment_Service.comment_likeornot(c_idx, m_idx);
+		// ★ 한주가 수정 => 좋아요 했으면 취소, 안해있으면 좋아요 insert 
+		// liked_ornot = comment_Service.comment_likeornot(c_idx, m_idx);
 		System.out.println("컨트롤러 체크해서 좋아요했는가 : " + liked_ornot);
-		
-		// liked_ornot이 1이면 좋아요 취소 반환
-	    response.put("resultValue", true);
 
-		// 아니라면 좋아요 반환
-	    response.put("resultValue", false);
+		if (liked_ornot == "1") {
+			// liked_ornot이 1이면(좋아요를 insert 했다면) 좋아요 되어있음 반환
+			response.put("resultValue", true);
+		}else if (liked_ornot == "0") {
+			// 아니라면 좋아요 해제함 반환
+			response.put("resultValue", false);
+		}
+
 		
 		// 확인 후 insert 혹은 delete
 		comment_Service.insertOrUpdateCommentLike(c_idx, m_idx, String.valueOf(liked_ornot));
