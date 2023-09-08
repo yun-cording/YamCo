@@ -30,11 +30,21 @@ public class P_recipe_DAO {
 //	}
 	
 	public String liked_ornot(String m_idx, String rcp_idx){
+		String result = "";
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("m_idx", m_idx);	
 		map.put("rcp_idx", rcp_idx);	
 		
-		return sqlSessionTemplate.selectOne("p_recipe.liked_ornot", map);
+		result = sqlSessionTemplate.selectOne("p_recipe.liked_ornot", map);
+		if(result != null && !result.isBlank()) {
+			sqlSessionTemplate.delete("p_recipe.liked_uncheck", map);
+			result = "0";
+		} else {
+			sqlSessionTemplate.insert("p_recipe.liked_check", map);
+			result = "1";
+		}
+		
+		return result;
 	}
 	
 	public List<Comment_VO> load_comments(String m_nick, String rcp_idx){
