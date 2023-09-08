@@ -23,6 +23,7 @@ import com.yamco.api.model.service.Api_Service;
 import com.yamco.api.model.service.P_recipe_Service;
 import com.yamco.api.model.vo.P_recipe_VO;
 import com.yamco.user.model.service.Member_Service;
+import com.yamco.user.model.service.U_recipe_Service;
 import com.yamco.user.model.vo.Comment_VO;
 import com.yamco.user.model.vo.RecentList_VO;
 
@@ -36,6 +37,8 @@ public class Api_Controller {
 	Api_Service api_Service;
 	@Autowired
 	Log_Service log_Service;
+	@Autowired
+	U_recipe_Service u_recipe_Service;
 //	@Autowired
 //	private Paging paging;
 //	@Autowired
@@ -56,6 +59,9 @@ public class Api_Controller {
 	public ModelAndView go_publicDet(@RequestParam("rcp_seq") String rcpSeq, HttpSession session,
 			HttpServletRequest httpRequest, HttpServletResponse httpResponse) {
 		ModelAndView mv = new ModelAndView("user/recipe/public_recipe_detail");
+    	// wishlist 여부 받아오기
+    	String m_idx = (String)session.getAttribute("m_idx");
+    	System.out.println("id는 : " + m_idx);
 		// rcpSeq는 rcp_idx와 동일함!
 		
 		// DB에 방문자수 +1 하자
@@ -70,9 +76,7 @@ public class Api_Controller {
 		List<JsonNode> rowList = p_recipe_Service.go_public_list();
 		
 		// ★ 왜 두번 실행?? (double 로 바꿔서 0.5씩 올리게 해둠)
-		// 확인하자! # 되어있는 것!
-		api_Service.hitUpdate(rcpSeq);
-		
+		u_recipe_Service.getHitUp(rcpSeq, m_idx);
 		
 		// 그중에서 rcpSeq가 받아온 값과 일치하는 녀석만 정보를 빼오자.
 		// 필터링
@@ -110,9 +114,6 @@ public class Api_Controller {
 		// System.out.println("평점은" + avg_rating);
 
     	
-    	// wishlist 여부 받아오기
-    	String m_idx = (String)session.getAttribute("m_idx");
-    	System.out.println("id는 : " + m_idx);
     	
     	// 좋아요했는가
     	String liked_ornot = p_recipe_Service.liked_ornot(m_idx, String.valueOf(rcpSeq));
