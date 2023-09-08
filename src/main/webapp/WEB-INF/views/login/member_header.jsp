@@ -27,7 +27,7 @@
 </head>
 <body>
 	<div id="header">
-		<img id="mainlogo" src ="/resources/images/logo.png">
+		<a href="/main.go"><img id="mainlogo" src ="/resources/images/logo.png"></a>
 		<div id="topline"></div>
 	</div>
 </body>
