@@ -44,7 +44,7 @@
                 <h6 class="collapse-header"></h6>
                 <a class="collapse-item" href="/go_admin_contentchk.do">사용자 게시물 관리</a>
                 <a class="collapse-item" href="/go_admin_memberchk.do">회원관리</a>
-                <a class="collapse-item" href="/go_admin_report.do">신고내역 관리</a>
+                <a class="collapse-item" href="/admin_report_recipe.do">신고내역 관리</a>
             </div>
         </div>
     </li>
@@ -56,7 +56,7 @@
             <span>공지사항 / 광고 / 재료추천 관리</span></a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="/go_admin_ppl.do">
+        <a class="nav-link" href="/go_admin_register.do">
             <i class="fas fa-fw fa-table"></i>
             <span>공지사항 배너 등록</span></a>
     </li>

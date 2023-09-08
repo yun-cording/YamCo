@@ -11,6 +11,7 @@ import org.springframework.transaction.TransactionDefinition;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
 
+import com.yamco.user.model.vo.Ref_VO;
 import com.yamco.user.model.vo.U_recipe_Search_VO;
 import com.yamco.user.model.vo.U_recipe_VO;
 import com.yamco.user.model.vo.U_recipe_meta_VO;
@@ -129,10 +130,27 @@ public class U_recipe_DAO {
 		urmvo.setInput("%"+urmvo.getInput()+"%");
 		return sqlSessionTemplate.selectList("u_recipe.userSearchList", urmvo);
 	}
+	
+	// 냉장고 검색 재훈
+	public List<U_recipe_meta_VO> getRefSearch(Ref_VO rfvo) {
+		return sqlSessionTemplate.selectList("u_recipe.ref_search", rfvo) ;
+	}
 
 	// 성훔 임시저장 레시피 글등록
 	public int limitWrite(U_recipe_VO uvo) {
 			int result = sqlSessionTemplate.update("u_recipe.limit_recipe_update",uvo);
 		return result;
 	}
+	
+	// TODO 상우 user_recipe list 출력
+	public List<U_recipe_meta_VO> u_recipe_list() {
+		return sqlSessionTemplate.selectList("u_recipe.u_recipe_list");
+	}
+	
+	// TODO 상우 user_recipe detail(한개만) 출력
+	public U_recipe_meta_VO u_recipe_detail(String rcp_idx) {
+		return sqlSessionTemplate.selectOne("u_recipe.u_recipe_detail", rcp_idx);
+	}
+		
+	
 }

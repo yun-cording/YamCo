@@ -5,6 +5,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<<<<<<< HEAD
+=======
 <script type="text/javascript">
 	function go_home() {
 		location.href = "/go_home.do";
@@ -31,7 +33,7 @@
 		location.href = "/public_list.go";
 	}
 	function go_user_list(){
-		location.href = "/go_user_list.do";
+		location.href = "/user_list.go";
 	}
 	function go_main() {
 		location.href = "/go_main.do";
@@ -134,8 +136,12 @@ function go_admin_register() {
 
 
 </script>
+>>>>>>> refs/heads/master
 </head>
 <body>
+<<<<<<< HEAD
+	<jsp:forward page="/main.go" />
+=======
 	<h1>각자 페이지로 가는 버튼 생성 시작</h1>
 	<hr>
 	<h4>user사용화면</h4>
@@ -188,7 +194,8 @@ function go_admin_register() {
 	
   <button onclick="go_tableExam()">go_tableExam</button>
 	<button onclick="location.href='/simbatest'">심바테스트중</button>	
-	<button onclick="go_drag()">드레그앤드랍테스트</button>	
+	<button onclick="go_drag()">드레그앤드랍테스트</button>
 	
+>>>>>>> refs/heads/master
 </body>
 </html>

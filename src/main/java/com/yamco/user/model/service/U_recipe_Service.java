@@ -3,6 +3,7 @@ package com.yamco.user.model.service;
 import java.util.List;
 import java.util.Map;
 
+import com.yamco.user.model.vo.Ref_VO;
 import com.yamco.user.model.vo.U_recipe_Search_VO;
 import com.yamco.user.model.vo.U_recipe_VO;
 import com.yamco.user.model.vo.U_recipe_meta_VO;
@@ -46,7 +47,14 @@ public interface U_recipe_Service {
 	
 	// 사용자 게시판 리스트 가져오기
 	public List<U_recipe_meta_VO> getUserContentList(U_recipe_meta_VO urmvo);
+	// 냉장고 검색 (재훈)
+	public List<U_recipe_meta_VO> getRefSearch(Ref_VO rfvo); 
+	
+	// 상우 사용자게시물 목록 전체 받아오기
+	public List<U_recipe_meta_VO> u_recipe_list();
 	
 	// 사용자 게시판 리스트 가져오기(검색)
 	public List<U_recipe_meta_VO> getUserSearchList(U_recipe_meta_VO urmvo);
+	// 상우 사용자게시물 목록 상세페이지 받아오기
+	public U_recipe_meta_VO u_recipe_detail(String rcp_idx);
 }

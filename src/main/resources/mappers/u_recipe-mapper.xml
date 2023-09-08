@@ -280,6 +280,7 @@
 	<select id="maintrendlist" resultType="urmvo">
 		select * from
 		u_recipe_metadata
+		WHERE u_rcp_status = 0
 		ORDER BY u_rcp_time DESC
 		LIMIT 4
 	</select>
@@ -289,6 +290,7 @@
 	<select id="bestList7Days" resultType="urmvo">
 		select * from
 		u_recipe_metadata
+		WHERE u_rcp_status = 0
 		order by hit_7day desc LIMIT 8
 	</select>
 	<!-- 재훈 베스트 리스트 1주일기준 상위 8개 가져오기 끝 -->
@@ -319,4 +321,64 @@
 		</where>	
 	</select>
 	<!-- 채림 사용자 게시판 리스트 가져오기 끗 -->
+	<!-- 재훈 냉장고 검색 시작 -->
+	<select id="ref_search" parameterType="rfvo" resultType="urmvo">
+		select * from u_recipe_metadata
+		<where>
+		<if test="input1 != null and input1 != ''">
+		u_rcp_ing like CONCAT('%',#{input1},'%')
+		</if>
+		<if test="input2 != null and input2 != ''">
+		or u_rcp_ing like CONCAT('%',#{input2},'%')
+		</if>
+		<if test="input3 != null and input3 != ''">
+		or u_rcp_ing like CONCAT('%',#{input3},'%')
+		</if>
+		</where>
+		order by
+		<if test="order == 0"> u_rcp_hit </if>
+		<if test="order == 1"> avg_grade </if>
+		desc
+	</select>
+	<!-- 재훈 냉장고 검색 끝 -->
+	
+	<!-- 상우 user_recipe list 불러오기 -->
+	<select id="u_recipe_list" resultType="urmvo">
+		select * from u_recipe_metadata
+	</select>
+	
+	<!-- 상우 user_recipe detail 불러오기 -->
+	<select id="u_recipe_detail" resultType="urmvo">
+		select * from u_recipe_metadata where rcp_idx = #{rcp_idx}
+	</select>
+	<!-- 재훈 냉장고 검색 시작 -->
+	<select id="ref_search" parameterType="rfvo" resultType="urmvo">
+		select * from u_recipe_metadata
+		<where>
+		<if test="input1 != null and input1 != ''">
+		u_rcp_ing like CONCAT('%',#{input1},'%')
+		</if>
+		<if test="input2 != null and input2 != ''">
+		or u_rcp_ing like CONCAT('%',#{input2},'%')
+		</if>
+		<if test="input3 != null and input3 != ''">
+		or u_rcp_ing like CONCAT('%',#{input3},'%')
+		</if>
+		</where>
+		order by
+		<if test="order == 0"> u_rcp_hit </if>
+		<if test="order == 1"> avg_grade </if>
+		desc
+	</select>
+	<!-- 재훈 냉장고 검색 끝 -->
+	
+	<!-- 상우 user_recipe list 불러오기 -->
+	<select id="u_recipe_list" resultType="urmvo">
+		select * from u_recipe_metadata
+	</select>
+	
+	<!-- 상우 user_recipe detail 불러오기 -->
+	<select id="u_recipe_detail" resultType="urmvo">
+		select * from u_recipe_metadata where rcp_idx = #{rcp_idx}
+	</select>
 </mapper>
