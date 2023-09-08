@@ -254,7 +254,6 @@ document.addEventListener("DOMContentLoaded", function() {
 <script type="text/javascript">
 
         var order ;
-       
     function searchbt(order) {
     	$("#flexContainer").empty();
     	var inputValues = [
@@ -267,9 +266,11 @@ document.addEventListener("DOMContentLoaded", function() {
             return;
         }
     	 var idx = 0;
+    		
     	
     	 loadMoreData();
     	 function loadMoreData() {
+    		
     	 $.ajax({
              type: "POST",  // 요청 메서드 (POST로 설정)
              url: "/openRef.do",  // 컨트롤러 URL을 입력하세요.
@@ -278,7 +279,6 @@ document.addEventListener("DOMContentLoaded", function() {
              success: function(response) {
             	 for (var i = idx; i < idx + 4 && i < response.length; i++) {
                      var k = response[i];
-                     alert(i + "몇번쨰")
                      var newRecipe = '';
                      newRecipe += '<div class="u_recipe_one">';
                      newRecipe += '    <a href="/사용자레시피?rcp_seq=' + k.rcp_idx + '">';
@@ -298,7 +298,9 @@ document.addEventListener("DOMContentLoaded", function() {
                      newRecipe += '    </div>';
                      newRecipe += '</div>';
             	  $("#flexContainer").append(newRecipe);
+                      
             	 }
+            	 
             	 idx += 4;
             	 if (idx >= response.length) {
                      $("#btn_append").hide(); // 모든 데이터를 로드한 경우 버튼 숨기기
@@ -327,6 +329,11 @@ document.addEventListener("DOMContentLoaded", function() {
 			$("#u_order_hit").attr("class","col-1 tab-off")
 			$("#u_order_grade").attr("class","col-1 tab-on")
 		}
+	    if(order==0){
+			$("#u_order_hit").attr("class","col-1 tab-on")
+			$("#u_order_grade").attr("class","col-1 tab-off")
+		}
+	    
 }
     
 
