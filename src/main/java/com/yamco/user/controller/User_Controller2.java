@@ -21,7 +21,6 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -48,6 +47,7 @@ import com.yamco.user.model.vo.Member_VO;
 import com.yamco.user.model.vo.Member_meta_VO;
 import com.yamco.user.model.vo.Notice_VO;
 import com.yamco.user.model.vo.Random_save_VO;
+import com.yamco.user.model.vo.Ref_VO;
 import com.yamco.user.model.vo.U_recipe_Search_VO;
 import com.yamco.user.model.vo.U_recipe_VO;
 import com.yamco.user.model.vo.U_recipe_meta_VO;
@@ -1045,4 +1045,22 @@ public class User_Controller2 {
 		mv.addObject("alert", alert);
 		return mv;
 	}
+	
+	//TODO 재훈 냉장고 열기 시작
+	@RequestMapping("/openRef.do")
+	@ResponseBody
+	 public List<U_recipe_meta_VO> processInput(@RequestParam("inputValues") String[] inputValues,
+			 @RequestParam("order") String order) {
+		 // 입력된 값을 처리하고 DB에서 데이터를 가져오는 로직을 작성
+				Ref_VO rfvo = new Ref_VO();
+				rfvo.setInput1(inputValues[0]);
+				rfvo.setInput2(inputValues[1]);
+				rfvo.setInput3(inputValues[2]);
+				rfvo.setOrder(order);
+
+				List<U_recipe_meta_VO> search_list = u_recipe_Service.getRefSearch(rfvo); // 냉장고 검색결과
+		return search_list ;
+	}
+	//TODO 재훈 냉장고 열기 끝
+	
 }

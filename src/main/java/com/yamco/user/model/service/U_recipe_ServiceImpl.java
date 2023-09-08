@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.yamco.api.model.service.P_recipe_Service;
 import com.yamco.user.model.dao.U_recipe_DAO;
+import com.yamco.user.model.vo.Ref_VO;
 import com.yamco.user.model.vo.U_recipe_Search_VO;
 import com.yamco.user.model.vo.U_recipe_VO;
 import com.yamco.user.model.vo.U_recipe_meta_VO;
@@ -137,6 +138,12 @@ public class U_recipe_ServiceImpl implements U_recipe_Service {
 	@Override
 	public int deleteRecipe(String m_idx) {
 		return u_recipe_DAO.deleteRecipe(m_idx);
+	}
+	
+	// 재훈 냉장고 검색
+	@Override
+	public List<U_recipe_meta_VO> getRefSearch(Ref_VO rfvo) {
+		return u_recipe_DAO.getRefSearch(rfvo);
 	}
 	
 	// 성훈 임시저장 게시글 등록

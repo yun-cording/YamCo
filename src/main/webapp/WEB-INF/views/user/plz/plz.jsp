@@ -12,34 +12,8 @@
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script src="resources/js/user/sidebar.js?after"></script>
 <script src="resources/js/user/recipe/search_list.js"></script>
-<script type="text/javascript">
-	$(function () {
-		$("#btn_append").on("click", function() {
-			var newRecipe = '';
-			for (var i = 0; i < 4; i++) {
-				newRecipe += '<div class="recipe_one">';
-				newRecipe +='<p>';
-				newRecipe +='<img	src="https://mediahub.seoul.go.kr/wp-content/uploads/2020/10/d13ea4a756099add8375e6c795b827ab.jpg" class="recipe_thumbnail">';
-				newRecipe +='<p>';
-				newRecipe +='<p>공공레시피명</p>';
-				newRecipe +='<div class="writer">';
-				newRecipe +='<img src="https://png.pngtree.com/png-vector/20191115/ourmid/pngtree-beautiful-profile-line-vector-icon-png-image_1990469.jpg" class="profile"> <span>작성자 이름</span> ';
-				newRecipe +='</div>';
-				newRecipe +='<div class="like" style="text-align: right;">';
-				newRecipe +='	<img class="icon"	src="https://img.medicalreport.kr/resources/2019/07/23/o0vYNCXzJDWRPejw.jpg" alt="">';
-				newRecipe +='<span>4.9</span>';
-				newRecipe +='<img class="icon" src="https://cdn-icons-png.flaticon.com/512/8316/8316018.png" alt=""> ';
-				newRecipe +='<span>42</span>';
-				newRecipe +='<img class="icon"	src="https://cdn-icons-png.flaticon.com/512/2415/2415461.png" alt=""> ';
-				newRecipe +='<span>7만</span>';
-				newRecipe +='<span>7만</span>';
-				newRecipe +='</div></div>';
-			}
-			$("#flexContainer").append(newRecipe);
-		});
-	});
-
-</script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
 <style type="text/css">
 * {
 	padding: 0;
@@ -103,6 +77,7 @@
 	width: 1120px;
 	height: 1000px;
 	margin-left: 100px;
+	background: rgb(248,248,248);
 }
 .arrow{
 	width: 300px;
@@ -126,7 +101,7 @@ clear: both;
 .guide{
 	margin-left: 320px;
 	float: left;
-	color: lightgray;
+	color: black;
 }
 #gif-container{
 	margin-left: 180px;
@@ -178,6 +153,9 @@ clear: both;
 .container{
 	margin-top: 50px;
 }
+.off{
+	display: none;
+}
 
 </style>
 
@@ -199,67 +177,44 @@ clear: both;
 				<div id="gif-container"><img class="ref" id="gif-image" src="/resources/images/move_refrige.gif"></div>
 				<div id="input-stack">
 					<div class="clean">
-						<div class="hidden-input hidden center"><img src="/resources/images/icon_input.png"><input class="input_text" type="text"></div>
-						<div class="hidden-input hidden center"><img src="/resources/images/icon_input.png"><input class="input_text" type="text"></div>
-						<div class="hidden-input hidden center"><img src="/resources/images/icon_input.png"><input class="input_text" type="text"></div>
+						<div class="hidden-input hidden center"><img src="/resources/images/icon_input.png"><input id="input1" class="input_text" type="text" name="input1"></div>
+						<div class="hidden-input hidden center"><img src="/resources/images/icon_input.png"><input id="input2" class="input_text" type="text" name="input2"></div>
+						<div class="hidden-input hidden center"><img src="/resources/images/icon_input.png"><input id="input3" class="input_text" type="text" name="input3"></div>
 					</div>
 				</div>
-					<div class="search"><button class="bt">레시피 검색</button></div>
+					<div class="search"><button id="rcp_search_bt" class="bt" onclick="searchbt(0)">레시피 검색</button></div>
 			</div>
 			<!-- 냉장고 끝 -->
-			<!-- 검색시 -->
+			<div id="onoff" class="off">
+			<!-- 검색시 시작 -->
 			<div class="container">
-				<div class="row me-1">
-					<div class="col-9">
-						<span class="search_subject">냠냠 레시피는 총</span> <span class="search_count">???</span> <span class="search_subject">개</span>
-					</div>
-					<div class="col-1 tab-on">
-						<span>정확순</span>
-					</div>
-					<div class="col-1 tab-off">
-						<span>조회순</span>
-					</div>
-					<div class="col-1 tab-off">
-						<span>평점순</span>
-					</div>
+				<div class="row mx-5">
+				<div class="col-10">
+					<span class="search_subject">검색된 냠냠's 쉐프레시피는 총</span> <span class="search_count">${u_list.size()}</span> <span class="search_subject">개 입니다.</span>
+				</div>
+				<div id="u_order_hit" class="col-1 tab-on" onclick="searchbt(0)">
+					<span>조회순</span>
+				</div>
+				<div id="u_order_grade" class="col-1 tab-off" onclick="searchbt(1)">
+					<span>평점순</span>
 				</div>
 			</div>
+			</div>
 			
-			<!-- 레시피 출력 -->
+			<!-- 레시피 출력 시작 -->
 			
 			<!-- 콘텐츠공간 -->
-			<div id="flexContainer">
-				<c:forEach begin="1" end="12">
-					<div class="recipe_one">
-						<p>
-							<img
-								src="https://mediahub.seoul.go.kr/wp-content/uploads/2020/10/d13ea4a756099add8375e6c795b827ab.jpg"
-								class="recipe_thumbnail">
-						</p>
-						<p>공공레시피명</p>
-						<div class="writer">
-							<img
-								src="https://png.pngtree.com/png-vector/20191115/ourmid/pngtree-beautiful-profile-line-vector-icon-png-image_1990469.jpg"
-								class="profile"> <span>작성자 이름</span>
-						</div>
-						<div class="like" style="text-align: right;">
-							<img class="icon"
-								src="https://img.medicalreport.kr/resources/2019/07/23/o0vYNCXzJDWRPejw.jpg"
-								alt=""> <span>4.9</span> <img class="icon"
-								src="https://cdn-icons-png.flaticon.com/512/8316/8316018.png"
-								alt=""> <span>42</span> <img class="icon"
-								src="https://cdn-icons-png.flaticon.com/512/2415/2415461.png"
-								alt=""> <span>7만</span>
-						</div>
-					</div>
-				</c:forEach>
+			<div id="flexContainer" class="flexContainer">
+				 
 			</div>
-			<div class="d-flex justify-content-center my-5">
+			<div id="plusbt" class="d-flex justify-content-center my-5">
+			<c:if test="${u_list.size()>4 }">
 				<button type="button" class="btn btn-lg text-white"
 				 style="background-color: tomato" id="btn_append">더보기</button>
+			</c:if>
 			</div>
 			<!-- 레시피 출력끝  -->
-		
+			</div>
 		</div>
 		<aside id="sidebar-right">
 			<jsp:include page="../../bestlist.jsp" />
@@ -291,6 +246,97 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 });
+
+
+	
+	
+</script>
+<script type="text/javascript">
+
+        var order ;
+    function searchbt(order) {
+    	$("#flexContainer").empty();
+    	var inputValues = [
+            $("#input1").val().trim(),
+            $("#input2").val().trim(),
+            $("#input3").val().trim()
+        ];
+    	
+    	if ( $("#input1").val().trim() === "" && $("#input2").val().trim() === "" &&  $("#input3").val().trim() === "") {
+            return;
+        }
+    	 var idx = 0;
+    		
+    	
+    	 loadMoreData();
+    	 function loadMoreData() {
+    		
+    	 $.ajax({
+             type: "POST",  // 요청 메서드 (POST로 설정)
+             url: "/openRef.do",  // 컨트롤러 URL을 입력하세요.
+             data: {inputValues: inputValues , order: order, idx: idx},  // 배열을 직접 보냅니다.
+             traditional: true,  // 배열을 전송할 때 jQuery가 기본적으로 사용하는 스타일을 사용합니다.
+             success: function(response) {
+            	 for (var i = idx; i < idx + 4 && i < response.length; i++) {
+                     var k = response[i];
+                     var newRecipe = '';
+                     newRecipe += '<div class="u_recipe_one">';
+                     newRecipe += '    <a href="/사용자레시피?rcp_seq=' + k.rcp_idx + '">';
+                     newRecipe += '        <p><img src="' + k.u_rcp_img + '" class="recipe_thumbnail"></p>';
+                     newRecipe += '        <p>' + k.u_rcp_title + '</p>';
+                     newRecipe += '        <div class="writer">';
+                     newRecipe += '            <img src="' + k.m_image + '" class="profile"><span>' + k.m_nick + '</span>';
+                     newRecipe += '        </div>';
+                     newRecipe += '    </a>';
+                     newRecipe += '    <div class="like" style="text-align: right;">';
+                     newRecipe += '        <img class="icon" src="/resources/images/icon_tomato_ver2_1.png" alt="">';
+                     newRecipe += '        <span>' + (k.avg_grade ? k.avg_grade : 0) + '</span>';
+                     newRecipe += '        <img class="icon" src="https://cdn-icons-png.flaticon.com/512/8316/8316018.png" alt="">';
+                     newRecipe += '        <span>' + (k.c_count ? k.c_count : 0) + '</span>';
+                     newRecipe += '        <img class="icon" src="https://cdn-icons-png.flaticon.com/512/2415/2415461.png" alt="">';
+                     newRecipe += '        <span>' + (k.u_rcp_hit ? k.u_rcp_hit : 0) + '</span>';
+                     newRecipe += '    </div>';
+                     newRecipe += '</div>';
+            	  $("#flexContainer").append(newRecipe);
+                      
+            	 }
+            	 
+            	 idx += 4;
+            	 if (idx >= response.length) {
+                     $("#btn_append").hide(); // 모든 데이터를 로드한 경우 버튼 숨기기
+                 }else{
+                	 var moreButton = '<button type="button" class="btn btn-lg text-white" style="background-color: tomato" id="btn_append">더보기</button>';
+                     $("#plusbt").empty().append(moreButton);
+                 }
+             },
+             error: function(error) {
+                 // 에러 처리 코드를 작성합니다.
+             }
+         });
+    	}
+    	
+	  var container = document.getElementById("onoff");
+	  if (container.classList.contains("off")) {
+		  container.classList.remove("off");
+	  }
+	  
+	// 더보기 버튼 클릭 시 추가 데이터 로딩
+	    $(document).on("click","#btn_append", function () {
+	        loadMoreData();
+	    });
+	
+	    if(order==1){
+			$("#u_order_hit").attr("class","col-1 tab-off")
+			$("#u_order_grade").attr("class","col-1 tab-on")
+		}
+	    if(order==0){
+			$("#u_order_hit").attr("class","col-1 tab-on")
+			$("#u_order_grade").attr("class","col-1 tab-off")
+		}
+	    
+}
+    
+
 </script>
 </body>
 </html>

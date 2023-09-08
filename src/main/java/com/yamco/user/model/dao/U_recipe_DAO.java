@@ -11,6 +11,7 @@ import org.springframework.transaction.TransactionDefinition;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
 
+import com.yamco.user.model.vo.Ref_VO;
 import com.yamco.user.model.vo.U_recipe_Search_VO;
 import com.yamco.user.model.vo.U_recipe_VO;
 import com.yamco.user.model.vo.U_recipe_meta_VO;
@@ -110,6 +111,11 @@ public class U_recipe_DAO {
 	// 성훈 임시 저장된 레시피 삭제
 	public int deleteRecipe(String m_idx) {
 		return sqlSessionTemplate.delete("u_recipe.limit_recipe_del",m_idx);
+	}
+	
+	// 냉장고 검색 재훈
+	public List<U_recipe_meta_VO> getRefSearch(Ref_VO rfvo) {
+		return sqlSessionTemplate.selectList("u_recipe.ref_search", rfvo) ;
 	}
 
 	// 성훔 임시저장 레시피 글등록
