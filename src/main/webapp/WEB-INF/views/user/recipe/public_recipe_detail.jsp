@@ -358,10 +358,17 @@
 								    	<!-- <a href="/"><span id="comment_report">신고하기</span></a> -->
 								    	<!-- 내 글인 경우 수정 삭제 -->
 								    	<%-- <p class="content_size" id="content_size${loop.index}">${cvo.c_contents}</p> --%>
-								    	<textarea class="content_size hidden" readonly style="height: 220px;  margin-bottom: 10px; border: 2px solid tomato;" id="content_textarea${loop.index}">${cvo.c_contents}</textarea>
-								    	
-								    		<button class="round_btn revision_delete_btn comment_revision" id="comment_revision_btn${loop.index}" data-revision_btn="comment_like_btn_img${loop.index}">수정</button>
-									    	<button class="round_btn revision_delete_btn comment_delete_btn" id="comment_delete${loop.index}" data-delete_btn="comment_like_btn_img${loop.index}">삭제</button>
+								    	<textarea class="content_size hidden" readonly style=" resize: none;height: 220px;  margin-bottom: 10px; border: 2px solid tomato;" id="content_textarea${loop.index}">${cvo.c_contents}</textarea>
+								    		<c:choose>
+								    			    <c:when test="${cvo.m_nick == m_nick}">
+										    		<button class="round_btn revision_delete_btn comment_revision" id="comment_revision_btn${loop.index}" data-revision_btn="comment_like_btn_img${loop.index}">수정</button>
+											    	<button class="round_btn revision_delete_btn comment_delete_btn" id="comment_delete${loop.index}" data-delete_btn="comment_like_btn_img${loop.index}">삭제</button>
+											    </c:when>
+											    <c:otherwise>
+											    	<button style="background-color: white; cursor: not-allowed;" disabled class="round_btn revision_delete_btn comment_revision" id="comment_revision_btn${loop.index}" data-revision_btn="comment_like_btn_img${loop.index}">수정</button>
+											    	<button style="background-color: white; cursor: not-allowed;" disabled class="round_btn revision_delete_btn comment_delete_btn" id="comment_delete${loop.index}" data-delete_btn="comment_like_btn_img${loop.index}">삭제</button>
+											    </c:otherwise>
+									    	</c:choose>
 								    	
 								        
 								        <img class="like_btn" id="comment_like_btn_img${loop.index}" src="resources/images/thumbs-up.png" alt="좋아요 버튼"
