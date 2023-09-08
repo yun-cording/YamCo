@@ -325,13 +325,24 @@ public class Recipe_Controller {
 		}
 
 		List<Comment_VO> comments_list_mine = new ArrayList<>();
-
-		// comments_list_all에서 특정 rcp_idx 값을 가진 댓글만 필터링하여 comments_list_mine에 추가
-		for (Comment_VO comment : comments_list_all) {
-		    if (String.valueOf(comment.getRcp_idx()).equals(String.valueOf(rcp_idx))) {
-		        comments_list_mine.add(comment);
-		    }
+		
+		// m_nick을 기준으로 내꺼랑 일치하는 댓글만 필터링
+		
+		String m_nick = (String)session.getAttribute("m_nick");
+		if (m_nick == null) {
+			// 닉네임이 null인 경우 내 list 받아올 필요 없다.
+		}else {
+			// 닉네임이 있는 경우만 실행
+			// comments_list_all에서 특정 m_nick 값을 가진 댓글만 필터링하여 comments_list_mine에 추가
+			for (Comment_VO comment : comments_list_all) {
+				if (String.valueOf(comment.getRcp_idx()).equals(m_nick)) {
+					comments_list_mine.add(comment);
+					mv.addObject("comments_list_mine", comments_list_mine);
+					// 내꺼 list에 담고 그담 어떻게 해?
+				}
+			}
 		}
+		
 //	
 //		
 //		

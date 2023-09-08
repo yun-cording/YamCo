@@ -337,11 +337,14 @@
 						    	<!-- 댓글 컨텐츠 이미지 -->
 						    	<img class="comment_img" id="commentImage" src="${cvo.c_img}" alt="">
 						    	<script type="text/javascript">
-								    // 이미지를 로드할 때 발생하는 이벤트 리스너
-								    document.getElementById('commentImage').addEventListener('error', function() {
-								        // 이미지 로드에 실패한 경우, default 이미지 경로로 교체
-								        this.src = 'resources/images/comment/sample_white.png'; // default 이미지 경로를 여기에 넣어주세요
-								    });
+									var elements = document.getElementsByClassName("comment_img");
+									
+									for (var i = 0; i < elements.length; i++) {
+									    elements[i].addEventListener('error', function() {
+									        // 이미지 로드에 실패한 경우, default 이미지 경로로 교체
+									        this.src = 'resources/images/comment/sample_white.png'; // default 이미지 경로를 여기에 넣어주세요
+									    });
+									}
 								</script>
 						    	
 						    	<div id="comment_content">
@@ -629,7 +632,7 @@
                      },
                      error: function(error) {
                        // 서버 업데이트 중 오류 발생 시 처리
-                       alert("오류가 발생했습니다.");
+                       alert("삭제 중 오류가 발생했습니다. (관리자에게 문의하세요.)");
                        console.error(error);
                      }
                    });
@@ -845,8 +848,8 @@ document.addEventListener("DOMContentLoaded", function () {
 	likeButton.addEventListener("click", function () {
 	    // liked_ornot 값을 가져옵니다. liked_ornot 값을 서버에서 받아온다고 가정합니다.
 	    var liked_ornot = "${liked_ornot}"; // 이 부분을 서버에서 실제 값으로 대체해야 합니다.
-	    alert("실행");
-	    alert("좋아요 값은" + liked_ornot);
+	    alert("게시글 찜 완료!");
+	    // alert("좋아요 값은" + liked_ornot);
 
 	    if (liked_ornot === "") {
 	        // liked_ornot이 null인 경우

@@ -286,11 +286,14 @@
 						    	<!-- 댓글 컨텐츠 이미지 -->
 						    	<img class="comment_img" id="commentImage" src="${cvo.c_img}" alt="">
 						    	<script type="text/javascript">
-								    // 이미지를 로드할 때 발생하는 이벤트 리스너
-								    document.getElementById('commentImage').addEventListener('error', function() {
-								        // 이미지 로드에 실패한 경우, default 이미지 경로로 교체
-								        this.src = 'resources/images/comment/sample_white.png'; // default 이미지 경로를 여기에 넣어주세요
-								    });
+									var elements = document.getElementsByClassName("comment_img");
+									
+									for (var i = 0; i < elements.length; i++) {
+									    elements[i].addEventListener('error', function() {
+									        // 이미지 로드에 실패한 경우, default 이미지 경로로 교체
+									        this.src = 'resources/images/comment/sample_white.png'; // default 이미지 경로를 여기에 넣어주세요
+									    });
+									}
 								</script>
 						    	
 						    	<div id="comment_content">
@@ -311,7 +314,7 @@
 											    data-button-id="comment_like_btn_img${loop.index}">
 								    	<p class="like_number" style="	height: 15px; float: right; color: tomato; font-size: 20px; text-align: center;
 	text-align: center;
-	position:relative; top: -35px;" id="like_number${loop.index}" data-likeNum_id="comment_like_btn_img${loop.index}"><strong>${cvo.c_like}</strong></p>
+	position:relative; top: -35px; margin-bottom: 10px;" id="like_number${loop.index}" data-likeNum_id="comment_like_btn_img${loop.index}"><strong>${cvo.c_like}</strong></p>
 								       
 								        
 								        <div id="comment_downline"></div>
@@ -794,8 +797,8 @@ document.addEventListener("DOMContentLoaded", function () {
 	likeButton.addEventListener("click", function () {
 	    // liked_ornot 값을 가져옵니다. liked_ornot 값을 서버에서 받아온다고 가정합니다.
 	    var liked_ornot = "${liked_ornot}"; // 이 부분을 서버에서 실제 값으로 대체해야 합니다.
-	    alert("실행");
-	    alert("좋아요 값은" + liked_ornot);
+	    alert("게시글 찜 완료!");
+	    // alert("좋아요 값은" + liked_ornot);
 
 	    if (liked_ornot === "") {
 	        // liked_ornot이 null인 경우

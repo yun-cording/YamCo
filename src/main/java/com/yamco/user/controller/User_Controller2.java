@@ -785,6 +785,7 @@ public class User_Controller2 {
 	 public String reviseComment(@RequestParam("deleteBtnId") String deleteBtnId,
 			 HttpSession session, HttpServletRequest request) {
 		 
+		 System.out.println("삭제버튼 이름 " + deleteBtnId);
 		 HttpSession session1 = request.getSession();
 		 String currentRcpIdx = (String) session1.getAttribute("currentRcpIdx");
 		 System.out.println("삭제버튼 rcpidx는 " + currentRcpIdx);
@@ -816,10 +817,8 @@ public class User_Controller2 {
 				 System.out.println("일치하는 댓글 없당!");
 			 }
 			
-			 
-			 
-			 
-			 
+			 comment_Service.comment_delete(c_idx);
+			 System.out.println("삭제 완료!");
 			 
 			 return "Success"; // 성공적으로 업데이트된 경우 반환할 응답 메시지
 		 } catch (Exception e) {
