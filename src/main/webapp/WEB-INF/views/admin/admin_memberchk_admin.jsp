@@ -321,6 +321,8 @@
 					</div>
 					<!-- End of row for 검색결과 card -->
 
+					<%-- 추후에 input text의 label을 bootstrap의 Floating labels로 바꾸고 싶음 --%>
+					<%-- input text의 유효성 검사를 bootstrap의 Validation을 활용하고 싶음 --%>
 					<!-- row for 회원가입 card -->
 					<div class="row mt-4 justify-content-around">
 						<div class="col-12 p-3 rounded shadow">
@@ -484,7 +486,7 @@
 		src="resources/js/admin/memberchk/admin_memberchk_admin_btnevent.js?after"></script>
 
 	<script
-		src="resources/js/admin/memberchk/admin_memberchk_admin_sign_in.js?after"></script>
+		src="resources/js/admin/memberchk/admin_memberchk_admin_sign_up.js?after"></script>
 </body>
 
 </html>
