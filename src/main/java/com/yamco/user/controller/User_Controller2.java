@@ -157,7 +157,7 @@ public class User_Controller2 {
 				}
 			}
 		}
-		session.setAttribute("bestList",bestList);
+		session.setAttribute("bestList2",bestList);
 		// TODO 희준 bestList초기화 끝
 		return mv;
 	}
@@ -453,18 +453,6 @@ public class User_Controller2 {
 		return mv;
 	}
 
-	@RequestMapping("/public_recipe_detail.go")
-	public ModelAndView publicRecipeDetailGo(@RequestParam("rcp_idx") String rcp_idx, HttpSession session) {
-		ModelAndView mv = new ModelAndView("/user/recipe/public_recipe_detail");
-
-		String m_idx = (String) session.getAttribute("m_idx");
-
-		// 조회수 상승 //추후에 log 기록을 위해서 null 대신 m_idx 넘겨야 함
-		int result = u_recipe_Service.getHitUp(rcp_idx, m_idx);
-
-		// 레시피 번호받아와서 상세정보 출력하기
-		return mv;
-	}
 
 	@RequestMapping("/search.go")
 	public ModelAndView searchGo(@ModelAttribute("search_text") String search_text,
