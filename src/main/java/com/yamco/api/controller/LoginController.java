@@ -289,11 +289,11 @@ public class LoginController {
 						// 있으면 세션에 로그인 변수저장후 홈페이지로
 						if (m_vo2.getM_nick() != null) {
 							// 닉네임 널이 아니라면
-							mv.setViewName("redirect:/main.go");
 							session.setAttribute("loginChk", true);
 							session.setAttribute("m_nick", nickName);
 							session.setAttribute("m_idx", m_vo2.getM_idx());
 							session.setAttribute("m_image", m_vo2.getM_image());
+							mv.setViewName("redirect:/main.go");
 						} else {
 							mv.setViewName("/login/social_join"); // 닉네임받는곳
 							mv.addObject("m_id", id); // 소셜로그인 고유id

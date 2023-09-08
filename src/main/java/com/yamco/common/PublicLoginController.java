@@ -110,8 +110,8 @@ public class PublicLoginController {
 					return mv;
 				}
 				alert = "<script>alert('로그인 성공.');</script>";
-				String history_go = "<script>history.go(-2);</script>";
 				mv.addObject("alert", alert);
+				String history_go = "<script>history.go(-2);</script>";
 				mv.addObject("history_go", history_go);
 				mv.setViewName("redirect:/main.go");
 				}else {
