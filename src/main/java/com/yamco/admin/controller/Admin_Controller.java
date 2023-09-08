@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -34,53 +35,14 @@ public class Admin_Controller {
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
 	
-	@RequestMapping("/admin_report_All.do")
-	public ModelAndView go_admin_All() {
-		ModelAndView mv = new ModelAndView("admin/admin_report");
-		List<Admin_Report_Chk_VO> list = adminService.admin_report_All();
-		int result = 1;
-		mv.addObject("result", result);
-		mv.addObject("list", list);
-		return mv;
-	}
-	
 	@RequestMapping("/admin_report_recipe.do")
-	public ModelAndView go_admin_report() {
+	public ModelAndView go_admin_All(@ModelAttribute("result") String result) {
 		ModelAndView mv = new ModelAndView("admin/admin_report");
-		List<Admin_Report_Chk_VO> list = adminService.admin_report_All();
-		int result = 1;
-		mv.addObject("result", result);
-		mv.addObject("list", list);
-		return mv;
-	}
-
-	@RequestMapping("/admin_report_comment.do")
-	public ModelAndView admin_report_comment() {
-		ModelAndView mv = new ModelAndView("admin/admin_report"); 
-		List<Admin_Report_Chk_VO> list = adminService.admin_report_All();
-		int result = 2;
-		mv.addObject("result", result);
-		mv.addObject("list", list);
-		return mv;
-	}
-
-	@RequestMapping("/admin_report_recipe_result.do")
-	public ModelAndView admin_report_recipe_result() {
-		ModelAndView mv = new ModelAndView("admin/admin_report"); 
-		List<Admin_Report_Chk_VO> list = adminService.admin_report_All();
-		int result = 3;
-		mv.addObject("result", result);
-		mv.addObject("list", list);
-		return mv;
-	}
-	
-	@RequestMapping("/admin_report_comment_result.do")
-	public ModelAndView admin_report_comment_result() {
-		ModelAndView mv = new ModelAndView("admin/admin_report"); 
-		List<Admin_Report_Chk_VO> list = adminService.getReportCommentResult();
-		int result = 4;
-		mv.addObject("result", result);
-		mv.addObject("list", list);
+		List<List<Admin_Report_Chk_VO>> total_list = adminService.admin_report_All();
+		System.out.println(result);
+		mv.addObject("rcp_list",total_list.get(0));
+		mv.addObject("c_list",total_list.get(1));
+		mv.addObject("result",result);
 		return mv;
 	}
 	

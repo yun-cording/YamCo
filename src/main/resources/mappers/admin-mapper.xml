@@ -181,20 +181,22 @@ JOIN
 	
 	<!--  -->
 	<select id="recipe_attacknick" parameterType="String" resultType="String">
-	select m_nick from member where m_id = #{m_id}
+	select m_nick from member where m_idx = #{m_idx}
 	</select>
 	
-	<select id="recipe_defencenick" parameterType="String" resultType="String">
-	select m_nick from comment where c_idx = #{c_idx}
+	<select id="getRecipe_info" parameterType="String" resultType="arcvo">
+		select u_rcp_title , m_nick from u_recipe where rcp_idx =#{rcp_idx}
 	</select>
+	
 	
 	<select id="comment_attacknick" parameterType="String" resultType="String">
-	select m_nick from member where m_id = #{m_id}
+	select m_nick from member where m_idx = #{m_idx}
 	</select>
 	
 	<select id="comment_defencenick" parameterType="String" resultType="String">
-	select m_nick from u_recipe where rcp_idx = #{rcp_idx}
+	select m_nick from comment where c_idx = #{c_idx}
 	</select>
+	
 	
 	<!-- 처리 덜된 신고당한 댓글리스트 가져오기 -->
 	<select id="getCommentList" resultType="arcvo">

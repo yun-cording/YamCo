@@ -138,7 +138,7 @@ public class AdminServiceImpl implements AdminService {
 	
 	// 신고 내역 전부 불러오기
 	@Override
-	public List<Admin_Report_Chk_VO> admin_report_All() {
+	public List<List<Admin_Report_Chk_VO>> admin_report_All() {
 		return adminDAO.getReportAll();
 	}
 	

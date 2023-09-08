@@ -49,5 +49,5 @@ public interface AdminService {
 	public List<Admin_Report_Chk_VO> getReportCommentResult();
 	
 	// 신고된 내용들 전부 불러오기
-	public List<Admin_Report_Chk_VO> admin_report_All();
+	public List<List<Admin_Report_Chk_VO>> admin_report_All();
 }
