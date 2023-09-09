@@ -376,7 +376,7 @@ select option[value=""][disabled] {
 											</div>
 										</li>
 								<li class="list-group-item">
-									<div class="row justify-content-around align-items-center">
+                                   <div class="row justify-content-around align-items-center">
 										<div class="col-12 col-xxl-auto text-xxl-start fw-bold">게시글
 											상태</div>
 										<div class="col">

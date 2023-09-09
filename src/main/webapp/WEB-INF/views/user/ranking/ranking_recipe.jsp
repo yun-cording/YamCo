@@ -88,7 +88,7 @@
 												</c:when>
 												<c:otherwise>
 													<c:set var="rcp_url"
-														value="/public_recipe_detail.go?rcp_idx=${k.rcp_idx }" />
+														value="/user_recipe_detail.do?rcp_idx=${k.rcp_idx }" />
 												</c:otherwise>
 											</c:choose>
 											<a href="${rcp_url }"> <img
