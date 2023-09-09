@@ -6,9 +6,9 @@
 <head>
 <meta charset="UTF-8">
 <title>냠냠로그인</title>
-<link rel="stylesheet" href="resources/css/login/login.css?after" />
+<link rel="stylesheet" href="/resources/css/login/login.css?after" />
 <link rel="icon" type="image/x-icon"
-	href="resources/images/icon_tomato.png">
+	href="/resources/images/icon_tomato.png">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 	<!-- google login -->
