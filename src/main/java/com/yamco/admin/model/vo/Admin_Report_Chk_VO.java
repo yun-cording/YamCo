@@ -2,7 +2,7 @@ package com.yamco.admin.model.vo;
 
 public class Admin_Report_Chk_VO {
 	private String r_idx, m_idx, c_idx, rcp_idx, r_type, r_time, r_replytime, r_reply, r_status , m_id
-	, m_nick , u_rcp_title , u_rcp_status ;
+	, m_nick , u_rcp_title , u_rcp_status, c_contents, c_status ;
 	
 	private String recipe_attacknick , recipe_defencenick , comment_attacknick , comment_defencenick; // m_attacknick 신고자 , m_defencenick 피신고자
 	
@@ -140,5 +140,21 @@ public class Admin_Report_Chk_VO {
 
 	public void setR_status(String r_status) {
 		this.r_status = r_status;
+	}
+
+	public String getC_contents() {
+		return c_contents;
+	}
+
+	public void setC_contents(String c_contents) {
+		this.c_contents = c_contents;
+	}
+
+	public String getC_status() {
+		return c_status;
+	}
+
+	public void setC_status(String c_status) {
+		this.c_status = c_status;
 	}
 }

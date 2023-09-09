@@ -59,7 +59,7 @@
 						<!-- rcp_idx 추가하자 -->
 						<p><a href="/user_recipe_detail.do?rcp_idx=${recipe.rcp_idx}">
 							<img
-								src="${recipe.u_rcp_img}"
+								src="resources/user_image/user_thumnail/${recipe.u_rcp_img}"
 								class="recipe_thumbnail"></a>
 						</p>
 						<p>${recipe.u_rcp_title}</p>
