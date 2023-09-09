@@ -135,20 +135,26 @@ select option[value=""][disabled] {
 									</div>
 								</li>
 								<li class="list-group-item">
-									<div class="row justify-content-around align-items-center">
-										<div class="col-12 col-xxl-auto text-xxl-start fw-bold">게시글
-											상태</div>
-										<div class="col-6 order-3 col-sm-4 mt-2 col-xxl m-xxl-0">
-											<button type="button"
-												class="btn btn-outline-success w-100 fw-bold">게시중</button>
-										</div>
-										<div
-											class="col-6 order-3 col-sm-4 mt-2 offset-xxl-1 col-xxl m-xxl-0">
-											<button type="button"
-												class="btn btn-outline-success w-100 fw-bold">블라인드</button>
-										</div>
-									</div>
-								</li>
+                                    <div class="row justify-content-around align-items-center">
+                                        <div class="col-12 col-xxl-auto text-xxl-start fw-bold">게시글
+                                            상태</div>
+                                        <div class="col">
+                                            <div class="btn_group status" role="group"
+                                                aria-label="Basic radio toggle button group">
+                                                <div class="btn_empty d-grid gap-2 col-6 mx-auto">
+                                                    <input type="radio" class="btn-check" name="btn_status"
+                                                        id="btnradio4" value="게시중" autocomplete="off"> <label
+                                                        class="btn btn-success" for="btnradio4">게시중</label>
+                                                </div>
+                                                <div class="btn_empty d-grid gap-2 col-6 mx-auto">
+                                                    <input type="radio" class="btn-check" name="btn_status"
+                                                        id="btnradio5" value="블라인드" autocomplete="off"> <label
+                                                        class="btn btn-danger" for="btnradio5">블라인드</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
 								<li class="list-group-item">
 									<div class="row justify-content-between align-items-center">
 										<div class="col-auto"></div>

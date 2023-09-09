@@ -217,6 +217,27 @@ button{
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
+		var arrowDown = "/resources/images/arrow_down.png"; //아래 화살표 이미지
+		var arrowUp = "/resources/images/arrow_up.png"; //위 화살표 이미지
+		var loop = 0; //반복 단위 step
+		/* 화살표 버튼을 누르면 실행됨 */
+		$(".arrow").on("click", function() {
+			var answer = $(this).closest(".r_title").next();
+			if ($(this).attr("src") === arrowUp) {
+				//지금 위 화살표이면 answer 내용 숨기고 아래 화살표로 바꿈
+				answer.fadeOut(400);
+				$(this).attr("src", arrowDown);
+			} else {
+				//지금 아래 화살표이면 answer 내용 나타내고 위 화살표로 바꿈
+				answer.fadeIn({
+					direction : "top"
+				});
+				answer.attr("style", "display : flex;");
+				$(this).attr("src", arrowUp);
+			}
+		});
+		
+		/* 
 		var i=0;
 		$("#a_1").on("click", function() {
 			if(i++%2 == 0){
@@ -272,6 +293,7 @@ button{
 				$("#a_5").attr("src","/resources/images/arrow_up.png");
 			}			
 		});
+		*/
 		
 		$("#write_con").on("click", function() {
 			$("#write_con").attr("style", "background-color : tomato; color : white;")
@@ -310,6 +332,45 @@ button{
 				<button id="write_con">게시글</button>
 				<button id="write_com">댓글</button>
 			</div>
+				<c:choose>
+					<c:when test="${not empty reportList}">
+						<c:forEach items="${reportList}" var="k" varStatus="vs">
+							<div class="rqa">
+								<div class="r_title">
+									<span id="r_title_t">${k.u_rcp_title }</span>
+									<div>
+										<img class="arrow"
+											src="/resources/images/arrow_down.png">
+									</div>
+									<div class="r_type">
+										<span>${k.r_type }</span>
+									</div>
+								</div>
+								<div class="answer" >
+									<c:choose>
+										<c:when test="${k.u_rcp_status == 3 }">
+											<p>해당 게시물을 확인 후 블라인드 처리 완료하였습니다. 이용에 불편을 드려 죄송합니다.</p>
+										</c:when>
+										<c:when test="${k.u_rcp_status == 1 }">
+											<p>현재 삭제된 게시물입니다. 이용에 불편을 드려 죄송합니다.</p>
+										</c:when>
+										<c:when test="${k.r_replytime == null }">
+											 <p>신고 내역 확인 후 답변드리겠습니다. 이용에 불편을 드려 죄송합니다.</p>
+										</c:when>
+										<c:otherwise>
+											 <p>답변 내용: (미작성) 이용에 불편을 드려 죄송합니다.</p>
+										</c:otherwise>
+									</c:choose>
+								</div>
+							</div>
+						</c:forEach>
+					</c:when>
+					<c:otherwise>
+						신고내역이 존재하지 않습니다.
+					</c:otherwise>
+				</c:choose>
+
+				<%--
 			<div class="r_title">
 				<span id="r_title_t">신고 게시글 제목</span>
 				<div><img class="arrow" id="a_1" src="/resources/images/arrow_down.png"></div>
@@ -357,6 +418,7 @@ button{
 				<span id="a_text_5">해당 게시물을 확인 후 블라인드 처리 완료하였습니다. 이용에 불편을 드려 죄송합니다.
 				</span>
 			</div>
+			 --%>
 			
 		 </div>
 		<aside id="sidebar-right">
