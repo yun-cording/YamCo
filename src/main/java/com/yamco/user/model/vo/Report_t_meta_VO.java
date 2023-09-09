@@ -2,7 +2,7 @@ package com.yamco.user.model.vo;
 
 public class Report_t_meta_VO {
 	private String r_idx, m_idx, c_idx, rcp_idx, r_type, r_time, r_replytime, r_reply, r_status;
-	private String u_rcp_title, u_rcp_status, c_status;
+	private String u_rcp_title, u_rcp_status, c_contents, c_status;
 
 	public String getR_idx() {
 		return r_idx;
@@ -90,6 +90,14 @@ public class Report_t_meta_VO {
 
 	public void setU_rcp_status(String u_rcp_status) {
 		this.u_rcp_status = u_rcp_status;
+	}
+	
+	public String getC_contents() {
+		return c_contents;
+	}
+
+	public void setC_contents(String c_contents) {
+		this.c_contents = c_contents;
 	}
 
 	public String getC_status() {

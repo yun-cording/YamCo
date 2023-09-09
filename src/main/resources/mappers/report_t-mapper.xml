@@ -3,10 +3,10 @@
  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="report_t">
-	<select id="selectListRecipeByM_idx" parameterType="String" resultType="rmvo">
-		select * from report_t_metadata where m_idx = #{m_idx} and rcp_idx is not null
+	<select id="selectListRecipeByM_idx" parameterType="string" resultType="rmvo">
+		select * from report_t_metadata where m_idx = #{m_idx} and rcp_idx is not null order by r_idx desc
 	</select>
-	<select id="selectListCommentByM_idx" parameterType="String" resultType="rmvo">
-		select * from report_t_metadata where m_idx = #{m_idx} and c_idx is not null
+	<select id="selectListCommentByM_idx" parameterType="string" resultType="rmvo">
+		select * from report_t_metadata where m_idx = #{m_idx} and c_idx is not null order by r_idx desc
 	</select>
 </mapper>

@@ -41,6 +41,8 @@ LEFT JOIN
     user_log_recipe_hit_today ul_today ON r.rcp_idx = ul_today.rcp_idx
 LEFT JOIN 
     u_recipe_wish_count w ON r.rcp_idx = w.rcp_idx;
+LEFT JOIN 
+	 
 
 #p_recipe, u_recipe 테이블 정보에 comment테이블의 댓글수와 평점을 더한 뷰
 CREATE VIEW recipe_comment_summary AS
@@ -208,8 +210,9 @@ DROP VIEW report_t_metadata;
 CREATE VIEW report_t_metadata AS
 SELECT 
     r.*,
-    COALESCE(ur.u_rcp_title, cm.u_rcp_title),
+    COALESCE(ur.u_rcp_title, cm.u_rcp_title) u_rcp_title,
 	 ur.u_rcp_status,
+	 cm.c_contents,
     cm.c_status
 FROM 
     report_t as r
@@ -222,4 +225,6 @@ update u_recipe set u_rcp_hit = u_rcp_hit + 1 where rcp_idx = 10008;
 insert into user_log(m_idx, rcp_idx, ul_logtime, ul_status) VALUES(45, 10004, '2023-08-03 17:06:53', 3);
 SELECT * FROM user_log WHERE rcp_idx = 10008;
 
-SELECT * FROM u_recipe_metadata WHERE m_idx = 90 ORDER BY u_rcp_hit desc;
+SELECT * FROM u_recipe_metadata WHERE m_idx = 90 ORDER BY u_rcp_hit DESC;
+
+select * from report_t_metadata where rcp_idx is not null order by r_idx desc;

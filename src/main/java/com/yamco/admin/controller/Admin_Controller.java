@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -22,8 +23,10 @@ import com.yamco.admin.model.vo.Admin_Dash_VO;
 import com.yamco.admin.model.vo.Admin_Report_Chk_VO;
 import com.yamco.admin.model.vo.Member_count_summary_VO;
 import com.yamco.user.model.service.Member_Service;
+import com.yamco.user.model.service.U_recipe_Service;
 import com.yamco.user.model.vo.Member_Search_VO;
 import com.yamco.user.model.vo.Member_VO;
+import com.yamco.user.model.vo.U_recipe_meta_VO;
 
 @Controller
 public class Admin_Controller {
@@ -32,35 +35,22 @@ public class Admin_Controller {
 	@Autowired
 	private AdminService adminService;
 	@Autowired
+	private U_recipe_Service u_recipe_Service;
+	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
-
-	@RequestMapping("admin_report_recipe.do")
-	public ModelAndView go_admin_report() {
+	
+	@RequestMapping("/admin_report_recipe.do")
+	public ModelAndView go_admin_All(@ModelAttribute("result") String result) {
 		ModelAndView mv = new ModelAndView("admin/admin_report");
-		List<Admin_Report_Chk_VO> list = adminService.getReportlist();
-		int result = 1;
-		mv.addObject("result", result);
-		mv.addObject("list", list);
+		List<List<Admin_Report_Chk_VO>> total_list = adminService.admin_report_All();
+		System.out.println(result);
+		mv.addObject("rcp_list",total_list.get(0));
+		mv.addObject("c_list",total_list.get(1));
+		mv.addObject("result",result);
 		return mv;
 	}
-
-	@RequestMapping("/admin_report_comment.do")
-	public ModelAndView admin_report_comment() {
-		ModelAndView mv = new ModelAndView("admin/admin_report");
-		// List<Admin_Report_Chk_VO> list = adminService.get();
-		int result = 2;
-		mv.addObject("result", result);
-		return mv;
-	}
-
-	@RequestMapping("/admin_report_result.do")
-	public ModelAndView admin_report_result() {
-		ModelAndView mv = new ModelAndView("admin/admin_report");
-		// List<Admin_Report_Chk_VO> list = adminService.get();
-		int result = 3;
-		mv.addObject("result", result);
-		return mv;
-	}
+	
+	
 
 	@RequestMapping("go_admin_dashboard.do")
 	public ModelAndView go_admin_dashboard(HttpSession session) {
@@ -156,8 +146,14 @@ public class Admin_Controller {
 	}
 
 	@RequestMapping("go_admin_contentchk.do")
-	public ModelAndView go_admin_contentchk() {
-		return new ModelAndView("admin/admin_contentchk");
+	public ModelAndView go_admin_contentchk(U_recipe_meta_VO urmvo) {
+		ModelAndView mv = new ModelAndView("admin/admin_contentchk");
+		List<U_recipe_meta_VO> result = u_recipe_Service.getUserContentList(urmvo);
+		Admin_Dash_VO dash_VO = adminService.getDashBoard();
+		
+		mv.addObject("vo",dash_VO);
+		mv.addObject("content_result", result);
+		return mv;
 	}
 
 	@RequestMapping("go_tableExam.do")
@@ -174,6 +170,7 @@ public class Admin_Controller {
 		mv.addObject("fooding_list", total_list.get(2));
 		return mv;
 	}
+
 
 	@RequestMapping("/notice_delete.go")
 	public ModelAndView notice_deleteGo(String idx, String kind) {
@@ -212,6 +209,7 @@ public class Admin_Controller {
 			adminService.foodingUp(idx);
 		}
 
+
 		return mv;
 	}
 
@@ -244,4 +242,13 @@ public class Admin_Controller {
 
 		return mv;
 	}
+	
+	@RequestMapping("/content_search.go")
+	public ModelAndView getUserSearchList(U_recipe_meta_VO urmvo) {
+		ModelAndView mv = new ModelAndView("admin/admin_contentchk");
+		List<U_recipe_meta_VO> result = u_recipe_Service.getUserSearchList(urmvo);
+		System.out.println(result.size());
+		mv.addObject("content_result", result);
+		return mv;
+	}	
 }

@@ -128,13 +128,21 @@ public class Api_Controller {
 		}
 
 		List<Comment_VO> comments_list_mine = new ArrayList<>();
+		
+    	String m_nick = (String)session.getAttribute("m_nick");
+    	mv.addObject("m_nick", m_nick);
+    	
+    	System.out.println(m_nick);
 
-		// comments_list_all에서 특정 rcp_idx 값을 가진 댓글만 필터링하여 comments_list_mine에 추가
+
+		// comments_list_all에서 특정 m_idx 값을 가진 댓글만 필터링하여 comments_list_mine에 추가
 		for (Comment_VO comment : comments_list_all) {
-		    if (String.valueOf(comment.getRcp_idx()).equals(String.valueOf(rcpSeq))) {
+		    if (String.valueOf(comment.getM_nick()).equals(String.valueOf(m_nick))) {
 		        comments_list_mine.add(comment);
 		    }
 		}
+		
+		System.out.println("내댓글 갯수 : " + comments_list_mine.size());
 	
 		
 		

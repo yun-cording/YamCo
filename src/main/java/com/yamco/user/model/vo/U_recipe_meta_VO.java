@@ -1,9 +1,12 @@
 package com.yamco.user.model.vo;
 
-public class U_recipe_meta_VO{
+public class U_recipe_meta_VO {
 	private String rcp_idx, m_idx, u_rcp_title, u_rcp_comment, u_rcp_category, u_rcp_ing, u_rcp_main, u_rcp_level,
 			u_rcp_keyword, u_rcp_blind, m_nick, u_rcp_status, u_rcp_hit, u_rcp_ctype, u_rcp_time, u_rcp_img, m_image;
 	private String c_count, avg_grade, hit_7day, hit_1mon, hit_today, w_count;
+	private String have_category, have_title, have_nick, input;
+	private String start_date, end_date;
+	private String btn_status;
 
 	public String getRcp_idx() {
 		return rcp_idx;
@@ -173,11 +176,11 @@ public class U_recipe_meta_VO{
 		this.hit_1mon = hit_1mon;
 	}
 
-	public final String getHit_today() {
+	public String getHit_today() {
 		return hit_today;
 	}
 
-	public final void setHit_today(String hit_today) {
+	public void setHit_today(String hit_today) {
 		this.hit_today = hit_today;
 	}
 
@@ -187,5 +190,61 @@ public class U_recipe_meta_VO{
 
 	public void setW_count(String w_count) {
 		this.w_count = w_count;
+	}
+
+	public String getHave_category() {
+		return have_category;
+	}
+
+	public void setHave_category(String have_category) {
+		this.have_category = have_category;
+	}
+
+	public String getHave_title() {
+		return have_title;
+	}
+
+	public void setHave_title(String have_title) {
+		this.have_title = have_title;
+	}
+
+	public String getHave_nick() {
+		return have_nick;
+	}
+
+	public void setHave_nick(String have_nick) {
+		this.have_nick = have_nick;
+	}
+
+	public String getInput() {
+		return input;
+	}
+
+	public void setInput(String input) {
+		this.input = input;
+	}
+
+	public String getStart_date() {
+		return start_date;
+	}
+
+	public void setStart_date(String start_date) {
+		this.start_date = start_date;
+	}
+
+	public String getEnd_date() {
+		return end_date;
+	}
+
+	public void setEnd_date(String end_date) {
+		this.end_date = end_date;
+	}
+
+	public String getBtn_status() {
+		return btn_status;
+	}
+
+	public void setBtn_status(String btn_status) {
+		this.btn_status = btn_status;
 	}
 }

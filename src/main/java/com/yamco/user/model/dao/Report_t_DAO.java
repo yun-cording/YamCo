@@ -14,10 +14,10 @@ public class Report_t_DAO {
 	private SqlSessionTemplate sessionTemplate;
 
 	public List<Report_t_meta_VO> getReportRecipe(String m_idx) {
-		return sessionTemplate.selectList("report_t.selectListRecipeByM_idx");
+		return sessionTemplate.selectList("report_t.selectListRecipeByM_idx", m_idx);
 	}
 
 	public List<Report_t_meta_VO> getReportComment(String m_idx) {
-		return sessionTemplate.selectList("report_t.selectListCommentByM_idx");
+		return sessionTemplate.selectList("report_t.selectListCommentByM_idx", m_idx);
 	}
 }

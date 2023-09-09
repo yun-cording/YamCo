@@ -148,9 +148,15 @@ button{
 	 float: left;	 
 }
 
-.btn button:hover{
+.btn button:first-child{
 	background-color: tomato;
 	color: white;
+}
+
+.btn button:last-child:hover{
+	background-color: tomato;
+	color: white;
+	cursor: pointer;
 }
 
 .btn{
@@ -175,6 +181,10 @@ button{
 	float: right;
 	padding-bottom: 20px;
 	margin-right: 30px;
+}
+
+.arrow:hover {
+	cursor: pointer;
 }
 
 #r_title_t{	
@@ -213,6 +223,21 @@ button{
 	float: right;
 	margin-top: 25px;
 }
+
+.row_append {
+	margin: 10px auto;
+	padding: 10px;
+	width: calc(30% - 20px);
+	border: 3px solid tomato;
+	border-radius: 30px;
+	text-align: center;
+	color: tomato;
+	cursor: pointer;
+}
+
+.rqa {
+	display: none;
+}
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 <script type="text/javascript">
@@ -220,6 +245,7 @@ button{
 		var arrowDown = "/resources/images/arrow_down.png"; //아래 화살표 이미지
 		var arrowUp = "/resources/images/arrow_up.png"; //위 화살표 이미지
 		var loop = 0; //반복 단위 step
+		
 		/* 화살표 버튼을 누르면 실행됨 */
 		$(".arrow").on("click", function() {
 			var answer = $(this).closest(".r_title").next();
@@ -234,6 +260,30 @@ button{
 				});
 				answer.attr("style", "display : flex;");
 				$(this).attr("src", arrowUp);
+			}
+		});
+
+		//페이지가 처음 로딩되었을 때 rqa div를 loop +  1개 노출시킴
+		if ($(".rqa:hidden").length > loop) {
+			$(".rqa:hidden").slice(0, loop + 1).show();
+			if ($(".rqa:hidden").length < 1) { //숨겨져있는 qa div가 없으면 더보기 버튼 숨김
+				$(".row_append").hide();
+			}
+		} else { //loop + 1개 보다 qa div 개수가 적으면 모두 노출시키고 더보기 버튼 숨김
+			$(".rqa:hidden").show();
+			$(".row_append").hide();
+		}
+
+		//더보기 버튼 클릭할 때마다 rqa div를 loop + 1개 노출시킴
+		$(".row_append").on("click", function() {
+			if ($(".rqa:hidden").length > loop) {
+				$(".rqa:hidden").slice(0, loop + 1).show();
+				if ($(".rqa:hidden").length < 1) {
+					$(".row_append").hide();
+				}
+			} else {
+				$(".rqa:hidden").show();
+				$(".row_append").hide();
 			}
 		});
 		
@@ -295,14 +345,10 @@ button{
 		});
 		*/
 		
-		$("#write_con").on("click", function() {
-			$("#write_con").attr("style", "background-color : tomato; color : white;")
-			$("#write_com").attr("style", "background-color : white; color : black;")
-	});
-	
 	$("#write_com").on("click", function() {
-			$("#write_com").attr("style", "background-color : tomato; color : white;")
-			$("#write_con").attr("style", "background-color : white; color : black;")
+			$("#write_com").attr("style", "background-color : tomato; color : white;");
+			$("#write_con").attr("style", "background-color : white; color : black;");
+			location.href = "/reportcomment.go";
 	});
 	});
 </script>
@@ -369,57 +415,12 @@ button{
 						신고내역이 존재하지 않습니다.
 					</c:otherwise>
 				</c:choose>
-
-				<%--
-			<div class="r_title">
-				<span id="r_title_t">신고 게시글 제목</span>
-				<div><img class="arrow" id="a_1" src="/resources/images/arrow_down.png"></div>
-			<div class="r_type"><span>신고유형</span></div>
-			</div>
-			<div class="answer" id="a1">
-				<p id="a_text_1">해당 게시물을 확인 후 블라인드 처리 완료하였습니다. 이용에 불편을 드려 죄송합니다.
-				</p>
-			</div>
-			<div class="r_title">
-				<span id="r_title_t">신고 게시글 제목</span>
-				<img class="arrow" id="a_2" src="/resources/images/arrow_down.png">
-				<div class="r_type"><span>신고유형</span></div>
-				</div>
-				<div class="answer" id="a2">
-				<span id="a_text_2">해당 게시물을 확인 후 블라인드 처리 완료하였습니다. 이용에 불편을 드려 죄송합니다.
-				</span>
-			</div>
-				<div class="r_title">
-				<span id="r_title_t">신고 게시글 제목</span>
-				<img class="arrow" id="a_3" src="/resources/images/arrow_down.png">
-		<div class="r_type"><span>신고유형</span></div>
-		</div>
-		<div class="answer" id="a3">
-				<span id="a_text_3">
-					해당 게시물을 확인 후 블라인드 처리 완료하였습니다. 이용에 불편을 드려 죄송합니다.
-				</span>
-			</div>
-		<div class="r_title">
-				<span id="r_title_t">신고 게시글 제목</span>
-				<img class="arrow" id="a_4" src="/resources/images/arrow_down.png">
-		<div class="r_type"><span>신고유형</span></div>
-		</div>
-		<div class="answer" id="a4">
-				<span id="a_text_4">
-					 해당 게시물을 확인 후 블라인드 처리 완료하였습니다. 이용에 불편을 드려 죄송합니다.
-				</span>
-			</div>
-			<div class="r_title">
-				<span id="r_title_t">신고 게시글 제목</span>
-				<img class="arrow" id="a_5" src="/resources/images/arrow_down.png">
-		<div class="r_type"><span>신고유형</span></div>
-		</div>
-		<div class="answer" id="a5">
-				<span id="a_text_5">해당 게시물을 확인 후 블라인드 처리 완료하였습니다. 이용에 불편을 드려 죄송합니다.
-				</span>
-			</div>
-			 --%>
-			
+				<%-- 1 대신 step 단위 입력할 것 --%>
+				<c:if test="${reportList.size() > 1 }">
+					<div class="row_append">
+						<h2 class="r_title_t">더보기</h2>
+					</div>
+				</c:if>
 		 </div>
 		<aside id="sidebar-right">
 			<jsp:include page="../bestlist.jsp" />

@@ -32,6 +32,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.yamco.admin.model.service.Log_Service;
 import com.yamco.admin.model.vo.Admin_Report_VO;
+import com.yamco.api.model.dao.P_recipe_DAO;
 import com.yamco.api.model.service.P_recipe_Service;
 import com.yamco.api.model.vo.P_recipe_VO;
 import com.yamco.user.model.service.Comment_Service;
@@ -83,6 +84,8 @@ public class User_Controller2 {
 	private Comment_Service comment_Service;
 	@Autowired
 	private Report_t_Service report_t_Service;
+	@Autowired
+	private P_recipe_DAO p_Recipe_DAO;
 
 	@RequestMapping("/main.go")
 	public ModelAndView homeGo(HttpSession session) {
@@ -169,6 +172,40 @@ public class User_Controller2 {
 
 	
 	// TODO 상우 게시물 찜 누르기 시작
+	@RequestMapping("/wish_ornot.do")
+	// ajax 사용할 때는 이거 무조건 넣어야 함!! response (반응형)
+	@ResponseBody
+	public Map<String, String> wish_ornot(HttpServletRequest request, HttpServletResponse response, HttpSession session,
+			@RequestParam(value = "m_idx", required = false) String m_idx,
+			@RequestParam(value = "rcp_idx", required = false) String rcp_idx
+			) {
+		// 세션에서 String 형태로 rcp_idx 받아오자
+	    Map<String, String> response_map = new HashMap<>();
+	    
+	    System.out.println(rcp_idx + "rcp_idx");
+	    System.out.println(m_idx + "m_idx");
+
+	    // m_idx 받아오기
+	    m_idx = (String) session.getAttribute("m_idx");
+	    rcp_idx = (String) session.getAttribute("rcp_idx");
+
+		// rcp_idx, m_idx 보내야 함.
+		String liked_ornot_result = "0";
+		
+		// DB에서 받아오는 로직 추가
+		liked_ornot_result = p_Recipe_DAO.liked_ornot(m_idx, rcp_idx);
+		System.out.println(liked_ornot_result);
+		
+		if (liked_ornot_result == "1") {
+			// liked_ornot이 1이면(좋아요를 insert 했다면) 좋아요 되어있음 반환
+			response_map.put("resultValue", "1");
+		}else if (liked_ornot_result == "0") {
+			// 아니라면 좋아요 해제함 반환
+			response_map.put("resultValue", "0");
+		}
+		
+		return response_map;
+	}
 	
 	// TODO 상우 게시물 찜 누르기 완료
 
@@ -371,6 +408,22 @@ public class User_Controller2 {
 		ModelAndView mv = new ModelAndView("/mypage/reportContent");
 		String m_idx = (String) session.getAttribute("m_idx");
 		List<Report_t_meta_VO> result = report_t_Service.getReportRecipe(m_idx);
+		mv.addObject("reportList", result);
+		
+		return mv;
+	}
+
+	@RequestMapping("/reportcomment.go")
+	public ModelAndView reportCommentGo(HttpSession session) {
+		ModelAndView mv = new ModelAndView("/mypage/reportComment");
+		String m_idx = (String) session.getAttribute("m_idx");
+		List<Report_t_meta_VO> result = report_t_Service.getReportComment(m_idx);
+		for (Report_t_meta_VO k : result) {
+			String contents = k.getC_contents();
+			if(contents.length() > 40) {
+				k.setC_contents(contents.substring(0, 40) + "...");
+			}
+		}
 		mv.addObject("reportList", result);
 		
 		return mv;
@@ -583,18 +636,22 @@ public class User_Controller2 {
 			System.out.println("일치하는 댓글 없당!");
 		}
 	    
-		int liked_ornot = 0;
+		String liked_ornot = "0";
 		System.out.println("최종 c_idx, m_idx는 : " + c_idx + m_idx);
 		
 		// 좋아요했는가
-		liked_ornot = comment_Service.comment_likeornot(c_idx, m_idx);
+		// ★ 한주가 수정 => 좋아요 했으면 취소, 안해있으면 좋아요 insert 
+		// liked_ornot = comment_Service.comment_likeornot(c_idx, m_idx);
 		System.out.println("컨트롤러 체크해서 좋아요했는가 : " + liked_ornot);
-		
-		// liked_ornot이 1이면 좋아요 취소 반환
-	    response.put("resultValue", true);
 
-		// 아니라면 좋아요 반환
-	    response.put("resultValue", false);
+		if (liked_ornot == "1") {
+			// liked_ornot이 1이면(좋아요를 insert 했다면) 좋아요 되어있음 반환
+			response.put("resultValue", true);
+		}else if (liked_ornot == "0") {
+			// 아니라면 좋아요 해제함 반환
+			response.put("resultValue", false);
+		}
+
 		
 		// 확인 후 insert 혹은 delete
 		comment_Service.insertOrUpdateCommentLike(c_idx, m_idx, String.valueOf(liked_ornot));
