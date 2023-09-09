@@ -69,11 +69,11 @@
 					<div class="row mb-3 justify-content-start">
 						<div class="col-auto p-0">
 							<a class="btn btn-lg btn-outline-success"
-								href="/go_admin_memberchk.do" role="button">사용자 정보관리</a>
+								href="/admin/go_admin_memberchk.do" role="button">사용자 정보관리</a>
 						</div>
 						<div class="col-auto p-0">
 							<a class="btn btn-lg btn-success"
-								href="/go_admin_memberchk_admin.do" role="button">관리자 정보관리</a>
+								href="/admin/go_admin_memberchk_admin.do" role="button">관리자 정보관리</a>
 						</div>
 					</div>
 
@@ -131,7 +131,7 @@
 									검색 조건</h6>
 
 								<!-- form start -->
-								<form action="/go_admin_memberchk_admin_search.do" method="post">
+								<form action="/admin/go_admin_memberchk_admin_search.do" method="post">
 
 									<ul class="list-group list-group-flush">
 
@@ -440,7 +440,7 @@
 				<div class="modal-footer">
 					<button class="btn btn-secondary" type="button"
 						data-dismiss="modal">취소</button>
-					<a class="btn btn-danger" href="login.html">로그아웃</a>
+					<a class="btn btn-danger" href="/logOut_go">로그아웃</a>
 				</div>
 			</div>
 		</div>

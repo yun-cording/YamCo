@@ -77,7 +77,6 @@
              <i class="far fa-copyright" ></i>2023 All Rights Reserved
         </p>
     </div>
-
 </ul>
 <!-- End of Sidebar -->
 

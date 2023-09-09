@@ -29,6 +29,7 @@ import com.yamco.user.model.vo.Member_VO;
 import com.yamco.user.model.vo.U_recipe_meta_VO;
 
 @Controller
+@RequestMapping("/admin")
 public class Admin_Controller {
 	@Autowired
 	private Member_Service member_Service;

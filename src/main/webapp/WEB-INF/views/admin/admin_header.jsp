@@ -33,7 +33,7 @@
                         신고접수 목록입니다.
                     </h6>
                     <c:forEach items="${recent_report_list }" var="k" end="2">
-                    	<a class="dropdown-item d-flex align-items-center" href="/admin_report_recipe.do">
+                    	<a class="dropdown-item d-flex align-items-center" href="/admin/admin_report_recipe.do">
 	                        <div class="mr-3">
 	                            <div class="icon-circle badge-danger">
 	                                <i class="fas fa-exclamation-triangle text-white"></i>
@@ -45,7 +45,7 @@
                         	</div>
                 	   	 </a>
              	   	 </c:forEach>
-                    <a class="dropdown-item text-center small text-gray-500" href="/admin_report_recipe.do">모든 알람 보기</a>
+                    <a class="dropdown-item text-center small text-gray-500" href="/admin/admin_report_recipe.do">모든 알람 보기</a>
                 </div>
             </li>
 

@@ -298,7 +298,6 @@ return (
 		<!-- End of Content Wrapper -->
 	</div>
 	<!-- End of Page Wrapper -->
-	</div>
 
 	<!-- Scroll to Top Button-->
 	<a class="scroll-to-top rounded" href="#page-top"> <i
@@ -319,7 +318,7 @@ return (
 				<div class="modal-footer">
 					<button class="btn btn-secondary" type="button"
 						data-dismiss="modal">취소</button>
-					<a class="btn btn-danger" href="login.html">로그아웃</a>
+					<a class="btn btn-danger" href="/logOut.do">로그아웃</a>
 				</div>
 			</div>
 		</div>
@@ -337,7 +336,7 @@ return (
 
 	<script type="text/javascript">
 	function send(f) {
-		f.action="/saveAdminImage.do";
+		f.action="/admin/saveAdminImage.do";
 		f.submit();
 	}
 	

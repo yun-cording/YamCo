@@ -20,7 +20,7 @@ function dropOut(m_idx) {
                 dangerMode: true,
               }).then((willDropOutChk) => {
                 if(willDropOutChk) {
-                    location.href = "/go_admin_memberchk_drop_out.do?m_idx=" + m_idx;
+                    location.href = "/admin/go_admin_memberchk_drop_out.do?m_idx=" + m_idx;
                 }
               });
         }

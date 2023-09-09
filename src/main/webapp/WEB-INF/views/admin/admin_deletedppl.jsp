@@ -290,7 +290,7 @@
                  if (selectedNotice.length > 0) {
                      var idx = selectedNotice.attr("idx")
                      // 여기에서 imageId를 사용하여 이미지를 삭제하거나 처리할 수 있습니다.
-                     location.href="/notice_regist.go?idx="+idx+"&kind="+kind
+                     location.href="admin/notice_regist.go?idx="+idx+"&kind="+kind
                      alert("등록되었습니다. 등록된 공지는 하단 [삭제된 공지]에서 확인 가능합니다.")		 
                  } else {
                      alert("라디오 버튼을 선택하세요.");
@@ -298,7 +298,7 @@
         	}
          });
          $("#registPPL").on("click", function() {
-			location.href="/go_admin_ppl.do"
+			location.href="/admin/go_admin_ppl.do"
 		})
      });
  </script>
