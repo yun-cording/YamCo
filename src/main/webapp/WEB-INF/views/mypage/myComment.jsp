@@ -259,7 +259,7 @@ ul {
 					$(".row_append").hide();
 				}
 			} else {
-				$(".lank_table_row:hidden").show();
+				$(".qa:hidden").show();
 				$(".row_append").hide();
 			}
 		});
@@ -353,7 +353,7 @@ ul {
 												</c:when>
 												<c:otherwise>
 													<c:set var="rcp_url"
-														value="public_recipe_detail.go?rcp_idx=${k.rcp_idx }" />
+														value="/user_recipe_detail.do?rcp_idx=${k.rcp_idx }" />
 												</c:otherwise>
 											</c:choose> <a href="${rcp_url }">${k.u_rcp_title}</a>
 

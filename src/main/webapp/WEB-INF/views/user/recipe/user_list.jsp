@@ -80,7 +80,7 @@
 					</div>
 				</c:forEach>
 			</div>
-			<div class=pagecontainer>
+			<!-- <div class=pagecontainer>
 				<ol class="paging">
 					<li><a href=""> < </a></li>
 					<li><a href=""> 1 </a></li>
@@ -90,7 +90,7 @@
 					<li><a href=""> 5 </a></li>
 					<li><a href=""> > </a></li>
 				</ol>
-			</div>
+			</div> -->
 			<!-- 레시피 출력끝  -->
 		</div>
 		<aside id="sidebar-right">

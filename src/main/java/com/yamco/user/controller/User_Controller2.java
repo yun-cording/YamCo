@@ -31,6 +31,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.yamco.admin.model.service.Log_Service;
+import com.yamco.admin.model.vo.Admin_Report_VO;
 import com.yamco.api.model.dao.P_recipe_DAO;
 import com.yamco.api.model.service.P_recipe_Service;
 import com.yamco.api.model.vo.P_recipe_VO;
@@ -39,6 +40,7 @@ import com.yamco.user.model.service.Images_Service;
 import com.yamco.user.model.service.Main_Service;
 import com.yamco.user.model.service.Member_Service;
 import com.yamco.user.model.service.RandomService;
+import com.yamco.user.model.service.Report_t_Service;
 import com.yamco.user.model.service.U_recipe_Service;
 import com.yamco.user.model.service.User_Service;
 import com.yamco.user.model.service.User_log_Service;
@@ -49,6 +51,7 @@ import com.yamco.user.model.vo.Member_meta_VO;
 import com.yamco.user.model.vo.Notice_VO;
 import com.yamco.user.model.vo.Random_save_VO;
 import com.yamco.user.model.vo.Ref_VO;
+import com.yamco.user.model.vo.Report_t_meta_VO;
 import com.yamco.user.model.vo.U_recipe_Search_VO;
 import com.yamco.user.model.vo.U_recipe_VO;
 import com.yamco.user.model.vo.U_recipe_meta_VO;
@@ -79,6 +82,8 @@ public class User_Controller2 {
 	private Log_Service log_Service;
 	@Autowired
 	private Comment_Service comment_Service;
+	@Autowired
+	private Report_t_Service report_t_Service;
 	@Autowired
 	private P_recipe_DAO p_Recipe_DAO;
 
@@ -399,8 +404,28 @@ public class User_Controller2 {
 	}
 
 	@RequestMapping("/reportcontent.go")
-	public ModelAndView reportContentGo() {
+	public ModelAndView reportContentGo(HttpSession session) {
 		ModelAndView mv = new ModelAndView("/mypage/reportContent");
+		String m_idx = (String) session.getAttribute("m_idx");
+		List<Report_t_meta_VO> result = report_t_Service.getReportRecipe(m_idx);
+		mv.addObject("reportList", result);
+		
+		return mv;
+	}
+
+	@RequestMapping("/reportcomment.go")
+	public ModelAndView reportCommentGo(HttpSession session) {
+		ModelAndView mv = new ModelAndView("/mypage/reportComment");
+		String m_idx = (String) session.getAttribute("m_idx");
+		List<Report_t_meta_VO> result = report_t_Service.getReportComment(m_idx);
+		for (Report_t_meta_VO k : result) {
+			String contents = k.getC_contents();
+			if(contents.length() > 40) {
+				k.setC_contents(contents.substring(0, 40) + "...");
+			}
+		}
+		mv.addObject("reportList", result);
+		
 		return mv;
 	}
 
