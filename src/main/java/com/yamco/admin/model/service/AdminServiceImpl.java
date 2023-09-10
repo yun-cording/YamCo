@@ -1,6 +1,7 @@
 package com.yamco.admin.model.service;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -113,29 +114,6 @@ public class AdminServiceImpl implements AdminService {
 		return adminDAO.getMemberCountSummary();
 	}
 	
-	// 신고당한 리스트 전부 가져오기
-	@Override
-	public List<Admin_Report_Chk_VO> getReportlist() {
-		return adminDAO.getReportlist();
-	}
-	
-	// 신고당한 댓글 리스트 가져오기
-	@Override
-	public List<Admin_Report_Chk_VO> getCommentList() {
-		return adminDAO.getCommentList();
-	}
-	
-	// 신고응답 처리 완료된 게시글 불러오기
-	@Override
-	public List<Admin_Report_Chk_VO> getReportRecipeResult() {
-		return adminDAO.getReportRecipeResult();
-	}
-	
-	// 신고 응답 처리 완료된 댓글 불러오기
-	@Override
-	public List<Admin_Report_Chk_VO> getReportCommentResult() {
-		return adminDAO.getReportCommentResult();
-	}
 	// 신고 내역 전부 불러오기
 	@Override
 	public List<List<Admin_Report_Chk_VO>> admin_report_All() {
@@ -147,8 +125,9 @@ public class AdminServiceImpl implements AdminService {
 		return adminDAO.blindCancelDo(vo);
 	}
 	
+	//신고 답변
 	@Override
-	public int modal_send(String subtitle, String message_text) {
-		return adminDAO.modal_send(subtitle , message_text);
+	public int answer_report(Admin_Report_Chk_VO arcvo) {
+		return adminDAO.answer_report(arcvo);
 	}
 }

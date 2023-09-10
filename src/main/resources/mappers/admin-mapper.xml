@@ -176,7 +176,12 @@
 	<select id="comment_defencenick" parameterType="String" resultType="arcvo">
 	select m_nick, c_contents, c_status from comment where c_idx = #{c_idx}
 	</select>
-
+	
+	<!-- 리포트테이블 원하는정보 답변 업데이트 -->
+	<select id="reportanswerupdate" parameterType="arcvo" >
+	update report_t set r_answer = #{r_answer} where r_idx = #{r_idx}
+	</select>
+	
 	<!-- 게시글 블라인드 취소 처리 -->
 	<update id="rcpBlindCancel" parameterType="arvo">
 		UPDATE u_recipe SET u_rcp_status = 0 WHERE rcp_idx = #{rcp_idx}	
