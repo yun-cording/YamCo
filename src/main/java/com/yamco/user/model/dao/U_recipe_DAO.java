@@ -78,15 +78,11 @@ public class U_recipe_DAO {
 	@Transactional
 	public int getHitUp(String rcp_idx, String m_idx) {
 		
-		System.out.println("hitup dao시작");
 		// 트랜잭션 처리
-		System.out.println("dao rcp_idx : " + rcp_idx);
 		int result = 0;
 		TransactionDefinition def = new DefaultTransactionDefinition();
 		TransactionStatus status = transactionManager.getTransaction(def);
 		
-		System.out.println("DAO에서 rcp_idx는 : " + rcp_idx);
-
 		try {
 			if (Integer.parseInt(rcp_idx) >= 10001) {
 				// 사용자레시피 조회수 올리기
@@ -96,8 +92,6 @@ public class U_recipe_DAO {
 				result += sqlSessionTemplate.update("api.hit_update", rcp_idx);
 			}
 			
-			System.out.println("힛업 했다!");
-			System.out.println(result);
 			User_log_VO ulvo = new User_log_VO();
 			ulvo.setRcp_idx(rcp_idx);
 			if (m_idx != null && !m_idx.isBlank()) {
@@ -115,8 +109,6 @@ public class U_recipe_DAO {
 			e.printStackTrace();
 			transactionManager.rollback(status);
 		}
-		System.out.println("getHitUp 완료!");
-		System.out.println(result);
 		return result;
 	}
 

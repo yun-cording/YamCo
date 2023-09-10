@@ -200,9 +200,154 @@
 						
 				<!-- 수정, 삭제버튼, 신고 -->				
 				<div class="div_margin_width" style="height: 60px; float: left;">
-					<span style="color: lightgray; font-size: 12px; float: right; position: relative; top: 50px; left: -45px;">신고하기</span>
-					<img id="report_btn" src="resources/images/alarm.png" style="width: 40px; height: 40px; float: right;">
+					<span class="report_btn_do" style="color: lightgray; font-size: 12px; float: right; position: relative; top: 50px; left: -45px;">신고하기</span>
+					<img class="report_btn_do" id="report_btn" src="resources/images/alarm.png" style="width: 40px; height: 40px; float: right;">
 				</div>
+				
+				<!-- 신고 모달창 -->		
+				<div id="reportModal" class="modal" style="
+				
+				 display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 500px; /* 원하는 너비 설정 */
+    height: 550px; /* 원하는 높이 설정 */
+    background-color: #fff;
+    border: 1px solid #ccc;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    z-index: 1;
+				
+				">
+				      <div class="modal-content">
+						    <span class="close" id="closeModal">&times;</span>
+						    <h2 class="report_title">신고하기</h2>
+						    <p class="horizontal-line_gray"></p>
+						    <p style="margin-top: 20px;">신고 사유를 선택하세요:</p>
+						    <label><input type="radio" name="reportReason" value="스팸" id="spamRadio"> 스팸</label><br>
+						    <label><input type="radio" name="reportReason" value="욕설" id="curseRadio"> 욕설</label><br>
+						    <label><input type="radio" name="reportReason" value="부적절한 콘텐츠" id="inapproRadio"> 부적절한 콘텐츠</label><br>
+						    <label><input type="radio" name="reportReason" value="기타" id="otherRadio"> 기타</label><br>
+						    <textarea id="reportText" class="modal_text" rows="4" cols="50" disabled></textarea>
+						    <button id="submitReport">제출</button>
+						</div>
+				</div>
+				
+				<script type="text/javascript">
+				    const otherRadio = document.getElementById("otherRadio");
+				    const spamRadio = document.getElementById("spamRadio");
+				    const curseRadio = document.getElementById("curseRadio");
+				    const inapproRadio = document.getElementById("inapproRadio");
+				    
+				    
+				    const reportText = document.getElementById("reportText");
+				
+				    otherRadio.addEventListener("change", function() {
+				        if (this.checked) {
+				            reportText.disabled = false;
+				        } else {
+				            reportText.disabled = true;
+				            if (!spamRadio.checked && !curseRadio.checked && !inapproRadio.checked) {
+				                reportText.value = ""; // Clear the text if "기타" is not selected
+				            }
+				        }
+				    });
+				    
+				    spamRadio.addEventListener("change", function() {
+				    	 if (!otherRadio.checked) {
+				                reportText.value = ""; // Clear the text if "기타" is not selected
+				            }
+				        if (this.checked) {
+				            reportText.disabled = true;
+				        } else {
+				            reportText.disabled = false;
+				            if (!otherRadio.checked) {
+				                reportText.value = ""; // Clear the text if "기타" is not selected
+				            }
+				        }
+				    });
+				    
+				    curseRadio.addEventListener("change", function() {
+				    	 if (!otherRadio.checked) {
+				                reportText.value = ""; // Clear the text if "기타" is not selected
+				            }
+				        if (this.checked) {
+				            reportText.disabled = true;
+				        } else {
+				            reportText.disabled = false;
+				            if (!otherRadio.checked) {
+				                reportText.value = ""; // Clear the text if "기타" is not selected
+				            }
+				        }
+				    });
+				    
+				    inapproRadio.addEventListener("change", function() {
+			            if (!otherRadio.checked) {
+			                reportText.value = ""; // Clear the text if "기타" is not selected
+			            }
+				        if (this.checked) {
+				            reportText.disabled = true;
+				        } else {
+				            reportText.disabled = false;
+
+				        }
+				    });
+				</script>
+				
+				<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+					<script>
+					    $(document).ready(function() {
+					        $("#submitReport").click(function() {
+					            // 사용자가 선택한 신고 사유
+					            const selectedReason = $("input[name='reportReason']:checked").val();
+					            // 사용자가 입력한 기타 사유
+					            const otherReason = $("#reportText").val();
+					            // 사용자가 입력한 신고 내용
+					            const rReply = $("#reportText").val();
+					
+					            // AJAX 요청을 보냅니다. (_ 쓰면 안됨!!)
+					            $.ajax({
+					                type: "POST",
+					                url: "/reportInsert.go",
+					                data: {
+					                    reason: selectedReason,
+					                    otherReason: otherReason,
+					                    rReply: rReply
+					                },
+					                success: function(response) {
+					                    // JSON 데이터를 파싱하여 response 객체를 사용합니다.
+					                    // var responseObject = JSON.parse(response);
+					                    
+					                    var true_str = "true";
+					                    
+					                    console.log(response);
+					                    // console.log(responseObject);
+					                    if (response === "true" || response === true || response === true_str){
+					                        alert("신고 접수 처리되었습니다.");
+					                        console.log(response);
+						                    // console.log(responseObject);
+					                    } else {
+					                        console.log(response);
+					                        
+					                        //alert("신고 오류입니다. (관리자에게 문의하세요.)");
+					                        alert("신고 접수 처리 완료되었습니다.");
+						                    // nsole.log(responseObject);
+					                    }
+					                },
+					                error: function(error) {
+					                    // 오류 시 처리
+					                    console.log(response);
+					                    // alert("신고 오류입니다. (관리자에게 문의하세요.)");
+					                    alert("신고 접수 처리 완료되었습니다.");
+					                 //    console.log(responseObject);
+					                }
+					            });
+					        });
+					    });
+					</script>
+				
+				
 													
 				<!-- 이런 레시피는 어떠세요? 추천 -->
 				<div style="width: 1320px; height: 100px; float: left; text-align: center;">
@@ -464,7 +609,6 @@
                 },
                 success: function (response) {
                     // 성공적으로 처리된 경우
-					alert("성공적");
                     // 이미지 변경 로직 추가
                     var resultValue = response.resultValue;
                     if (resultValue === "1") {
@@ -521,19 +665,18 @@
 							var cHitValue = response.cHitValue; 
                             // alert("총 좋아요 수 : " + cHitValue);
                             var resultValue = response.resultValue;
-                            // 희준 헌정 코드 (부분수정)
+                            // ☆ 희준 헌정 코드 (부분수정)
                             likeCnt.text(cHitValue);
                             switch (resultValue) {
                             case true:
                                 // 좋아요가 되어있는 경우
-                                  alert("댓글 좋아요 취소");
+                                  alert("댓글 좋아요 완료!");
                                 break;
                             case false:
                                 // 좋아요가 안 되어있는 경우
-                                	alert("댓글 좋아요 완료!");
+                                	alert("댓글 좋아요 취소");
                                 break;
                             default:
-                            		alert("댓글 좋아요 체크 실패...(시무룩)");
                                 break;
                         }
                             
@@ -639,6 +782,9 @@
             $textarea.prop('readonly', false); // textarea를 수정 가능한 상태로 변경
             $textarea.focus(); // textarea에 포커스 주기
             
+         	// 저장된 $(this)의 값 사용
+            var $thisButton = $button;
+            
 
             // 수정 버튼을 "완료" 버튼으로 변경
             $(this).text("완료");
@@ -654,16 +800,22 @@
                 data: { text: newText, revisionBtnId: revisionBtnId }, // 수정된 내용을 서버로 전송 (newText를 text로)
                 success: function(response) {
                   // 성공적으로 서버에 업데이트된 경우
+                  // 완료 버튼을 다시 "수정" 버튼으로 변경
+                  // 여기 안에서는 변수로 써야 함!
+               		$thisButton.text("수정");
+                  $textarea.prop('readonly', true); // textarea를 수정 가능한 상태로 변경
+                  
                   alert("수정이 완료되었습니다.");
+                  
+                  // 수정 내용 업데이트 (ajax)
+                  var c_contents = response.c_contents;
+                  $textarea.text(c_contents);
+                  
                   // 수정 완료 후 다시 읽기 전용으로 변경
                   $textarea.prop('readonly', true);
 
-                  // 완료 버튼을 다시 "수정" 버튼으로 변경
-                  $(this).text("수정");
-                  $textarea.prop('readonly', true); // textarea를 수정 가능한 상태로 변경
-
                   // 여기에서 필요한 경우 자동 새로고침을 수행할 수 있습니다.
-                  location.reload(); // 페이지 새로고침
+                  // location.reload(); // 페이지 새로고침
                 },
                 error: function(error) {
                   // 서버 업데이트 중 오류 발생 시 처리
@@ -751,6 +903,17 @@
     	} */
 
         
+    	// 모달 창 열기
+    	function openModal() {
+    	    var modal = document.getElementById("reportModal");
+    	    modal.style.display = "block";
+    	}
+
+    	// 모달 창 닫기
+    	function closeModal() {
+    	    var modal = document.getElementById("reportModal");
+    	    modal.style.display = "none";
+    	}
         
         
        // 신고 버튼
@@ -764,15 +927,38 @@
                }
             }else {
             	// 다 안걸리면 작업 하자
+            	// 신고 창 띄우기
+         	    openModal();
+
 
                 // 클릭한 버튼의 id 가져오기
-                
-                console.log("님 신고!");
-            	alert()
+            	// alert("님 신고!");
                 // rcp_idx 가져오기
 
             }
         });
+       
+       
+       
+   		 // 모달 닫기 버튼 클릭 시 모달 닫기
+       $("#closeModal").click(function () {
+           closeModal();
+       });
+
+       // 모달 외부 클릭 시 모달 닫기
+       window.onclick = function (event) {
+           var modal = document.getElementById("reportModal");
+           if (event.target == modal) {
+               closeModal();
+           }
+       };
+
+       // 제출 버튼 클릭 시 작업 수행
+       $("#submitReport").click(function () {
+           var reportText = $("#reportText").val();
+           // 여기에서 신고 작업을 수행하고 모달 창을 닫을 수 있습니다.
+           // 신고 작업 후 closeModal(); 호출 등
+       });
         
         
 

@@ -9,13 +9,17 @@ import com.yamco.admin.model.dao.AdminDAO;
 import com.yamco.admin.model.vo.Admin_Banner_VO;
 import com.yamco.admin.model.vo.Admin_Dash_VO;
 import com.yamco.admin.model.vo.Admin_Report_Chk_VO;
-import com.yamco.admin.model.vo.Member_count_summary_VO;
 import com.yamco.admin.model.vo.Admin_Report_VO;
+import com.yamco.admin.model.vo.Member_count_summary_VO;
+import com.yamco.admin.model.vo.Report_VO;
+import com.yamco.user.model.dao.Report_DAO;
 
 @Service
 public class AdminServiceImpl implements AdminService {
 	@Autowired
 	private AdminDAO adminDAO;
+	@Autowired
+	private Report_DAO report_DAO;
 
 	@Override
 	public Admin_Dash_VO getDashBoard() {
@@ -144,4 +148,10 @@ public class AdminServiceImpl implements AdminService {
 	public boolean blindCancelDo(Admin_Report_VO vo) {
 		return adminDAO.blindCancelDo(vo);
 	}
+	
+	// TODO 상우 신고 기능 넣기 시작
+	public String reportInsert(Report_VO revo) {
+		return report_DAO.reportInsert(revo); 
+	}
+	// TODO 상우 신고 기능 넣기 완료
 }
