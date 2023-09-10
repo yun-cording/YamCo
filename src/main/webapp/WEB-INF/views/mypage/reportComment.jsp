@@ -392,17 +392,20 @@ button{
 								</div>
 								<div class="answer" >
 									<c:choose>
-										<c:when test="${k.c_status == 2 }">
-											<p>해당 댓글을 확인 후 블라인드 처리 완료하였습니다. 이용에 불편을 드려 죄송합니다.</p>
+										<c:when test="${k.c_status == 2 }"> <%-- 신고된 댓글이 블라인드된 경우 --%>
+											<p>현재 블라인드 처리된 댓글입니다. 이용에 불편을 드려 죄송합니다.</p>
 										</c:when>
-										<c:when test="${k.c_status == 1 }">
+										<c:when test="${k.c_status == 1 }"> <%-- 신고된 댓글이 삭제된 경우 --%>
 											<p>현재 삭제된 댓글입니다. 이용에 불편을 드려 죄송합니다.</p>
 										</c:when>
-										<c:when test="${k.r_replytime == null }">
-											 <p>신고 내역 확인 후 답변드리겠습니다. 이용에 불편을 드려 죄송합니다.</p>
+										<c:when test="${k.r_answer != null}"> <%-- 답변내용이 있는 경우 --%>
+										<p>${k.r_answer}</p>
 										</c:when>
-										<c:otherwise>
-											 <p>답변 내용: (미작성) 이용에 불편을 드려 죄송합니다.</p>
+										<c:when test="${k.r_status == 1 }"> <%-- 신고내역 확인 후 답변하지 않은 경우 --%>
+											 <p>신고 내역 확인중 입니다. 이용에 불편을 드려 죄송합니다.</p>
+										</c:when>
+										<c:otherwise> <%-- 신고내역 확인하지 않은 경우 --%>
+											 <p>신고 내역 확인 후 답변드리겠습니다. 이용에 불편을 드려 죄송합니다.</p>
 										</c:otherwise>
 									</c:choose>
 								</div>

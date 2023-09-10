@@ -281,11 +281,12 @@ public class Recipe_Controller {
 		U_recipe_meta_VO uvo = new U_recipe_meta_VO();
 		uvo = u_recipe_Service.u_recipe_detail(rcp_idx);
 		
+		String m_idx = (String)session.getAttribute("m_idx");
+		
 		// 조회수 1 올리기
-		api_Service.hitUpdate(rcp_idx);
+		u_recipe_Service.getHitUp(rcp_idx, m_idx);
 
     	// wishlist 여부 받아오기
-    	String m_idx = (String)session.getAttribute("m_idx");
     	System.out.println("Rcp_Cont id는 : " + m_idx);
     	
     	// 좋아요했는가

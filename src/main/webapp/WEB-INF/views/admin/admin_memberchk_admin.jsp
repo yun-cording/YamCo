@@ -41,7 +41,7 @@
 	href="https://cdn.datatables.net/select/1.7.0/css/select.dataTables.min.css"
 	rel="stylesheet">
 
-<link href="resources/css/admin/memberchk/admin_memberchk.css?after"
+<link href="/resources/css/admin/memberchk/admin_memberchk.css?after"
 	rel="stylesheet">
 
 </head>
@@ -439,8 +439,8 @@
 	<!-- Custom scripts for all pages-->
 	<script src="/resources/js/sb-admin-2.min.js"></script>
 	<script
-		src="resources/vendor/datatables/jquery.dataTables.min.js?after"></script>
-	<script src="resources/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+		src="/resources/vendor/datatables/jquery.dataTables.min.js?after"></script>
+	<script src="/resources/vendor/datatables/dataTables.bootstrap4.min.js"></script>
 
 	<!-- Page level custom scripts -->
 	<!-- 
@@ -460,13 +460,13 @@
 	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 	<script
-		src="resources/js/admin/memberchk/admin_memberchk_admin_datatable.js?after"></script>
+		src="/resources/js/admin/memberchk/admin_memberchk_admin_datatable.js?after"></script>
 
 	<script
-		src="resources/js/admin/memberchk/admin_memberchk_admin_btnevent.js?after"></script>
+		src="/resources/js/admin/memberchk/admin_memberchk_admin_btnevent.js?after"></script>
 
 	<script
-		src="resources/js/admin/memberchk/admin_memberchk_admin_sign_up.js?after"></script>
+		src="/resources/js/admin/memberchk/admin_memberchk_admin_sign_up.js?after"></script>
 </body>
 
 </html>
