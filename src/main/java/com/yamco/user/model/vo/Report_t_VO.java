@@ -1,7 +1,7 @@
 package com.yamco.user.model.vo;
 
 public class Report_t_VO {
-	private String r_idx, m_idx, c_idx, rcp_idx, r_type, r_time, r_replytime, r_reply, r_status;
+	private String r_idx, m_idx, c_idx, rcp_idx, r_type, r_time, r_replytime, r_reply, r_status, r_answer;
 
 	public String getR_idx() {
 		return r_idx;
@@ -73,5 +73,13 @@ public class Report_t_VO {
 
 	public void setR_status(String r_status) {
 		this.r_status = r_status;
+	}
+
+	public String getR_answer() {
+		return r_answer;
+	}
+
+	public void setR_answer(String r_answer) {
+		this.r_answer = r_answer;
 	}
 }

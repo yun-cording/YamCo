@@ -43,7 +43,7 @@
 	rel="stylesheet">
 
 <!-- input[type='date']의 data-placeholder를 사용하기 위한 css 파일 -->
-<link href="resources/css/admin/memberchk/admin_memberchk.css?after"
+<link href="/resources/css/admin/memberchk/admin_memberchk.css?after"
 	rel="stylesheet">
 
 </head>
@@ -485,8 +485,8 @@
 	<!-- Custom scripts for all pages-->
 	<script src="/resources/js/sb-admin-2.min.js"></script>
 	<script
-		src="resources/vendor/datatables/jquery.dataTables.min.js?after"></script>
-	<script src="resources/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+		src="/resources/vendor/datatables/jquery.dataTables.min.js?after"></script>
+	<script src="/resources/vendor/datatables/dataTables.bootstrap4.min.js"></script>
 
 	<!-- Page level custom scripts -->
 	<!-- 
@@ -508,10 +508,10 @@
 	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 	
 	<!-- 검색결과에 사용되는 datatable 관련 javascript -->
-	<script src="resources/js/admin/memberchk/admin_memberchk_datatable.js"></script>
+	<script src="/resources/js/admin/memberchk/admin_memberchk_datatable.js"></script>
 
 	<!-- form에 사용되는 버튼 관련 javascript -->
-	<script src="resources/js/admin/memberchk/admin_memberchk_btnevent.js"></script>
+	<script src="/resources/js/admin/memberchk/admin_memberchk_btnevent.js"></script>
 </body>
 
 </html>
