@@ -24,6 +24,10 @@
 	display: inline-block;
 	border-bottom: 4px solid #FDC040;
 }
+a{
+	color: inherit !important;
+	text-decoration: none !important;
+}
 
 .recent span {
 	display: inline-block;

@@ -44,7 +44,6 @@ public class Admin_Controller {
 	public ModelAndView go_admin_All(@ModelAttribute("result") String result) {
 		ModelAndView mv = new ModelAndView("admin/admin_report");
 		List<List<Admin_Report_Chk_VO>> total_list = adminService.admin_report_All();
-		System.out.println(result);
 		mv.addObject("rcp_list", total_list.get(0));
 		mv.addObject("c_list", total_list.get(1));
 		mv.addObject("result", result);

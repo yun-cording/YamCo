@@ -30,7 +30,7 @@
 				<img src="resources/images/icon_tomato_ver2_1.png" id="little_tomato" style="height: 30px; width: 30px;">
 				<span id="rcp_score" class="text_center" style="color:#929292; margin-right: 850px; font-size: 20px; float:right;">${uvo.avg_grade}</span>
 				<br>
-					<img id="main_img" src="${uvo.u_rcp_img}" >
+					<img id="main_img" src="/resources/user_image/user_thumnail/${uvo.u_rcp_img}" >
 					
 				<img src="resources/images/ingredient.png" style="width:135px; height:135px; position: absolute; margin-left: 80px; top: 425px;">
 				<span style="margin-left: 115px; font-size:32px; position: relative; top: -100px;"><strong>재료</strong></span>
@@ -115,7 +115,7 @@
 					<span style="margin-left: 574px; font-size:32px; position: relative; top: -180px;"><strong>요리 tip</strong></span>
 					<div id="rcp_tip">
 							<p id="recipe_tip" class="font_size_24">
-								<%-- ${uvo.u_rcp_tip} --%> 팁을 제공하지 않는 레시피입니다.
+								<%-- ${uvo.u_rcp_tip} --%> 요리 팁 추가해야합니다.
 							</p>
 					</div>
 				</div>

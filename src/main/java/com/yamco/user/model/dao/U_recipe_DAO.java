@@ -115,7 +115,6 @@ public class U_recipe_DAO {
 	
 	// 채림 사용자 게시판 리스트 가져오기
 	public List<U_recipe_meta_VO> getUserContentList(U_recipe_meta_VO urmvo){
-		System.out.println("오지마");
 		return sqlSessionTemplate.selectList("u_recipe.userContentList", urmvo);
 	}
 	

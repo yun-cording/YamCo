@@ -18,12 +18,14 @@
 				<c:choose>
 					<c:when test="${k.rcp_idx>10000 }">
 						<a href="/user_recipe_detail.do?rcp_idx=${k.rcp_idx }">
-							<span>${vs.index+1}위</span>
-							<span>${k.u_rcp_title }</span>
-							<span>
-							<img src="resources/images/icon_tomato_ver2_1.png" alt="" width="12px">
-							${empty k.avg_grade ? 0 : k.avg_grade }
-							</span>
+							<div>
+								<span>${vs.index+1}위</span>
+								<span>${k.u_rcp_title }</span>
+								<span>
+								<img src="resources/images/icon_tomato_ver2_1.png" alt="" width="12px">
+								${empty k.avg_grade ? 0 : k.avg_grade }
+								</span>
+							</div>
 						</a>
 					</c:when>
 					<c:otherwise>
