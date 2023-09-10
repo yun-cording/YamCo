@@ -6,6 +6,7 @@ public class Admin_Report_Chk_VO {
 	
 	private String recipe_attacknick , recipe_defencenick , comment_attacknick , comment_defencenick; // m_attacknick 신고자 , m_defencenick 피신고자
 	
+	// private String 
 	public String getRecipe_attacknick() {
 		return recipe_attacknick;
 	}

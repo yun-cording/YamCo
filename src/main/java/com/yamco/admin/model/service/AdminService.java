@@ -52,4 +52,7 @@ public interface AdminService {
 	
 	// 신고된 내용들 전부 불러오기
 	public List<List<Admin_Report_Chk_VO>> admin_report_All();
+
+	// 모달 입력값 db 전송
+	public int modal_send(String subtitle, String message_text);
 }

@@ -144,4 +144,9 @@ public class AdminServiceImpl implements AdminService {
 	public boolean blindCancelDo(Admin_Report_VO vo) {
 		return adminDAO.blindCancelDo(vo);
 	}
+	
+	@Override
+	public int modal_send(String subtitle, String message_text) {
+		return adminDAO.modal_send(subtitle , message_text);
+	}
 }

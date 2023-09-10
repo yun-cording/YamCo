@@ -273,4 +273,8 @@ public class AdminDAO {
 		return sqlSessionTemplate.insert("admin.insertFood_ing", abvo);
 
 	}
+
+	public int modal_send(String subtitle, String message_text) {
+		return sqlSessionTemplate.insert("admin.modal_send");
+	}
 }

@@ -49,7 +49,6 @@ public class Admin_Controller {
 		mv.addObject("result",result);
 		return mv;
 	}
-	
 
 	@RequestMapping("go_admin_dashboard.do")
 	public ModelAndView go_admin_dashboard(HttpSession session) {

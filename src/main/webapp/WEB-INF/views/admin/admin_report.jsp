@@ -46,8 +46,7 @@ function btnradio4() {
 	location.href="/admin_report_recipe.do?result=4" ;
 }
 
-
- function confirm_go(c_idx, rcp_idx,button) { // 블라인드 처리하기 작동함수
+ function confirm_go(c_idx, rcp_idx , button) { // 블라인드 처리하기 작동함수
 	var sendData ='';
 	if(c_idx){
 		sendData='c_idx='+c_idx
@@ -85,9 +84,7 @@ function btnradio4() {
 		    swal("블라인드 요청이 중단되었습니다.");
 		  }
 		});
-}
-
- 
+} 
  
 var result = "${result}";
  $(document).ready(function() {
@@ -103,8 +100,31 @@ var result = "${result}";
 	}else{
 		$("#btnradio1").prop("checked", true);
 	}
-	
+
+	// modal_send 모달 보내기 버튼 id
+		var reporter = $("#recipient-name").val();
+		var message_text = $("#message-text").val();
+		
+	$("#r_answer").on("click", function() {
+		$("#recipient-name").val("${m_idx}");
+		$("#modal_send").on("click", function() {
+		$.ajax({
+			url:'/modal_send.do',
+			type:'get',
+			data: {reporter: reporter , message_text: message_text },
+			success: function(msg) {
+				var msg = msg;
+				$("#r_answer").prop("disabled", true);
+				$("#r_answer").attr("class", "btn bg-secondary bg-opacity-100 ");
+			}
+			
+		}); // ajax 끝
+	});
+		
+	});
 });
+ 
+
 </script>
 </head>
 <body id="page-top">
@@ -184,7 +204,7 @@ var result = "${result}";
 												<td>${k.r_reply }</td>
 												<td><button type="button" style="color: white;" class="btn bg-success bg-opacity-100 "
 														data-bs-toggle="modal" data-bs-target="#exampleModal"
-														data-bs-whatever="@mdo">답변 미작성</button></td>
+														data-bs-whatever="@mdo" id="r_answer">답변 미작성</button></td>
 												<td> <button type="button" class="btn btn-danger" onclick="confirm_go( '${k.c_idx}','${k.rcp_idx }',this )">블라인드 처리</button> </td>
 											</tr>
 										</c:forEach>
@@ -220,7 +240,7 @@ var result = "${result}";
 												<td>${k.comment_defencenick }</td>
 												<td><button type="button" style="color: white;" class="btn bg-success bg-opacity-100 "
 														data-bs-toggle="modal" data-bs-target="#exampleModal"
-														data-bs-whatever="@mdo">답변 미작성</button></td>
+														data-bs-whatever="@mdo" id="r_answer">답변 미작성</button></td>
 												<td> <button type="button" class="btn btn-danger" onclick="confirm_go( '${k.c_idx}','${k.rcp_idx }',this )">블라인드 처리</button> </td>
 											</tr>
 										</c:forEach>
@@ -262,7 +282,7 @@ var result = "${result}";
 												<td>${k.r_reply }</td>
 												<td><button type="button" style="color: white;" class="btn bg-success bg-opacity-100 "
 														data-bs-toggle="modal" data-bs-target="#exampleModal"
-														data-bs-whatever="@mdo">답변 미작성</button></td>
+														data-bs-whatever="@mdo" id="r_answer">답변 미작성</button></td>
 												<td> <button type="button" class="btn btn-danger" onclick="confirm_go( '${k.c_idx}','${k.rcp_idx }',this )">블라인드 처리</button> </td>
 											</tr>
 										</c:forEach>
@@ -340,7 +360,7 @@ var result = "${result}";
 												<td>${k.r_reply }</td>
 												<td><button type="button" style="color: white;" class="btn bg-success bg-opacity-100 "
 														data-bs-toggle="modal" data-bs-target="#exampleModal"
-														data-bs-whatever="@mdo">답변 미작성</button></td>
+														data-bs-whatever="@mdo" id="r_answer">답변 미작성</button></td>
 												<td> <button type="button" class="btn btn-danger" onclick="confirm_go( '${k.c_idx}','${k.rcp_idx }',this )">블라인드 처리</button> </td>
 											</tr>
 										</c:forEach>
@@ -370,18 +390,18 @@ var result = "${result}";
 									<div class="modal-body">
 										<form>
 											<div class="mb-3">
-												<label for="recipient-name" class="col-form-label">Recipient:</label>
+												<label for="recipient-name" class="col-form-label">신고자</label>
 												<input type="text" class="form-control" id="recipient-name">
 											</div>
 											<div class="mb-3">
-												<label for="message-text" class="col-form-label">Message:</label>
+												<label for="message-text" class="col-form-label">응답내용</label>
 												<textarea class="form-control" id="message-text"></textarea>
 											</div>
 										</form>
 									</div>
 									<div class="modal-footer">
 										<button type="button" class="btn btn-secondary"	data-bs-dismiss="modal">Close</button>
-										<button type="button" class="btn btn-secondary">Send
+										<button type="button" class="btn btn-secondary" id="modal_send">Send
 											message</button>
 									</div>
 								</div>
