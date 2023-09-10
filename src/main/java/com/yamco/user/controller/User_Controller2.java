@@ -281,8 +281,10 @@ public class User_Controller2 {
 	}
 
 	@RequestMapping("/login.go")
-	public ModelAndView loginGo() {
+	public ModelAndView loginGo(@RequestParam("url") String url) {
+		// 로그인하면 원래 있던 페이지로 이동하기 위한 url 주소 받기
 		ModelAndView mv = new ModelAndView("/login/login");
+		mv.addObject("url",url);
 		return mv;
 	}
 
