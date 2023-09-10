@@ -1,7 +1,9 @@
 package com.yamco.admin.controller;
 
 import java.io.File;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
@@ -46,7 +48,25 @@ public class Admin_Controller {
 		List<List<Admin_Report_Chk_VO>> total_list = adminService.admin_report_All();
 		mv.addObject("rcp_list", total_list.get(0));
 		mv.addObject("c_list", total_list.get(1));
+		mv.addObject("answerRcp_list",total_list.get(2));
+		mv.addObject("answerC_list",total_list.get(3));
 		mv.addObject("result", result);
+		return mv;
+	}
+	
+	@RequestMapping("answer_to_reporter.do")
+	public ModelAndView answer_report(String answer_text , String reporter_name) {
+		ModelAndView mv = new ModelAndView("redirect:/admin/admin_report_recipe.do");
+		System.out.println("신고자 : " + reporter_name);
+		String r_idx = reporter_name.split("닉")[0].trim();
+		System.out.println("r_idx : " + r_idx);
+		String r_answer = answer_text.trim();
+		Admin_Report_Chk_VO arcvo = new Admin_Report_Chk_VO();
+		arcvo.setR_idx(r_idx);
+		arcvo.setR_answer(r_answer);
+		System.out.println("answer_text : "+answer_text);
+		int result = adminService.answer_report(arcvo);
+		
 		return mv;
 	}
 

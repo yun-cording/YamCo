@@ -9,6 +9,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -245,11 +246,22 @@ public class AdminDAO {
 		List<Admin_Report_Chk_VO> list = sqlSessionTemplate.selectList("admin.getReportAll");
 		List<Admin_Report_Chk_VO> c_list = new ArrayList<Admin_Report_Chk_VO>();
 		List<Admin_Report_Chk_VO> rcp_list = new ArrayList<Admin_Report_Chk_VO>();
-		total_list.add(rcp_list);
-		total_list.add(c_list);
+		List<Admin_Report_Chk_VO> answerC_list = new ArrayList<Admin_Report_Chk_VO>();
+		List<Admin_Report_Chk_VO> answerRcp_list = new ArrayList<Admin_Report_Chk_VO>();
+		//total_list.add(rcp_list);
+		//total_list.add(c_list);
 		
 		for (Admin_Report_Chk_VO k : list) {
 			if(k.getRcp_idx() != null) {
+				if(k.getR_answer() != null) { // 답변 처리가 된것들
+					String recipe_attacknick = sqlSessionTemplate.selectOne("admin.recipe_attacknick",k.getM_idx());
+					Admin_Report_Chk_VO arcvo = sqlSessionTemplate.selectOne("admin.getRecipe_info",k.getRcp_idx());
+					k.setU_rcp_status(arcvo.getU_rcp_status());
+					k.setU_rcp_title(arcvo.getU_rcp_title());
+					k.setRecipe_attacknick(recipe_attacknick);
+					k.setRecipe_defencenick(arcvo.getM_nick());
+					answerRcp_list.add(k);
+				}
 				String recipe_attacknick = sqlSessionTemplate.selectOne("admin.recipe_attacknick",k.getM_idx());
 				Admin_Report_Chk_VO arcvo = sqlSessionTemplate.selectOne("admin.getRecipe_info",k.getRcp_idx());
 				k.setU_rcp_status(arcvo.getU_rcp_status());
@@ -259,6 +271,17 @@ public class AdminDAO {
 				rcp_list.add(k);
 				//recipe_defencenick
 			}else if(k.getC_idx() != null ){
+				if(k.getR_answer() != null) { // 답변 처리가 된것들
+					String comment_attacknick  = sqlSessionTemplate.selectOne("admin.comment_attacknick",k.getM_idx());// 신고자 닉네임가져오기
+					//System.out.println("comment_attacknick : "+comment_attacknick);
+					Admin_Report_Chk_VO arcvo = sqlSessionTemplate.selectOne("admin.comment_defencenick",k.getC_idx()); // 작성자 닉네임
+					String comment_defencenick = arcvo.getM_nick();
+					k.setC_status(arcvo.getC_status());
+					k.setC_contents(arcvo.getC_contents());
+					k.setComment_attacknick(comment_attacknick);
+					k.setComment_defencenick(comment_defencenick);
+					answerC_list.add(k);
+				}
 				String comment_attacknick  = sqlSessionTemplate.selectOne("admin.comment_attacknick",k.getM_idx());// 신고자 닉네임가져오기
 				//System.out.println("comment_attacknick : "+comment_attacknick);
 				Admin_Report_Chk_VO arcvo = sqlSessionTemplate.selectOne("admin.comment_defencenick",k.getC_idx()); // 작성자 닉네임
@@ -274,35 +297,13 @@ public class AdminDAO {
 		
 		total_list.add(rcp_list);
 		total_list.add(c_list);
+		total_list.add(answerRcp_list);
+		total_list.add(answerC_list);
+		
 		
 		return total_list;
 	}
 	
-	
-	
-	// 게시글 신고내역 관리 모든 신고내역 가져오기
-		public List<Admin_Report_Chk_VO> getReportlist() {
-			List<Admin_Report_Chk_VO> list = sqlSessionTemplate.selectList("admin.getReportlist");
-			return list; //list.addAll(count);
-		}
-	
-	// 신고당한 댓글리스트 가져오기
-	public List<Admin_Report_Chk_VO> getCommentList() {
-		List<Admin_Report_Chk_VO> list = sqlSessionTemplate.selectList("admin.getCommentList"); 
-		return list;
-	}
-	
-	// 신고응답 처리 완료된 게시글 불러오기
-	public List<Admin_Report_Chk_VO> getReportRecipeResult() {
-		List<Admin_Report_Chk_VO> list = sqlSessionTemplate.selectList("admin.getReportRecipeResult"); 
-		return list;
-	}
-
-	//신고응답 처리 완료된 댓글 불러오기
-	public List<Admin_Report_Chk_VO> getReportCommentResult() {
-		List<Admin_Report_Chk_VO> list = sqlSessionTemplate.selectList("admin.getReportCommentResult"); 
-		return list;
-	}
 	// 공지사항 추가
 	public int insertNotice(Admin_Banner_VO abvo) {
 		return sqlSessionTemplate.insert("admin.insertNotice", abvo);
@@ -318,4 +319,11 @@ public class AdminDAO {
 		return sqlSessionTemplate.insert("admin.insertFood_ing", abvo);
 
 	}
+	
+	//신고내용 답변 업데이트
+	public int answer_report(Admin_Report_Chk_VO arcvo) {
+		int result = sqlSessionTemplate.update("admin.reportanswerupdate",arcvo);
+		return result;
+	}
+
 }
