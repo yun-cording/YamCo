@@ -1,7 +1,7 @@
 package com.yamco.admin.model.service;
 
 import java.util.List;
-
+import java.util.Map;
 
 import com.yamco.admin.model.vo.Admin_Banner_VO;
 import com.yamco.admin.model.vo.Admin_Dash_VO;
@@ -39,18 +39,9 @@ public interface AdminService {
 
 	public boolean blindCancelDo(Admin_Report_VO vo);
 	
-	// 신고내역 관리 모든 신고내역 불러오기
-	public List<Admin_Report_Chk_VO> getReportlist();
-	
-	// 신고당한 댓글 전부 불러오기 
-	public List<Admin_Report_Chk_VO> getCommentList();
-	
-	// 신고응답 처리 완료된 게시글 불러오기
-	public List<Admin_Report_Chk_VO> getReportRecipeResult();
-	
-	// 신고응답 처리 완료된 게시글 불러오기
-	public List<Admin_Report_Chk_VO> getReportCommentResult();
-	
 	// 신고된 내용들 전부 불러오기
 	public List<List<Admin_Report_Chk_VO>> admin_report_All();
+
+	// 신고 답변 전달
+	public int answer_report(Admin_Report_Chk_VO arcvo);
 }

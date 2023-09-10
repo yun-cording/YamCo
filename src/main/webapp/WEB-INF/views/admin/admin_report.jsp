@@ -1,4 +1,4 @@
-ㄴㅂ<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="result" value="${result }" />
@@ -129,6 +129,36 @@ var result = "${result}";
 	}
 	
 });
+ 
+ var Row = $()
+ $(document).ready(function() {
+	$("#r_answer_btn").on("click", function() {
+		$("#reporter_number").text("${recipe_attacknick}");	
+		
+	}); 
+ });
+ 
+ function answer_Rbtn(reporter , r_idx) {
+	 var msg =r_idx + "닉네임:" + reporter;
+	 console.log(msg);
+	 console.log(reporter);
+	$("#reporter_id").val(msg);
+}
+ 
+ function answer_to_reporter() {
+	 var reporter_name = $("#reporter_id").val();
+	 var answer_text = $("#answer_text").val();
+	 console.log(reporter_name);
+	 console.log(answer_text);
+	 
+	 location.href="/admin/answer_to_reporter.do?reporter_name="+reporter_name+"&answer_text="+answer_text;
+	/*  $.ajax({
+		 url: '/blind.do',
+		 method: 'GET',
+		 data: answer_text ,
+	 });
+	location.href="/answer_to_reporter.do"; */	
+}
 </script>
 </head>
 <body id="page-top">
@@ -208,7 +238,7 @@ var result = "${result}";
 												<td>${k.r_reply }</td>
 												<td><button type="button" style="color: white;" class="btn bg-success bg-opacity-100 "
 														data-bs-toggle="modal" data-bs-target="#exampleModal"
-														data-bs-whatever="@mdo">답변 미작성</button></td>
+														data-bs-whatever="@mdo" onclick="answer_Rbtn('${k.recipe_attacknick}' , '${k.r_idx }')">답변 미작성</button></td>
 												<c:if test="${k.u_rcp_status==0 }">
 													<td> <button type="button" class="btn btn-danger" onclick="confirm_go( '${k.c_idx}','${k.rcp_idx }',this )">블라인드 처리</button> </td>
 												</c:if>
@@ -252,7 +282,7 @@ var result = "${result}";
 												<td>${k.c_contents }</td>
 												<td><button type="button" style="color: white;" class="btn bg-success bg-opacity-100 "
 														data-bs-toggle="modal" data-bs-target="#exampleModal"
-														data-bs-whatever="@mdo">답변 미작성</button></td>
+														data-bs-whatever="@mdo" onclick="answer_Rbtn('${k.comment_attacknick}' , '${k.r_idx }')">답변 미작성</button></td>
 												<c:if test="${k.c_status==2 }">
 													<td> <button type="button" class="btn btn-secondary" disabled>블라인드 완료</button> </td>
 												</c:if>
@@ -289,7 +319,7 @@ var result = "${result}";
 											</tr>
 										</thead>
 										<tbody>
-										<c:forEach items="${rcp_list}" var="k"  >
+										<c:forEach items="${answerRcp_list}" var="k"  >
 										<tr>
 												<td>${k.rcp_idx }</td>
 												<td>${k.recipe_attacknick }</td>
@@ -297,9 +327,9 @@ var result = "${result}";
 												<td>${k.recipe_defencenick }</td>
 												<td>${k.u_rcp_title }</td>
 												<td>${k.r_reply }</td>
-												<td><button type="button" style="color: white;" class="btn bg-success bg-opacity-100 "
+												<td><button type="button" style="color: white;" class="btn bg-secondary bg-opacity-100 " disabled
 														data-bs-toggle="modal" data-bs-target="#exampleModal"
-														data-bs-whatever="@mdo">답변 미작성</button></td>
+														data-bs-whatever="@mdo">답변 작성완료</button></td>
 												<c:if test="${k.u_rcp_status==0 }">
 													<td> <button type="button" class="btn btn-danger" onclick="confirm_go( '${k.c_idx}','${k.rcp_idx }',this )">블라인드 처리</button> </td>
 												</c:if>
@@ -332,15 +362,15 @@ var result = "${result}";
 											</tr>
 										</thead>
 										<tbody>
-										<c:forEach items="${c_list}" var="k"  >
+										<c:forEach items="${answerC_list}" var="k"  >
 										<tr>
 												<td>${k.c_idx }</td>
 												<td>${k.comment_attacknick }</td>
 												<td>${k.r_type }</td>
 												<td>${k.comment_defencenick }</td>
-												<td><button type="button" style="color: white;" class="btn bg-success bg-opacity-100 "
+												<td><button type="button" style="color: white;" class="btn bg-secondary bg-opacity-100 " disabled
 														data-bs-toggle="modal" data-bs-target="#exampleModal"
-														data-bs-whatever="@mdo">답변 미작성</button></td>
+														data-bs-whatever="@mdo">답변 작성완료</button></td>
 												<td> <button type="button" class="btn btn-danger" onclick="confirm_go( '${k.c_idx}','${k.rcp_idx }',this )">블라인드 처리</button> </td>
 											</tr>
 										</c:forEach>
@@ -368,22 +398,22 @@ var result = "${result}";
 										<button type="button" class="btn-close"	data-bs-dismiss="modal" aria-label="Close"></button>
 									</div>
 									<div class="modal-body">
-										<form>
+										<form method="get">
 											<div class="mb-3">
-												<label for="recipient-name" class="col-form-label">Recipient:</label>
-												<input type="text" class="form-control" id="recipient-name">
+												<label for="recipient-name" class="col-form-label">신고자</label>
+												<input type="text" class="form-control" id="reporter_id" name="reporter_name" disabled>
 											</div>
 											<div class="mb-3">
-												<label for="message-text" class="col-form-label">Message:</label>
-												<textarea class="form-control" id="message-text"></textarea>
+												<label for="message-text" class="col-form-label">답변내용</label>
+												<textarea class="form-control" id="answer_text"></textarea>
 											</div>
 										</form>
 									</div>
 									<div class="modal-footer">
-										<button type="button" class="btn btn-secondary"	data-bs-dismiss="modal">Close</button>
-										<button type="button" class="btn btn-secondary">Send
-											message</button>
+										<button type="button" class="btn btn-secondary"	data-bs-dismiss="modal">취소</button>
+										<button type="button" class="btn btn-secondary" onclick="answer_to_reporter(this.form)">답변하기</button>
 									</div>
+									</form>
 								</div>
 							</div>
 						</div>
