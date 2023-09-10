@@ -2,11 +2,23 @@ package com.yamco.admin.model.vo;
 
 public class Admin_Report_Chk_VO {
 	private String r_idx, m_idx, c_idx, rcp_idx, r_type, r_time, r_replytime, r_reply, r_status , m_id
-	, m_nick , u_rcp_title , u_rcp_status, c_contents, c_status ;
+	, m_nick , u_rcp_title , u_rcp_status, c_contents, c_status , r_answer;
 	
 	private String recipe_attacknick , recipe_defencenick , comment_attacknick , comment_defencenick; // m_attacknick 신고자 , m_defencenick 피신고자
 	
-	// private String 
+	
+	
+	// private String
+	
+	
+	public String getR_answer() {
+		return r_answer;
+	}
+	
+	public void setR_answer(String r_answer) {
+		this.r_answer = r_answer;
+	}
+	
 	public String getRecipe_attacknick() {
 		return recipe_attacknick;
 	}
