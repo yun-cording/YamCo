@@ -182,7 +182,7 @@ clear: both;
 						<div class="hidden-input hidden center"><img src="/resources/images/icon_input.png"><input id="input3" class="input_text" type="text" name="input3"></div>
 					</div>
 				</div>
-					<div class="search"><button id="rcp_search_bt" class="bt" onclick="searchbt(0)">레시피 검색</button></div>
+					<div class="search"><button id="rcp_search_bt" class="bt" onclick="searchbt(0,0)">레시피 검색</button></div>
 			</div>
 			<!-- 냉장고 끝 -->
 			<div id="onoff" class="off">
@@ -192,10 +192,10 @@ clear: both;
 				<div class="col-10">
 					<span class="search_subject">검색된 냠냠's 쉐프레시피는 총</span> <span class="search_count">${u_list.size()}</span> <span class="search_subject">개 입니다.</span>
 				</div>
-				<div id="u_order_hit" class="col-1 tab-on" onclick="searchbt(0)">
+				<div id="u_order_hit" class="col-1 tab-on" onclick="searchbt(0,0)">
 					<span>조회순</span>
 				</div>
-				<div id="u_order_grade" class="col-1 tab-off" onclick="searchbt(1)">
+				<div id="u_order_grade" class="col-1 tab-off" onclick="searchbt(1,0)">
 					<span>평점순</span>
 				</div>
 			</div>
@@ -254,7 +254,7 @@ document.addEventListener("DOMContentLoaded", function() {
 <script type="text/javascript">
 
         var order ;
-    function searchbt(order) {
+    function searchbt(order,idx) {
     	$("#flexContainer").empty();
     	var inputValues = [
             $("#input1").val().trim(),
@@ -265,7 +265,7 @@ document.addEventListener("DOMContentLoaded", function() {
     	if ( $("#input1").val().trim() === "" && $("#input2").val().trim() === "" &&  $("#input3").val().trim() === "") {
             return;
         }
-    	 var idx = 0;
+    	
     		
     	
     	 loadMoreData();
