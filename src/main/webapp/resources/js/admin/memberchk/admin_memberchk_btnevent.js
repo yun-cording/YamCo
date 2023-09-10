@@ -20,7 +20,7 @@ function dropOut(m_idx) {
                 dangerMode: true,
               }).then((willDropOutChk) => {
                 if(willDropOutChk) {
-                    location.href = "/go_admin_memberchk_update.do?m_idx=" + m_idx + "&m_status=3";
+                    location.href = "/admin/go_admin_memberchk_update.do?m_idx=" + m_idx + "&m_status=3";
                 }
               });
         }
@@ -36,7 +36,7 @@ function openLock(m_idx) {
         dangerMode: true,
       }).then((willOpenLock) => {
         if(willOpenLock) {
-            location.href = "/go_admin_memberchk_update.do?m_idx=" + m_idx + "&m_fail_count=0";
+            location.href = "/admin/go_admin_memberchk_update.do?m_idx=" + m_idx + "&m_fail_count=0";
         }
       });
 }
@@ -50,7 +50,7 @@ function openWrite(m_idx) {
         dangerMode: true,
       }).then((willOpenLock) => {
         if(willOpenLock) {
-            location.href = "/go_admin_memberchk_update.do?m_idx=" + m_idx + "&m_status=1";
+            location.href = "/admin/go_admin_memberchk_update.do?m_idx=" + m_idx + "&m_status=1";
         }
       });
 }
@@ -64,7 +64,7 @@ function banWrite(m_idx) {
         dangerMode: true,
       }).then((willOpenLock) => {
         if(willOpenLock) {
-            location.href = "/go_admin_memberchk_update.do?m_idx=" + m_idx + "&m_status=4";
+            location.href = "/admin/go_admin_memberchk_update.do?m_idx=" + m_idx + "&m_status=4";
         }
       });
 }

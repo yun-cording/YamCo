@@ -22,7 +22,7 @@
 					<c:when test="${k.idx>=10000 }">
 						<a href="/user_recipe_detail.do?rcp_idx=${k.idx }">
 							<div class="recent_center">
-								<img	src="${k.img }" alt="" >
+								<img	src="resources/user_image/user_thumnail/${k.img }" alt="" >
 								<p class="cate">${k.cate } | ${k.title }</p>
 								<p class="writer">작성자 : ${k.writer }</p>
 							</div>

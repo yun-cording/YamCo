@@ -18,6 +18,11 @@ body{
 	width: 270px;
 	position: relative;
 }
+.bestlist a
+{
+	color: inherit !important;
+	text-decoration: none !important;
+}
 
 #bestlist_label {
 	width: 270px;

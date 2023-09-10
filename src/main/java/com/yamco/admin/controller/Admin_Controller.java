@@ -29,6 +29,7 @@ import com.yamco.user.model.vo.Member_VO;
 import com.yamco.user.model.vo.U_recipe_meta_VO;
 
 @Controller
+@RequestMapping("/admin")
 public class Admin_Controller {
 	@Autowired
 	private Member_Service member_Service;
@@ -38,15 +39,14 @@ public class Admin_Controller {
 	private U_recipe_Service u_recipe_Service;
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
-	
+
 	@RequestMapping("/admin_report_recipe.do")
 	public ModelAndView go_admin_All(@ModelAttribute("result") String result) {
 		ModelAndView mv = new ModelAndView("admin/admin_report");
 		List<List<Admin_Report_Chk_VO>> total_list = adminService.admin_report_All();
-		System.out.println(result);
-		mv.addObject("rcp_list",total_list.get(0));
-		mv.addObject("c_list",total_list.get(1));
-		mv.addObject("result",result);
+		mv.addObject("rcp_list", total_list.get(0));
+		mv.addObject("c_list", total_list.get(1));
+		mv.addObject("result", result);
 		return mv;
 	}
 
@@ -54,7 +54,7 @@ public class Admin_Controller {
 	public ModelAndView go_admin_dashboard(HttpSession session) {
 		ModelAndView mv = new ModelAndView("admin/admin_dashboard");
 		Admin_Dash_VO dash_VO = adminService.getDashBoard();
-
+		session.setAttribute("recent_report_list", dash_VO.getRecent_report_list());
 		mv.addObject("vo", dash_VO);
 		return mv;
 	}
@@ -148,8 +148,8 @@ public class Admin_Controller {
 		ModelAndView mv = new ModelAndView("admin/admin_contentchk");
 		List<U_recipe_meta_VO> result = u_recipe_Service.getUserContentList(urmvo);
 		Admin_Dash_VO dash_VO = adminService.getDashBoard();
-		
-		mv.addObject("vo",dash_VO);
+
+		mv.addObject("vo", dash_VO);
 		mv.addObject("content_result", result);
 		return mv;
 	}
@@ -168,7 +168,6 @@ public class Admin_Controller {
 		mv.addObject("fooding_list", total_list.get(2));
 		return mv;
 	}
-
 
 	@RequestMapping("/notice_delete.go")
 	public ModelAndView notice_deleteGo(String idx, String kind) {
@@ -207,7 +206,6 @@ public class Admin_Controller {
 			adminService.foodingUp(idx);
 		}
 
-
 		return mv;
 	}
 
@@ -231,7 +229,7 @@ public class Admin_Controller {
 			try {
 				// 업로드(저장용도) path 경로에 있는 fname파일을 upload_img.transferTo에 업로드하겠다.
 				upload_img.transferTo(new File(path, fname));
-				
+
 				adminService.insertAdminImage(category, title, fname);
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -240,7 +238,7 @@ public class Admin_Controller {
 
 		return mv;
 	}
-	
+
 	@RequestMapping("/content_search.go")
 	public ModelAndView getUserSearchList(U_recipe_meta_VO urmvo) {
 		ModelAndView mv = new ModelAndView("admin/admin_contentchk");
@@ -248,5 +246,6 @@ public class Admin_Controller {
 		System.out.println(result.size());
 		mv.addObject("content_result", result);
 		return mv;
-	}	
+	}
+
 }

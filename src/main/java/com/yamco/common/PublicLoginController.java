@@ -101,12 +101,13 @@ public class PublicLoginController {
 				}
 				
 				if(m_vo.getM_nick() != null) {
-				session.setAttribute("m_idx", m_vo.getM_idx());
-				session.setAttribute("m_nick", m_vo.getM_nick());
-				session.setAttribute("loginChk", true);
-				session.setAttribute("m_image", m_vo.getM_image());
+					session.setAttribute("adminChk", true);
+					session.setAttribute("m_idx", m_vo.getM_idx());
+					session.setAttribute("m_nick", m_vo.getM_nick());
+					session.setAttribute("loginChk", true);
+					session.setAttribute("m_image", m_vo.getM_image());
 				if(m_vo.getM_idx().equals("1")) {
-					mv.setViewName("redirect:/go_admin_dashboard.do");
+					mv.setViewName("redirect:/admin/go_admin_dashboard.do");
 					return mv;
 				}
 				alert = "<script>alert('로그인 성공.');</script>";

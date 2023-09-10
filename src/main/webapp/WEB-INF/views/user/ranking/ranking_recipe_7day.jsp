@@ -81,7 +81,7 @@
 									<div class="recipe_one">
 										<p>
 											<a
-												href="/public_recipe_detail.go?rcp_idx=${k.rcp_idx }">
+												href="/user_recipe_detail.do?rcp_idx=${k.rcp_idx }">
 												<img src="../resources/images/rankingmedal/${vs.count}.png"
 												class="medal"> <c:choose>
 													<%-- u_rcp_img가 없는 경우 기본 이미지 출력 --%>

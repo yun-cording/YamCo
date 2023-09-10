@@ -166,20 +166,25 @@
 	</select>
 	
 	<select id="getRecipe_info" parameterType="String" resultType="arcvo">
-		select u_rcp_title , m_nick from u_recipe where rcp_idx =#{rcp_idx}
+		select * from u_recipe where rcp_idx =#{rcp_idx}
 	</select>
 	
 	<select id="comment_attacknick" parameterType="String" resultType="String">
 	select m_nick from member where m_idx = #{m_idx}
 	</select>
 	
-	<select id="comment_defencenick" parameterType="String" resultType="String">
-	select m_nick from comment where c_idx = #{c_idx}
+	<select id="comment_defencenick" parameterType="String" resultType="arcvo">
+	select m_nick, c_contents, c_status from comment where c_idx = #{c_idx}
 	</select>
 
 	<!-- 게시글 블라인드 취소 처리 -->
 	<update id="rcpBlindCancel" parameterType="arvo">
 		UPDATE u_recipe SET u_rcp_status = 0 WHERE rcp_idx = #{rcp_idx}	
 	</update>
+	
+	<!-- 최근신고 -->
+	<select id="recentReport" resultType="arvo">
+		SELECT * FROM report_t ORDER BY r_time desc
+	</select>
 	
 </mapper>

@@ -157,6 +157,7 @@ public class LoginController {
 	
 	@RequestMapping("/logOut_go")
 	public ModelAndView logoutDo(HttpSession session) {
+		session.removeAttribute("adminChk");
 		session.removeAttribute("loginChk");
 		session.removeAttribute("m_nick");
 		session.removeAttribute("m_idx");
