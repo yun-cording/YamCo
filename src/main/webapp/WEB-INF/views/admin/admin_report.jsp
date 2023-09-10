@@ -46,7 +46,7 @@ function btnradio3() {
 function btnradio4() {
 	location.href="/admin/admin_report_recipe.do?result=4" ;
 }
-
+/* 
  function confirm_go(c_idx, rcp_idx , button) { // 블라인드 처리하기 작동함수
 	var sendData ='';
 	if(c_idx){
@@ -84,7 +84,7 @@ function btnradio4() {
 		  } else {
 		    swal("블라인드 요청이 중단되었습니다.");
 		  }
-		});
+		}); */
 function confirm_go(c_idx, rcp_idx,button) { //블라인드 처리하기 작동함수
 var sendData ='';
 if(c_idx){
