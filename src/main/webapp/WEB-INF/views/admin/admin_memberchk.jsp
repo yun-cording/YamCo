@@ -86,7 +86,6 @@
 					<!-- row for 회원분류/ 검색조건 cards -->
 					<div class="row justify-content-center justify-content-md-between">
 
-						<%-- DB 연동 미구현!!! --%>
 						<!-- col for 회원분류 card -->
 						<div class="col-12 p-3 col-lg-auto me-lg-5 rounded shadow">
 							<div class="card h-100">
