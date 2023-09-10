@@ -79,7 +79,7 @@ public class Admin_Controller {
 		return mv;
 	}
 
-	@RequestMapping("go_admin_memberchk.do")
+	@RequestMapping("/go_admin_memberchk.do")
 	public ModelAndView go_admin_memberchk() {
 		ModelAndView mv = new ModelAndView("admin/admin_memberchk");
 		Member_count_summary_VO countSummary = adminService.getMemberCountSummary();

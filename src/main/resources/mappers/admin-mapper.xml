@@ -179,7 +179,7 @@
 	
 	<!-- 리포트테이블 원하는정보 답변 업데이트 -->
 	<select id="reportanswerupdate" parameterType="arcvo" >
-	update report_t set r_answer = #{r_answer} where r_idx = #{r_idx}
+	update report_t set r_answer = #{r_answer}, r_replytime = sysdate(), r_status = 1 where r_idx = #{r_idx}
 	</select>
 	
 	<!-- 게시글 블라인드 취소 처리 -->
