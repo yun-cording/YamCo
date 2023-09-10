@@ -120,7 +120,7 @@ function phoneChk_go() {
 	var phone = document.getElementById('m_phone').value;
 	
 	function checkValidSomeThing(param) {
-		var phoneNum = /^\d{3}\d{4}\d{4}$/;
+		var phoneNum = /^010\d{4}\d{4}$/;
 		  return phoneNum.test(param);
 		}
 	
@@ -129,7 +129,7 @@ function phoneChk_go() {
 		status3 = 0;
 		log();
 	}else if(!checkValidSomeThing(phone)){
-		document.getElementById('phoneChk').innerHTML='핸드폰 번호 11자리 "-"를 제외하고 모두 입력해주세요.';
+		document.getElementById('phoneChk').innerHTML='핸드폰 번호 11자리 "-"를 제외하고 010부터 모두 입력해주세요.';
 		document.getElementById('phoneChk').style.color="red";
 		status3 = 0;
 		log();

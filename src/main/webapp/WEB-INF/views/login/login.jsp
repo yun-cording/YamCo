@@ -59,8 +59,7 @@ function restorePlaceholder(element, defaultPlaceholder) {
 </script>
 </head>
 <body>
-	${alert}
-	${history_go}
+	 ${alert}
 <form method="post">
 <c:set var="clientId" value="YvbCvm24gWq60XdG4a8G" />
 <c:set var="redirectURI" value="http://localhost:8090/naver_login.do" />
@@ -83,6 +82,7 @@ function restorePlaceholder(element, defaultPlaceholder) {
 			onfocus="clearPlaceholder(this)"
 			onblur="restorePlaceholder(this, '비밀번호')" required>
 	</div>
+	<input type="hidden" name="url" value="${url}">
 	<button class="color login_bt" onclick="public_login(this.form)">로그인</button>
 	<a id="find_pw" href="/find_pw.go">비밀번호 찾기</a>
 	<div class="social">
