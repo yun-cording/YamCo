@@ -37,6 +37,7 @@ $.ajax({
 //}); /* recipeChk 클릭 끝 */	
 }
 
+
 </script>
 <body>
 	<form action="/search.go">
@@ -54,7 +55,8 @@ $.ajax({
         </form>
         <div class="login">
                 <div class="login_bt" onclick="togglePop()">
-                  <a id="login_link" href="/login.go">
+                  <!-- <a id="login_link" href="/login.go?"> -->
+                  <a id="login_link" onclick="gologin()">
                 <div class="login_thumbnail"><img id="user_thumbnail" src=""></div>
                 <span id="login_text" class="login_text">로 그 인</span></a>
                 <div><span id="user_Id" class="user_Id">누구누구</span></div>
@@ -132,6 +134,11 @@ $.ajax({
                     tab.classList.add('active');
                 });
           });
+          
+          var url = window.location.pathname;
+			function gologin() {
+				location.href="/login.go?url="+url
+			}
           </script>
 </body>
 </html>

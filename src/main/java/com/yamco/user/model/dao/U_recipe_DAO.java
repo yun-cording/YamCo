@@ -81,15 +81,29 @@ public class U_recipe_DAO {
 		TransactionStatus status = transactionManager.getTransaction(def);
 
 		try {
-			result += sqlSessionTemplate.update("u_recipe.hitUp", rcp_idx);
-			User_log_VO ulvo = new User_log_VO();
-			ulvo.setRcp_idx(rcp_idx);
-			if (m_idx != null && !m_idx.isBlank()) {
-				ulvo.setM_idx(m_idx);
+			Integer int_m_idx = Integer.parseInt(rcp_idx);
+			if (int_m_idx < 10000) { //공공레시피인 경우
+				result += sqlSessionTemplate.update("p_recipe.hitUp", rcp_idx);
+			} else { //사용자레시피인 경우
+				result += sqlSessionTemplate.update("u_recipe.hitUp", rcp_idx);
 			}
-			ulvo.setUl_status("3"); // 3 : 조회
-			result += sqlSessionTemplate.insert("user_log.insert", ulvo);
-			transactionManager.commit(status);
+
+			if (result == 1) { //hitUp update가 정상적으로 실행된 경우
+				User_log_VO ulvo = new User_log_VO();
+				ulvo.setRcp_idx(rcp_idx);
+				if (m_idx != null && !m_idx.isBlank()) {
+					ulvo.setM_idx(m_idx);
+				}
+				ulvo.setUl_status("3"); // 3 : 조회
+				result += sqlSessionTemplate.insert("user_log.insert", ulvo);
+				if (result == 2) { //hitUP update와 log insert 둘 다 정상적으로 실행된 경우
+					transactionManager.commit(status);
+					return result;
+				}
+			}
+
+			//둘 중 하나라도 정삭적으로 실행되지 않으면 롤백한다
+			transactionManager.rollback(status);
 		} catch (Exception e) {
 			e.printStackTrace();
 			transactionManager.rollback(status);
@@ -99,57 +113,56 @@ public class U_recipe_DAO {
 	}
 
 	public int getWrite(U_recipe_VO uvo) {
-		return sqlSessionTemplate.insert("u_recipe.write",uvo);
+		return sqlSessionTemplate.insert("u_recipe.write", uvo);
 	}
-	
+
 	// 임시 저장된 레시피 수 조회
 	public U_recipe_VO getLimit_recipe(String m_idx) {
-		U_recipe_VO urvo = sqlSessionTemplate.selectOne("u_recipe.limit_recipe",m_idx);
+		U_recipe_VO urvo = sqlSessionTemplate.selectOne("u_recipe.limit_recipe", m_idx);
 		return urvo;
 	}
-	
+
 	// 성훈 임시 저장된 레시피 삭제
 	public int deleteRecipe(String m_idx) {
-		return sqlSessionTemplate.delete("u_recipe.limit_recipe_del",m_idx);
+		return sqlSessionTemplate.delete("u_recipe.limit_recipe_del", m_idx);
 	}
-	
+
 	// 채림 사용자 게시판 리스트 가져오기
-	public List<U_recipe_meta_VO> getUserContentList(U_recipe_meta_VO urmvo){
+	public List<U_recipe_meta_VO> getUserContentList(U_recipe_meta_VO urmvo) {
 		return sqlSessionTemplate.selectList("u_recipe.userContentList", urmvo);
 	}
-	
+
 	// 채림 사용자 게시판 리스트 가져오기(검색)
-	public List<U_recipe_meta_VO> getUserSearchList(U_recipe_meta_VO urmvo){
+	public List<U_recipe_meta_VO> getUserSearchList(U_recipe_meta_VO urmvo) {
 		System.out.println("여기로 와라");
-		System.out.println("dao havecat"+urmvo.getHave_category());
-		System.out.println("dao in"+urmvo.getInput());
-		System.out.println("dao sd"+urmvo.getStart_date());
-		System.out.println("dao ed"+urmvo.getEnd_date());
-		System.out.println("dao st"+urmvo.getBtn_status());
-		urmvo.setInput("%"+urmvo.getInput()+"%");
+		System.out.println("dao havecat" + urmvo.getHave_category());
+		System.out.println("dao in" + urmvo.getInput());
+		System.out.println("dao sd" + urmvo.getStart_date());
+		System.out.println("dao ed" + urmvo.getEnd_date());
+		System.out.println("dao st" + urmvo.getBtn_status());
+		urmvo.setInput("%" + urmvo.getInput() + "%");
 		return sqlSessionTemplate.selectList("u_recipe.userSearchList", urmvo);
 	}
-	
+
 	// 냉장고 검색 재훈
 	public List<U_recipe_meta_VO> getRefSearch(Ref_VO rfvo) {
-		return sqlSessionTemplate.selectList("u_recipe.ref_search", rfvo) ;
+		return sqlSessionTemplate.selectList("u_recipe.ref_search", rfvo);
 	}
 
 	// 성훔 임시저장 레시피 글등록
 	public int limitWrite(U_recipe_VO uvo) {
-			int result = sqlSessionTemplate.update("u_recipe.limit_recipe_update",uvo);
+		int result = sqlSessionTemplate.update("u_recipe.limit_recipe_update", uvo);
 		return result;
 	}
-	
+
 	// TODO 상우 user_recipe list 출력
 	public List<U_recipe_meta_VO> u_recipe_list() {
 		return sqlSessionTemplate.selectList("u_recipe.u_recipe_list");
 	}
-	
+
 	// TODO 상우 user_recipe detail(한개만) 출력
 	public U_recipe_meta_VO u_recipe_detail(String rcp_idx) {
 		return sqlSessionTemplate.selectOne("u_recipe.u_recipe_detail", rcp_idx);
 	}
-		
-	
+
 }
