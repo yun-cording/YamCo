@@ -10,13 +10,51 @@
 		values(#{m_nick}, #{c_contents}, #{c_img}, #{c_grade}, #{rcp_idx}, 0, current_timestamp(),
 			0, 0)
 	</insert>
+	
+	<!-- 댓글 삭제 -->
+	 <delete id="comment_delete" parameterType="String">
+		delete from comment
+		where c_idx = #{c_idx}    
+    </delete>
+    
+    <!-- 댓글 하나 선택 -->
+    <select id="getOneComment" parameterType="String" resultType="cmvo">
+		select * from comment_metadata
+    	where c_idx = #{c_idx}
+    </select> 
+    
+	<!-- 댓글 수정 -->
+	 <update id="comment_revision" parameterType="Map">
+		update comment
+        set c_contents = #{newText}
+        where c_idx = #{c_idx}    
+    </update>
 
 	<!-- 댓글 좋아요 -->
 	<update id="comment_like" parameterType="String">
 		update comment set c_like = c_like + 1 where c_idx = #{c_idx}
 	</update>
-
 	
+	<!-- 댓글 좋아요 하나 낮추기 -->
+	<update id="comment_like_down" parameterType="String">
+		update comment set c_like = c_like - 1 where c_idx = #{c_idx}
+	</update>
+	
+	<!-- 댓글 좋아요 되어있는지 확인 -->
+	<select id="comment_likedornot" parameterType="Map" resultType="int">
+		select count(*) from comment_like WHERE c_idx = #{c_idx} and m_idx = #{m_idx}
+	</select>
+		
+	<!-- 댓글 좋아요여부 확인 후 좋아요 했으면 delete 하고 아니면 insert -->
+    <insert id="insertCommentLike" parameterType="java.util.Map">
+		INSERT INTO comment_like (c_idx, m_idx)
+		VALUES (#{c_idx}, #{m_idx})
+	</insert>
+    <delete id="deleteCommentLike" parameterType="java.util.Map">
+		DELETE FROM comment_like
+		WHERE c_idx = #{c_idx} AND m_idx = #{m_idx}    
+    </delete>
+                
 	<!-- 댓글 조회 -->
 	<select id="selectListByVO" parameterType="cvo" resultType="cmvo">
 		select * from comment_metadata

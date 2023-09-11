@@ -275,7 +275,6 @@ public class Recipe_Controller {
 		// 상세페이지 idx를 현재페이지에 담자
 		session.setAttribute("currentRcpIdx", rcp_idx);
 		
-		System.out.println("현재 페이지 rcpidx는 " + rcp_idx);
 		
 		// rcp_idx에 해당하는 자료 가져오자.
 		U_recipe_meta_VO uvo = new U_recipe_meta_VO();
@@ -287,11 +286,9 @@ public class Recipe_Controller {
 		u_recipe_Service.getHitUp(rcp_idx, m_idx);
 
     	// wishlist 여부 받아오기
-    	System.out.println("Rcp_Cont id는 : " + m_idx);
     	
     	// 좋아요했는가
     	String liked_ornot = p_recipe_Service.liked_ornot(m_idx, String.valueOf(rcp_idx));
-    	System.out.println("좋아요했는가 : " + liked_ornot);
     	// 좋아요 안함
 		mv.addObject("liked_ornot", liked_ornot);
 		
@@ -320,13 +317,12 @@ public class Recipe_Controller {
 			}
 		}
 		
-//	
+		u_recipe_Service.getHitUp(rcp_idx, m_idx);
 //		
 //		
 //		// TODO 상우 이런 레시피는 어떠세요?(레시피 추천) 시작
 		// 전체 리스트 받아오기
 		List<U_recipe_meta_VO> userList = u_recipe_Service.u_recipe_list();
-		System.out.println("전체는 받음");
 
 		// 추천게시물 띄우기
 		// 랜덤으로 선택한 게시물의 인덱스를 저장할 리스트

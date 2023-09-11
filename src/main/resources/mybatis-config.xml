@@ -34,6 +34,7 @@
 	<typeAlias type="com.yamco.user.model.vo.Comment_meta_VO" alias="cmvo" />
 	<typeAlias type="com.yamco.user.model.vo.Ref_VO" alias="rfvo" />
 	<typeAlias type="com.yamco.admin.model.vo.Member_count_summary_VO" alias="mcsvo" />
+	<typeAlias type="com.yamco.admin.model.vo.Report_VO" alias="revo" />
 	<typeAlias type="com.yamco.user.model.vo.Report_t_VO" alias="rvo" />
 	<typeAlias type="com.yamco.user.model.vo.Report_t_meta_VO" alias="rmvo" />
 	</typeAliases>
@@ -48,6 +49,7 @@
 		<mapper resource="mappers/user_log-mapper.xml" />
 		<mapper resource="mappers/p_recipe-mapper.xml" />
 		<mapper resource="mappers/comment-mapper.xml" />
+		<mapper resource="mappers/report-mapper.xml" />
 		<mapper resource="mappers/report_t-mapper.xml" />
 	</mappers>
 

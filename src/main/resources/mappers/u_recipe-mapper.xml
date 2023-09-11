@@ -228,7 +228,6 @@
 		update u_recipe set u_rcp_hit =
 		u_rcp_hit + 1 where rcp_idx = #{rcp_idx}
 	</update>
-
 	
 	<!-- 레시피 글쓰기 -->
 	<insert id="write" parameterType="urvo">

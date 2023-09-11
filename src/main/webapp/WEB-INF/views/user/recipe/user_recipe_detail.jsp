@@ -652,8 +652,7 @@
 
                 // 클릭한 버튼의 id 가져오기
                 
-                console.log("님 신고!");
-            	alert()
+            	alert("님 신고!")
                 // rcp_idx 가져오기
 
             }
