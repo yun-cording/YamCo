@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.yamco.user.model.service.Member_Service;
+import com.yamco.user.model.service.Member_ServiceImpl;
+import com.yamco.user.model.vo.Member_Search_VO;
 import com.yamco.user.model.vo.Member_VO;
 
 @Controller
@@ -30,7 +32,7 @@ public class PublicLoginController {
 		ModelAndView mv = new ModelAndView("login/social_join");
 		try {
 			mvo.setM_pw(passwordEncoder.encode(mvo.getM_pw()));
-			 System.out.println(gender);
+		//	 System.out.println(gender);
 			if(gender.equals("남자,")) {
 				mvo.setM_gender("M");				
 			}else if(gender.equals("여자,")) {
@@ -68,58 +70,60 @@ public class PublicLoginController {
 	// TODO 채림 자체회원가입 작업 끗
 	// TODO 채림 자체회원 로그인 작업 시작
 	@RequestMapping("/member_login.do")
-	public ModelAndView getMemberLogin(HttpSession session, Member_VO mvo) {
-		ModelAndView mv = new ModelAndView("login/login");
+	public ModelAndView getMemberLogin(HttpSession session, Member_VO mvo, @RequestParam("url") String url) {
+		ModelAndView mv = new ModelAndView("/login/login");
+		
 		String alert = "";
 		try {
 			Member_VO m_vo = member_Service.getMemberLogin(mvo);
-			int fail_count = m_vo.getM_fail_count();
-			if(m_vo.getM_status().equals("5")) {
-				alert = "<script>alert('로그인 실패 5번 이상이므로 비밀번호 찾기를 이용해주세요.');</script>";
-			}
-			
+			if(m_vo != null) {	
+				int fail_count = m_vo.getM_fail_count();
+				
 			if(!passwordEncoder.matches(mvo.getM_pw(), m_vo.getM_pw())) {
-				alert = "<script>alert('비밀번호가 일치하지 않습니다.');</script>";
-				System.out.println("안 됨");				
 				m_vo.setM_fail_count(fail_count + 1);
 				// mapper 갔다오기 (틀린횟수 업데이트)
 				member_Service.getFailCountUp(m_vo);
-				System.out.println("틀린 횟수" + m_vo.getM_fail_count());
+				alert = "<script>alert('비밀번호가 일치하지 않습니다.(틀린횟수 : " + m_vo.getM_fail_count() + "번)');</script>";
 				mv.addObject("alert", alert);
 				if(fail_count >= 5) {
 					alert = "<script>alert('로그인 실패 5번 이상이므로 비밀번호 찾기를 이용해주세요.');</script>;";
-					System.out.println("5번 틀림");
 					mv.addObject("alert", alert);
 				}
 				return mv;
 			}else {
 				if(fail_count >= 5) {
 					alert = "<script>alert('로그인 실패 5번 이상이므로 비밀번호 찾기를 이용해주세요.');</script>;";
-					System.out.println("5번 틀림");
 					mv.addObject("alert", alert);
 					return mv;
 				}
 				
 				if(m_vo.getM_nick() != null) {
-				session.setAttribute("m_idx", m_vo.getM_idx());
-				session.setAttribute("m_nick", m_vo.getM_nick());
-				session.setAttribute("loginChk", true);
-				session.setAttribute("m_image", m_vo.getM_image());
+					session.setAttribute("adminChk", true);
+					session.setAttribute("m_idx", m_vo.getM_idx());
+					session.setAttribute("m_nick", m_vo.getM_nick());
+					session.setAttribute("loginChk", true);
+					session.setAttribute("m_image", m_vo.getM_image());
 				if(m_vo.getM_idx().equals("1")) {
-					mv.setViewName("redirect:/go_admin_dashboard.do");
+					mv.setViewName("redirect:/admin/go_admin_dashboard.do");
 					return mv;
 				}
-				alert = "<script>alert('로그인 성공.');</script>";
-				String history_go = "<script>history.go(-2);</script>";
-				mv.addObject("alert", alert);
-				mv.addObject("history_go", history_go);
-				mv.setViewName("redirect:/main.go");
+				if(fail_count >= 0) {
+					m_vo.setM_fail_count(0);
+					member_Service.getFailCountUp(m_vo);
+				}
+				mv.setViewName("redirect:"+url);
 				}else {
 					mv.setViewName("/login/social_join");
 					mv.addObject("m_id", m_vo.getM_id());
 				}
 				return mv;
 			}
+			}else{
+		//	System.out.println("여기 들어오니");
+			alert = "<script>alert('없는 아이디입니다.');</script>";
+			mv.addObject("alert", alert);
+			return mv;			
+		}
 		} catch (Exception e) {
 			e.printStackTrace();
 			mv.setViewName("error404");
@@ -137,7 +141,6 @@ public class PublicLoginController {
 		m_vo.setM_token(t_name);
 		member_Service.setMakeToken(m_vo);
 		mv.addObject("mvo", m_vo);
-		System.out.println(m_vo.getM_id() + "1");
 		
 		return mv;
 	}
@@ -145,20 +148,13 @@ public class PublicLoginController {
 	@RequestMapping("/member_change.do")
 	public ModelAndView getChangePw(Member_VO mvo) {
 		ModelAndView mv = new ModelAndView("login/login");
-		System.out.println("왜");
 		try {
 			Member_VO m_vo = member_Service.getMemberLogin(mvo);
-			System.out.println("안");
-			System.out.println("받은 id : " + m_vo.getM_id());
 			m_vo.setM_pw(passwordEncoder.encode(mvo.getM_pw()));
-			System.out.println("돼");
 			m_vo.setM_fail_count(0);
 			member_Service.getChangePw(m_vo);
-			System.out.println("제");
 			member_Service.getFailCountUp(m_vo);
-			System.out.println("발");
 			member_Service.getTokenDelete(m_vo);
-			System.out.println("~!");
 			return mv;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -167,10 +163,4 @@ public class PublicLoginController {
 		return null;
 	}
 	// TODO 채림 비밀번호 찾기 비밀번호 변경 작업 끗
-	// TODO 채림 이용약관 띄우기 작업 시작
-//	@RequestMapping("/terms1.go")
-//	public ModelAndView getTerms1() {
-//		return new ModelAndView("login/terms01");
-//	}
-	// TODO 채림 이용약관 띄우기 작업 끗
 }

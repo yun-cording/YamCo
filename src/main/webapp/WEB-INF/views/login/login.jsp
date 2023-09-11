@@ -6,9 +6,9 @@
 <head>
 <meta charset="UTF-8">
 <title>냠냠로그인</title>
-<link rel="stylesheet" href="resources/css/login/login.css?after" />
+<link rel="stylesheet" href="/resources/css/login/login.css?after" />
 <link rel="icon" type="image/x-icon"
-	href="resources/images/icon_tomato.png">
+	href="/resources/images/icon_tomato.png">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 	<!-- google login -->
@@ -59,8 +59,7 @@ function restorePlaceholder(element, defaultPlaceholder) {
 </script>
 </head>
 <body>
-	${alert}
-	${history_go}
+	 ${alert}
 <form method="post">
 <c:set var="clientId" value="YvbCvm24gWq60XdG4a8G" />
 <c:set var="redirectURI" value="http://localhost:8090/naver_login.do" />
@@ -83,6 +82,7 @@ function restorePlaceholder(element, defaultPlaceholder) {
 			onfocus="clearPlaceholder(this)"
 			onblur="restorePlaceholder(this, '비밀번호')" required>
 	</div>
+	<input type="hidden" name="url" value="${url}">
 	<button class="color login_bt" onclick="public_login(this.form)">로그인</button>
 	<a id="find_pw" href="/find_pw.go">비밀번호 찾기</a>
 	<div class="social">

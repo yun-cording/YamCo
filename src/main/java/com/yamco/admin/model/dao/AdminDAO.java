@@ -1,12 +1,15 @@
 package com.yamco.admin.model.dao;
 
+import java.text.SimpleDateFormat;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +18,8 @@ import org.springframework.stereotype.Repository;
 import com.yamco.admin.model.vo.Admin_Banner_VO;
 import com.yamco.admin.model.vo.Admin_Dash_VO;
 import com.yamco.admin.model.vo.Admin_Report_Chk_VO;
-import com.yamco.admin.model.vo.Member_count_summary_VO;
 import com.yamco.admin.model.vo.Admin_Report_VO;
+import com.yamco.admin.model.vo.Member_count_summary_VO;
 import com.yamco.user.model.vo.Comment_VO;
 import com.yamco.user.model.vo.Comment_meta_VO;
 import com.yamco.user.model.vo.U_recipe_meta_VO;
@@ -56,6 +59,8 @@ public class AdminDAO {
 			daysOfWeek.add(day); // 마지막으로 추가
 		}
 		// 신고관련
+		List<Admin_Report_VO> recent_report_list = sqlSessionTemplate.selectList("admin.recentReport");
+		List<Admin_Report_VO> recent_report_list2 = new ArrayList<Admin_Report_VO>();
 		List<Admin_Report_VO> recipe_report_list = sqlSessionTemplate.selectList("admin.recipeReport");
 		List<Admin_Report_VO> comment_report_list = sqlSessionTemplate.selectList("admin.commentReport");
 		List<Admin_Report_VO> final_report_list = new ArrayList<Admin_Report_VO>();
@@ -81,6 +86,51 @@ public class AdminDAO {
 				}
 			}
 		}
+		for (Admin_Report_VO k : recent_report_list) {
+			String idx = k.getRcp_idx();
+			if(idx!=null) { // 게시글이면 
+				U_recipe_meta_VO vo = sqlSessionTemplate.selectOne("u_recipe.metaData", idx); // 게시글 번호로 제목가져오기
+				String inputString = k.getR_time();
+
+		        // SimpleDateFormat을 사용하여 문자열을 날짜 객체로 변환
+		        SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		        Date date = null;
+		        try {
+		            date = inputFormat.parse(inputString);
+		        } catch (Exception e) {
+		            e.printStackTrace();
+		        }
+
+		        // 출력 형식을 지정한 SimpleDateFormat을 사용하여 원하는 형식으로 변환
+		        SimpleDateFormat outputFormat = new SimpleDateFormat("yyyy년MM월dd일 HH시mm분ss초");
+		        String outputString = outputFormat.format(date);
+		        k.setR_time(outputString);
+				k.setU_rcp_title(vo.getU_rcp_title());
+				recent_report_list2.add(k);
+			}else {
+				Comment_VO cvo = new Comment_VO();
+				cvo.setC_idx(k.getC_idx());
+				Comment_meta_VO vo = sqlSessionTemplate.selectOne("comment.selectListByVO", cvo); // 댓글 번호로 닉네임, 내용 가져오기
+				if(vo!=null) {
+					String inputString = k.getR_time();
+			        // SimpleDateFormat을 사용하여 문자열을 날짜 객체로 변환
+			        SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			        Date date = null;
+			        try {
+			            date = inputFormat.parse(inputString);
+			        } catch (Exception e) {
+			            e.printStackTrace();
+			        }
+
+			        // 출력 형식을 지정한 SimpleDateFormat을 사용하여 원하는 형식으로 변환
+			        SimpleDateFormat outputFormat = new SimpleDateFormat("yyyy년MM월dd일 HH시mm분ss초");
+			        String outputString = outputFormat.format(date);
+			        k.setR_time(outputString);
+					k.setC_contents(vo.getC_contents());
+					recent_report_list2.add(k);
+				}
+			}
+		}
 		Collections.sort(final_report_list, new Comparator<Admin_Report_VO>() {
 			@Override
 			public int compare(Admin_Report_VO vo1, Admin_Report_VO vo2) {
@@ -89,6 +139,7 @@ public class AdminDAO {
 				return Integer.compare(count1, count2);
 			}
 		});
+		
 		
 		
 		dash_VO.setFinal_report_list(final_report_list);
@@ -107,7 +158,8 @@ public class AdminDAO {
 		dash_VO.setWeek_hit_count(week_hit_count);
 		dash_VO.setWeek_visit_count(week_visit_count);
 		dash_VO.setDaysOfWeek(daysOfWeek);
-
+		dash_VO.setRecent_report_list(recent_report_list2);
+		
 		return dash_VO;
 	}
 
@@ -194,32 +246,48 @@ public class AdminDAO {
 		List<Admin_Report_Chk_VO> list = sqlSessionTemplate.selectList("admin.getReportAll");
 		List<Admin_Report_Chk_VO> c_list = new ArrayList<Admin_Report_Chk_VO>();
 		List<Admin_Report_Chk_VO> rcp_list = new ArrayList<Admin_Report_Chk_VO>();
-		total_list.add(rcp_list);
-		total_list.add(c_list);
+		List<Admin_Report_Chk_VO> answerC_list = new ArrayList<Admin_Report_Chk_VO>();
+		List<Admin_Report_Chk_VO> answerRcp_list = new ArrayList<Admin_Report_Chk_VO>();
+		//total_list.add(rcp_list);
+		//total_list.add(c_list);
 		
 		for (Admin_Report_Chk_VO k : list) {
 			if(k.getRcp_idx() != null) {
-				//System.out.println("m_id" +  k.getM_idx());
+				if(k.getR_answer() != null) { // 답변 처리가 된것들
+					String recipe_attacknick = sqlSessionTemplate.selectOne("admin.recipe_attacknick",k.getM_idx());
+					Admin_Report_Chk_VO arcvo = sqlSessionTemplate.selectOne("admin.getRecipe_info",k.getRcp_idx());
+					k.setU_rcp_status(arcvo.getU_rcp_status());
+					k.setU_rcp_title(arcvo.getU_rcp_title());
+					k.setRecipe_attacknick(recipe_attacknick);
+					k.setRecipe_defencenick(arcvo.getM_nick());
+					answerRcp_list.add(k);
+				}
 				String recipe_attacknick = sqlSessionTemplate.selectOne("admin.recipe_attacknick",k.getM_idx());
-				//System.out.println("recipe_attacknick : "+recipe_attacknick);
-				
 				Admin_Report_Chk_VO arcvo = sqlSessionTemplate.selectOne("admin.getRecipe_info",k.getRcp_idx());
-				//System.out.println("u_rcp_title : " + arcvo.getU_rcp_title());
-				//System.out.println("getM_nick : " + arcvo.getM_nick());
-				
-				//String recipe_defencenick = sqlSessionTemplate.selectOne("admin.recipe_defencenick",k.getC_idx());
-				//System.out.println("recipe_defencenick : "+recipe_defencenick);
-				
+				k.setU_rcp_status(arcvo.getU_rcp_status());
 				k.setU_rcp_title(arcvo.getU_rcp_title());
 				k.setRecipe_attacknick(recipe_attacknick);
 				k.setRecipe_defencenick(arcvo.getM_nick());
 				rcp_list.add(k);
 				//recipe_defencenick
 			}else if(k.getC_idx() != null ){
+				if(k.getR_answer() != null) { // 답변 처리가 된것들
+					String comment_attacknick  = sqlSessionTemplate.selectOne("admin.comment_attacknick",k.getM_idx());// 신고자 닉네임가져오기
+					//System.out.println("comment_attacknick : "+comment_attacknick);
+					Admin_Report_Chk_VO arcvo = sqlSessionTemplate.selectOne("admin.comment_defencenick",k.getC_idx()); // 작성자 닉네임
+					String comment_defencenick = arcvo.getM_nick();
+					k.setC_status(arcvo.getC_status());
+					k.setC_contents(arcvo.getC_contents());
+					k.setComment_attacknick(comment_attacknick);
+					k.setComment_defencenick(comment_defencenick);
+					answerC_list.add(k);
+				}
 				String comment_attacknick  = sqlSessionTemplate.selectOne("admin.comment_attacknick",k.getM_idx());// 신고자 닉네임가져오기
 				//System.out.println("comment_attacknick : "+comment_attacknick);
-				String comment_defencenick = sqlSessionTemplate.selectOne("admin.comment_defencenick",k.getC_idx()); // 작성자 닉네임
-				//System.out.println("comment_defencenick : "+comment_defencenick);
+				Admin_Report_Chk_VO arcvo = sqlSessionTemplate.selectOne("admin.comment_defencenick",k.getC_idx()); // 작성자 닉네임
+				String comment_defencenick = arcvo.getM_nick();
+				k.setC_status(arcvo.getC_status());
+				k.setC_contents(arcvo.getC_contents());
 				k.setComment_attacknick(comment_attacknick);
 				k.setComment_defencenick(comment_defencenick);
 				c_list.add(k);
@@ -229,35 +297,13 @@ public class AdminDAO {
 		
 		total_list.add(rcp_list);
 		total_list.add(c_list);
+		total_list.add(answerRcp_list);
+		total_list.add(answerC_list);
+		
 		
 		return total_list;
 	}
 	
-	
-	
-	// 게시글 신고내역 관리 모든 신고내역 가져오기
-		public List<Admin_Report_Chk_VO> getReportlist() {
-			List<Admin_Report_Chk_VO> list = sqlSessionTemplate.selectList("admin.getReportlist");
-			return list; //list.addAll(count);
-		}
-	
-	// 신고당한 댓글리스트 가져오기
-	public List<Admin_Report_Chk_VO> getCommentList() {
-		List<Admin_Report_Chk_VO> list = sqlSessionTemplate.selectList("admin.getCommentList"); 
-		return list;
-	}
-	
-	// 신고응답 처리 완료된 게시글 불러오기
-	public List<Admin_Report_Chk_VO> getReportRecipeResult() {
-		List<Admin_Report_Chk_VO> list = sqlSessionTemplate.selectList("admin.getReportRecipeResult"); 
-		return list;
-	}
-
-	//신고응답 처리 완료된 댓글 불러오기
-	public List<Admin_Report_Chk_VO> getReportCommentResult() {
-		List<Admin_Report_Chk_VO> list = sqlSessionTemplate.selectList("admin.getReportCommentResult"); 
-		return list;
-	}
 	// 공지사항 추가
 	public int insertNotice(Admin_Banner_VO abvo) {
 		return sqlSessionTemplate.insert("admin.insertNotice", abvo);
@@ -273,4 +319,11 @@ public class AdminDAO {
 		return sqlSessionTemplate.insert("admin.insertFood_ing", abvo);
 
 	}
+	
+	//신고내용 답변 업데이트
+	public int answer_report(Admin_Report_Chk_VO arcvo) {
+		int result = sqlSessionTemplate.update("admin.reportanswerupdate",arcvo);
+		return result;
+	}
+
 }

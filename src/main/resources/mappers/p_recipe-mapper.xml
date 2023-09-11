@@ -36,5 +36,11 @@
     <select id="load_all_comments" parameterType="String" resultType="cvo">
 		SELECT * FROM comment WHERE rcp_idx = #{rcp_idx} order by c_like desc
 	</select>
+
+	<!-- rcp_idx에 해당 하는 레시피 조회수 1 상승 -->
+	<update id="hitUp" parameterType="String">
+		update p_recipe set p_rcp_hit =
+		p_rcp_hit + 1 where rcp_idx = #{rcp_idx}
+	</update>
 	
 </mapper>

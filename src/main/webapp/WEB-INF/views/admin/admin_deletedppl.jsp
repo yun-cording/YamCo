@@ -229,24 +229,6 @@
     <a class="scroll-to-top rounded" href="#page-top">
         <i class="fas fa-angle-up"></i>
     </a>
-    <!-- Logout Modal-->
-    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">로그아웃 하시겠습니까?</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">취소</button>
-                    <a class="btn btn-danger" href="login.html">로그아웃</a>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <!-- Bootstrap core JavaScript-->
     <script src="/resources/vendor/jquery/jquery.min.js"></script>
@@ -290,7 +272,7 @@
                  if (selectedNotice.length > 0) {
                      var idx = selectedNotice.attr("idx")
                      // 여기에서 imageId를 사용하여 이미지를 삭제하거나 처리할 수 있습니다.
-                     location.href="/notice_regist.go?idx="+idx+"&kind="+kind
+                     location.href="admin/notice_regist.go?idx="+idx+"&kind="+kind
                      alert("등록되었습니다. 등록된 공지는 하단 [삭제된 공지]에서 확인 가능합니다.")		 
                  } else {
                      alert("라디오 버튼을 선택하세요.");
@@ -298,7 +280,7 @@
         	}
          });
          $("#registPPL").on("click", function() {
-			location.href="/go_admin_ppl.do"
+			location.href="/admin/go_admin_ppl.do"
 		})
      });
  </script>

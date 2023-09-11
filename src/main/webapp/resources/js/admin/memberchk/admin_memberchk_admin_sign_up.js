@@ -23,7 +23,7 @@ function memberJoin_go(f) {
     if (status1 == 1 && status2 == 1 && status3 == 1) {
         log();
         document.getElementById('join_chk').disabled = false;
-        f.action = "/admin_join.do";
+        f.action = "/admin/admin_join.do";
         f.submit();
     } else {
         document.getElementById('join_chk').disabled = true;

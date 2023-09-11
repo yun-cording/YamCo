@@ -59,7 +59,7 @@
 						<!-- rcp_idx 추가하자 -->
 						<p><a href="/user_recipe_detail.do?rcp_idx=${recipe.rcp_idx}">
 							<img
-								src="${recipe.u_rcp_img}"
+								src="resources/user_image/user_thumnail/${recipe.u_rcp_img}"
 								class="recipe_thumbnail"></a>
 						</p>
 						<p>${recipe.u_rcp_title}</p>
@@ -80,7 +80,7 @@
 					</div>
 				</c:forEach>
 			</div>
-			<div class=pagecontainer>
+			<!-- <div class=pagecontainer>
 				<ol class="paging">
 					<li><a href=""> < </a></li>
 					<li><a href=""> 1 </a></li>
@@ -90,7 +90,7 @@
 					<li><a href=""> 5 </a></li>
 					<li><a href=""> > </a></li>
 				</ol>
-			</div>
+			</div> -->
 			<!-- 레시피 출력끝  -->
 		</div>
 		<aside id="sidebar-right">

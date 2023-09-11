@@ -41,7 +41,7 @@
 	href="https://cdn.datatables.net/select/1.7.0/css/select.dataTables.min.css"
 	rel="stylesheet">
 
-<link href="resources/css/admin/memberchk/admin_memberchk.css?after"
+<link href="/resources/css/admin/memberchk/admin_memberchk.css?after"
 	rel="stylesheet">
 
 </head>
@@ -69,11 +69,11 @@
 					<div class="row mb-3 justify-content-start">
 						<div class="col-auto p-0">
 							<a class="btn btn-lg btn-outline-success"
-								href="/go_admin_memberchk.do" role="button">사용자 정보관리</a>
+								href="/admin/go_admin_memberchk.do" role="button">사용자 정보관리</a>
 						</div>
 						<div class="col-auto p-0">
 							<a class="btn btn-lg btn-success"
-								href="/go_admin_memberchk_admin.do" role="button">관리자 정보관리</a>
+								href="/admin/go_admin_memberchk_admin.do" role="button">관리자 정보관리</a>
 						</div>
 					</div>
 
@@ -131,7 +131,7 @@
 									검색 조건</h6>
 
 								<!-- form start -->
-								<form action="/go_admin_memberchk_admin_search.do" method="post">
+								<form action="/admin/go_admin_memberchk_admin_search.do" method="post">
 
 									<ul class="list-group list-group-flush">
 
@@ -425,26 +425,6 @@
 	<a class="scroll-to-top rounded" href="#page-top"> <i
 		class="fas fa-angle-up"></i>
 	</a>
-	<!-- Logout Modal-->
-	<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog"
-		aria-labelledby="exampleModalLabel" aria-hidden="true">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel">로그아웃 하시겠습니까?</h5>
-					<button class="close" type="button" data-dismiss="modal"
-						aria-label="Close">
-						<span aria-hidden="true">×</span>
-					</button>
-				</div>
-				<div class="modal-footer">
-					<button class="btn btn-secondary" type="button"
-						data-dismiss="modal">취소</button>
-					<a class="btn btn-danger" href="login.html">로그아웃</a>
-				</div>
-			</div>
-		</div>
-	</div>
 
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
@@ -459,8 +439,8 @@
 	<!-- Custom scripts for all pages-->
 	<script src="/resources/js/sb-admin-2.min.js"></script>
 	<script
-		src="resources/vendor/datatables/jquery.dataTables.min.js?after"></script>
-	<script src="resources/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+		src="/resources/vendor/datatables/jquery.dataTables.min.js?after"></script>
+	<script src="/resources/vendor/datatables/dataTables.bootstrap4.min.js"></script>
 
 	<!-- Page level custom scripts -->
 	<!-- 
@@ -480,13 +460,13 @@
 	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 	<script
-		src="resources/js/admin/memberchk/admin_memberchk_admin_datatable.js?after"></script>
+		src="/resources/js/admin/memberchk/admin_memberchk_admin_datatable.js?after"></script>
 
 	<script
-		src="resources/js/admin/memberchk/admin_memberchk_admin_btnevent.js?after"></script>
+		src="/resources/js/admin/memberchk/admin_memberchk_admin_btnevent.js?after"></script>
 
 	<script
-		src="resources/js/admin/memberchk/admin_memberchk_admin_sign_up.js?after"></script>
+		src="/resources/js/admin/memberchk/admin_memberchk_admin_sign_up.js?after"></script>
 </body>
 
 </html>

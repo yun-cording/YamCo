@@ -160,62 +160,36 @@
 	select * from report_t
 	</select>
 	
-	<!-- 게시글 신고내역 관리 모든 신고내역 가져오기 -->
-	<select id="getReportlist" resultType="arcvo">
-	SELECT
-    report_t.rcp_idx,
-    member.m_nick,
-    report_t.r_type,
-    u_recipe.m_nick ,
-    u_recipe.u_rcp_title,
-    report_t.r_reply,
-    CASE WHEN report_t.r_replytime IS NULL THEN 'Yes' ELSE 'No' END AS is_r_replytime_null,
-    CASE WHEN u_recipe.u_rcp_blind = 1 THEN 'Yes' ELSE 'No' END AS u_rcp_blind_corresponding_to_rcp_idx
-FROM
-    report_t
-JOIN
-    member ON report_t.m_idx = member.m_idx
-JOIN
-    u_recipe ON report_t.rcp_idx = u_recipe.rcp_idx;
-	</select>
-	
-	<!--  -->
+	<!-- 레시피 신고자 닉네임 얻기 -->
 	<select id="recipe_attacknick" parameterType="String" resultType="String">
 	select m_nick from member where m_idx = #{m_idx}
 	</select>
 	
 	<select id="getRecipe_info" parameterType="String" resultType="arcvo">
-		select u_rcp_title , m_nick from u_recipe where rcp_idx =#{rcp_idx}
+		select * from u_recipe where rcp_idx =#{rcp_idx}
 	</select>
-	
 	
 	<select id="comment_attacknick" parameterType="String" resultType="String">
 	select m_nick from member where m_idx = #{m_idx}
 	</select>
 	
-	<select id="comment_defencenick" parameterType="String" resultType="String">
-	select m_nick from comment where c_idx = #{c_idx}
+	<select id="comment_defencenick" parameterType="String" resultType="arcvo">
+	select m_nick, c_contents, c_status from comment where c_idx = #{c_idx}
 	</select>
 	
-	
-	<!-- 처리 덜된 신고당한 댓글리스트 가져오기 -->
-	<select id="getCommentList" resultType="arcvo">
-	
-	</select>
-	
-	<!-- 신고응답 처리 완료된 게시글 불러오기 -->
-	<select id="getReportRecipeResult" resultType="arcvo">
-	
-	</select>
-	
-	<!-- 신고응답 처리 완료된 댓글 불러오기 -->
-	<select id="getReportCommentResult" resultType="arcvo">
-	
+	<!-- 리포트테이블 원하는정보 답변 업데이트 -->
+	<select id="reportanswerupdate" parameterType="arcvo" >
+	update report_t set r_answer = #{r_answer}, r_replytime = sysdate(), r_status = 1 where r_idx = #{r_idx}
 	</select>
 	
 	<!-- 게시글 블라인드 취소 처리 -->
 	<update id="rcpBlindCancel" parameterType="arvo">
 		UPDATE u_recipe SET u_rcp_status = 0 WHERE rcp_idx = #{rcp_idx}	
 	</update>
+	
+	<!-- 최근신고 -->
+	<select id="recentReport" resultType="arvo">
+		SELECT * FROM report_t ORDER BY r_time desc
+	</select>
 	
 </mapper>

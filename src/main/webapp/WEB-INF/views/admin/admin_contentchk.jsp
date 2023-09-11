@@ -218,7 +218,7 @@ select option[value=""][disabled] {
 	    			    swal("블라인드 요청이 중단되었습니다.");
 	    			  }
 	    			});
-    		}else{
+    		}else if(order ==3){
     			swal({
 	    			  title: "해당 게시글을 블라인드 취소 처리하리겠습니까?",
 	    			  icon: "warning",
@@ -250,6 +250,10 @@ select option[value=""][disabled] {
 	    			    swal("블라인드 취소 요청이 중단되었습니다.");
 	    			  }
 	    			});
+    		}else{
+    			var mybtn = $(button)
+    			mybtn.disabled = true;
+    			
     		}
     	}
     	
@@ -372,7 +376,7 @@ select option[value=""][disabled] {
 											</div>
 										</li>
 								<li class="list-group-item">
-									<div class="row justify-content-around align-items-center">
+                                   <div class="row justify-content-around align-items-center">
 										<div class="col-12 col-xxl-auto text-xxl-start fw-bold">게시글
 											상태</div>
 										<div class="col">
@@ -496,7 +500,9 @@ select option[value=""][disabled] {
                                             <td>${k.u_rcp_hit}</td>
                                             <td>${k.u_rcp_time}</td>
                                             <td>${k.u_rcp_blind}</td>
-                                            <td>${k.u_rcp_status == "3" ? "블라인드" : "게시중"}</td>
+                                            <td>${k.u_rcp_status == "3" ? "블라인드" : 
+                                            					(k.u_rcp_status=="2") ? "임시저장 게시물" : 
+                                            							(k.u_rcp_status=="1")	? "삭제된 게시물" : "게시중"}</td>
                                             <td class="d-flex justify-content-center">
 	                                            		<div class="row">
 												<div class="col-auto">
@@ -535,24 +541,6 @@ select option[value=""][disabled] {
     <a class="scroll-to-top rounded" href="#page-top">
         <i class="fas fa-angle-up"></i>
     </a>
-    <!-- Logout Modal-->
-    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">로그아웃 하시겠습니까?</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">취소</button>
-                    <a class="btn btn-danger" href="login.html">로그아웃</a>
-                </div>
-            </div>
-        </div>
-    </div>
 
 
 <!-- Bootstrap core JavaScript-->
