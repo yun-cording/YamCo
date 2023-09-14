@@ -98,15 +98,16 @@ public class PublicLoginController {
 				}
 				
 				if(m_vo.getM_nick() != null) {
-					session.setAttribute("adminChk", true);
 					session.setAttribute("m_idx", m_vo.getM_idx());
 					session.setAttribute("m_nick", m_vo.getM_nick());
 					session.setAttribute("loginChk", true);
 					session.setAttribute("m_image", m_vo.getM_image());
-				if(m_vo.getM_idx().equals("1")) {
-					mv.setViewName("redirect:/admin/go_admin_dashboard.do");
-					return mv;
-				}
+					if(m_vo.getM_idx().equals("1")) {
+						session.setAttribute("adminChk", true);
+						mv.setViewName("redirect:/admin/go_admin_dashboard.do");
+						return mv;
+					}
+					
 				if(fail_count >= 0) {
 					m_vo.setM_fail_count(0);
 					member_Service.getFailCountUp(m_vo);

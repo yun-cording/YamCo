@@ -262,10 +262,9 @@ public class Admin_Controller {
 	@RequestMapping("/content_search.go")
 	public ModelAndView getUserSearchList(U_recipe_meta_VO urmvo) {
 		ModelAndView mv = new ModelAndView("admin/admin_contentchk");
-		List<U_recipe_meta_VO> result = u_recipe_Service.getUserSearchList(urmvo);
-		System.out.println(result.size());
-		mv.addObject("content_result", result);
-		return mv;
+			List<U_recipe_meta_VO> result = u_recipe_Service.getUserSearchList(urmvo);
+			mv.addObject("content_result", result);
+			return mv;
 	}
 
 }
