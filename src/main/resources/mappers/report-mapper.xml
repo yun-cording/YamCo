@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="report">
+	<!-- 신고받아서 DB 인서트 -->
+	<insert id="reportInsert" parameterType="revo">
+	<!-- m_idx는 널 아님, c_idx, rcp_idx,  -->
+    INSERT INTO report_t (m_idx, c_idx, rcp_idx, r_type, r_reply)
+    VALUES (#{m_idx}, 
+            <choose>
+                <when test="c_idx != null">#{c_idx}</when>
+                <otherwise>NULL</otherwise>
+            </choose>,
+            <choose>
+                <when test="rcp_idx != null">#{rcp_idx}</when>
+                <otherwise>NULL</otherwise>
+            </choose>,
+            #{r_type},
+            <choose>
+                <when test="r_reply != null">#{r_reply}</when>
+                <otherwise>NULL</otherwise>
+            </choose>
+           )
+	</insert>
+	<!-- 해당 m_idx가 특정 rcp_idx에 이미 신고했는지 체크해 보자! -->
+</mapper>

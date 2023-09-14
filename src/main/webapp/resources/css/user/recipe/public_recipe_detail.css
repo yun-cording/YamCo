@@ -753,4 +753,51 @@ input[type="file"]::-ms-input-placeholder {
     color: #c59b08;
 }
 
+
+
+/* 모달 스타일 */
+.modal {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 500px; /* 원하는 너비 설정 */
+    height: 400px; /* 원하는 높이 설정 */
+    background-color: #fff;
+    border: 1px solid #ccc;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+#reportText{
+	height: 150px;	
+}
+
+#submitReport{
+	border-radius: 5px;
+	border: none;
+	outline: none;	
+	margin-top: 10px;
+}
+
+.report_title{
+	text-align: center;
+}
+
+/* 모달 내용 스타일 */
+.modal-content {
+    padding: 20px;
+}
+
+/* 모달 닫기 버튼 스타일 */
+.close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+
 /* Modified from: https://github.com/mukulkant/Star-rating-using-pure-css */

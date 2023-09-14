@@ -9,6 +9,7 @@ import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.TransactionDefinition;
 import org.springframework.transaction.TransactionStatus;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
 
 import com.yamco.user.model.vo.Ref_VO;
@@ -74,41 +75,40 @@ public class U_recipe_DAO {
 	}
 
 	// 조회수 상승
+	@Transactional
 	public int getHitUp(String rcp_idx, String m_idx) {
+		
 		// 트랜잭션 처리
 		int result = 0;
 		TransactionDefinition def = new DefaultTransactionDefinition();
 		TransactionStatus status = transactionManager.getTransaction(def);
-
+		
 		try {
-			Integer int_m_idx = Integer.parseInt(rcp_idx);
-			if (int_m_idx < 10000) { //공공레시피인 경우
-				result += sqlSessionTemplate.update("p_recipe.hitUp", rcp_idx);
-			} else { //사용자레시피인 경우
+			if (Integer.parseInt(rcp_idx) >= 10001) {
+				// 사용자레시피 조회수 올리기
 				result += sqlSessionTemplate.update("u_recipe.hitUp", rcp_idx);
+			}else {
+				// 공공레시피 조회수 올리기
+				result += sqlSessionTemplate.update("api.hit_update", rcp_idx);
 			}
-
-			if (result == 1) { //hitUp update가 정상적으로 실행된 경우
-				User_log_VO ulvo = new User_log_VO();
-				ulvo.setRcp_idx(rcp_idx);
-				if (m_idx != null && !m_idx.isBlank()) {
-					ulvo.setM_idx(m_idx);
-				}
-				ulvo.setUl_status("3"); // 3 : 조회
-				result += sqlSessionTemplate.insert("user_log.insert", ulvo);
-				if (result == 2) { //hitUP update와 log insert 둘 다 정상적으로 실행된 경우
-					transactionManager.commit(status);
-					return result;
-				}
+			
+			User_log_VO ulvo = new User_log_VO();
+			ulvo.setRcp_idx(rcp_idx);
+			if (m_idx != null && !m_idx.isBlank()) {
+				ulvo.setM_idx(m_idx);
 			}
-
-			//둘 중 하나라도 정삭적으로 실행되지 않으면 롤백한다
-			transactionManager.rollback(status);
+			ulvo.setUl_status("3"); // 3 : 조회
+			result += sqlSessionTemplate.insert("user_log.insert", ulvo);
+			// 오류가 안 나고 넘어오는 경우에도 rollback
+			if (result == 2) {
+				transactionManager.commit(status);
+			}else {
+				transactionManager.rollback(status);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			transactionManager.rollback(status);
 		}
-
 		return result;
 	}
 

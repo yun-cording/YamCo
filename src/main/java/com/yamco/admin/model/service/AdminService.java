@@ -7,6 +7,7 @@ import com.yamco.admin.model.vo.Admin_Banner_VO;
 import com.yamco.admin.model.vo.Admin_Dash_VO;
 import com.yamco.admin.model.vo.Admin_Report_Chk_VO;
 import com.yamco.admin.model.vo.Member_count_summary_VO;
+import com.yamco.admin.model.vo.Report_VO;
 import com.yamco.admin.model.vo.Admin_Report_VO;
 
 public interface AdminService {
@@ -41,6 +42,9 @@ public interface AdminService {
 	
 	// 신고된 내용들 전부 불러오기
 	public List<List<Admin_Report_Chk_VO>> admin_report_All();
+	
+	// TODO 상우 신고 기능 넣기 시작
+	public String reportInsert(Report_VO revo);
 
 	// 신고 답변 전달
 	public int answer_report(Admin_Report_Chk_VO arcvo);
