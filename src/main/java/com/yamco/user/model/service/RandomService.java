@@ -28,7 +28,7 @@ public class RandomService {
 	 
 	 	@PostConstruct
 	    public void initializeFileList() {
-	        // 데이터베이스에서 파일 정보를 가져와 fileList에 저장하는 로직 구현
+	        
 	 		fileList = random_DAO.getRandomList();
 	 		updateSelectedFile();
 	 		

@@ -339,9 +339,8 @@
 				
 				</div>	<!-- content 끝 -->
 				
-			</div> <!-- test 끝 -->
 			
-		</div> <!-- mydiv 끝 -->
+			
 	
 		<aside id="sidebar-right">
 			<jsp:include page="../../bestlist.jsp" />
@@ -349,6 +348,7 @@
 		<div id="footer">
 			<jsp:include page="../../footer.jsp" />
 		</div> 
+		</div> <!-- mydiv 끝 -->
 <!-- script 위치 -->		
 <!-- JavaScript 코드 -->
 <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
