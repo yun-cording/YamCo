@@ -359,7 +359,7 @@ public class LoginController {
 			session.setAttribute("m_image", mvo.getM_image());
 			mv.setViewName("/login/social_join"); // 닉네임받는곳
 			return mv;
-		} // 구글 로그인 처음 회원가입 끝
+		} // 구글 로그인 끝
 	}
 
 	// TODO 구글 로그인 끝

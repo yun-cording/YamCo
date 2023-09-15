@@ -115,7 +115,14 @@
 					<span style="margin-left: 574px; font-size:32px; position: relative; top: -180px;"><strong>요리 tip</strong></span>
 					<div id="rcp_tip">
 							<p id="recipe_tip" class="font_size_24">
-								<%-- ${uvo.u_rcp_tip} --%> 요리 팁 추가해야합니다.
+							<c:choose >
+							<c:when test="${uvo.u_rcp_tip != null}">
+								${uvo.u_rcp_tip} 
+								</c:when>
+								<c:otherwise>
+								요리 팁 추가해야합니다.
+								</c:otherwise>
+								</c:choose>
 							</p>
 					</div>
 				</div>
