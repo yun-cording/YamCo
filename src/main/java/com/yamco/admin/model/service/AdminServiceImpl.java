@@ -1,6 +1,11 @@
 package com.yamco.admin.model.service;
 
 import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpSession;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,13 +14,17 @@ import com.yamco.admin.model.dao.AdminDAO;
 import com.yamco.admin.model.vo.Admin_Banner_VO;
 import com.yamco.admin.model.vo.Admin_Dash_VO;
 import com.yamco.admin.model.vo.Admin_Report_Chk_VO;
-import com.yamco.admin.model.vo.Member_count_summary_VO;
 import com.yamco.admin.model.vo.Admin_Report_VO;
+import com.yamco.admin.model.vo.Member_count_summary_VO;
+import com.yamco.admin.model.vo.Report_VO;
+import com.yamco.user.model.dao.Report_DAO;
 
 @Service
 public class AdminServiceImpl implements AdminService {
 	@Autowired
 	private AdminDAO adminDAO;
+	@Autowired
+	private Report_DAO report_DAO;
 
 	@Override
 	public Admin_Dash_VO getDashBoard() {
@@ -111,29 +120,6 @@ public class AdminServiceImpl implements AdminService {
 		return adminDAO.getMemberCountSummary();
 	}
 	
-	// 신고당한 리스트 전부 가져오기
-	@Override
-	public List<Admin_Report_Chk_VO> getReportlist() {
-		return adminDAO.getReportlist();
-	}
-	
-	// 신고당한 댓글 리스트 가져오기
-	@Override
-	public List<Admin_Report_Chk_VO> getCommentList() {
-		return adminDAO.getCommentList();
-	}
-	
-	// 신고응답 처리 완료된 게시글 불러오기
-	@Override
-	public List<Admin_Report_Chk_VO> getReportRecipeResult() {
-		return adminDAO.getReportRecipeResult();
-	}
-	
-	// 신고 응답 처리 완료된 댓글 불러오기
-	@Override
-	public List<Admin_Report_Chk_VO> getReportCommentResult() {
-		return adminDAO.getReportCommentResult();
-	}
 	// 신고 내역 전부 불러오기
 	@Override
 	public List<List<Admin_Report_Chk_VO>> admin_report_All() {
@@ -143,5 +129,17 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public boolean blindCancelDo(Admin_Report_VO vo) {
 		return adminDAO.blindCancelDo(vo);
+	}
+	
+	// TODO 상우 신고 기능 넣기 시작
+	public String reportInsert(Report_VO revo) {
+		return report_DAO.reportInsert(revo); 
+	}
+	// TODO 상우 신고 기능 넣기 완료
+	
+	//신고 답변
+	@Override
+	public int answer_report(Admin_Report_Chk_VO arcvo) {
+		return adminDAO.answer_report(arcvo);
 	}
 }

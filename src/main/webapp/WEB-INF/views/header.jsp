@@ -10,7 +10,6 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 <script type="text/javascript">
 function recipeChk() {
-//$("#recipeChk").on('click', function() {
 $.ajax({
 	type: 'get',
 	url : '/limit_recipe_chk.do',
@@ -34,8 +33,8 @@ $.ajax({
 		}
 	}
 }); /* ajax 끝 */
-//}); /* recipeChk 클릭 끝 */	
 }
+
 
 </script>
 <body>
@@ -54,7 +53,8 @@ $.ajax({
         </form>
         <div class="login">
                 <div class="login_bt" onclick="togglePop()">
-                  <a id="login_link" href="/login.go">
+                  <!-- <a id="login_link" href="/login.go?"> -->
+                  <a id="login_link" onclick="gologin()">
                 <div class="login_thumbnail"><img id="user_thumbnail" src=""></div>
                 <span id="login_text" class="login_text">로 그 인</span></a>
                 <div><span id="user_Id" class="user_Id">누구누구</span></div>
@@ -74,7 +74,7 @@ $.ajax({
         <div class="menu_bar">
                 <a href="/public_list.go"><div class="menu tab1"><span id="p_rcp">냠냠공식레시피</span></div></a>
                 <a href="/user_list.go"><div class="menu tab2"><span id="chef_rcp">냠냠's쉐프레시피</span></div></a>
-                <a href="/ranking_recipe.go"><div class="menu tab3"><span id="rank">랭킹</span></div></a>
+                <a href="/go_ranking_recipe_7day.do"><div class="menu tab3"><span id="rank">랭킹</span></div></a>
                 <a href="/plz.go"><div class="menu tab4"><span id="open_ref">냉장고를열어봐</span></div></a>
                 <a href="/award.go"><div class="menu tab5"><span id="grade">명예의전당</span></div></a>
                 <a href="/faq.go"><div class="menu tab6"><span id="faq">FAQ</span></div></a>
@@ -132,6 +132,11 @@ $.ajax({
                     tab.classList.add('active');
                 });
           });
+          
+          var url = window.location.pathname;
+			function gologin() {
+				location.href="/login.go?url="+url
+			}
           </script>
 </body>
 </html>

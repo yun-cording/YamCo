@@ -68,7 +68,7 @@ document.addEventListener("DOMContentLoaded", function() {
 				<jsp:include page="../../recentlist.jsp" />
 			</aside>
 			<!-- 내용들 담은 form태그 시작 -->
-			<form enctype="multipart/form-data" method="post" onsubmit="return write_go(this)" >
+			<form enctype="multipart/form-data" method="post">
 				<div id="content">
 					<!-- 레시피 제목 -->
 					<div class="left_margin" style="margin-top: 60px; float: left;">
@@ -292,13 +292,13 @@ $(document).ready(function() {
 			return false;
 		}
 		
-		if(f.u_rcp_category1.value.trim() == 'select_category'){
+		if(f.u_rcp_category1.value == '카테고리를 선택하세요.'){
 			alert("카테고리를 선택해 주세요");
 			f.u_rcp_category1.focus();
 			return false;
 		}
 		
-		if(f.u_rcp_category2.value.trim() == 'select_category'){
+		if(f.u_rcp_category2.value == '카테고리를 선택하세요.'){
 			alert("카테고리를 선택해 주세요");
 			f.u_rcp_category2.focus();
 			return false;
@@ -310,22 +310,25 @@ $(document).ready(function() {
 			return false;
 		}
 		
-		if($("#fileInput").val() == null ){ // 파일이 업로드 되었을때
+		if(!$("#fileInput").val() ){ // 파일이 업로드 안될때
 			alert("파일을 업로드 해주세요.");
 		f.u_rcp_img1.focus();
 		return false;
 		}
+		if(!fieldCount){
+			alert("재료를 입력해주세요")
+		}
 		
 	var u_rcp_status = 0;
-	 var u_rcp_ing2 = [];
-	 console.log("filedCount : " + fieldCount);
+	 var u_rcp_ingArr = [];
 	for (var i = 0; i < fieldCount; i++) {	
-		u_rcp_ing2[i-1] = $("#ing_box"+i).val();
+		u_rcp_ingArr[i] = $("#ing_box"+i).val();
 	} 
 		
 	if(confirm("저장 하시겠습니까?") == true){
 			//alert("저장해");
-		f.action="/write_go?u_rcp_ing2="+u_rcp_ing2+"&u_rcp_status="+u_rcp_status;
+		f.action="/write_go?u_rcp_ingArr="+u_rcp_ingArr+"&u_rcp_status="+u_rcp_status;
+		f.submit()
 		}else{
 			//alert("저장안해");	
 			return false;
@@ -333,7 +336,6 @@ $(document).ready(function() {
 	}	
 	
 	function limitWrite_go(f) {
-
 		if(confirm("임시저장은 한개의 레시피만 가능합니다.\n임시저장 하시겠습니까?") == true){
 			// true일 경우 controller 에서 update문으로 새로 작성한 임시저장글로 업데이트
 		 if(f.u_rcp_title.value.trim().length<=0){
@@ -342,13 +344,17 @@ $(document).ready(function() {
 			return false;
 		}
 		var u_rcp_status = 2;
-		 var u_rcp_ing2 = [];
-		for (var i = 0; i < fieldCount; i++) {
-			u_rcp_ing2[i-1] = $("#ing_box"+i).val();
-		} 
-		
-		f.action="/write_go?u_rcp_ing2="+u_rcp_ing2+"&u_rcp_status="+u_rcp_status;
-		f.submit();	
+		if(!$("#ing_box1")==null){
+			var u_rcp_ingArr = [];
+			for (var i = 0; i < fieldCount; i++) {
+				u_rcp_ingArr[i] = $("#ing_box"+(i+1)).val();
+			}
+			f.action="/write_go?u_rcp_ingArr="+u_rcp_ingArr+"&u_rcp_status="+u_rcp_status;
+			f.submit()
+		}else{
+			f.action="/write_go?u_rcp_status="+u_rcp_status;
+			f.submit();	
+		}
 		
 	}else{
 		return false;
@@ -386,7 +392,7 @@ document.addEventListener("DOMContentLoaded", function() {
 							<!-- 썸머노트 버튼 -->
 							<div style="margin-top: 50px; margin-bottom: 100px;">
 								<button type="button" class="summer_btn left_margin" onclick="cancel_btn()" >취소</button> <!-- onclick="cancel_btn()" -->
-								<button type="submit" class="summer_btn" style="background-color: tomato; float: right; margin-right: 100px;" >글쓰기</button>
+								<button type="button" class="summer_btn" style="background-color: tomato; float: right; margin-right: 100px;" onclick="write_go(this.form)" >글쓰기</button>
 								<button type="button" class="summer_btn" style="float: right;" onclick="limitWrite_go(this.form)" >임시저장</button>
 								<!-- <input type="submit" class="summer_btn" style="float: right;" onclick="limitWrite_go(this.form)" >임시저장</input> -->
 							</div>

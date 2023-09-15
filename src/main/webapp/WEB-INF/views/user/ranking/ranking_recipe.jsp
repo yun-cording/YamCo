@@ -10,7 +10,7 @@
 <link rel="icon" type="image/x-icon"
 	href="resources/images/icon_tomato.png">
 <link rel="stylesheet"
-	href="resources/css/user/ranking/ranking_recipe.css" />
+	href="resources/css/user/ranking/ranking_recipe.css?after" />
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script src="resources/js/user/sidebar.js"></script>
 <script type="text/javascript">
@@ -88,7 +88,7 @@
 												</c:when>
 												<c:otherwise>
 													<c:set var="rcp_url"
-														value="/public_recipe_detail.go?rcp_idx=${k.rcp_idx }" />
+														value="/user_recipe_detail.do?rcp_idx=${k.rcp_idx }" />
 												</c:otherwise>
 											</c:choose>
 											<a href="${rcp_url }"> <img

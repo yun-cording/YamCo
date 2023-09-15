@@ -168,19 +168,7 @@ select option[value=""][disabled] {
     	    });
     	});
     	
-    	function search_go(f) {
-			var category =  $(".category").val();
-			alert(category);
-			var title = $(".input_txf").val();
-			alert(title);
-			var start_date = $("#startday").val();
-			alert(start_date);
-			var end_date = $("#endday").val();
-			alert(end_date);
-			var status = $("input:radio[name='btn_status']:checked").val();
-			alert(status);
-			f.submit();
-		}
+    	
     	function confirm_go(rcp_idx,button) {
     		var order = $(button).attr("order")
     		var sendData ='';
@@ -267,6 +255,11 @@ select option[value=""][disabled] {
     		$("#blind_label").addClass("btn-danger").removeClass("btn-outline-danger").addClass("text-white")
 			$("#regist_label").removeClass("btn-success").addClass("btn-outline-success").removeClass("text-white")
 		}
+    	
+    	function search_go(f) {
+    		f.action="/admin/content_search.go";
+			f.submit();
+		}
     </script>
     
     <!-- Custom fonts for this template-->
@@ -306,7 +299,7 @@ select option[value=""][disabled] {
 					<div class="row justify-content-between">			
 						<div
 							class="col-8 mt-4 p-3 text-center rounded shadow w-75">
-							<form action="/content_search.go" method="post">	
+							<form action="" method="post">	
 							<div class="card h-100">
 								<h6
 									class="card-header bg-light text-black-50 fw-bold small text-start">
@@ -376,7 +369,7 @@ select option[value=""][disabled] {
 											</div>
 										</li>
 								<li class="list-group-item">
-									<div class="row justify-content-around align-items-center">
+                                   <div class="row justify-content-around align-items-center">
 										<div class="col-12 col-xxl-auto text-xxl-start fw-bold">게시글
 											상태</div>
 										<div class="col">
@@ -384,12 +377,12 @@ select option[value=""][disabled] {
 												aria-label="Basic radio toggle button group">
 												<div class="btn_empty d-grid gap-2 col-6 mx-auto">
 													
-													<input type="radio" class="btn-check" name="btn_status" id="btnradio4" autocomplete="off" checked>
+													<input type="radio" class="btn-check" name="btn_status" id="btnradio4" autocomplete="off" value="게시중">
 													<label class="btn btn-outline-success" id="regist_label" for="btnradio4" onclick="regist_go()">게시중</label>
 
 												</div>
 												<div class="btn_empty d-grid gap-2 col-6 mx-auto">
-													<input type="radio" class="btn-check" name="btn_status" id="btnradio5" autocomplete="off">
+													<input type="radio" class="btn-check" name="btn_status" id="btnradio5" autocomplete="off" value="블라인드">
 													<label class="btn btn-outline-danger" id="blind_label" for="btnradio5" onclick="blind_go()">블라인드</label>
 												</div>
 											</div>
@@ -541,24 +534,6 @@ select option[value=""][disabled] {
     <a class="scroll-to-top rounded" href="#page-top">
         <i class="fas fa-angle-up"></i>
     </a>
-    <!-- Logout Modal-->
-    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">로그아웃 하시겠습니까?</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">취소</button>
-                    <a class="btn btn-danger" href="login.html">로그아웃</a>
-                </div>
-            </div>
-        </div>
-    </div>
 
 
 <!-- Bootstrap core JavaScript-->

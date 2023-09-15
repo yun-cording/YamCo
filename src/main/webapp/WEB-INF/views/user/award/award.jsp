@@ -86,17 +86,17 @@
 														<c:when test="${not empty recipeMap['1']}">
 															<div class="prize_recipe_title">
 																<a
-																	href="/public_recipe_detail.go?rcp_idx=${recipeMap['1'].rcp_idx}"><p>${recipeMap['1'].u_rcp_title}</p></a>
+																	href="/user_recipe_detail.do?rcp_idx=${recipeMap['1'].rcp_idx}"><p>${recipeMap['1'].u_rcp_title}</p></a>
 															</div>
 															<div class="prize_recipe_photo">
 																<a
-																	href="/public_recipe_detail.go?rcp_idx=${recipeMap['1'].rcp_idx}"><img
+																	href="/user_recipe_detail.do?rcp_idx=${recipeMap['1'].rcp_idx}"><img
 																	src="${recipeMap['1'].u_rcp_img}"
 																	alt="${recipeMap['1'].u_rcp_img}"></a>
 															</div>
 															<div class="prize_recipe_content">
 																<a
-																	href="/public_recipe_detail.go?rcp_idx=${recipeMap['1'].rcp_idx}"><p>${recipeMap['1'].u_rcp_comment }</p></a>
+																	href="/user_recipe_detail.do?rcp_idx=${recipeMap['1'].rcp_idx}"><p>${recipeMap['1'].u_rcp_comment }</p></a>
 															</div>
 														</c:when>
 														<c:otherwise>
@@ -136,17 +136,17 @@
 												<c:when test="${not empty recipeMap['0']}">
 													<div class="prize_recipe_title">
 														<a
-															href="/public_recipe_detail.go?rcp_idx=${recipeMap['0'].rcp_idx}"><p>${recipeMap['0'].u_rcp_title}</p></a>
+															href="/user_recipe_detail.do?rcp_idx=${recipeMap['0'].rcp_idx}"><p>${recipeMap['0'].u_rcp_title}</p></a>
 													</div>
 													<div class="prize_recipe_photo">
 														<a
-															href="/public_recipe_detail.go?rcp_idx=${recipeMap['0'].rcp_idx}"><img
+															href="/user_recipe_detail.do?rcp_idx=${recipeMap['0'].rcp_idx}"><img
 															src="${recipeMap['0'].u_rcp_img}"
 															alt="${recipeMap['0'].u_rcp_img}"></a>
 													</div>
 													<div class="prize_recipe_content">
 														<a
-															href="/public_recipe_detail.go?rcp_idx=${recipeMap['0'].rcp_idx}"><p>${recipeMap['0'].u_rcp_comment }</p></a>
+															href="/user_recipe_detail.do?rcp_idx=${recipeMap['0'].rcp_idx}"><p>${recipeMap['0'].u_rcp_comment }</p></a>
 													</div>
 												</c:when>
 												<c:otherwise>
@@ -184,17 +184,17 @@
 														<c:when test="${not empty recipeMap['2']}">
 															<div class="prize_recipe_title">
 																<a
-																	href="/public_recipe_detail.go?rcp_idx=${recipeMap['2'].rcp_idx}"><p>${recipeMap['2'].u_rcp_title}</p></a>
+																	href="/user_recipe_detail.do?rcp_idx=${recipeMap['2'].rcp_idx}"><p>${recipeMap['2'].u_rcp_title}</p></a>
 															</div>
 															<div class="prize_recipe_photo">
 																<a
-																	href="/public_recipe_detail.go?rcp_idx=${recipeMap['2'].rcp_idx}"><img
+																	href="/user_recipe_detail.do?rcp_idx=${recipeMap['2'].rcp_idx}"><img
 																	src="${recipeMap['2'].u_rcp_img}"
 																	alt="${recipeMap['2'].u_rcp_img}"></a>
 															</div>
 															<div class="prize_recipe_content">
 																<a
-																	href="/public_recipe_detail.go?rcp_idx=${recipeMap['2'].rcp_idx}"><p>${recipeMap['2'].u_rcp_comment }</p></a>
+																	href="/user_recipe_detail.do?rcp_idx=${recipeMap['2'].rcp_idx}"><p>${recipeMap['2'].u_rcp_comment }</p></a>
 															</div>
 														</c:when>
 														<c:otherwise>
@@ -237,7 +237,7 @@
 									<c:choose>
 										<c:when test="${not empty recipeMap[myIndex]}">
 											<td><a
-												href="/public_recipe_detail.go?rcp_idx=${recipeMap[myIndex].rcp_idx}">${recipeMap[myIndex].u_rcp_title}</a></td>
+												href="/user_recipe_detail.do?rcp_idx=${recipeMap[myIndex].rcp_idx}">${recipeMap[myIndex].u_rcp_title}</a></td>
 											<td>${recipeMap[myIndex].u_rcp_category}</td>
 											<td>${recipeMap[myIndex].avg_grade}</td>
 										</c:when>

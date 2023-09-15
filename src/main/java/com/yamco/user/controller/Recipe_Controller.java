@@ -19,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
@@ -52,10 +53,9 @@ public class Recipe_Controller {
 	//레시피 저장 , 레시피 임시저장
 	@PostMapping("/write_go")
 	public ModelAndView get_write(U_recipe_VO uvo, HttpServletRequest request,
-			@RequestPart("u_rcp_img1") MultipartFile u_rcp_img1, String[] u_rcp_ing2, String u_rcp_status) {
+			@RequestPart("u_rcp_img1") MultipartFile u_rcp_img1,String u_rcp_ingArr, String u_rcp_status) {
 		ModelAndView mv = new ModelAndView("redirect:/");
 		HttpSession session = request.getSession();
-
 		System.out.println("recipe_status : " + u_rcp_status);
 		String name = (String) session.getAttribute("m_nick");
 		System.out.println("닉네임 : " + name);
@@ -74,28 +74,12 @@ public class Recipe_Controller {
 			u_rcp_keyword = uvo.getU_rcp_keyword1() + "," + uvo.getU_rcp_keyword2();
 		}
 		uvo.setU_rcp_keyword(u_rcp_keyword);
-		
-		// 재료들 배열 값 넣기
-		String u_rcp_ing = "";
-		for (int i = 0; i < u_rcp_ing2.length; i++) {
-			u_rcp_ing += u_rcp_ing2[i] + ",";
-		}
-		//db 에 카테고리 값 넣기
-		uvo.setU_rcp_category(uvo.getU_rcp_category1()+","+uvo.getU_rcp_category2());
-		
-		System.out.println("u_rcp_ing : " + u_rcp_ing);
-		uvo.setU_rcp_ing(u_rcp_ing);
-		
-		for (int i = 0; i < u_rcp_ing2.length; i++) {
-		System.out.println("재료 입력값[" + i + "] :" + u_rcp_ing2[i]);
-		}
-		System.out.println("카테고리 1 : " + uvo.getU_rcp_category1());
-		System.out.println("카테고리 2 : " + uvo.getU_rcp_category2());
-		System.out.println("난이도 : " + uvo.getU_rcp_level());
-		System.out.println("메인작성내용 : " + uvo.getU_rcp_main());
+		uvo.setU_rcp_ing(u_rcp_ingArr);
+		uvo.setU_rcp_category(uvo.getU_rcp_category2());
+		uvo.setU_rcp_ctype(uvo.getU_rcp_category1());
+		System.out.println(u_rcp_ingArr);
 		
 		try {
-				
 			if (u_rcp_status.equals("2")) { // 임시 저장으로 등록했을 경우
 				uvo.setU_rcp_status(u_rcp_status);
 
@@ -111,9 +95,7 @@ public class Recipe_Controller {
 
 				// db에 파일 이름 값 넣기
 				uvo.setU_rcp_img(u_rcp_img);
-				System.out.println("파일 이름 : " + u_rcp_img);
 				String path = request.getSession().getServletContext().getRealPath("resources/user_image/user_thumnail"); // 업로드할 폴더 경로
-				System.out.println("저장 경로 : " + path);
 				File saveFile = new File(path + "//" + u_rcp_img);
 				u_rcp_img1.transferTo(saveFile); // 파일을 톰켓 가상폴더에 저장 // 파일 처리 끝		
 				} // 파일이 첨부되어 있을경우 끝
@@ -159,15 +141,10 @@ public class Recipe_Controller {
 		
 		if(result2.equals("yes")){ // 임시저장글 작성페이지로 이동할 경우
 			U_recipe_VO urvo = u_recipe_Service.getLimit_recipe(m_idx);
-			// List<String> category1 = Arrays.asList("select_category", "select_steam",
-			// "select_boil", "select_cook",
-			// "select_stir", "select_fry", "select_etc");
-			
 			// 카테고리 값 넘겨주기 처리
-			String[] u_rcp_category = urvo.getU_rcp_category().split(",");
-			String category_choice1 = u_rcp_category[0].trim();
+			String category_choice1 = urvo.getU_rcp_ctype();
 			System.out.println("category_choice1 : " + category_choice1);
-			String category_choice2 = u_rcp_category[1].trim();
+			String category_choice2 = urvo.getU_rcp_category();
 			System.out.println("category_choice2 : " + category_choice2);
 			
 			// 난이도는 jsp가서 처리하는 걸로
@@ -181,21 +158,21 @@ public class Recipe_Controller {
 				System.out.println("u_rcp_keyword1 : " + u_rcp_keyword1);
 				System.out.println("u_rcp_keyword2 : " + u_rcp_keyword2);
 				mv.addObject("u_rcp_keyword2",u_rcp_keyword2);
+				mv.addObject("keyword_length",2);
 			}else { // 키워드가 1개인 경우
 				u_rcp_keyword1 = urvo.getU_rcp_keyword();
 				mv.addObject("u_rcp_keyword1",u_rcp_keyword1);
+				mv.addObject("keyword_length",1);
 				System.out.println("u_rcp_keyword1 : " + u_rcp_keyword1);
 			}
-			
-			int ing_count = urvo.getU_rcp_ing().replace(",", ",").length(); // 재료 추가버튼 겟수
-			String[] arr = urvo.getU_rcp_ing().split(",");
-			for (int i = 0; i < arr.length; i++) {
-				System.out.println("배열의 크기 : "+arr[i]);
+			if(urvo.getU_rcp_ing()!=null) {
+				String[] arr = urvo.getU_rcp_ing().split(",");
+				int length = arr.length;
+				mv.addObject("rcp_ing",arr);
+				mv.addObject("length",length);
+			}else {
+				mv.addObject("length",0);
 			}
-			int length = arr.length;
-			System.out.println("length길이는 : "+ length);
-			mv.addObject("arr",arr);
-			mv.addObject("length",length);
 			mv.setViewName("/user/recipe/limit_recipe_write");
 			mv.addObject("category_choice1", category_choice1);
 			mv.addObject("category_choice2", category_choice2);
@@ -217,7 +194,6 @@ public class Recipe_Controller {
 		}
 	}
 
-	
 	
 	@PostMapping("/saveImage.do")
 	@ResponseBody
@@ -299,22 +275,20 @@ public class Recipe_Controller {
 		// 상세페이지 idx를 현재페이지에 담자
 		session.setAttribute("currentRcpIdx", rcp_idx);
 		
-		System.out.println("현재 페이지 rcpidx는 " + rcp_idx);
 		
 		// rcp_idx에 해당하는 자료 가져오자.
 		U_recipe_meta_VO uvo = new U_recipe_meta_VO();
 		uvo = u_recipe_Service.u_recipe_detail(rcp_idx);
 		
+		String m_idx = (String)session.getAttribute("m_idx");
+		
 		// 조회수 1 올리기
-		api_Service.hitUpdate(rcp_idx);
+		u_recipe_Service.getHitUp(rcp_idx, m_idx);
 
     	// wishlist 여부 받아오기
-    	String m_idx = (String)session.getAttribute("m_idx");
-    	System.out.println("Rcp_Cont id는 : " + m_idx);
     	
     	// 좋아요했는가
     	String liked_ornot = p_recipe_Service.liked_ornot(m_idx, String.valueOf(rcp_idx));
-    	System.out.println("좋아요했는가 : " + liked_ornot);
     	// 좋아요 안함
 		mv.addObject("liked_ornot", liked_ornot);
 		
@@ -343,13 +317,12 @@ public class Recipe_Controller {
 			}
 		}
 		
-//	
+		u_recipe_Service.getHitUp(rcp_idx, m_idx);
 //		
 //		
 //		// TODO 상우 이런 레시피는 어떠세요?(레시피 추천) 시작
 		// 전체 리스트 받아오기
 		List<U_recipe_meta_VO> userList = u_recipe_Service.u_recipe_list();
-		System.out.println("전체는 받음");
 
 		// 추천게시물 띄우기
 		// 랜덤으로 선택한 게시물의 인덱스를 저장할 리스트
@@ -421,7 +394,7 @@ public class Recipe_Controller {
 			rec_vo.setCate(uvo.getU_rcp_category());
 			rec_vo.setImg(uvo.getU_rcp_img());
 			rec_vo.setTitle(uvo.getU_rcp_title());
-			rec_vo.setWriter("공공데이터 제공");
+			rec_vo.setWriter(uvo.getM_nick());
 			recent.add(0, rec_vo);
 			if (recent.size() < 4) {
 				recent.subList(0, recent.size() - 1);

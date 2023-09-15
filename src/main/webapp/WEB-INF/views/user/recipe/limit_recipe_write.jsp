@@ -51,9 +51,7 @@ document.addEventListener("DOMContentLoaded", function() {
 			reader.onload = function (e) {
 			$('#thumnail_img_pick').attr("src", e.target.result );
 			};
-			
 			reader.readAsDataURL(selectFile);
-			
 		});
 	});	 
 </script>
@@ -374,7 +372,7 @@ document.addEventListener("DOMContentLoaded", function() {
 								<c:choose>
 								<c:when test="${ category_choice2 eq '반찬'}">
 								<option value="1인분" >1인분</option>
-								<option value="채식" selected>채식</option>
+								<option value="채식" >채식</option>
 								<option value="국물류" >국물류</option>
 								<option value="돈까스,일식" >돈까스,일식</option>
 								<option value="고기,구이" >고기,구이</option>
@@ -410,7 +408,7 @@ document.addEventListener("DOMContentLoaded", function() {
 								<c:choose>
 								<c:when test="${ category_choice2 eq '기타'}">
 								<option value="1인분" >1인분</option>
-								<option value="채식" selected>채식</option>
+								<option value="채식" >채식</option>
 								<option value="국물류" >국물류</option>
 								<option value="돈까스,일식" >돈까스,일식</option>
 								<option value="고기,구이" >고기,구이</option>
@@ -437,7 +435,7 @@ document.addEventListener("DOMContentLoaded", function() {
 								style="float: right; margin-top: -260px; margin-right: -470px;">
 								<c:choose>
 								
-								<c:when test="${ level == 'newbie_lev'}">
+								<c:when test="${urvo.u_rcp_level == 'newbie_lev'}">
 								  <input type="radio" id="html" class="radio_font checkmark"name="u_rcp_level" value="newbie_lev" checked>  
 									<label for="html" class="radio_font">초급 냠냠</label>  
 									<input type="radio" id="css" class="radio_font checkmark"name="u_rcp_level" value="middle_lev" >  
@@ -448,7 +446,7 @@ document.addEventListener("DOMContentLoaded", function() {
 								</c:choose>
 										
 								<c:choose>
-								<c:when test="${ level == 'middle_lev'}">
+								<c:when test="${urvo.u_rcp_level == 'middle_lev'}">
 								  <input type="radio" id="html" class="radio_font checkmark"name="u_rcp_level" value="newbie_lev" >  
 									<label for="html" class="radio_font">초급 냠냠</label>  
 									<input type="radio" id="css" class="radio_font checkmark"name="u_rcp_level" value="middle_lev" checked>  
@@ -459,7 +457,7 @@ document.addEventListener("DOMContentLoaded", function() {
 								</c:choose>		
 								
 								<c:choose>
-								<c:when test="${ level == 'advanced_lev'}">
+								<c:when test="${urvo.u_rcp_level == 'advanced_lev'}">
 								  <input type="radio" id="html" class="radio_font checkmark"name="u_rcp_level" value="newbie_lev" >  
 									<label for="html" class="radio_font">초급 냠냠</label>  
 									<input type="radio" id="css" class="radio_font checkmark"name="u_rcp_level" value="middle_lev" >  
@@ -480,11 +478,11 @@ document.addEventListener("DOMContentLoaded", function() {
 								<span class="font_32"
 									style="color: #606060; float: left; margin-left: 60px; margin-top: -5px;">#</span>
 									<c:choose>
-									<c:when test="${length == 1 }">
+									<c:when test="${keyword_length == 1 }">
 									<input type="text" class="input_tomato" id="hashtag" name="u_rcp_keyword1" style="margin-left: 20px;" value="${u_rcp_keyword1 }"
 									placeholder="해시태그를 입력후 enter를 눌러주세요." required oninvalid="this.setCustomValidity('해시태그를 입력해세요.')" oninput="this.setCustomValidity('')">
 									</c:when>
-									<c:when test="${length == 2 }">
+									<c:when test="${keyword_length == 2 }">
 									<input type="text" class="input_tomato" id="hashtag" name="u_rcp_keyword1" style="margin-left: 20px;" value="${u_rcp_keyword1 }"
 									placeholder="해시태그를 입력후 enter를 눌러주세요." required oninvalid="this.setCustomValidity('해시태그를 입력해세요.')" oninput="this.setCustomValidity('')">
 									<input type="text" class="input_tomato" id="hashtag1" name="u_rcp_keyword2" style="margin-left: 20px;" value="${u_rcp_keyword2 }"
@@ -496,7 +494,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
 						<!-- 요리 팁 + 임시저장 -->
 						<div>
-					
 							<!-- 요리 팁 -->
 							<div>
 								<span class="font_32 left_margin" style="float: left;">요리Tip</span>
@@ -522,6 +519,16 @@ document.addEventListener("DOMContentLoaded", function() {
 									</div>
 									<div class="container" id="ingredientsContainer"
 										style="margin-top: 30px;">
+										<c:forEach items="${rcp_ing }" var="k" varStatus="vs">
+											<c:choose>
+												<c:when test="${(vs.index)%2==0 }">
+													<input type="text" id="ing_box${vs.index+1 }" value="${k }" class="input_green left_margin_80" style="width: 510px; height: 50px; color: black; margin-bottom: 15px;" placeholder="ex) 두부 1모1" required>
+												</c:when>
+												<c:otherwise>
+													<input type="text" id="ing_box${vs.index+1 }" value="${k }" class="input_green left_margin_80" style="width: 510px; height: 50px; color: black; margin-right: 100px; float: right; margin-bottom: 15px;" placeholder="ex) 두부 1모2" required>
+												</c:otherwise>
+											</c:choose>
+										</c:forEach>
 										<!-- 클릭할 때마다 1줄씩 생성 -->
 									</div>
 								</div>
@@ -566,13 +573,12 @@ $(document).ready(function() {
 			newhashtagInput.focus();
 			alert("해시태그는 2개까지 가능합니다.");
 			return;
-			
 		}
 	});
 });	
 </script>
 <script type="text/javascript">
-		var fieldCount = 0;
+	var fieldCount = ${length}
 	var newInputField = 0;
 	//for() 컨트롤러에서 값 가져올때 split으로 ,기준으로 잘라서 배열을 만들고 배열 크기만큼의 숫자 값을 넘겨줘서
 	//for문을 실행한 후 각 칸에 해당하는 벨류값을 넣어준다.
@@ -580,14 +586,14 @@ $(document).ready(function() {
 		
 		if (fieldCount < 20) {
 			if(fieldCount>0){
-			 newInputField = $("#ing_box"+fieldCount);
+			 newInputField = $("#ing_box"+(fieldCount));
 			 if(newInputField.val().length<=0){
 				alert("재료를 입력하고 추가 해주세요.");
 				newInputField.focus();
 				return false;
 				}
 			}
-			 
+		
 		var new_input = $('<input>');
 		fieldCount++;
 		new_input.attr("type","text");
@@ -614,21 +620,21 @@ $(document).ready(function() {
 		}
 	};
 	
-	function write_go(f) {
-			
+function write_go(f) {
+		
 		if(f.u_rcp_title.value.trim().length<=0){
 			alert("제목을 입력해 주세요.");
 			f.u_rcp_title.focus();
 			return false;
 		}
 		
-		if(f.u_rcp_category1.value.trim() == 'select_category'){
+		if(f.u_rcp_category1.value == '카테고리를 선택하세요.'){
 			alert("카테고리를 선택해 주세요");
 			f.u_rcp_category1.focus();
 			return false;
 		}
 		
-		if(f.u_rcp_category2.value.trim() == 'select_category'){
+		if(f.u_rcp_category2.value == '카테고리를 선택하세요.'){
 			alert("카테고리를 선택해 주세요");
 			f.u_rcp_category2.focus();
 			return false;
@@ -640,21 +646,29 @@ $(document).ready(function() {
 			return false;
 		}
 		
+		if(!$("#fileInput").val() ){ // 파일이 업로드 안될때
+			alert("파일을 업로드 해주세요.");
+		f.u_rcp_img1.focus();
+		return false;
+		}
+		if(!fieldCount){
+			alert("재료를 입력해주세요")
+		}
+		
 	var u_rcp_status = 0;
-	 var u_rcp_ing2 = [];
-	 console.log("filedCount : " + fieldCount);
-	for (var i = 0; i < fieldCount; i++) {	
-		u_rcp_ing2[i-1] = $("#ing_box"+i).val();
+ 	var u_rcp_ingArr = [];
+	for (var i = 0; i < fieldCount; i++) {
+		u_rcp_ingArr[i] = $("#ing_box"+(i+1)).val();
 	} 
 		
 	if(confirm("저장 하시겠습니까?") == true){
 			//alert("저장해");
-		f.action="/limit_write_go?u_rcp_ing2="+u_rcp_ing2+"&u_rcp_status="+u_rcp_status;
+		f.action="/limit_write_go?u_rcp_ingArr="+u_rcp_ingArr+"&u_rcp_status="+u_rcp_status;
+		f.submit()
 		}else{
 			//alert("저장안해");	
 			return false;
-		}
-		
+		}		
 	}
 	
 	function limitWrite_go(f) {
@@ -668,13 +682,17 @@ $(document).ready(function() {
 		}
 			
 		var u_rcp_status = 2;
-		 var u_rcp_ing2 = [];
-		for (var i = 0; i < fieldCount; i++) {
-			u_rcp_ing2[i-1] = $("#ing_box"+i).val();
-		} 
-		
-		f.action="/limit_write_go?u_rcp_ing2="+u_rcp_ing2+"&u_rcp_status="+u_rcp_status;
-		f.submit();	
+		if(!$("#ing_box1")==null){
+			var u_rcp_ingArr = [];
+			for (var i = 0; i < fieldCount; i++) {
+				u_rcp_ingArr[i] = $("#ing_box"+(i+1)).val();
+			}
+			f.action="/limit_write_go?u_rcp_ingArr="+u_rcp_ingArr+"&u_rcp_status="+u_rcp_status;
+			f.submit()
+		}else{
+			f.action="/limit_write_go?u_rcp_status="+u_rcp_status;
+			f.submit();	
+		}
 		
 	}else{
 		return false;
@@ -713,9 +731,8 @@ document.addEventListener("DOMContentLoaded", function() {
 							<!-- 썸머노트 버튼 -->
 							<div style="margin-top: 50px; margin-bottom: 100px;">
 								<button type="button" class="summer_btn left_margin" onclick="cancel_btn()" >취소</button> <!-- onclick="cancel_btn()" -->
-								<button type="submit" class="summer_btn" style="background-color: tomato; float: right; margin-right: 100px;" >글쓰기</button>
+								<button type="button" class="summer_btn" style="background-color: tomato; float: right; margin-right: 100px;" onclick="write_go(this.form)" >글쓰기</button>
 								<button type="button" class="summer_btn" style="float: right;" onclick="limitWrite_go(this.form)" >임시저장</button>
-								<!-- <input type="submit" class="summer_btn" style="float: right;" onclick="limitWrite_go(this.form)" >임시저장</input> -->
 							</div>
 
 						</div>

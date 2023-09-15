@@ -1,7 +1,9 @@
 package com.yamco.admin.controller;
 
 import java.io.File;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
@@ -29,6 +31,7 @@ import com.yamco.user.model.vo.Member_VO;
 import com.yamco.user.model.vo.U_recipe_meta_VO;
 
 @Controller
+@RequestMapping("/admin")
 public class Admin_Controller {
 	@Autowired
 	private Member_Service member_Service;
@@ -38,30 +41,45 @@ public class Admin_Controller {
 	private U_recipe_Service u_recipe_Service;
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
-	
+
 	@RequestMapping("/admin_report_recipe.do")
 	public ModelAndView go_admin_All(@ModelAttribute("result") String result) {
 		ModelAndView mv = new ModelAndView("admin/admin_report");
 		List<List<Admin_Report_Chk_VO>> total_list = adminService.admin_report_All();
-		System.out.println(result);
-		mv.addObject("rcp_list",total_list.get(0));
-		mv.addObject("c_list",total_list.get(1));
-		mv.addObject("result",result);
+		mv.addObject("rcp_list", total_list.get(0));
+		mv.addObject("c_list", total_list.get(1));
+		mv.addObject("answerRcp_list",total_list.get(2));
+		mv.addObject("answerC_list",total_list.get(3));
+		mv.addObject("result", result);
 		return mv;
 	}
 	
-	
+	@RequestMapping("answer_to_reporter.do")
+	public ModelAndView answer_report(String answer_text , String reporter_name) {
+		ModelAndView mv = new ModelAndView("redirect:/admin/admin_report_recipe.do");
+		System.out.println("신고자 : " + reporter_name);
+		String r_idx = reporter_name.split("닉")[0].trim();
+		System.out.println("r_idx : " + r_idx);
+		String r_answer = answer_text.trim();
+		Admin_Report_Chk_VO arcvo = new Admin_Report_Chk_VO();
+		arcvo.setR_idx(r_idx);
+		arcvo.setR_answer(r_answer);
+		System.out.println("answer_text : "+answer_text);
+		int result = adminService.answer_report(arcvo);
+		
+		return mv;
+	}
 
 	@RequestMapping("go_admin_dashboard.do")
 	public ModelAndView go_admin_dashboard(HttpSession session) {
 		ModelAndView mv = new ModelAndView("admin/admin_dashboard");
 		Admin_Dash_VO dash_VO = adminService.getDashBoard();
-
+		session.setAttribute("recent_report_list", dash_VO.getRecent_report_list());
 		mv.addObject("vo", dash_VO);
 		return mv;
 	}
 
-	@RequestMapping("go_admin_memberchk.do")
+	@RequestMapping("/go_admin_memberchk.do")
 	public ModelAndView go_admin_memberchk() {
 		ModelAndView mv = new ModelAndView("admin/admin_memberchk");
 		Member_count_summary_VO countSummary = adminService.getMemberCountSummary();
@@ -150,8 +168,8 @@ public class Admin_Controller {
 		ModelAndView mv = new ModelAndView("admin/admin_contentchk");
 		List<U_recipe_meta_VO> result = u_recipe_Service.getUserContentList(urmvo);
 		Admin_Dash_VO dash_VO = adminService.getDashBoard();
-		
-		mv.addObject("vo",dash_VO);
+
+		mv.addObject("vo", dash_VO);
 		mv.addObject("content_result", result);
 		return mv;
 	}
@@ -170,7 +188,6 @@ public class Admin_Controller {
 		mv.addObject("fooding_list", total_list.get(2));
 		return mv;
 	}
-
 
 	@RequestMapping("/notice_delete.go")
 	public ModelAndView notice_deleteGo(String idx, String kind) {
@@ -209,7 +226,6 @@ public class Admin_Controller {
 			adminService.foodingUp(idx);
 		}
 
-
 		return mv;
 	}
 
@@ -233,7 +249,7 @@ public class Admin_Controller {
 			try {
 				// 업로드(저장용도) path 경로에 있는 fname파일을 upload_img.transferTo에 업로드하겠다.
 				upload_img.transferTo(new File(path, fname));
-				
+
 				adminService.insertAdminImage(category, title, fname);
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -242,13 +258,13 @@ public class Admin_Controller {
 
 		return mv;
 	}
-	
+
 	@RequestMapping("/content_search.go")
 	public ModelAndView getUserSearchList(U_recipe_meta_VO urmvo) {
 		ModelAndView mv = new ModelAndView("admin/admin_contentchk");
-		List<U_recipe_meta_VO> result = u_recipe_Service.getUserSearchList(urmvo);
-		System.out.println(result.size());
-		mv.addObject("content_result", result);
-		return mv;
-	}	
+			List<U_recipe_meta_VO> result = u_recipe_Service.getUserSearchList(urmvo);
+			mv.addObject("content_result", result);
+			return mv;
+	}
+
 }

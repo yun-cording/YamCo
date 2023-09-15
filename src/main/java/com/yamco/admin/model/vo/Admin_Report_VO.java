@@ -1,9 +1,9 @@
 package com.yamco.admin.model.vo;
 
+import java.io.Serializable;
 
-
-public class Admin_Report_VO {
-	private String c_idx, count, rcp_idx, u_rcp_title, c_contents, m_nick, u_rcp_status, c_status;
+public class Admin_Report_VO implements Serializable {
+	private String c_idx, count, rcp_idx, u_rcp_title, c_contents, m_nick, u_rcp_status, c_status, r_time ;
 
 	public final String getC_idx() {
 		return c_idx;
@@ -68,5 +68,15 @@ public class Admin_Report_VO {
 	public final void setC_status(String c_status) {
 		this.c_status = c_status;
 	}
+
+	public final String getR_time() {
+		return r_time;
+	}
+
+	public final void setR_time(String r_time) {
+		this.r_time = r_time;
+	}
+	
+	
 
 }

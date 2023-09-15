@@ -25,7 +25,7 @@ public class limit_Recipe_Controller {
 	//임시저장으로 불러온 게시글 저장 or 임시저장
 	@PostMapping("/limit_write_go")
 	public ModelAndView get_write(U_recipe_VO uvo, HttpServletRequest request,
-			@RequestPart("u_rcp_img1") MultipartFile u_rcp_img1, String[] u_rcp_ing2, String u_rcp_status) {
+			@RequestPart("u_rcp_img1") MultipartFile u_rcp_img1, String u_rcp_ingArr, String u_rcp_status) {
 		ModelAndView mv = new ModelAndView("redirect:/");
 		HttpSession session = request.getSession();
 
@@ -48,20 +48,12 @@ public class limit_Recipe_Controller {
 		}
 		uvo.setU_rcp_keyword(u_rcp_keyword);
 		
-		// 재료들 배열 값 넣기
-		String u_rcp_ing = "";
-		for (int i = 0; i < u_rcp_ing2.length; i++) {
-			u_rcp_ing += u_rcp_ing2[i] + ",";
-		}
 		//db 에 카테고리 값 넣기
-		uvo.setU_rcp_category(uvo.getU_rcp_category1()+","+uvo.getU_rcp_category2());
+		uvo.setU_rcp_category(uvo.getU_rcp_category2());
+		uvo.setU_rcp_ctype(uvo.getU_rcp_category1());
 		
-		System.out.println("u_rcp_ing : " + u_rcp_ing);
-		uvo.setU_rcp_ing(u_rcp_ing);
+		uvo.setU_rcp_ing(u_rcp_ingArr);
 		
-		for (int i = 0; i < u_rcp_ing2.length; i++) {
-		System.out.println("재료 입력값[" + i + "] :" + u_rcp_ing2[i]);
-		}
 		System.out.println("카테고리 1 : " + uvo.getU_rcp_category1());
 		System.out.println("카테고리 2 : " + uvo.getU_rcp_category2());
 		System.out.println("난이도 : " + uvo.getU_rcp_level());

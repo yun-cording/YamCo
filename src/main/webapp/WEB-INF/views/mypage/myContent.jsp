@@ -295,7 +295,7 @@ button {
 						<c:when test="${not empty contentList}">
 							<c:forEach items="${contentList}" var="k" varStatus="vs">
 								<div class="content_title">
-									<a href="/public_recipe_detail.go?rcp_idx=${k.rcp_idx}"> <span
+									<a href="/user_recipe_detail.do?rcp_idx=${k.rcp_idx}"> <span
 										id="c_title_t">${vs.count}. ${k.u_rcp_title}</span>
 									</a>
 								</div>

@@ -389,7 +389,7 @@
 						<!-- 요리팁 작성 -->
 						<div style="margin-top: 50px;">
 							<form style="margin-top: -20px;" action="/action_page.php">
-							  <textarea id="content-textarea" class="left_margin" placeholder="해당 요리에 대한 간단한 설명이나 Tip을 적어주세요." style="width: 1120px; height: 180px; 
+							  <textarea id="content-textarea" class="left_margin" placeholder="해당 요리에 대한 간단한 설명이나 Tip을 적어주세요." style="width: 1120px; height: 180px; name="u_rcp_tip" 
 							  border-radius: 5px; border-width: 3px; font-size: 15px; border-color: tomato; resize: none;"></textarea>
 							</form>
 						</div>

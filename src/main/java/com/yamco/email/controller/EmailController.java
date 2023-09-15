@@ -1,8 +1,5 @@
 package com.yamco.email.controller;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,8 +22,8 @@ public class EmailController {
 		try {
 			ModelAndView mv = new ModelAndView("redirect:/");
 			Member_VO m_vo = member_Service.getEmailId(mvo);
-			System.out.println("받은 id : " + m_vo.getM_id());
-			System.out.println("null일걸? : " + mvo.getM_id());			
+		//	System.out.println("받은 id : " + m_vo.getM_id());
+		//	System.out.println("null일걸? : " + mvo.getM_id());			
 			
 		    mailService.sendEmail(m_vo, "lCT@YamYamrecipe.com");
 			return mv;

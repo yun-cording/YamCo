@@ -51,7 +51,7 @@ public class Api_Controller {
 		ModelAndView mv = new ModelAndView("user/recipe/user_recipe_detail");
 		return mv;
 	}
-	
+
 	// TODO 상우 공공데이터 상세페이지
 	// 공공레시피 상세페이지
 	@RequestMapping("/go_publicDet.do")
@@ -59,25 +59,22 @@ public class Api_Controller {
 	public ModelAndView go_publicDet(@RequestParam("rcp_seq") String rcpSeq, HttpSession session,
 			HttpServletRequest httpRequest, HttpServletResponse httpResponse) {
 		ModelAndView mv = new ModelAndView("user/recipe/public_recipe_detail");
-    	// wishlist 여부 받아오기
-    	String m_idx = (String)session.getAttribute("m_idx");
-    	System.out.println("id는 : " + m_idx);
+		// wishlist 여부 받아오기
+		String m_idx = (String) session.getAttribute("m_idx");
 		// rcpSeq는 rcp_idx와 동일함!
-		
+
 		// DB에 방문자수 +1 하자
 		log_Service.visitorUp(httpRequest, httpResponse);
-		
+
 		// 상세페이지 현재페이지에 idx 담자
 		session.setAttribute("currentRcpIdx", rcpSeq);
-		
-		System.out.println("현재 페이지 rcpidx는 " + rcpSeq);
-		
+
 		// 공공리스트 전체 리스트 받아오자
 		List<JsonNode> rowList = p_recipe_Service.go_public_list();
-		
-		// ★ 왜 두번 실행?? (double 로 바꿔서 0.5씩 올리게 해둠)
+
+		// ★ 왜 두번 실행?? (double 로 바꿔서 0.5씩 올리게 해둠) (해결)
 		u_recipe_Service.getHitUp(rcpSeq, m_idx);
-		
+
 		// 그중에서 rcpSeq가 받아온 값과 일치하는 녀석만 정보를 빼오자.
 		// 필터링
 		List<JsonNode> detail_list = new ArrayList<>();
@@ -87,40 +84,37 @@ public class Api_Controller {
 		String img = "";
 		String title = "";
 		for (JsonNode jsonNode : rowList) {
-		    JsonNode rcpSeqNode = jsonNode.get("RCP_SEQ"); // json 파일에서 RCP_SEQ 키 값 가져오기
-		    // System.out.println(rcpSeqNode);
-		    if (rcpSeqNode != null) {
-		        String rcpSeqValue = rcpSeqNode.asText();
-		        // 하나의 node를 detail_list에 담자!
-		        if (rcpSeqValue.equals(rcpSeq)) {
-		        	detail_list.add(jsonNode); // 일치하는 경우, 해당 jsonNode를 detail_list에 추가
+			JsonNode rcpSeqNode = jsonNode.get("RCP_SEQ"); // json 파일에서 RCP_SEQ 키 값 가져오기
+			// System.out.println(rcpSeqNode);
+			if (rcpSeqNode != null) {
+				String rcpSeqValue = rcpSeqNode.asText();
+				// 하나의 node를 detail_list에 담자!
+				if (rcpSeqValue.equals(rcpSeq)) {
+					detail_list.add(jsonNode); // 일치하는 경우, 해당 jsonNode를 detail_list에 추가
 
-		        	cate=jsonNode.get("RCP_PAT2").asText();
-		        	img=jsonNode.get("ATT_FILE_NO_MAIN").asText();
-		        	title=jsonNode.get("RCP_NM").asText();
-		        	System.out.println(jsonNode);
-		        	for (int i = 1; i <= 5; i++) {
-		        		manual[i - 1] = jsonNode.get("MANUAL0" + i).asText();
-		        		manualImg[i - 1] = jsonNode.get("MANUAL_IMG0" + i).asText();
-		        	}
-		        }
-		    }
+					cate = jsonNode.get("RCP_PAT2").asText();
+					img = jsonNode.get("ATT_FILE_NO_MAIN").asText();
+					title = jsonNode.get("RCP_NM").asText();
+					System.out.println(jsonNode);
+					for (int i = 1; i <= 5; i++) {
+						manual[i - 1] = jsonNode.get("MANUAL0" + i).asText();
+						manualImg[i - 1] = jsonNode.get("MANUAL_IMG0" + i).asText();
+					}
+				}
+			}
 		}
 
 		// RCP_SEQ와 일치하는 rcp_idx 세션에 담기
-		// 세션에 
+		// 세션에
 		session.setAttribute("rcp_idx", rcpSeq);
 		String avg_rating = p_recipe_Service.article_rating(String.valueOf(rcpSeq));
 		// System.out.println("평점은" + avg_rating);
 
-    	
-    	
-    	// 좋아요했는가
-    	String liked_ornot = p_recipe_Service.liked_ornot(m_idx, String.valueOf(rcpSeq));
-    	System.out.println("좋아요했는가 : " + liked_ornot);
-    	// 좋아요 안함
+		// 좋아요했는가
+		String liked_ornot = p_recipe_Service.liked_ornot(m_idx, String.valueOf(rcpSeq));
+		// 좋아요 안함
 		mv.addObject("liked_ornot", liked_ornot);
-		
+
 		// 이 게시물에 들어간 댓글 전체 받아오기
 		List<Comment_VO> comments_list_all = p_recipe_Service.load_all_comments(String.valueOf(rcpSeq));
 		for (Comment_VO comment_VO : comments_list_all) {
@@ -128,24 +122,20 @@ public class Api_Controller {
 		}
 
 		List<Comment_VO> comments_list_mine = new ArrayList<>();
-		
-    	String m_nick = (String)session.getAttribute("m_nick");
-    	mv.addObject("m_nick", m_nick);
-    	
-    	System.out.println(m_nick);
 
+		String m_nick = (String) session.getAttribute("m_nick");
+		mv.addObject("m_nick", m_nick);
+
+		System.out.println(m_nick);
 
 		// comments_list_all에서 특정 m_idx 값을 가진 댓글만 필터링하여 comments_list_mine에 추가
 		for (Comment_VO comment : comments_list_all) {
-		    if (String.valueOf(comment.getM_nick()).equals(String.valueOf(m_nick))) {
-		        comments_list_mine.add(comment);
-		    }
+			if (String.valueOf(comment.getM_nick()).equals(String.valueOf(m_nick))) {
+				comments_list_mine.add(comment);
+			}
 		}
-		
-		System.out.println("내댓글 갯수 : " + comments_list_mine.size());
-	
-		
-		
+
+
 		// TODO 상우 이런 레시피는 어떠세요?(레시피 추천) 시작
 		// 추천게시물 띄우기
 		// 랜덤으로 선택한 게시물의 인덱스를 저장할 리스트
@@ -156,39 +146,34 @@ public class Api_Controller {
 		// 랜덤으로 15개의 유니크한 인덱스 선택
 		Random random = new Random();
 		while (randomIndexes.size() < numberOfRecipesToSelect) {
-		    int randomIndex = random.nextInt(totalRecipes);
-		    if (!randomIndexes.contains(randomIndex)) {
-		        randomIndexes.add(randomIndex);
-		    }
+			int randomIndex = random.nextInt(totalRecipes);
+			if (!randomIndexes.contains(randomIndex)) {
+				randomIndexes.add(randomIndex);
+			}
 		}
 
 		List<JsonNode> random_list = new ArrayList<>();
 		List<P_recipe_VO> img_list = new ArrayList<>();
 
-		
-		
 		// 랜덤으로 선택한 인덱스에 해당하는 게시물을 detail_list에 추가
 		for (Integer index : randomIndexes) {
-		    JsonNode jsonNode = rowList.get(index);
-		    random_list.add(jsonNode);
-		    P_recipe_VO vo = new P_recipe_VO();
-		    vo.setAttFileNoMain(jsonNode.get("ATT_FILE_NO_MAIN").asText());
-		    vo.setRcpSeq(jsonNode.get("RCP_SEQ").asText());
-		    img_list.add(vo);
-		 
+			JsonNode jsonNode = rowList.get(index);
+			random_list.add(jsonNode);
+			P_recipe_VO vo = new P_recipe_VO();
+			vo.setAttFileNoMain(jsonNode.get("ATT_FILE_NO_MAIN").asText());
+			vo.setRcpSeq(jsonNode.get("RCP_SEQ").asText());
+			img_list.add(vo);
+
 		}
 		// System.out.println("전체 리스트 : " + img_list);
 		for (P_recipe_VO vo : img_list) {
-		    String attFileNoMain = vo.getAttFileNoMain();
-		    // System.out.println("attFileNoMain: " + attFileNoMain);
-		    // 이제 attFileNoMain을 사용하여 원하는 작업을 수행할 수 있습니다.
+			String attFileNoMain = vo.getAttFileNoMain();
+			// System.out.println("attFileNoMain: " + attFileNoMain);
+			// 이제 attFileNoMain을 사용하여 원하는 작업을 수행할 수 있습니다.
 		}
 
-		
 		// TODO 상우 이런 레시피는 어떠세요?(레시피 추천) 끝
-		
-		
-		
+
 		// System.out.println("내꺼 갯수 : " + comments_list_mine.size());
 		// 댓글 전체리스트
 		// 이용자 id도 보내주자
@@ -197,26 +182,22 @@ public class Api_Controller {
 		mv.addObject("comments_list_all", comments_list_all);
 		mv.addObject("manual", manual);
 		mv.addObject("manualImg", manualImg);
-    	// 전체 onelist 뽑기
-    	// System.out.println(detail_list);
+		// 전체 onelist 뽑기
+		// System.out.println(detail_list);
 		mv.addObject("random_list", random_list);
 		System.out.println(random_list.size());
 		mv.addObject("detail_list", detail_list);
 		mv.addObject("img_list", img_list);
-		System.out.println("이미지 리스트 사이즈 : " + img_list.size());
 		mv.addObject("avg_rating", avg_rating);
 //		mv.addObject("manualMap", manualMap);
 		// System.out.println("detail list 갔다!");
 		// 전체 리스트
 		// System.out.println(detail_list);
-		
-		
+
 		// m_nick, m_idx, loginChk, session 들어감
-		
+
 		// TODO 상우 공공데이터 상세페이지
-		
-		
-		
+
 		// TODO 희준 세션에 최근리스트 추가하기 시작
 		List<RecentList_VO> recent = (List<RecentList_VO>) session.getAttribute("recent");
 		RecentList_VO rec_vo = new RecentList_VO();
@@ -248,7 +229,6 @@ public class Api_Controller {
 		return mv;
 	}
 
-
 	// 사용자레시피 작성페이지
 	@RequestMapping("/go_userWrite.do")
 	public ModelAndView go_userWrite() {
@@ -268,40 +248,35 @@ public class Api_Controller {
 	@RequestMapping("/public_list.go")
 	public ModelAndView go_public_list(HttpServletRequest request, HttpServletResponse response,
 			@RequestParam(value = "selectedWay", required = false) String selectedWay,
-			@RequestParam(value = "selectedCate", required = false) String selectedCate,
-			HttpSession session
-			) throws ServletException {
+			@RequestParam(value = "selectedCate", required = false) String selectedCate, HttpSession session)
+			throws ServletException {
 		ModelAndView mv = new ModelAndView("user/recipe/public_list");
-		
+
 		// JSON 전체 리스트 받아오자
 		List<JsonNode> rowList = p_recipe_Service.go_public_list();
-		
-		// 조리법, 카테고리 세션에 담자
-		
-		//  세션에서 값 가져오기
-	    String storedSelectedCate = (String) session.getAttribute("selectedCate");
-	    String storedSelectedWay = (String) session.getAttribute("selectedWay");
 
-	    // 다음 요청에서 값이 오지 않으면 세션에 저장된 값을 사용
-	    if (selectedCate == null) {
-	        selectedCate = storedSelectedCate;
-	    }
-	    if (selectedWay == null) {
-	        selectedWay = storedSelectedWay;
-	    }
-		
-		System.out.println("담기전 카테고리 : " + selectedCate);
-		System.out.println("담기전 조리법 : " + selectedWay);
-		
+		// 조리법, 카테고리 세션에 담자
+
+		// 세션에서 값 가져오기
+		String storedSelectedCate = (String) session.getAttribute("selectedCate");
+		String storedSelectedWay = (String) session.getAttribute("selectedWay");
+
+		// 다음 요청에서 값이 오지 않으면 세션에 저장된 값을 사용
+		if (selectedCate == null) {
+			selectedCate = storedSelectedCate;
+		}
+		if (selectedWay == null) {
+			selectedWay = storedSelectedWay;
+		}
+
 		session.setAttribute("selectedCate", selectedCate);
 		session.setAttribute("selectedWay", selectedWay);
-	
+
 		// 메뉴, 조리법 미선택 시 전체 띄우기
 		if (selectedWay == null && selectedCate == null) {
-			System.out.println("조리법 미선택!");
 			// DB에 log 찍기
 			log_Service.visitorUp(request, response);
-			
+
 			List<P_recipe_VO> prvo = p_recipe_Service.article_summary();
 
 			List<P_recipe_VO> listSummary = new ArrayList<>();
@@ -337,40 +312,37 @@ public class Api_Controller {
 				listSummary.add(vo);
 			}
 			return mv.addObject("listSummary", listSummary);
-		}else {
+		} else {
 			// 필터링해서 담을 리스트
 
 			selectedWay = (String) session.getAttribute("selectedWay");
 			selectedCate = (String) session.getAttribute("selectedCate");
 			// 조리법 하나라도 선택 시
 			try {
-				System.out.println("선택 조리법 : " + selectedWay);
-				
+
 			} catch (Exception e) {
 				// TODO: handle exception
 			}
 			try {
-				System.out.println("선택 카테고리 : " + selectedCate);
-				
+
 			} catch (Exception e) {
 				// TODO: handle exception
 			}
-			
+
 			// selectedWay만 null일 때 => 카테고리만 검색해 오자 (RCP_PAT2)
 			if (selectedWay == null && selectedCate != null) {
 				List<JsonNode> filteredList = new ArrayList<>();
 
 				for (JsonNode jsonNode : rowList) {
-				    String rcpPat2 = jsonNode.get("RCP_PAT2").asText();
-				    // "RCP_PAT2" 키의 값과 selectedCate를 비교합니다.
-				    if (selectedCate.equals(rcpPat2)) {
-				        // 조건에 맞는 경우, filteredList에 아이템을 추가합니다.
-				        filteredList.add(jsonNode);
-				    }
+					String rcpPat2 = jsonNode.get("RCP_PAT2").asText();
+					// "RCP_PAT2" 키의 값과 selectedCate를 비교합니다.
+					if (selectedCate.equals(rcpPat2)) {
+						// 조건에 맞는 경우, filteredList에 아이템을 추가합니다.
+						filteredList.add(jsonNode);
+					}
 				}
 				System.out.println("조리법만 널이다 : " + filteredList.size());
-				
-				
+
 				List<P_recipe_VO> prvo = p_recipe_Service.article_summary();
 
 				List<P_recipe_VO> listSummary = new ArrayList<>();
@@ -386,7 +358,8 @@ public class Api_Controller {
 //				        	vo.setAvg_c_grade(String.format("%.1f", vo.getAvg_c_grade()));
 
 						if (vo.getAvg_c_grade() != null) {
-							BigDecimal avgCGrade = new BigDecimal(vo.getAvg_c_grade()).setScale(1, RoundingMode.HALF_UP);
+							BigDecimal avgCGrade = new BigDecimal(vo.getAvg_c_grade()).setScale(1,
+									RoundingMode.HALF_UP);
 							vo.setAvg_c_grade(avgCGrade.toString());
 						}
 					} catch (Exception e) {
@@ -406,22 +379,21 @@ public class Api_Controller {
 					listSummary.add(vo);
 				}
 				return mv.addObject("listSummary", listSummary);
-			
-			// selectedCate만 null일 때 => 조리법만 검색해 오자 (RCP_WAY2)
-			}else if (selectedWay != null && selectedCate == null) {
+
+				// selectedCate만 null일 때 => 조리법만 검색해 오자 (RCP_WAY2)
+			} else if (selectedWay != null && selectedCate == null) {
 				List<JsonNode> filteredList = new ArrayList<>();
 
 				for (JsonNode jsonNode : rowList) {
-				    String rcpPat2 = jsonNode.get("RCP_WAY2").asText();
-				    // "RCP_PAT2" 키의 값과 selectedCate를 비교합니다.
-				    if (selectedWay.equals(rcpPat2)) {
-				        // 조건에 맞는 경우, filteredList에 아이템을 추가합니다.
-				        filteredList.add(jsonNode);
-				    }
+					String rcpPat2 = jsonNode.get("RCP_WAY2").asText();
+					// "RCP_PAT2" 키의 값과 selectedCate를 비교합니다.
+					if (selectedWay.equals(rcpPat2)) {
+						// 조건에 맞는 경우, filteredList에 아이템을 추가합니다.
+						filteredList.add(jsonNode);
+					}
 				}
-			    System.out.println("cate만 널이다 : " + filteredList.size());
-			    
-			    
+				System.out.println("cate만 널이다 : " + filteredList.size());
+
 				List<P_recipe_VO> prvo = p_recipe_Service.article_summary();
 
 				List<P_recipe_VO> listSummary = new ArrayList<>();
@@ -437,7 +409,8 @@ public class Api_Controller {
 //				        	vo.setAvg_c_grade(String.format("%.1f", vo.getAvg_c_grade()));
 
 						if (vo.getAvg_c_grade() != null) {
-							BigDecimal avgCGrade = new BigDecimal(vo.getAvg_c_grade()).setScale(1, RoundingMode.HALF_UP);
+							BigDecimal avgCGrade = new BigDecimal(vo.getAvg_c_grade()).setScale(1,
+									RoundingMode.HALF_UP);
 							vo.setAvg_c_grade(avgCGrade.toString());
 						}
 					} catch (Exception e) {
@@ -456,18 +429,16 @@ public class Api_Controller {
 
 					listSummary.add(vo);
 				}
-			    
-			    
+
 				return mv.addObject("listSummary", listSummary);
-				
-			// 둘다 null이 아닐 때
-			}else if (selectedWay != null && selectedCate != null) {
+
+				// 둘다 null이 아닐 때
+			} else if (selectedWay != null && selectedCate != null) {
 				// 둘다 전체보기
 				if (selectedWay.equals("전체보기") && selectedCate.equals("전체보기")) {
-					System.out.println("조리법 미선택!");
 					// DB에 log 찍기
 					log_Service.visitorUp(request, response);
-					
+
 					List<P_recipe_VO> prvo = p_recipe_Service.article_summary();
 
 					List<P_recipe_VO> listSummary = new ArrayList<>();
@@ -483,7 +454,8 @@ public class Api_Controller {
 //					        	vo.setAvg_c_grade(String.format("%.1f", vo.getAvg_c_grade()));
 
 							if (vo.getAvg_c_grade() != null) {
-								BigDecimal avgCGrade = new BigDecimal(vo.getAvg_c_grade()).setScale(1, RoundingMode.HALF_UP);
+								BigDecimal avgCGrade = new BigDecimal(vo.getAvg_c_grade()).setScale(1,
+										RoundingMode.HALF_UP);
 								vo.setAvg_c_grade(avgCGrade.toString());
 							}
 						} catch (Exception e) {
@@ -503,20 +475,20 @@ public class Api_Controller {
 						listSummary.add(vo);
 					}
 					return mv.addObject("listSummary", listSummary);
-				}else {
-				    List<JsonNode> filteredList = new ArrayList<>();
+				} else {
+					List<JsonNode> filteredList = new ArrayList<>();
 
-				    for (JsonNode jsonNode : rowList) {
-				        String rcpWay2 = jsonNode.get("RCP_WAY2").asText();
-				        String rcpPat2 = jsonNode.get("RCP_PAT2").asText();
+					for (JsonNode jsonNode : rowList) {
+						String rcpWay2 = jsonNode.get("RCP_WAY2").asText();
+						String rcpPat2 = jsonNode.get("RCP_PAT2").asText();
 
-				        // "RCP_WAY2" 값과 "RCP_PAT2" 값이 둘 다 일치하는 경우만 추가
-				        if (selectedWay.equals(rcpWay2) && selectedCate.equals(rcpPat2)) {
-				            filteredList.add(jsonNode);
-				        }
-				    }
-				    System.out.println("둘다 null이 아니다 : " + filteredList.size());
-				    
+						// "RCP_WAY2" 값과 "RCP_PAT2" 값이 둘 다 일치하는 경우만 추가
+						if (selectedWay.equals(rcpWay2) && selectedCate.equals(rcpPat2)) {
+							filteredList.add(jsonNode);
+						}
+					}
+					System.out.println("둘다 null이 아니다 : " + filteredList.size());
+
 					List<P_recipe_VO> prvo = p_recipe_Service.article_summary();
 
 					List<P_recipe_VO> listSummary = new ArrayList<>();
@@ -532,7 +504,8 @@ public class Api_Controller {
 //					        	vo.setAvg_c_grade(String.format("%.1f", vo.getAvg_c_grade()));
 
 							if (vo.getAvg_c_grade() != null) {
-								BigDecimal avgCGrade = new BigDecimal(vo.getAvg_c_grade()).setScale(1, RoundingMode.HALF_UP);
+								BigDecimal avgCGrade = new BigDecimal(vo.getAvg_c_grade()).setScale(1,
+										RoundingMode.HALF_UP);
 								vo.setAvg_c_grade(avgCGrade.toString());
 							}
 						} catch (Exception e) {
@@ -551,25 +524,21 @@ public class Api_Controller {
 
 						listSummary.add(vo);
 					}
-				    return mv.addObject("listSummary", listSummary);
+					return mv.addObject("listSummary", listSummary);
 				}
 			}
 
-				
-			
-			
 			// 둘다 값이 있을 때
-			
+
 			return mv;
 		}
-		
-	
+
 	}
 	// TODO 상우 공공데이터 파싱 => 목록 띄우기 끝
-	
+
 	// 목록 띄우는 메서드
 	public List<P_recipe_VO> process_and_show(List<JsonNode> rowList) {
-		
+
 		List<P_recipe_VO> prvo = p_recipe_Service.article_summary();
 
 		List<P_recipe_VO> listSummary = new ArrayList<>();
@@ -604,10 +573,10 @@ public class Api_Controller {
 
 			listSummary.add(vo);
 		}
-		
-	    return listSummary;
+
+		return listSummary;
 	}
-	
+
 	// TODO 상우 공공데이터 자료 전체 받아서 반환하기
 
 	// TODO 상우 공공데이터 자료 전체 받아서 반환하기
