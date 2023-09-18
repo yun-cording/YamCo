@@ -268,7 +268,7 @@ cursor: pointer;
 	function search_go(f) {
 		const form = document.getElementById("myForm");
 		console.log(form)
-		form.action = "/search.go" ;
+		form.action = "/search.do" ;
 		form.submit();
 	}
 	</script>
@@ -452,10 +452,10 @@ cursor: pointer;
 	    setInterval(changeImage, 3000);
 	 	
 	    function awardgo() {
-	    	location.href ="/award.go" ;
+	    	location.href ="/award.do" ;
 		}
 	    function openref() {
-	    	location.href ="/plz.go" ;
+	    	location.href ="/plz.do" ;
 		}
 	    function bestgo() {
 	    	location.href ="/go_ranking_recipe.do" ;

@@ -60,7 +60,7 @@
 			<div id="lrecipe" onclick="recipe()">
 				<span id="recipetext">레시피</span>
 			</div>
-			<a href="/ranking_search.go"><dlv id="lsearch" onclick="search()">
+			<a href="/ranking_search.do"><dlv id="lsearch" onclick="search()">
 				<span id="searchtext">검색어</span></dlv></a>
 			<div id="topline"></div>
 			<div id="search_rankingtext">레시피랭킹</div>

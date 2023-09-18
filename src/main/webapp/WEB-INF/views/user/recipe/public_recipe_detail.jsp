@@ -309,7 +309,7 @@
 					            // AJAX 요청을 보냅니다. (_ 쓰면 안됨!!)
 					            $.ajax({
 					                type: "POST",
-					                url: "/reportInsert.go",
+					                url: "/reportInsert.do",
 					                data: {
 					                    reason: selectedReason,
 					                    otherReason: otherReason,

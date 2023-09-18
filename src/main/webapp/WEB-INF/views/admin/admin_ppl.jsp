@@ -185,7 +185,7 @@
 							 <div id="banner_card_${status.index}" class="notice banner_size banner_${isOdd ? 'left' : 'left'} banner_top">
 							 	<label for="btnradio${status.index }">
 								<input type="radio" idx=${k.notice_idx } class="btn-check btn-comp" name="btnradio" id="btnradio${status.index }" style="float: left; position: relative; top: -20px; left: 0px; width: 15px;">
-					            <img src="resources/images/${k.notice_img }" class="card-img-top" alt="..." >
+					            <img src="/resources/images/${k.notice_img }" class="card-img-top" alt="..." >
 				                <h5 class="card-title mt-3">${k.notice_title }</h5>
 				                <p class="card-text">${k.notice_date }</p>
 				         	   </label>
@@ -195,7 +195,7 @@
 							 <div id="banner_card_${status.index}" class="ppl banner_size banner_${isOdd ? 'left' : 'left'} banner_top" style="display: none">
 							 	<label for="btnradio_p${status.index }">
 								<input type="radio" idx=${k.ppl_idx } class="btn-check btn-comp" name="btnradio" id="btnradio_p${status.index }" style="float: left; position: relative; top: -20px; left: 0px; width: 15px;">
-					            <img src="resources/images/ads/${k.ppl_img }" class="card-img-top" alt="..." >
+					            <img src="/resources/images/ads/${k.ppl_img }" class="card-img-top" alt="..." >
 				                <h5 class="card-title mt-3">${k.ppl_title }</h5>
 				                <p class="card-text">${k.ppl_date}</p>
 				         	   </label>
@@ -205,7 +205,7 @@
 							 <div id="banner_card_${status.index}" class="fooding banner_size banner_${isOdd ? 'left' : 'left'} banner_top" style="display: none">
 							 	<label for="btnradio_f${status.index }">
 								<input type="radio" idx=${k.food_idx } class="btn-check btn-comp" name="btnradio" id="btnradio_f${status.index }" style="float: left; position: relative; top: -20px; left: 0px; width: 15px;">
-					            <img src="resources/images/${k.food_img }" class="card-img-top" alt="..." >
+					            <img src="/resources/images/${k.food_img }" class="card-img-top" alt="..." >
 				                <h5 class="card-title mt-3">${k.food_title }</h5>
 				                <p class="card-text">${k.food_date}</p>
 				         	   </label>
@@ -274,7 +274,7 @@
                  if (selectedNotice.length > 0) {
                      var idx = selectedNotice.attr("idx")
                      // 여기에서 imageId를 사용하여 이미지를 삭제하거나 처리할 수 있습니다.
-                     location.href="/admin/notice_delete.go?idx="+idx+"&kind="+kind
+                     location.href="/admin/notice_delete.do?idx="+idx+"&kind="+kind
                      alert("삭제되었습니다. 삭제된 공지는 하단 [삭제된 공지]에서 확인 가능합니다.")		 
                  } else {
                      alert("항목을  선택하세요.");
@@ -282,7 +282,7 @@
         	}
          });
          $("#deleteNotice").on("click", function() {
-			location.href="/admin/deletedNotice.go"
+			location.href="/admin/deletedNotice.do"
 		})
      });
  </script>

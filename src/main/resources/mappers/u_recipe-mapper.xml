@@ -21,7 +21,7 @@
 
 	<!-- 검색어로 결과 rcp_idx 가져오기 -->
 	<select id="recipeSearch" parameterType="Map" resultType="urmvo">
-		select * from u_recipe_metadata where u_rcp_title like
+		select * from u_recipe_metadata where u_rcp_status != 3 and u_rcp_title like
 		CONCAT('%',#{search},'%') or u_rcp_category like 
 		CONCAT('%',#{search},'%') or u_rcp_ing like CONCAT('%',#{search},'%')
 		order by
@@ -35,7 +35,7 @@
 		select *
 		from
 		u_recipe_metadata
-		where rcp_idx=#{rcp_idx}
+		where u_rcp_status != 3 and rcp_idx=#{rcp_idx}
 	</select>
 
 	<!-- rcp_idx를 포함한 U_recipe_VO로 U_recipe_meta_VO 검색 -->

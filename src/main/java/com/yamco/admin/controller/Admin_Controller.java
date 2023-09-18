@@ -165,7 +165,7 @@ public class Admin_Controller {
 
 	@RequestMapping("go_admin_contentchk.do")
 	public ModelAndView go_admin_contentchk(U_recipe_meta_VO urmvo) {
-		ModelAndView mv = new ModelAndView("admin/admin_contentchk");
+		ModelAndView mv = new ModelAndView("/admin/admin_contentchk");
 		List<U_recipe_meta_VO> result = u_recipe_Service.getUserContentList(urmvo);
 		Admin_Dash_VO dash_VO = adminService.getDashBoard();
 
@@ -181,7 +181,7 @@ public class Admin_Controller {
 
 	@RequestMapping("/go_admin_ppl.do")
 	public ModelAndView admin_pplDo() {
-		ModelAndView mv = new ModelAndView("admin/admin_ppl");
+		ModelAndView mv = new ModelAndView("/admin/admin_ppl");
 		List<List<Admin_Banner_VO>> total_list = adminService.total_list();
 		mv.addObject("notice_list", total_list.get(0));
 		mv.addObject("ppl_list", total_list.get(1));
@@ -189,9 +189,9 @@ public class Admin_Controller {
 		return mv;
 	}
 
-	@RequestMapping("/notice_delete.go")
+	@RequestMapping("/notice_delete.do")
 	public ModelAndView notice_deleteGo(String idx, String kind) {
-		ModelAndView mv = new ModelAndView("redirect:/go_admin_ppl.do");
+		ModelAndView mv = new ModelAndView("redirect:/admin/go_admin_ppl.do");
 		if (kind.equals("0")) {
 			adminService.noticeDel(idx);
 		} else if (kind.equals("1")) {
@@ -202,9 +202,9 @@ public class Admin_Controller {
 		return mv;
 	}
 
-	@RequestMapping("/deletedNotice.go")
+	@RequestMapping("/deletedNotice.do")
 	public ModelAndView deletedNoticeGo() {
-		ModelAndView mv = new ModelAndView("admin/admin_deletedppl");
+		ModelAndView mv = new ModelAndView("/admin/admin_deletedppl");
 		List<List<Admin_Banner_VO>> total_list = adminService.total_list();
 		List<List<Admin_Banner_VO>> total_delete_list = adminService.total_delete_list();
 		mv.addObject("notice_list", total_list.get(0));
@@ -215,9 +215,9 @@ public class Admin_Controller {
 		return mv;
 	}
 
-	@RequestMapping("/notice_regist.go")
+	@RequestMapping("/notice_regist.do")
 	public ModelAndView notice_registGo(String idx, String kind) {
-		ModelAndView mv = new ModelAndView("redirect:/deletedNotice.go");
+		ModelAndView mv = new ModelAndView("redirect:/admin/deletedNotice.do");
 		if (kind.equals("0")) {
 			adminService.noticeUp(idx);
 		} else if (kind.equals("1")) {
@@ -259,7 +259,7 @@ public class Admin_Controller {
 		return mv;
 	}
 
-	@RequestMapping("/content_search.go")
+	@RequestMapping("/content_search.do")
 	public ModelAndView getUserSearchList(U_recipe_meta_VO urmvo) {
 		ModelAndView mv = new ModelAndView("admin/admin_contentchk");
 			List<U_recipe_meta_VO> result = u_recipe_Service.getUserSearchList(urmvo);

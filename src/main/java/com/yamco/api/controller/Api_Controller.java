@@ -245,7 +245,7 @@ public class Api_Controller {
 	}
 
 	// TODO 상우 공공데이터 파싱 => 목록 띄우기
-	@RequestMapping("/public_list.go")
+	@RequestMapping("/public_list.do")
 	public ModelAndView go_public_list(HttpServletRequest request, HttpServletResponse response,
 			@RequestParam(value = "selectedWay", required = false) String selectedWay,
 			@RequestParam(value = "selectedCate", required = false) String selectedCate, HttpSession session)
