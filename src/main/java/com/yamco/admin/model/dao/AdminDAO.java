@@ -243,7 +243,6 @@ public class AdminDAO {
 		}
 	}
 
-
 	// report_t 테이블 가져오기
 	public List<List<Admin_Report_Chk_VO>> getReportAll() {
 		List<List<Admin_Report_Chk_VO>> total_list = new ArrayList<List<Admin_Report_Chk_VO>>();
@@ -273,9 +272,8 @@ public class AdminDAO {
 				k.setRecipe_attacknick(recipe_attacknick);
 				k.setRecipe_defencenick(arcvo.getM_nick());
 				rcp_list.add(k);
-			}
+			
 				}
-				//recipe_defencenick
 			}else if(k.getC_idx() != null ){
 				if(k.getR_answer() != null) { // 답변 처리가 된것들
 					String comment_attacknick  = sqlSessionTemplate.selectOne("admin.comment_attacknick",k.getM_idx());// 신고자 닉네임가져오기
@@ -299,17 +297,18 @@ public class AdminDAO {
 				c_list.add(k);
 				}
 			}
-			
 		}
+	
 		
 		total_list.add(rcp_list);
 		total_list.add(c_list);
 		total_list.add(answerRcp_list);
 		total_list.add(answerC_list);
 		
-		
 		return total_list;
 	}
+
+
 	
 	// 공지사항 추가
 	public int insertNotice(Admin_Banner_VO abvo) {
