@@ -1059,6 +1059,7 @@ public class User_Controller2 {
 	
 	// TODO 상우 게시글 신고 시작
 	
+	@SuppressWarnings("unused")
 	@RequestMapping("/reportInsert.go")
 	@ResponseBody
 	public Map<String, Object> reportInsert(HttpSession session,
@@ -1068,9 +1069,9 @@ public class User_Controller2 {
 			) {
 		
 		
-		String m_idx = (String) session.getAttribute("m_idx");
 		// 댓글 정보 받기 (정보 없으면 null)
 		String c_idx = null;
+		String m_idx = (String) session.getAttribute("m_idx");
 		String rcp_idx = (String) session.getAttribute("rcp_idx");
 		
 		Report_VO revo = new Report_VO();
@@ -1083,7 +1084,7 @@ public class User_Controller2 {
 			if (c_idx != null) {
 				revo.setC_idx(c_idx);
 			}
-			if (rcp_idx != null) {
+			else if (rcp_idx != null) {
 				revo.setRcp_idx(rcp_idx);
 			}
 			// 기타가 아닌 경우
@@ -1096,15 +1097,10 @@ public class User_Controller2 {
 				revo.setRcp_idx(rcp_idx);
 			}
 		}
-
-			
-		
-		
 		Map<String, Object> result = new HashMap<String, Object>();
 		
 		// 해당 게시물에 대해서 사용자가 신고를 했는지 안했는지 확인 => 신고 안한 경우에만 신고 작동
 		// 신고 이미 한 경우에는, 이미 신고 완료한 게시물입니다 alert 띄우자!
-		
 		String result_str =  admin_Service.reportInsert(revo);
 		
 		// insert 성공 시
