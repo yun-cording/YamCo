@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -327,8 +327,20 @@ button:hover {
 			<c:forEach items="${wishList }" var="k">
 				<div class="recipe_one" style="display: none">
 					<a href="/user_recipe_detail.do?rcp_idx=${k.rcp_idx}">
-						<p><img src="${k.u_rcp_img }" class="recipe_thumbnail"></p>
-						<p>${k.u_rcp_title }</p>
+							<c:choose>
+								<c:when test="${k.rcp_idx < 10000}">
+									<p>
+										<img src="${k.u_rcp_img }" class="recipe_thumbnail">
+									</p>
+								</c:when>
+								<c:when test="${k.rcp_idx >= 10000 }">
+									<p>
+										<img src="/resources/user_image/user_thumnail/${k.u_rcp_img }"
+											class="recipe_thumbnail">
+									</p>
+								</c:when>
+							</c:choose>
+							<p>${k.u_rcp_title }</p>
 						<div class="writer">
 							<img src="${k.m_image }" class="profile"><span>${k.m_nick }</span>
 						</div>

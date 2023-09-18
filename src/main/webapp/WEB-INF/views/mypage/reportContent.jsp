@@ -415,7 +415,7 @@ button{
 						</c:forEach>
 					</c:when>
 					<c:otherwise>
-						신고내역이 존재하지 않습니다.
+						<h2>신고내역이 존재하지 않습니다.</h2>
 					</c:otherwise>
 				</c:choose>
 				<%-- 1 대신 step 단위 입력할 것 --%>

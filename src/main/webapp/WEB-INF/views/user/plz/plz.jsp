@@ -190,7 +190,7 @@ clear: both;
 			<div class="container">
 				<div class="row mx-5">
 				<div class="col-10">
-					<span class="search_subject">검색된 냠냠's 쉐프레시피는 총</span> <span class="search_count"></span> <span class="search_subject">개 입니다.</span>
+					<span class="search_subject">검색된 냠냠's 쉐프레시피는 총</span> <span class="search_count">1</span><span class="search_subject">개 입니다.</span>
 				</div>
 				<div id="u_order_hit" class="col-1 tab-on" onclick="searchbt(0,0)">
 					<span>조회순</span>
