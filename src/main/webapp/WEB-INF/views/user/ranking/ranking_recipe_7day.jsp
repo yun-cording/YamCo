@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -133,10 +134,10 @@
 											<c:choose>
 												<%-- avg_grade가 null인 경우(별점이 없는 경우) --%>
 												<c:when test="${k.avg_grade == null}">
-													<span>X</span>
+													<span>0.0</span>
 												</c:when>
 												<c:otherwise>
-													<span>${k.avg_grade }</span>
+													<span><fmt:formatNumber value="${k.avg_grade }" minFractionDigits="1" maxFractionDigits="1"/></span>
 												</c:otherwise>
 											</c:choose>
 
