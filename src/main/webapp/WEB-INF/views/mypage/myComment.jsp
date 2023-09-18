@@ -332,11 +332,11 @@ ul {
 			<div id="content">
 				<div id="category">
 					<ul>
-						<a href="/myinfo.go"><li id="info_first">내 정보</li></a>
-						<a href="/mywishlist.go"><li id="info">찜 목록</li></a>
-						<a href="/reportcontent.go"><li id="info">신고 내역</li></a>
-						<a href="/mycontent.go"><li id="info">내가 쓴 게시글</li></a>
-						<a href="/mycomment.go"><li id="info_end">내가 쓴 댓글</li></a>
+						<a href="/myinfo.do"><li id="info_first">내 정보</li></a>
+						<a href="/mywishlist.do"><li id="info">찜 목록</li></a>
+						<a href="/reportcontent.do"><li id="info">신고 내역</li></a>
+						<a href="/mycontent.do"><li id="info">내가 쓴 게시글</li></a>
+						<a href="/mycomment.do"><li id="info_end">내가 쓴 댓글</li></a>
 					</ul>
 				</div>
 				<div class="title_line"></div>

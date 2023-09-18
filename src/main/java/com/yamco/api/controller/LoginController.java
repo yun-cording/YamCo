@@ -121,12 +121,12 @@ public class LoginController {
 						}else if(m_vo2.getM_status().equals("4")){
 							String alert="블락된 회원입니다. 게시물, 댓글 작성이 제한됩니다.";
 							mv.addObject("alert", alert);
-							mv.setViewName("redirect:/main.go");
+							mv.setViewName("redirect:/main.do");
 							return mv;
 						}else {
 							if (m_vo2.getM_nick() !=null) {
 								// 닉네임 널이 아니라면
-								mv.setViewName("redirect:/main.go");
+								mv.setViewName("redirect:/main.do");
 								session.setAttribute("loginChk", true);
 								session.setAttribute("m_nick", nickname);
 								session.setAttribute("m_idx", m_vo2.getM_idx());
@@ -162,7 +162,7 @@ public class LoginController {
 		session.removeAttribute("m_nick");
 		session.removeAttribute("m_idx");
 		session.removeAttribute("m_image");
-		return new ModelAndView("redirect:/main.go");
+		return new ModelAndView("redirect:/main.do");
 	}
 	
 	// TODO 희준의 작업공간 끝
@@ -290,11 +290,11 @@ public class LoginController {
 						// 있으면 세션에 로그인 변수저장후 홈페이지로
 						if (m_vo2.getM_nick() != null) {
 							// 닉네임 널이 아니라면
-							mv.setViewName("redirect:/main.go");
 							session.setAttribute("loginChk", true);
 							session.setAttribute("m_nick", nickName);
 							session.setAttribute("m_idx", m_vo2.getM_idx());
 							session.setAttribute("m_image", m_vo2.getM_image());
+							mv.setViewName("redirect:/main.do");
 						} else {
 							mv.setViewName("/login/social_join"); // 닉네임받는곳
 							mv.addObject("m_id", id); // 소셜로그인 고유id
@@ -335,7 +335,7 @@ public class LoginController {
 		// db에 값이 저장되어 있는경우 즉, 이미 회원가입이 되어있는경우 바로 메인페이지로 이동
 		if (mvo != null) {
 			if (mvo.getM_nick() != null) { // db에 값이 있고 닉네임까지 입력되어 있을경우 메인으로이동
-				mv.setViewName("redirect:/main.go");
+				mv.setViewName("redirect:/main.do");
 				session.setAttribute("loginChk", true);
 				session.setAttribute("m_nick", mvo.getM_nick());
 				session.setAttribute("m_idx", mvo.getM_idx());

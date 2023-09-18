@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -59,7 +60,7 @@
 			<div id="lrecipe" onclick="recipe()">
 				<span id="recipetext">레시피</span>
 			</div>
-			<a href="/ranking_search.go"><dlv id="lsearch" onclick="search()">
+			<a href="/ranking_search.do"><dlv id="lsearch" onclick="search()">
 				<span id="searchtext">검색어</span></dlv></a>
 			<div id="topline"></div>
 			<div id="search_rankingtext">레시피랭킹</div>
@@ -93,8 +94,17 @@
 													<c:otherwise>
 														<%-- 메달 이미지 1부터 출력 --%>
 														<%-- u_rcp_img가 유효한 값이 아닐 경우 문자열 그대로 출력됨 --%>
-														<img src="${k.u_rcp_img}" class="recipe_thumbnail"
-															alt="${k.u_rcp_img}">
+														<c:choose>
+															<c:when test="${k.rcp_idx > 10000}">
+																<img
+																	src="/resources/user_image/user_thumnail/${k.u_rcp_img}"
+																	class="recipe_thumbnail" alt="${k.u_rcp_img}">
+															</c:when>
+															<c:otherwise>
+																<img src="${k.u_rcp_img}" class="recipe_thumbnail"
+																	alt="${k.u_rcp_img}">
+															</c:otherwise>
+														</c:choose>
 													</c:otherwise>
 												</c:choose>
 											</a>
@@ -124,10 +134,10 @@
 											<c:choose>
 												<%-- avg_grade가 null인 경우(별점이 없는 경우) --%>
 												<c:when test="${k.avg_grade == null}">
-													<span>X</span>
+													<span>0.0</span>
 												</c:when>
 												<c:otherwise>
-													<span>${k.avg_grade }</span>
+													<span><fmt:formatNumber value="${k.avg_grade }" minFractionDigits="1" maxFractionDigits="1"/></span>
 												</c:otherwise>
 											</c:choose>
 

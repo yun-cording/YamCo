@@ -25,7 +25,7 @@ public class NicknameSetController {
 		Member_VO mvo = new Member_VO();
 		mvo = api_Service.getIdChk(m_vo.getM_id());
 		if(res>0) {
-			mv.setViewName("redirect:/main.go");
+			mv.setViewName("redirect:/main.do");
 			session.setAttribute("loginChk", true);
 			session.setAttribute("m_nick", mvo.getM_nick());
 			session.setAttribute("m_idx", mvo.getM_idx());

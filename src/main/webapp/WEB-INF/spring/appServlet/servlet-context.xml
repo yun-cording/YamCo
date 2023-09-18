@@ -43,7 +43,7 @@
 				<beans:ref bean="admin_inter"/>
 			</interceptor>
 			<interceptor>
-				<mapping path="/user_recipe_write.go" />
+				<mapping path="/user_recipe_write.do" />
 				<beans:ref bean="log_inter"/>
 			</interceptor>
 		</interceptors>

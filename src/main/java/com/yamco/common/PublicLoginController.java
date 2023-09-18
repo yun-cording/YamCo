@@ -112,7 +112,7 @@ public class PublicLoginController {
 					m_vo.setM_fail_count(0);
 					member_Service.getFailCountUp(m_vo);
 				}
-				mv.setViewName("redirect:"+url);
+							mv.setViewName("redirect:"+url);
 				}else {
 					mv.setViewName("/login/social_join");
 					mv.addObject("m_id", m_vo.getM_id());

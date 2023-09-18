@@ -274,6 +274,7 @@ public class AdminDAO {
 				k.setRecipe_defencenick(arcvo.getM_nick());
 				rcp_list.add(k);
 			}
+				}
 				//recipe_defencenick
 			}else if(k.getC_idx() != null ){
 				if(k.getR_answer() != null) { // 답변 처리가 된것들

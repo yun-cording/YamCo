@@ -67,7 +67,7 @@ function restorePlaceholder(element, defaultPlaceholder) {
 <c:set var="REDIRECT_URI" value="http://localhost:8090/kakaologin.do"></c:set>
 	<div id="content">
 	<div id="top_color">
-		<a href="/main.go"><img class="center"
+		<a href="/main.do"><img class="center"
 			src="/resources/images/logo_white_yamyam.png"></a>
 	</div>
 	<div id="top_pattern"></div>
@@ -84,7 +84,7 @@ function restorePlaceholder(element, defaultPlaceholder) {
 	</div>
 	<input type="hidden" name="url" value="${url}">
 	<button class="color login_bt" onclick="public_login(this.form)">로그인</button>
-	<a id="find_pw" href="/find_pw.go">비밀번호 찾기</a>
+	<a id="find_pw" href="/find_pw.do">비밀번호 찾기</a>
 	<div class="social">
 			<a href="https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${clientId }&redirect_uri=${redirectURI}&state=1">
 			<div class="socialnaver leftbin"><img class="social_size" src="/resources/images/naver_login.png"></div></a>
@@ -94,7 +94,7 @@ function restorePlaceholder(element, defaultPlaceholder) {
 		<div class="g_id_signin margin"></div>
 	</div>
 	<div>
-		<a href="/member_join.go">
+		<a href="/member_join.do">
 		<div class="color join">
 			회원가입
 		</div>
