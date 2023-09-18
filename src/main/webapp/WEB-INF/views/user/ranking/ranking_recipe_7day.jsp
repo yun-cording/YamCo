@@ -93,8 +93,17 @@
 													<c:otherwise>
 														<%-- 메달 이미지 1부터 출력 --%>
 														<%-- u_rcp_img가 유효한 값이 아닐 경우 문자열 그대로 출력됨 --%>
-														<img src="${k.u_rcp_img}" class="recipe_thumbnail"
-															alt="${k.u_rcp_img}">
+														<c:choose>
+															<c:when test="${k.rcp_idx > 10000}">
+																<img
+																	src="/resources/user_image/user_thumnail/${k.u_rcp_img}"
+																	class="recipe_thumbnail" alt="${k.u_rcp_img}">
+															</c:when>
+															<c:otherwise>
+																<img src="${k.u_rcp_img}" class="recipe_thumbnail"
+																	alt="${k.u_rcp_img}">
+															</c:otherwise>
+														</c:choose>
 													</c:otherwise>
 												</c:choose>
 											</a>
