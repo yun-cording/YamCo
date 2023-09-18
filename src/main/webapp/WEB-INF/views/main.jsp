@@ -307,7 +307,7 @@ cursor: pointer;
 				<div class="recipe_one">
 							<a href="/user_recipe_detail.do?rcp_idx=${k.rcp_idx}">
 							
-							<p><img src="/resources/user_image/user_thumnail/${k.u_rcp_img }" class="recipe_thumbnail"></p>
+							<p><img src="resources/user_image/user_thumnail/${k.u_rcp_img }" class="recipe_thumbnail"></p>
 							<p>${k.u_rcp_title }</p>
 							<div class="writer">
 								<img src="${k.m_image }" class="profile"><span>${k.m_nick }</span>

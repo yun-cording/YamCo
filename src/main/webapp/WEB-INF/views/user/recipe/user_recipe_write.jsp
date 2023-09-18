@@ -245,8 +245,7 @@ $(document).ready(function() {
 <script type="text/javascript">
 		var fieldCount = 0;
 	var newInputField = 0;
-	//for() 컨트롤러에서 값 가져올때 split으로 ,기준으로 잘라서 배열을 만들고 배열 크기만큼의 숫자 값을 넘겨줘서
-	//for문을 실행한 후 각 칸에 해당하는 벨류값을 넣어준다.
+	// 버튼 클릭시 재료 입력 필드 생성
 	function increase_input() {
 		
 		if (fieldCount < 20) {
@@ -326,11 +325,9 @@ $(document).ready(function() {
 	} 
 		
 	if(confirm("저장 하시겠습니까?") == true){
-			//alert("저장해");
 		f.action="/write_go?u_rcp_ingArr="+u_rcp_ingArr+"&u_rcp_status="+u_rcp_status;
 		f.submit()
 		}else{
-			//alert("저장안해");	
 			return false;
 		}		
 	}	
