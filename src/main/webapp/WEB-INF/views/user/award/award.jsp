@@ -12,10 +12,16 @@
 	href="resources/images/icon_tomato.png">
 <link rel="stylesheet" href="resources/css/user/award.css?after">
 <style type="text/css">
+@font-face {
+	font-family: 'Yeongdeok_TTF';
+	src: url('/resources/fonts/Yeongdeok Blueroad.ttf') format('truetype');
+}
+
 * {
 	padding: 0;
 	margin: 0;
 	box-sizing: border-box;
+	font-family: 'Yeongdeok_TTF';
 }
 
 #mydiv {
