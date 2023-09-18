@@ -36,7 +36,7 @@
 		document.getElementById("week").style.cssText = 'background-color:white';
 		document.getElementById("weektext").style.color = 'black';
 		
-		location.href="/ranking_search.go";
+		location.href="/ranking_search.do";
 	}
 </script>
 </head>
@@ -50,7 +50,7 @@
 			</aside>
 
 			<div id="content">
-				<a href="/ranking_recipe.go"><div id="lrecipe"
+				<a href="/ranking_recipe.do"><div id="lrecipe"
 						onclick="recipe()">
 						<span id="recipetext">레시피</span>
 					</div></a>

@@ -55,8 +55,8 @@ if(c_idx){
 	sendData='rcp_idx='+rcp_idx
 }
 swal({
-	  title: "해당 게시글을 블라인드 처리하리겠습니까?",
-	  text: "블라인드 된 게시글은 조회할 수 없습니다.",
+	  title: "블라인드 처리하리겠습니까?",
+	  text: "블라인드 된 글은 조회할 수 없습니다.",
 	  icon: "warning",
 	  buttons: true,
 	  dangerMode: true,

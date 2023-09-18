@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -303,11 +303,11 @@ button:hover {
 	<div id="content">
 		<div id="category">
 			<ul>
-				<a href="/myinfo.go"><li id="info_first">내 정보</li></a>
-				<a href="/mywishlist.go"><li id="info">찜 목록</li></a>
-				<a href="/reportcontent.go"><li id="info">신고 내역</li></a>
-				<a href="/mycontent.go"><li id="info">내가 쓴 게시글</li></a>
-				<a href="/mycomment.go"><li id="info_end">내가 쓴 댓글</li></a>
+				<a href="/myinfo.do"><li id="info_first">내 정보</li></a>
+				<a href="/mywishlist.do"><li id="info">찜 목록</li></a>
+				<a href="/reportcontent.do"><li id="info">신고 내역</li></a>
+				<a href="/mycontent.do"><li id="info">내가 쓴 게시글</li></a>
+				<a href="/mycomment.do"><li id="info_end">내가 쓴 댓글</li></a>
 			</ul>
 		</div>
 		<div class="title_line"></div>			
@@ -327,8 +327,20 @@ button:hover {
 			<c:forEach items="${wishList }" var="k">
 				<div class="recipe_one" style="display: none">
 					<a href="/user_recipe_detail.do?rcp_idx=${k.rcp_idx}">
-						<p><img src="${k.u_rcp_img }" class="recipe_thumbnail"></p>
-						<p>${k.u_rcp_title }</p>
+							<c:choose>
+								<c:when test="${k.rcp_idx < 10000}">
+									<p>
+										<img src="${k.u_rcp_img }" class="recipe_thumbnail">
+									</p>
+								</c:when>
+								<c:when test="${k.rcp_idx >= 10000 }">
+									<p>
+										<img src="/resources/user_image/user_thumnail/${k.u_rcp_img }"
+											class="recipe_thumbnail">
+									</p>
+								</c:when>
+							</c:choose>
+							<p>${k.u_rcp_title }</p>
 						<div class="writer">
 							<img src="${k.m_image }" class="profile"><span>${k.m_nick }</span>
 						</div>
@@ -382,10 +394,10 @@ $(function () {
 	});
 });
 	function wish_sort_grade_go() {
-		location.href="/mywishlist.go?order=1"
+		location.href="/mywishlist.do?order=1"
 	}
 	function wish_sort_hit_go() {
-		location.href="/mywishlist.go?order=0"
+		location.href="/mywishlist.do?order=0"
 	}
 </script>
 </body>

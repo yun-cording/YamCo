@@ -131,7 +131,7 @@ public class Recipe_Controller {
 	}
 
 	// 성훈 레시피 작성
-	@RequestMapping("/user_recipe_write.go")
+	@RequestMapping("/user_recipe_write.do")
 	public ModelAndView userRecipeWriteGo(HttpSession session, String result) {
 		ModelAndView mv = new ModelAndView();
 		System.out.println("header에서넘어온 result : " + result);
@@ -228,7 +228,7 @@ public class Recipe_Controller {
 	// TODO 상우 user recipe 시작
 	
 	// TODO 상우 user recipe list 출력
-	@RequestMapping("/user_list.go")
+	@RequestMapping("/user_list.do")
 	public ModelAndView u_recipe_list(HttpServletRequest request, HttpServletResponse response,
 			@RequestParam(value = "selectedWay", required = false) String selectedWay,
 			@RequestParam(value = "selectedCate", required = false) String selectedCate,

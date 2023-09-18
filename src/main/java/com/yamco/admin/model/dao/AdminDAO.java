@@ -265,7 +265,7 @@ public class AdminDAO {
 					k.setRecipe_attacknick(recipe_attacknick);
 					k.setRecipe_defencenick(arcvo.getM_nick());
 					answerRcp_list.add(k);
-				}
+				}else {
 				String recipe_attacknick = sqlSessionTemplate.selectOne("admin.recipe_attacknick",k.getM_idx());
 				Admin_Report_Chk_VO arcvo = sqlSessionTemplate.selectOne("admin.getRecipe_info",k.getRcp_idx());
 				k.setU_rcp_status(arcvo.getU_rcp_status());
@@ -273,6 +273,7 @@ public class AdminDAO {
 				k.setRecipe_attacknick(recipe_attacknick);
 				k.setRecipe_defencenick(arcvo.getM_nick());
 				rcp_list.add(k);
+				}
 				//recipe_defencenick
 			}else if(k.getC_idx() != null ){
 				if(k.getR_answer() != null) { // 답변 처리가 된것들
@@ -285,7 +286,7 @@ public class AdminDAO {
 					k.setComment_attacknick(comment_attacknick);
 					k.setComment_defencenick(comment_defencenick);
 					answerC_list.add(k);
-				}
+				}else {
 				String comment_attacknick  = sqlSessionTemplate.selectOne("admin.comment_attacknick",k.getM_idx());// 신고자 닉네임가져오기
 				//System.out.println("comment_attacknick : "+comment_attacknick);
 				Admin_Report_Chk_VO arcvo = sqlSessionTemplate.selectOne("admin.comment_defencenick",k.getC_idx()); // 작성자 닉네임
@@ -295,6 +296,7 @@ public class AdminDAO {
 				k.setComment_attacknick(comment_attacknick);
 				k.setComment_defencenick(comment_defencenick);
 				c_list.add(k);
+				}
 			}
 			
 		}

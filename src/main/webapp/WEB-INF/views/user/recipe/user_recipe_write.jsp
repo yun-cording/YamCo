@@ -243,7 +243,7 @@ $(document).ready(function() {
 });	
 </script>
 <script type="text/javascript">
-		var fieldCount = 0;
+	var fieldCount = 0;
 	var newInputField = 0;
 	// 버튼 클릭시 재료 입력 필드 생성
 	function increase_input() {

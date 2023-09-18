@@ -268,7 +268,7 @@ cursor: pointer;
 	function search_go(f) {
 		const form = document.getElementById("myForm");
 		console.log(form)
-		form.action = "/search.go" ;
+		form.action = "/search.do" ;
 		form.submit();
 	}
 	</script>
@@ -338,7 +338,7 @@ cursor: pointer;
 				<c:forEach items="${bestList }" var="k">
 				<div class="recipe_one">
 							<a href="/user_recipe_detail.do?rcp_idx=${k.rcp_idx}">
-							<p><img src="resources/user_image/user_thumnail/${k.u_rcp_img }" class="recipe_thumbnail"></p>
+							<p><img src="/resources/user_image/user_thumnail/${k.u_rcp_img }" class="recipe_thumbnail"></p>
 							<p>${k.u_rcp_title }</p>
 							<div class="writer">
 								<img src="${k.m_image }" class="profile"><span>${k.m_nick }</span>
@@ -452,10 +452,10 @@ cursor: pointer;
 	    setInterval(changeImage, 3000);
 	 	
 	    function awardgo() {
-	    	location.href ="/award.go" ;
+	    	location.href ="/award.do" ;
 		}
 	    function openref() {
-	    	location.href ="/plz.go" ;
+	    	location.href ="/plz.do" ;
 		}
 	    function bestgo() {
 	    	location.href ="/go_ranking_recipe.do" ;

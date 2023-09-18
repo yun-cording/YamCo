@@ -283,11 +283,11 @@ button{
 		<div id="content">
 			<div id="category">
 				<ul>
-					<a href="/myinfo.go"><li id="info_first">내 정보</li></a>
-					<a href="/mywishlist.go"><li id="info">찜 목록</li></a>
-					<a href="/reportcontent.go"><li id="info">신고 내역</li></a>
-					<a href="/mycontent.go"><li id="info">내가 쓴 게시글</li></a>
-					<a href="/mycomment.go"><li id="info_end">내가 쓴 댓글</li></a>
+					<a href="/myinfo.do"><li id="info_first">내 정보</li></a>
+					<a href="/mywishlist.do"><li id="info">찜 목록</li></a>
+					<a href="/reportcontent.do"><li id="info">신고 내역</li></a>
+					<a href="/mycontent.do"><li id="info">내가 쓴 게시글</li></a>
+					<a href="/mycomment.do"><li id="info_end">내가 쓴 댓글</li></a>
 				</ul>
 			</div>
 			<div class="title_line"></div>
@@ -331,20 +331,20 @@ button{
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 <script type="text/javascript">
 function changeMyInfo_go() {
-	location.href="/changeMyInfo.go"
+	location.href="/changeMyInfo2.do"
 }
 function leaveMember_go() {
-	location.href="/leaveMember.go"
+	location.href="/leaveMember.do"
 }
 function changeMyPw_go() {
-	location.href="/changeMyPw.go"
+	location.href="/changeMyPw2.do"
 }
 $(function() {
 	if('${social}'){
 		$("#myModal").css('display','block');
 	}
 	$("#yesBtn").on("click",function() {
-		location.href = '/leaveMember.do?social=${social}';
+		location.href = '/leaveMember2.do?social=${social}';
     });
 	$("#noBtn").on("click",function() {
 		$("#myModal").css("display", "none");

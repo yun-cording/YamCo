@@ -168,7 +168,7 @@
 				       <c:forEach var="item" items="${random_list}" varStatus="loop">
 						    <c:if test="${loop.index < 3}">
 	    						<a href="/user_recipe_detail.do?rcp_idx=${item.rcp_idx}">
-							        <img id="carousel_img" src="${item.u_rcp_img}" alt="">
+							        <img id="carousel_img" src="/resources/user_image/user_thumnail/${item.u_rcp_img}" alt="11">
 						       </a>
 						    </c:if>
 						</c:forEach>
@@ -346,9 +346,8 @@
 				
 				</div>	<!-- content 끝 -->
 				
-			</div> <!-- test 끝 -->
 			
-		</div> <!-- mydiv 끝 -->
+			
 	
 		<aside id="sidebar-right">
 			<jsp:include page="../../bestlist.jsp" />
@@ -356,6 +355,7 @@
 		<div id="footer">
 			<jsp:include page="../../footer.jsp" />
 		</div> 
+		</div> <!-- mydiv 끝 -->
 <!-- script 위치 -->		
 <!-- JavaScript 코드 -->
 <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
