@@ -67,10 +67,12 @@ public class AdminDAO {
 		for (Admin_Report_VO k : recipe_report_list) {
 			String idx = k.getRcp_idx();
 			U_recipe_meta_VO vo = sqlSessionTemplate.selectOne("u_recipe.metaData", idx); // 게시글 번호로 닉네임, 제목 가져오기
-			if(vo.getU_rcp_status().equals("0")) {
-				k.setM_nick(vo.getM_nick());
-				k.setU_rcp_title(vo.getU_rcp_title());
-				final_report_list.add(k);
+			if(vo!=null) {
+				if(vo.getU_rcp_status().equals("0")) {
+					k.setM_nick(vo.getM_nick());
+					k.setU_rcp_title(vo.getU_rcp_title());
+					final_report_list.add(k);
+				}
 			}
 		}
 		for (Admin_Report_VO k : comment_report_list) {
@@ -90,23 +92,25 @@ public class AdminDAO {
 			String idx = k.getRcp_idx();
 			if(idx!=null) { // 게시글이면 
 				U_recipe_meta_VO vo = sqlSessionTemplate.selectOne("u_recipe.metaData", idx); // 게시글 번호로 제목가져오기
-				String inputString = k.getR_time();
-
-		        // SimpleDateFormat을 사용하여 문자열을 날짜 객체로 변환
-		        SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		        Date date = null;
-		        try {
-		            date = inputFormat.parse(inputString);
-		        } catch (Exception e) {
-		            e.printStackTrace();
-		        }
-
-		        // 출력 형식을 지정한 SimpleDateFormat을 사용하여 원하는 형식으로 변환
-		        SimpleDateFormat outputFormat = new SimpleDateFormat("yyyy년MM월dd일 HH시mm분ss초");
-		        String outputString = outputFormat.format(date);
-		        k.setR_time(outputString);
-				k.setU_rcp_title(vo.getU_rcp_title());
-				recent_report_list2.add(k);
+				if(vo!=null) {
+					String inputString = k.getR_time();
+					
+					// SimpleDateFormat을 사용하여 문자열을 날짜 객체로 변환
+					SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+					Date date = null;
+					try {
+						date = inputFormat.parse(inputString);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+					
+					// 출력 형식을 지정한 SimpleDateFormat을 사용하여 원하는 형식으로 변환
+					SimpleDateFormat outputFormat = new SimpleDateFormat("yyyy년MM월dd일 HH시mm분ss초");
+					String outputString = outputFormat.format(date);
+					k.setR_time(outputString);
+					k.setU_rcp_title(vo.getU_rcp_title());
+					recent_report_list2.add(k);
+				}
 			}else {
 				Comment_VO cvo = new Comment_VO();
 				cvo.setC_idx(k.getC_idx());

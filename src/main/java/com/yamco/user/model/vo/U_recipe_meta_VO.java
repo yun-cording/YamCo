@@ -3,12 +3,29 @@ package com.yamco.user.model.vo;
 import java.io.Serializable;
 
 public class U_recipe_meta_VO implements Serializable{
-	private String rcp_idx, m_idx, u_rcp_title, u_rcp_comment, u_rcp_category, u_rcp_ing, u_rcp_main, u_rcp_level,
-			u_rcp_keyword, u_rcp_blind, m_nick, u_rcp_status, u_rcp_hit, u_rcp_ctype, u_rcp_time, u_rcp_img, m_image;
+	private String rcp_idx, m_idx, u_rcp_title, u_rcp_tip, u_rcp_category, u_rcp_ing, u_rcp_main, u_rcp_level,
+			u_rcp_keyword, u_rcp_blind, m_nick, u_rcp_status, u_rcp_hit, u_rcp_ctype, u_rcp_time, u_rcp_img, m_image , u_rcp_comment;
 	private String c_count, avg_grade, hit_7day, hit_1mon, hit_today, w_count;
 	private String have_category, have_title, have_nick, input;
 	private String start_date, end_date;
 	private String btn_status;
+
+	
+	public String getU_rcp_comment() {
+		return u_rcp_comment;
+	}
+
+	public void setU_rcp_comment(String u_rcp_comment) {
+		this.u_rcp_comment = u_rcp_comment;
+	}
+
+	public String getU_rcp_tip() {
+		return u_rcp_tip;
+	}
+
+	public void setU_rcp_tip(String u_rcp_tip) {
+		this.u_rcp_tip = u_rcp_tip;
+	}
 
 	public String getRcp_idx() {
 		return rcp_idx;
@@ -32,14 +49,6 @@ public class U_recipe_meta_VO implements Serializable{
 
 	public void setU_rcp_title(String u_rcp_title) {
 		this.u_rcp_title = u_rcp_title;
-	}
-
-	public String getU_rcp_comment() {
-		return u_rcp_comment;
-	}
-
-	public void setU_rcp_comment(String u_rcp_comment) {
-		this.u_rcp_comment = u_rcp_comment;
 	}
 
 	public String getU_rcp_category() {

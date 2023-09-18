@@ -10,7 +10,6 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 <script type="text/javascript">
 function recipeChk() {
-//$("#recipeChk").on('click', function() {
 $.ajax({
 	type: 'get',
 	url : '/limit_recipe_chk.do',
@@ -34,7 +33,6 @@ $.ajax({
 		}
 	}
 }); /* ajax 끝 */
-//}); /* recipeChk 클릭 끝 */	
 }
 
 

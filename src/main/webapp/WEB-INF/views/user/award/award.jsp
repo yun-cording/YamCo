@@ -91,12 +91,12 @@
 															<div class="prize_recipe_photo">
 																<a
 																	href="/user_recipe_detail.do?rcp_idx=${recipeMap['1'].rcp_idx}"><img
-																	src="${recipeMap['1'].u_rcp_img}"
+																	src="resources/user_image/user_thumnail/${recipeMap['1'].u_rcp_img}"
 																	alt="${recipeMap['1'].u_rcp_img}"></a>
 															</div>
 															<div class="prize_recipe_content">
 																<a
-																	href="/user_recipe_detail.do?rcp_idx=${recipeMap['1'].rcp_idx}"><p>${recipeMap['1'].u_rcp_comment }</p></a>
+																	href="/user_recipe_detail.do?rcp_idx=${recipeMap['1'].rcp_idx}"><p>${recipeMap['1'].u_rcp_tip }</p></a>
 															</div>
 														</c:when>
 														<c:otherwise>
@@ -141,12 +141,12 @@
 													<div class="prize_recipe_photo">
 														<a
 															href="/user_recipe_detail.do?rcp_idx=${recipeMap['0'].rcp_idx}"><img
-															src="${recipeMap['0'].u_rcp_img}"
+															src="resources/user_image/user_thumnail/${recipeMap['0'].u_rcp_img}"
 															alt="${recipeMap['0'].u_rcp_img}"></a>
 													</div>
 													<div class="prize_recipe_content">
 														<a
-															href="/user_recipe_detail.do?rcp_idx=${recipeMap['0'].rcp_idx}"><p>${recipeMap['0'].u_rcp_comment }</p></a>
+															href="/user_recipe_detail.do?rcp_idx=${recipeMap['0'].rcp_idx}"><p>${recipeMap['0'].u_rcp_tip }</p></a>
 													</div>
 												</c:when>
 												<c:otherwise>
@@ -189,12 +189,12 @@
 															<div class="prize_recipe_photo">
 																<a
 																	href="/user_recipe_detail.do?rcp_idx=${recipeMap['2'].rcp_idx}"><img
-																	src="${recipeMap['2'].u_rcp_img}"
+																	src="resources/user_image/user_thumnail/${recipeMap['2'].u_rcp_img}"
 																	alt="${recipeMap['2'].u_rcp_img}"></a>
 															</div>
 															<div class="prize_recipe_content">
 																<a
-																	href="/user_recipe_detail.do?rcp_idx=${recipeMap['2'].rcp_idx}"><p>${recipeMap['2'].u_rcp_comment }</p></a>
+																	href="/user_recipe_detail.do?rcp_idx=${recipeMap['2'].rcp_idx}"><p>${recipeMap['2'].u_rcp_tip }</p></a>
 															</div>
 														</c:when>
 														<c:otherwise>
