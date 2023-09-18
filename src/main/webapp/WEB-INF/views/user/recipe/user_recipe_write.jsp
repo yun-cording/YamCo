@@ -82,12 +82,12 @@ document.addEventListener("DOMContentLoaded", function() {
 							<span class="font_32">대표사진 등록 </span> 
 							<label for="fileInput"	id="fileInputLabel" class="input_tomato"> <!-- class="custom-file-input" -->
 							<input type="file" id="fileInput" accept="image/*" name="u_rcp_img1"></input> <!-- class="input_tomato" -->
-							<span>사진첨부하기 +</span>
+							<span style="font-family: 'Yeongdeok_TTF';">사진첨부하기 +</span>
 							</label>
 							<div style="margin-top: 35px;">
 								<img id="thumnail_img_pick"	src="resources/user_image/user_thumnail/" width="320px"	height="320px">
 							</div>
-							<div style="margin-top: 20px;">
+							<div style="margin-top: 20px; font-family: 'Yeongdeok_TTF';" >
 								이미지는 320 x 320px을 권장합니다.<br> ※ 게시판에 상단의 이미지가 노출됩니다. ※
 							</div>
 							<div class="vertical-line"
