@@ -1,9 +1,14 @@
 @charset "UTF-8";
+@font-face {
+    font-family: 'Yeongdeok_TTF';
+    src: url('/resources/fonts/Yeongdeok Blueroad.ttf') format('truetype');
+}
 
 * {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+  font-family: 'Yeongdeok_TTF';
 }
 div{
 	margin: 0;
@@ -12,6 +17,7 @@ div{
         width: 1920px;
         margin:  auto;
         /* height: 5000px; */
+        font-family: 'Yeongdeok_TTF';
 
 }
  #sidebar-right {

@@ -598,8 +598,7 @@
             // alert(typeOfMIdx);
 	
             
-            // 버튼 눌렀을 때 로그인 안되 어있으면 login 페이지로 넘기자
-        	
+            // 버튼 눌렀을 때 로그인 안 되어있으면 login 페이지로 넘기자
             $.ajax({
                 url: "/wish_ornot.do", 
                 type: "GET", // POST 요청
@@ -638,12 +637,12 @@
 		
        // 댓글 좋아요
        $(".like_btn").click(function () {
-    	   if (mNick == "null" || mNick === "null" || mNick == null || mNick === null || mNick === undefined || mNick == undefined || mNick == "" || mNick === "") {
+    	   if (mNick == "null" || mNick === "null" || mNick === null || mNick === undefined || mNick === "") {
                var result = confirm("로그인이 필요합니다. 계속하시겠습니까?");
                if (result) {
                    window.location.href = "/go_login.do";
                } else {
-                   // 사용자가 로그인을 취소하면 아무 작업도 하지 않습니다.
+                   // 사용자가 로그인 페이지로 이동을 취소하면 아무 작업도 하지 않음.
                }
             }else {
             	// 다 안걸리면 작업 하자
@@ -651,9 +650,8 @@
             	var likeCnt = $(this).next().children('strong');
         	    // 자료형 확인
         	    console.log(typeof buttonId);
-
-
-            	  // Ajax 요청 보내기
+        	    
+            	// Ajax 요청 보내기
                 $.ajax({
                     type: "GET",
                     url: "/comment_like.do",
