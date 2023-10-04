@@ -219,7 +219,7 @@
 	<!-- 토큰, 날짜 생성 -->
 	<update id="token" parameterType="mvo">
 		update member set m_token =
-		#{m_token}, m_t_time = sysdate() where m_id =
+		#{m_token}, m_t_time = sysdate() + INTERVAL 9 HOUR where m_id =
 		#{m_id}
 	</update>
 
