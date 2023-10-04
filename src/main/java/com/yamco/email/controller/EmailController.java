@@ -22,7 +22,6 @@ public class EmailController {
 		try {
 			ModelAndView mv = new ModelAndView("redirect:/");
 			Member_VO m_vo = member_Service.getEmailId(mvo);
-			
 		    mailService.sendEmail(m_vo, "lCT@YamYamrecipe.com");
 			return mv;
 		} catch (Exception e) {

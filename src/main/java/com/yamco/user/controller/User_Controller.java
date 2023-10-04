@@ -117,7 +117,8 @@ public class User_Controller {
 	public ModelAndView go_member_join() {
 		return new ModelAndView("login/member_join");
 	}
-
+	
+	// 채림 새 비밀번호 변경 시작
 	@RequestMapping("go_new_pw.do")
 	public ModelAndView go_new_pw(@RequestParam("m_id") String m_id, Member_VO mvo) {
 		ModelAndView mv = new ModelAndView("login/new_pw");
@@ -139,10 +140,11 @@ public class User_Controller {
 			
 			long diff = e_time - s_time;
 			long diffMin = diff / (1000*60);
+			// token 생성 시간 30분 지났을 때
 			if(diffMin >= 30) {
-				String mail_alert = "<script>alert('30분이 지나 세션이 만료되었습니다. 비밀번호 변경 페이지로 돌아가 이메일을 다시 입력해주세요.');window.location.href='/go_login.do'</script>";
+				String alert = "<script>alert('30분이 지나 세션이 만료되었습니다. 비밀번호 변경 페이지로 돌아가 이메일을 다시 입력해주세요.');</script>";
 				member_Service.getTokenDelete(m_vo);
-				mv.addObject("mail_alert", mail_alert);
+				mv.addObject("alert", alert);
 			}
 			return mv;	
 		} catch (Exception e) {
