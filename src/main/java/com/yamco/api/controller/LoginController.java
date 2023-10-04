@@ -243,9 +243,7 @@ public class LoginController {
 						res.append(str);
 					}
 					// 개인 사용자 정보
-					// System.out.println(res.toString());
 					json = (JSONObject) pars.parse(res.toString());
-					System.out.println(json);
 					JSONObject props = (JSONObject) json.get("properties");
 					// 0) 고유 아이디 DB의 m_id 에 보내야함
 					String id = json.get("id").toString();
@@ -286,7 +284,6 @@ public class LoginController {
 
 					// DB다녀와서 고유id 있는지 체크하기
 					Member_VO m_vo2 = api_Service.getIdChk(id);
-					System.out.println("m_vo2 : " + m_vo2);
 					if (m_vo2 != null) {
 						// 있으면 세션에 로그인 변수저장후 홈페이지로
 						if (m_vo2.getM_nick() != null) {

@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
@@ -135,7 +136,6 @@ public class Api_Controller {
 			}
 		}
 
-
 		// TODO 상우 이런 레시피는 어떠세요?(레시피 추천) 시작
 		// 추천게시물 띄우기
 		// 랜덤으로 선택한 게시물의 인덱스를 저장할 리스트
@@ -247,10 +247,12 @@ public class Api_Controller {
 	// TODO 상우 공공데이터 파싱 => 목록 띄우기
 	@RequestMapping("/public_list.do")
 	public ModelAndView go_public_list(HttpServletRequest request, HttpServletResponse response,
-			@RequestParam(value = "selectedWay", required = false) String selectedWay,
-			@RequestParam(value = "selectedCate", required = false) String selectedCate, HttpSession session)
-			throws ServletException {
+			@ModelAttribute(value = "selectedWay") String selectedWay,
+			@ModelAttribute(value = "selectedCate") String selectedCate, HttpSession session) throws ServletException {
 		ModelAndView mv = new ModelAndView("user/recipe/public_list");
+
+		selectedWay = selectedWay.isBlank() ? "전체보기" : selectedWay;
+		selectedCate = selectedCate.isBlank() ? "전체보기" : selectedCate;
 
 		// JSON 전체 리스트 받아오자
 		List<JsonNode> rowList = p_recipe_Service.go_public_list();
@@ -258,22 +260,22 @@ public class Api_Controller {
 		// 조리법, 카테고리 세션에 담자
 
 		// 세션에서 값 가져오기
-		String storedSelectedCate = (String) session.getAttribute("selectedCate");
-		String storedSelectedWay = (String) session.getAttribute("selectedWay");
+//		String storedSelectedCate = (String) session.getAttribute("selectedCate");
+//		String storedSelectedWay = (String) session.getAttribute("selectedWay");
 
 		// 다음 요청에서 값이 오지 않으면 세션에 저장된 값을 사용
-		if (selectedCate == null) {
-			selectedCate = storedSelectedCate;
-		}
-		if (selectedWay == null) {
-			selectedWay = storedSelectedWay;
-		}
+//		if (selectedCate == null) {
+//			selectedCate = storedSelectedCate;
+//		}
+//		if (selectedWay == null) {
+//			selectedWay = storedSelectedWay;
+//		}
 
-		session.setAttribute("selectedCate", selectedCate);
-		session.setAttribute("selectedWay", selectedWay);
+//		session.setAttribute("selectedCate", selectedCate);
+//		session.setAttribute("selectedWay", selectedWay);
 
 		// 메뉴, 조리법 미선택 시 전체 띄우기
-		if (selectedWay == null && selectedCate == null) {
+		if (selectedWay.isBlank() && selectedCate.isBlank()) {
 			// DB에 log 찍기
 			log_Service.visitorUp(request, response);
 
@@ -315,8 +317,6 @@ public class Api_Controller {
 		} else {
 			// 필터링해서 담을 리스트
 
-			selectedWay = (String) session.getAttribute("selectedWay");
-			selectedCate = (String) session.getAttribute("selectedCate");
 			// 조리법 하나라도 선택 시
 			try {
 
@@ -330,7 +330,7 @@ public class Api_Controller {
 			}
 
 			// selectedWay만 null일 때 => 카테고리만 검색해 오자 (RCP_PAT2)
-			if (selectedWay == null && selectedCate != null) {
+			if (selectedWay.isBlank() && !selectedCate.isBlank()) {
 				List<JsonNode> filteredList = new ArrayList<>();
 
 				for (JsonNode jsonNode : rowList) {
@@ -341,7 +341,6 @@ public class Api_Controller {
 						filteredList.add(jsonNode);
 					}
 				}
-				System.out.println("조리법만 널이다 : " + filteredList.size());
 
 				List<P_recipe_VO> prvo = p_recipe_Service.article_summary();
 
@@ -381,7 +380,7 @@ public class Api_Controller {
 				return mv.addObject("listSummary", listSummary);
 
 				// selectedCate만 null일 때 => 조리법만 검색해 오자 (RCP_WAY2)
-			} else if (selectedWay != null && selectedCate == null) {
+			} else if (!selectedWay.isBlank()  && selectedCate.isBlank()) {
 				List<JsonNode> filteredList = new ArrayList<>();
 
 				for (JsonNode jsonNode : rowList) {
@@ -392,7 +391,6 @@ public class Api_Controller {
 						filteredList.add(jsonNode);
 					}
 				}
-				System.out.println("cate만 널이다 : " + filteredList.size());
 
 				List<P_recipe_VO> prvo = p_recipe_Service.article_summary();
 
@@ -405,7 +403,6 @@ public class Api_Controller {
 					try {
 						vo = prvo.get(i);
 						// String 맞음
-//				        	System.out.println(vo.getAvg_c_grade().getClass().getName());
 //				        	vo.setAvg_c_grade(String.format("%.1f", vo.getAvg_c_grade()));
 
 						if (vo.getAvg_c_grade() != null) {
@@ -415,7 +412,6 @@ public class Api_Controller {
 						}
 					} catch (Exception e) {
 						count++;
-//				        	System.out.println("vo 빈값, count는 : " + count);
 					}
 
 					String rcpSeq = k.get("RCP_SEQ").asText();
@@ -433,7 +429,7 @@ public class Api_Controller {
 				return mv.addObject("listSummary", listSummary);
 
 				// 둘다 null이 아닐 때
-			} else if (selectedWay != null && selectedCate != null) {
+			} else if (!selectedWay.isBlank() && !selectedCate.isBlank()) {
 				// 둘다 전체보기
 				if (selectedWay.equals("전체보기") && selectedCate.equals("전체보기")) {
 					// DB에 log 찍기
@@ -450,7 +446,6 @@ public class Api_Controller {
 						try {
 							vo = prvo.get(i);
 							// String 맞음
-//					        	System.out.println(vo.getAvg_c_grade().getClass().getName());
 //					        	vo.setAvg_c_grade(String.format("%.1f", vo.getAvg_c_grade()));
 
 							if (vo.getAvg_c_grade() != null) {
@@ -460,7 +455,58 @@ public class Api_Controller {
 							}
 						} catch (Exception e) {
 							count++;
-//					        	System.out.println("vo 빈값, count는 : " + count);
+						}
+
+						String rcpSeq = k.get("RCP_SEQ").asText();
+						String attFileNoMain = k.get("ATT_FILE_NO_MAIN").asText();
+						String rcpNm = k.get("RCP_NM").asText();
+
+						// 자바 빈 규약에 맞게 변경 _ 없애기
+						vo.setRcpSeq(rcpSeq);
+						vo.setAttFileNoMain(attFileNoMain);
+						vo.setRcpNm(rcpNm);
+
+						listSummary.add(vo);
+					}
+					return mv.addObject("listSummary", listSummary);
+				} else if (selectedWay.equals("전체보기") || selectedCate.equals("전체보기")) {
+					List<JsonNode> filteredList = new ArrayList<>();
+					for (JsonNode jsonNode : rowList) {
+						String rcpWay2 = jsonNode.get("RCP_WAY2").asText();
+						String rcpPat2 = jsonNode.get("RCP_PAT2").asText();
+
+						// "RCP_WAY2" 값과 "RCP_PAT2" 값이 둘 다 일치하는 경우만 추가
+						if (selectedWay.equals("전체보기")) {
+							if (selectedCate.equals(rcpPat2)) {
+								filteredList.add(jsonNode);
+							}
+						} else if (selectedCate.equals("전체보기")) {
+							if (selectedWay.equals(rcpWay2)) {
+								filteredList.add(jsonNode);
+							}
+						}
+					}
+
+					List<P_recipe_VO> prvo = p_recipe_Service.article_summary();
+
+					List<P_recipe_VO> listSummary = new ArrayList<>();
+					int count = 0;
+					// 있는지 없는지 검사
+					for (int i = 0; i < filteredList.size(); i++) {
+						P_recipe_VO vo = new P_recipe_VO();
+						JsonNode k = filteredList.get(i);
+						try {
+							vo = prvo.get(i);
+							// String 맞음
+//					        	vo.setAvg_c_grade(String.format("%.1f", vo.getAvg_c_grade()));
+
+							if (vo.getAvg_c_grade() != null) {
+								BigDecimal avgCGrade = new BigDecimal(vo.getAvg_c_grade()).setScale(1,
+										RoundingMode.HALF_UP);
+								vo.setAvg_c_grade(avgCGrade.toString());
+							}
+						} catch (Exception e) {
+							count++;
 						}
 
 						String rcpSeq = k.get("RCP_SEQ").asText();
@@ -487,7 +533,6 @@ public class Api_Controller {
 							filteredList.add(jsonNode);
 						}
 					}
-					System.out.println("둘다 null이 아니다 : " + filteredList.size());
 
 					List<P_recipe_VO> prvo = p_recipe_Service.article_summary();
 
@@ -500,7 +545,6 @@ public class Api_Controller {
 						try {
 							vo = prvo.get(i);
 							// String 맞음
-//					        	System.out.println(vo.getAvg_c_grade().getClass().getName());
 //					        	vo.setAvg_c_grade(String.format("%.1f", vo.getAvg_c_grade()));
 
 							if (vo.getAvg_c_grade() != null) {
@@ -510,7 +554,6 @@ public class Api_Controller {
 							}
 						} catch (Exception e) {
 							count++;
-//					        	System.out.println("vo 빈값, count는 : " + count);
 						}
 
 						String rcpSeq = k.get("RCP_SEQ").asText();
@@ -550,7 +593,6 @@ public class Api_Controller {
 			try {
 				vo = prvo.get(i);
 				// String 맞음
-//		        	System.out.println(vo.getAvg_c_grade().getClass().getName());
 //		        	vo.setAvg_c_grade(String.format("%.1f", vo.getAvg_c_grade()));
 
 				if (vo.getAvg_c_grade() != null) {
@@ -559,7 +601,6 @@ public class Api_Controller {
 				}
 			} catch (Exception e) {
 				count++;
-//		        	System.out.println("vo 빈값, count는 : " + count);
 			}
 
 			String rcpSeq = k.get("RCP_SEQ").asText();

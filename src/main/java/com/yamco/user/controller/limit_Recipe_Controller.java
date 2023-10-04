@@ -29,11 +29,8 @@ public class limit_Recipe_Controller {
 		ModelAndView mv = new ModelAndView("redirect:/");
 		HttpSession session = request.getSession();
 
-		System.out.println("recipe_status : " + u_rcp_status);
 		String name = (String) session.getAttribute("m_nick");
-		System.out.println("닉네임 : " + name);
 		String m_idx = (String) session.getAttribute("m_idx");
-		System.out.println("midx : " + m_idx);
 
 		uvo.setM_idx(m_idx);
 		uvo.setU_rcp_blind("0");
@@ -54,10 +51,6 @@ public class limit_Recipe_Controller {
 		
 		uvo.setU_rcp_ing(u_rcp_ingArr);
 		
-		System.out.println("카테고리 1 : " + uvo.getU_rcp_category1());
-		System.out.println("카테고리 2 : " + uvo.getU_rcp_category2());
-		System.out.println("난이도 : " + uvo.getU_rcp_level());
-		System.out.println("메인작성내용 : " + uvo.getU_rcp_main());
 		
 		try {
 				
@@ -76,9 +69,7 @@ public class limit_Recipe_Controller {
 
 				// db에 파일 이름 값 넣기
 				uvo.setU_rcp_img(u_rcp_img);
-				System.out.println("파일 이름 : " + u_rcp_img);
 				String path = request.getSession().getServletContext().getRealPath("resources/user_image/user_thumnail"); // 업로드할 폴더 경로
-				System.out.println("저장 경로 : " + path);
 				File saveFile = new File(path + "//" + u_rcp_img);
 				u_rcp_img1.transferTo(saveFile); // 파일을 톰켓 가상폴더에 저장 // 파일 처리 끝		
 				} // 파일이 첨부되어 있을경우 끝
@@ -99,9 +90,7 @@ public class limit_Recipe_Controller {
 				String u_rcp_img = uniqueName + fileName;
 				// db에 파일 이름 값 넣기
 				uvo.setU_rcp_img(u_rcp_img);
-				System.out.println("파일 이름 : " + u_rcp_img);
 				String path = request.getSession().getServletContext().getRealPath("resources/user_image/user_thumnail"); // 업로드할 폴더 경로
-				System.out.println("저장 경로 : " + path);
 				File saveFile = new File(path + "//" + u_rcp_img);
 				u_rcp_img1.transferTo(saveFile); // 파일을 톰켓 가상폴더에 저장 // 파일 처리 끝		
 

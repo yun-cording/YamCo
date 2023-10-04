@@ -32,7 +32,6 @@ public class PublicLoginController {
 		ModelAndView mv = new ModelAndView("login/social_join");
 		try {
 			mvo.setM_pw(passwordEncoder.encode(mvo.getM_pw()));
-		//	 System.out.println(gender);
 			if(gender.equals("남자,")) {
 				mvo.setM_gender("M");				
 			}else if(gender.equals("여자,")) {
@@ -42,7 +41,6 @@ public class PublicLoginController {
 			member_Service.getMemberJoin(mvo);
 			String m_id = mvo.getM_id();
 			mv.addObject("m_id", m_id);
-			// System.out.println("m_id 쏴 : " +m_id);
 			return mv;			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -57,7 +55,6 @@ public class PublicLoginController {
 		ModelAndView mv = new ModelAndView("login/login");
 		try {
 			int res = member_Service.getMemberIdChk(m_id);
-			// System.out.println("받았냐 : " + m_id);
 			if(res > 0) {
 				member_Service.setNick(mvo);
 			return mv;
@@ -120,7 +117,6 @@ public class PublicLoginController {
 				return mv;
 			}
 			}else{
-		//	System.out.println("여기 들어오니");
 			alert = "<script>alert('없는 아이디입니다.');</script>";
 			mv.addObject("alert", alert);
 			return mv;			

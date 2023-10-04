@@ -37,17 +37,13 @@ public class DoubleChkController{
 		@RequestMapping("/limit_recipe_chk.do")
 		public String limit_recipe_writeChk(HttpSession session) {
 			String m_idx = (String) session.getAttribute("m_idx");
-			System.out.println("m_idx : " + m_idx);
 				U_recipe_VO urvo = u_recipe_Service.getLimit_recipe(m_idx); // 임시저장 게시글의 수 조회
 				String result = "";
 				if(urvo != null) { //임시 저장 게시글이 있을경우
-					System.out.println("임시 저장 게시글 제목: "+ urvo.getU_rcp_title());
 					result = "yes";
-					System.out.println("컨트롤러1에서 result : " + result);
 					return result;
 				}else { // 임시 저장 게시글이 없는 경우
 					result = "pass";
-					System.out.println("컨트롤러1에서 result : " + result);
 					return result;
 				}
 		}	

@@ -136,12 +136,9 @@ public class User_Controller {
 			
 			long s_time = t_time.getTime();
 			long e_time = n_time.getTime();
-			System.out.println(s_time);
-			System.out.println(e_time);
 			
 			long diff = e_time - s_time;
 			long diffMin = diff / (1000*60);
-			System.out.println(diffMin);
 			if(diffMin >= 30) {
 				String mail_alert = "<script>alert('30분이 지나 세션이 만료되었습니다. 비밀번호 변경 페이지로 돌아가 이메일을 다시 입력해주세요.');window.location.href='/go_login.do'</script>";
 				member_Service.getTokenDelete(m_vo);

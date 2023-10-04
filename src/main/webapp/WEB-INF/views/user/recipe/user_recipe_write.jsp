@@ -341,7 +341,7 @@ $(document).ready(function() {
 			return false;
 		}
 		var u_rcp_status = 2;
-		if(!$("#ing_box1")==null){
+		if($("#ing_box1")!=null){
 			var u_rcp_ingArr = [];
 			for (var i = 0; i < fieldCount; i++) {
 				u_rcp_ingArr[i] = $("#ing_box"+(i+1)).val();

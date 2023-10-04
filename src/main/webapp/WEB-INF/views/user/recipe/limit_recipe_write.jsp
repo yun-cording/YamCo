@@ -682,18 +682,18 @@ function write_go(f) {
 		}
 			
 		var u_rcp_status = 2;
-		if(!$("#ing_box1")==null){
+		console.log($("#ing_box1"))
+		if($("#ing_box1")!=null){
 			var u_rcp_ingArr = [];
 			for (var i = 0; i < fieldCount; i++) {
 				u_rcp_ingArr[i] = $("#ing_box"+(i+1)).val();
 			}
 			f.action="/limit_write_go.do?u_rcp_ingArr="+u_rcp_ingArr+"&u_rcp_status="+u_rcp_status;
-			f.submit()
+			f.submit();
 		}else{
 			f.action="/limit_write_go.do?u_rcp_status="+u_rcp_status;
-			f.submit();	
+			f.submit();
 		}
-		
 	}else{
 		return false;
 	}
