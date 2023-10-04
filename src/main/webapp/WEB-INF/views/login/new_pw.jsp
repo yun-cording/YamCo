@@ -41,7 +41,6 @@
 	<script type="text/javascript">
 	function change_pw2(f) {
 		f.action = "/member_change.do";
-		console.log("3");
 		f.submit();
 	}
 		var status = 0;

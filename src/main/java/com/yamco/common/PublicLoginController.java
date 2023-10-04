@@ -32,7 +32,6 @@ public class PublicLoginController {
 		ModelAndView mv = new ModelAndView("login/social_join");
 		try {
 			mvo.setM_pw(passwordEncoder.encode(mvo.getM_pw()));
-		//	 System.out.println(gender);
 			if(gender.equals("남자,")) {
 				mvo.setM_gender("M");				
 			}else if(gender.equals("여자,")) {
@@ -42,7 +41,6 @@ public class PublicLoginController {
 			member_Service.getMemberJoin(mvo);
 			String m_id = mvo.getM_id();
 			mv.addObject("m_id", m_id);
-			// System.out.println("m_id 쏴 : " +m_id);
 			return mv;			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -112,15 +110,18 @@ public class PublicLoginController {
 					m_vo.setM_fail_count(0);
 					member_Service.getFailCountUp(m_vo);
 				}
-				mv.setViewName("redirect:"+url);
+					mv.setViewName("redirect:"+url);
 				}else {
 					mv.setViewName("/login/social_join");
 					mv.addObject("m_id", m_vo.getM_id());
 				}
 				return mv;
 			}
-			}else{
-		//	System.out.println("여기 들어오니");
+			}else if(m_vo.getM_out_date() != null) {
+				alert = "<script>alert('탈퇴한 회원입니다.');</script>";
+				mv.addObject("alert", alert);
+				return mv;
+		 }else{
 			alert = "<script>alert('없는 아이디입니다.');</script>";
 			mv.addObject("alert", alert);
 			return mv;			
@@ -132,7 +133,7 @@ public class PublicLoginController {
 		return null;
 	}
 	// TODO 채림 자체회원 로그인 작업 끗	
-	// TODO 채림 비밀번호 찾기 비밀번호 변경 작업 시작
+	// 채림 비밀번호 찾기 작업 시작
 	@RequestMapping("/member_findPw.do")
 	public ModelAndView getFindPw(Member_VO mvo) {
 		ModelAndView mv = new ModelAndView("redirect:/email_send.do");
@@ -143,9 +144,30 @@ public class PublicLoginController {
 		member_Service.setMakeToken(m_vo);
 		mv.addObject("mvo", m_vo);
 		
+		String alert = "<script>alert('비밀번호 변경 링크 메일을 보냈습니다.<br>30분이 지나면 세션 만료로 비밀번호 변경이 어려우므로 그 안에 변경해주세요.');</script>";
+		mv.addObject("alert", alert);
+		
 		return mv;
 	}
 	
+	// 비밀번호 찾기 작업 시작
+	@RequestMapping("/find_pw.go")
+	public ModelAndView getFindPw2(Member_VO mvo) {
+		ModelAndView mv = new ModelAndView("redirect:/email_send.do");
+		Member_VO m_vo = member_Service.getMemberLogin(mvo);
+		UUID uuid = UUID.randomUUID();
+		String t_name = uuid.toString();
+		m_vo.setM_token(t_name);
+		member_Service.setMakeToken(m_vo);
+		mv.addObject("mvo", m_vo);
+		
+		String alert = "<script>alert('비밀번호 변경 링크 메일을 보냈습니다.<br>30분이 지나면 세션 만료로 비밀번호 변경이 어려우므로 그 안에 변경해주세요.');</script>";
+		mv.addObject("alert", alert);
+		
+		return mv;
+	}
+	
+	// 채림 비밀번호 변경 작업 시작
 	@RequestMapping("/member_change.do")
 	public ModelAndView getChangePw(Member_VO mvo) {
 		ModelAndView mv = new ModelAndView("login/login");
@@ -156,6 +178,10 @@ public class PublicLoginController {
 			member_Service.getChangePw(m_vo);
 			member_Service.getFailCountUp(m_vo);
 			member_Service.getTokenDelete(m_vo);
+			
+			String alert = "<script>alert('비밀번호 변경이 완료되었습니다.<br>다시 로그인해주세요.');</script>";
+			mv.addObject("alert", alert);
+			
 			return mv;
 		} catch (Exception e) {
 			e.printStackTrace();

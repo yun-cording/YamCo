@@ -8,6 +8,7 @@
 <link rel="stylesheet" href="resources/css/login/find_pw.css?after" />
 </head>
 <body>
+${alert}
 	<jsp:include page="member_header.jsp" />
 	<form action="" method="post">
 	<div id="mydiv">
@@ -73,6 +74,10 @@
 							txt.text("가입하신 아이디입니다.").css("color", "green");
 							 status = 1;
 							 log();
+						}else if(result == -1){
+							txt.text("탈퇴한 회원입니다.").css("color", "red");
+							status = 0;
+							log();
 						}else{
 							txt.text("가입하신 적이 없는 아이디입니다.").css("color", "red");
 							status = 0;
