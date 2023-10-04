@@ -78,7 +78,7 @@ ${alert}
 							txt.text("탈퇴한 회원입니다.").css("color", "red");
 							status = 0;
 							log();
-						}else{
+						}else if(result == -2){
 							txt.text("가입하신 적이 없는 아이디입니다.").css("color", "red");
 							status = 0;
 							log();

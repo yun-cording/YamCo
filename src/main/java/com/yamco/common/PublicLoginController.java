@@ -78,6 +78,11 @@ public class PublicLoginController {
 			Member_VO m_vo = member_Service.getMemberLogin(mvo);
 			if(m_vo != null) {	
 				int fail_count = m_vo.getM_fail_count();
+				if(m_vo.getM_out_date() != null) {
+					alert = "<script>alert('탈퇴한 회원입니다.');</script>;";
+					mv.addObject("alert", alert);
+					return mv;
+				}
 				
 			if(!passwordEncoder.matches(mvo.getM_pw(), m_vo.getM_pw())) {
 				m_vo.setM_fail_count(fail_count + 1);
@@ -94,6 +99,11 @@ public class PublicLoginController {
 				if(fail_count >= 5) {
 					alert = "<script>alert('로그인 실패 5번 이상이므로 비밀번호 찾기를 이용해주세요.');</script>;";
 					mv.addObject("alert", alert);
+					
+					if(m_vo.getM_status().equals("0")) {
+						m_vo.setM_fail_count(0);
+						member_Service.getFailCountUp(m_vo);
+					}
 					return mv;
 				}
 				
@@ -102,6 +112,7 @@ public class PublicLoginController {
 					session.setAttribute("m_nick", m_vo.getM_nick());
 					session.setAttribute("loginChk", true);
 					session.setAttribute("m_image", m_vo.getM_image());
+					
 					if(m_vo.getM_idx().equals("1")) {
 						session.setAttribute("adminChk", true);
 						mv.setViewName("redirect:/admin/go_admin_dashboard.do");
@@ -119,11 +130,7 @@ public class PublicLoginController {
 				}
 				return mv;
 			}
-			}else if(m_vo.getM_out_date() != null) {
-				alert = "<script>alert('탈퇴한 회원입니다.');</script>";
-				mv.addObject("alert", alert);
-				return mv;
-		 }else{
+			}else {
 			alert = "<script>alert('없는 아이디입니다.');</script>";
 			mv.addObject("alert", alert);
 			return mv;			
@@ -132,7 +139,7 @@ public class PublicLoginController {
 			e.printStackTrace();
 			mv.setViewName("error404");
 		}
-		return null;
+		return mv;
 	}
 	// TODO 채림 자체회원 로그인 작업 끗	
 	// 채림 비밀번호 찾기 작업 시작
@@ -152,7 +159,7 @@ public class PublicLoginController {
 		return mv;
 	}
 	
-	// 비밀번호 찾기 작업 시작
+//	// 비밀번호 찾기 작업 시작
 	@RequestMapping("/find_pw.go")
 	public ModelAndView getFindPw2(Member_VO mvo) {
 		ModelAndView mv = new ModelAndView("redirect:/email_send.do");
@@ -173,15 +180,20 @@ public class PublicLoginController {
 	@RequestMapping("/member_change.do")
 	public ModelAndView getChangePw(Member_VO mvo) {
 		ModelAndView mv = new ModelAndView("login/login");
+		String alert = "";
 		try {
 			Member_VO m_vo = member_Service.getMemberLogin(mvo);
+			if(passwordEncoder.matches(mvo.getM_pw(), m_vo.getM_pw())) {
+				alert = "<script>alert('이전 비밀번호와 같습니다.');</script>";
+				mv.addObject("alert", alert);
+			}
 			m_vo.setM_pw(passwordEncoder.encode(mvo.getM_pw()));
 			m_vo.setM_fail_count(0);
 			member_Service.getChangePw(m_vo);
 			member_Service.getFailCountUp(m_vo);
 			member_Service.getTokenDelete(m_vo);
 			
-			String alert = "<script>alert('비밀번호 변경이 완료되었습니다.<br>다시 로그인해주세요.');</script>";
+			alert = "<script>alert('비밀번호 변경이 완료되었습니다.\n다시 로그인해주세요.');</script>";
 			mv.addObject("alert", alert);
 			
 			return mv;
@@ -189,7 +201,7 @@ public class PublicLoginController {
 			e.printStackTrace();
 			mv.setViewName("error404");
 		}
-		return null;
+		return mv;
 	}
 	// TODO 채림 비밀번호 찾기 비밀번호 변경 작업 끗
 }

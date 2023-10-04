@@ -30,10 +30,16 @@ public class DoubleChkController{
 		int result = 1;
 		mvo.setM_id(m_id);
 		Member_VO m_vo = member_Service.getMemberLogin(mvo);
-		if(m_id != null && m_id.length() > 0 && m_vo.getM_out_date().equals("")) {
-			result = member_Service.getMemberIdChk(m_id);
-		}else if(m_vo.getM_out_date() != null) {
-			result = -1;
+		if(m_id != null && m_id.length() > 0) {
+			if(m_vo != null) {
+				if(m_vo.getM_out_date() != null) {
+				result = -1;
+				}else {
+					result = member_Service.getMemberIdChk(m_id);
+					}
+			}else {
+				result = -2;
+			}
 		}
 		return String.valueOf(result);
 	}
