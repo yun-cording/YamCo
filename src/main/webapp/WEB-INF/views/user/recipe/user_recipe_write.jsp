@@ -82,12 +82,12 @@ document.addEventListener("DOMContentLoaded", function() {
 							<span class="font_32">대표사진 등록 </span> 
 							<label for="fileInput"	id="fileInputLabel" class="input_tomato"> <!-- class="custom-file-input" -->
 							<input type="file" id="fileInput" accept="image/*" name="u_rcp_img1"></input> <!-- class="input_tomato" -->
-							<span>사진첨부하기 +</span>
+							<span style="font-family: 'Yeongdeok_TTF';">사진첨부하기 +</span>
 							</label>
 							<div style="margin-top: 35px;">
 								<img id="thumnail_img_pick"	src="resources/user_image/user_thumnail/" width="320px"	height="320px">
 							</div>
-							<div style="margin-top: 20px;">
+							<div style="margin-top: 20px; font-family: 'Yeongdeok_TTF';" >
 								이미지는 320 x 320px을 권장합니다.<br> ※ 게시판에 상단의 이미지가 노출됩니다. ※
 							</div>
 							<div class="vertical-line"
@@ -243,10 +243,9 @@ $(document).ready(function() {
 });	
 </script>
 <script type="text/javascript">
-		var fieldCount = 0;
+	var fieldCount = 0;
 	var newInputField = 0;
-	//for() 컨트롤러에서 값 가져올때 split으로 ,기준으로 잘라서 배열을 만들고 배열 크기만큼의 숫자 값을 넘겨줘서
-	//for문을 실행한 후 각 칸에 해당하는 벨류값을 넣어준다.
+	// 버튼 클릭시 재료 입력 필드 생성
 	function increase_input() {
 		
 		if (fieldCount < 20) {
@@ -326,11 +325,9 @@ $(document).ready(function() {
 	} 
 		
 	if(confirm("저장 하시겠습니까?") == true){
-			//alert("저장해");
 		f.action="/write_go?u_rcp_ingArr="+u_rcp_ingArr+"&u_rcp_status="+u_rcp_status;
 		f.submit()
 		}else{
-			//alert("저장안해");	
 			return false;
 		}		
 	}	
@@ -349,10 +346,10 @@ $(document).ready(function() {
 			for (var i = 0; i < fieldCount; i++) {
 				u_rcp_ingArr[i] = $("#ing_box"+(i+1)).val();
 			}
-			f.action="/write_go?u_rcp_ingArr="+u_rcp_ingArr+"&u_rcp_status="+u_rcp_status;
+			f.action="/write_go.do?u_rcp_ingArr="+u_rcp_ingArr+"&u_rcp_status="+u_rcp_status;
 			f.submit()
 		}else{
-			f.action="/write_go?u_rcp_status="+u_rcp_status;
+			f.action="/write_go.do?u_rcp_status="+u_rcp_status;
 			f.submit();	
 		}
 		

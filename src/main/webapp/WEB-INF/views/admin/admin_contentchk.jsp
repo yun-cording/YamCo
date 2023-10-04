@@ -258,7 +258,7 @@ select option[value=""][disabled] {
 		}
     	
     	function search_go(f) {
-    		f.action="/admin/content_search.go";
+    		f.action="/admin/content_search.do";
 			f.submit();
 		}
     </script>

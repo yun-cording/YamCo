@@ -55,8 +55,8 @@ if(c_idx){
 	sendData='rcp_idx='+rcp_idx
 }
 swal({
-	  title: "해당 게시글을 블라인드 처리하리겠습니까?",
-	  text: "블라인드 된 게시글은 조회할 수 없습니다.",
+	  title: "블라인드 처리하리겠습니까?",
+	  text: "블라인드 된 글은 조회할 수 없습니다.",
 	  icon: "warning",
 	  buttons: true,
 	  dangerMode: true,
@@ -393,8 +393,7 @@ var result = "${result}";
 							<div class="modal-dialog">
 								<div class="modal-content">
 									<div class="modal-header">
-										<h1 class="modal-title fs-5" id="exampleModalLabel">New
-											message</h1>
+										<h1 class="modal-title fs-5" id="exampleModalLabel">신고 답변하기</h1>
 										<button type="button" class="btn-close"	data-bs-dismiss="modal" aria-label="Close"></button>
 									</div>
 									<div class="modal-body">

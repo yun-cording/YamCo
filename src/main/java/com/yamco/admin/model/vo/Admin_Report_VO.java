@@ -3,7 +3,7 @@ package com.yamco.admin.model.vo;
 import java.io.Serializable;
 
 public class Admin_Report_VO implements Serializable {
-	private String c_idx, count, rcp_idx, u_rcp_title, c_contents, m_nick, u_rcp_status, c_status, r_time;
+	private String c_idx, count, rcp_idx, u_rcp_title, c_contents, m_nick, u_rcp_status, c_status, r_time ;
 
 	public final String getC_idx() {
 		return c_idx;

@@ -62,12 +62,12 @@ function restorePlaceholder(element, defaultPlaceholder) {
 	 ${alert}
 <form method="post">
 <c:set var="clientId" value="YvbCvm24gWq60XdG4a8G" />
-<c:set var="redirectURI" value="http://localhost:8090/naver_login.do" />
+<c:set var="redirectURI" value="https://nohssam.shop/naver_login.do" />
 <c:set var="REST_API_KEY" value="aab498f24417783525d7f40dcb83e5e6"></c:set>
-<c:set var="REDIRECT_URI" value="http://localhost:8090/kakaologin.do"></c:set>
+<c:set var="REDIRECT_URI" value="https://nohssam.shop/kakaologin.do"></c:set>
 	<div id="content">
 	<div id="top_color">
-		<a href="/main.go"><img class="center"
+		<a href="/main.do"><img class="center"
 			src="/resources/images/logo_white_yamyam.png"></a>
 	</div>
 	<div id="top_pattern"></div>
@@ -84,19 +84,17 @@ function restorePlaceholder(element, defaultPlaceholder) {
 	</div>
 	<input type="hidden" name="url" value="${url}">
 	<button class="color login_bt" onclick="public_login(this.form)">로그인</button>
-	<a id="find_pw" href="/find_pw.go">비밀번호 찾기</a>
+	<a id="find_pw" href="/find_pw.do">비밀번호 찾기</a>
 	<div class="social">
 			<a href="https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${clientId }&redirect_uri=${redirectURI}&state=1">
 			<div class="socialnaver leftbin"><img class="social_size" src="/resources/images/naver_login.png"></div></a>
 			<a href="https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}">
 			<div class="socialkakao margin"><img class="social_size" src="/resources/images/kakao_login.png"></div></a>
-			<!-- <a><img style="border: 1px solid lightgray" class="social_size margin" src="/resources/images/google_login.png"></a> -->
 		<div id="g_id_onload" data-client_id="931730291564-rocrnk3v1pph5j9q775qtinavfktiab9.apps.googleusercontent.com" data-callback="handleCredentialResponse" ></div>
 		<div class="g_id_signin margin"></div>
-<!-- <img class="g_id_signin social_size margin"	src="/resources/images/google_login.png"> -->
 	</div>
 	<div>
-		<a href="/member_join.go">
+		<a href="/member_join.do">
 		<div class="color join">
 			회원가입
 		</div>
@@ -105,8 +103,6 @@ function restorePlaceholder(element, defaultPlaceholder) {
 </div>
 <script type="text/javascript">
 		function handleCredentialResponse(response) {
-		    // decodeJwtResponse() is a custom function defined by you
-		    // to decode the credential response.
 		    // 자료 파싱해서 console창에 띄우는 부분
 		    const responsePayload = parseJwt(response.credential);
 		    console.log("ID: " + responsePayload.sub);
@@ -115,12 +111,12 @@ function restorePlaceholder(element, defaultPlaceholder) {
 		    console.log('Family Name: ' + responsePayload.family_name);
 		    console.log("Image URL: " + responsePayload.picture);
 		    console.log("Email: " + responsePayload.email);
-		    /* var vo = [responsePayload]; */
+		    
 		    var fullname = responsePayload.name;
 		  	var m_nick = responsePayload.sub;
 		  	var m_image = responsePayload.picture;
 		  	var m_id = responsePayload.email; 
-		    location.href="/google_login_do?m_image="+m_image+"&m_id="+m_id; //이렇게 값하나하나씩해서 컨트롤러로 옮기기
+		    location.href="/google_login_do?m_image="+m_image+"&m_id="+m_id;
 		};
 		function parseJwt (token) {
 		    var base64Url = token.split('.')[1];

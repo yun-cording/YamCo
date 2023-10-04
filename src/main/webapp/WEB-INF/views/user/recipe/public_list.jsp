@@ -17,7 +17,7 @@
 		</aside>
 		<div id="content">
 			<!-- 카테고리 만들기 -->
-			<!-- <form id="sort_form" action="/public_list.go" method="GET"> -->
+			<!-- <form id="sort_form" action="/public_list.do" method="GET"> -->
 				<div id="category">
 				    <div id="category_helmet"></div>
 				    <ul id="howto_menu">
@@ -116,7 +116,7 @@
 	            // 예를 들면, jQuery.ajax() 또는 fetch() 함수를 사용할 수 있습니다.
 	            $.ajax({
 	                type: "GET",
-	                url: "/public_list.go", // Spring MVC 컨트롤러의 엔드포인트 URL
+	                url: "/public_list.do", // Spring MVC 컨트롤러의 엔드포인트 URL
 	                data: { selectedWay: selectedWay }, // 선택된 메뉴를 데이터로 전달
 	                success: function (response) {
 	                  	// alert("성공!");
@@ -142,7 +142,7 @@
 	            // 예를 들면, jQuery.ajax() 또는 fetch() 함수를 사용할 수 있습니다.
 	            $.ajax({
 	                type: "GET",
-	                url: "/public_list.go", // Spring MVC 컨트롤러의 엔드포인트 URL
+	                url: "/public_list.do", // Spring MVC 컨트롤러의 엔드포인트 URL
 	                data: { selectedCate: selectedCate }, // 선택된 메뉴를 데이터로 전달
 	                success: function (response) {
 	                  	// alert("성공!");
@@ -177,7 +177,7 @@ $(document).ready(function () {
         // AJAX 요청을 보냅니다.
         $.ajax({
             type: "GET",
-            url: "/public_list.go",
+            url: "/public_list.do",
             data: {
                 selectedWay: selectedWay,
                 selectedCate: selectedCate
@@ -234,7 +234,7 @@ $(document).ready(function () {
 
 	    // 데이터를 폼의 URL 파라미터로 추가
 	    var form = document.getElementById("sort_form");
-	    form.action = "/public_list.go?selectedWay=" + encodeURIComponent(selectedWay) + "&selectedCate=" + encodeURIComponent(selectedCate);
+	    form.action = "/public_list.do?selectedWay=" + encodeURIComponent(selectedWay) + "&selectedCate=" + encodeURIComponent(selectedCate);
 
 	    // 폼을 서버로 제출
 	    form.submit();

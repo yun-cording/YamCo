@@ -51,7 +51,7 @@ public class Recipe_Controller {
 	P_recipe_Service p_recipe_Service;
 
 	//레시피 저장 , 레시피 임시저장
-	@PostMapping("/write_go")
+	@PostMapping("/write_go.do")
 	public ModelAndView get_write(U_recipe_VO uvo, HttpServletRequest request,
 			@RequestPart("u_rcp_img1") MultipartFile u_rcp_img1,String u_rcp_ingArr, String u_rcp_status) {
 		ModelAndView mv = new ModelAndView("redirect:/");
@@ -131,7 +131,7 @@ public class Recipe_Controller {
 	}
 
 	// 성훈 레시피 작성
-	@RequestMapping("/user_recipe_write.go")
+	@RequestMapping("/user_recipe_write.do")
 	public ModelAndView userRecipeWriteGo(HttpSession session, String result) {
 		ModelAndView mv = new ModelAndView();
 		System.out.println("header에서넘어온 result : " + result);
@@ -146,8 +146,6 @@ public class Recipe_Controller {
 			System.out.println("category_choice1 : " + category_choice1);
 			String category_choice2 = urvo.getU_rcp_category();
 			System.out.println("category_choice2 : " + category_choice2);
-			
-			// 난이도는 jsp가서 처리하는 걸로
 			
 			// 키워드 처리
 			String u_rcp_keyword1 = "";
@@ -180,7 +178,6 @@ public class Recipe_Controller {
 			mv.addObject("urvo",urvo);
 			return mv;
 		}else if(result2.equals("cancelandgo")){
-			System.out.println("삭제하러 controller 오니?");
 			u_recipe_Service.deleteRecipe(m_idx);
 			
 			mv.setViewName("/user/recipe/user_recipe_write");
@@ -188,7 +185,6 @@ public class Recipe_Controller {
 			return mv;
 			
 		}else { 
-			System.out.println("설마 여기로 오니 ?");
 			mv.setViewName("/user/recipe/user_recipe_write");
 			return mv;
 		}
@@ -199,9 +195,8 @@ public class Recipe_Controller {
 	@ResponseBody
 	public Map<String, String> saveImg(U_recipe_VO uvo, HttpServletRequest request) {
 		Map<String, String> map = new HashMap<String, String>(); // hash 맵 사용
-
 		// 넘어온 파일 검증
-		MultipartFile f = uvo.getS_file(); // 멀티파트파일 f 에 ImgVO vo로 f_name으로 보낸 파일을 받아서 집어넣음
+		MultipartFile f = uvo.getS_file(); 
 		String fname = null;
 		if (f.getSize() > 0) { // f의 사이즈가 0보다 클경우 즉 파일이 있을경우
 			// 첨부파일 위치
@@ -214,12 +209,10 @@ public class Recipe_Controller {
 			fname = uniqueName + "_" + f.getOriginalFilename();
 
 			try {
-				// 업로드(저장용도) path 경로에 있는 fname파일을 f.transferTo에 업로드하겠다.
 				f.transferTo(new File(path, fname));
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			// 비동기식 요청이므로 저장된 파일의 경로와 파일명을 보내야 한다.
 			String path2 = request.getContextPath();
 			if (path2 == null) {
 				System.out.println("path2 is null");
@@ -227,9 +220,7 @@ public class Recipe_Controller {
 			System.out.println(path2);
 			map.put("fname", fname);
 			map.put("path", "/resources/user_image/user_summernote_img");
-
-			// pom.xml에 json 변환 해주는 라이브러리 추가
-			return map; // ajax요청에서 map으로 리턴할 경우 키 : 값 으로 리턴 되기 떄문에 json형싱그로 자동으로 리턴이 된다.
+			return map; 
 		}
 		return null;
 	}
@@ -237,7 +228,7 @@ public class Recipe_Controller {
 	// TODO 상우 user recipe 시작
 	
 	// TODO 상우 user recipe list 출력
-	@RequestMapping("/user_list.go")
+	@RequestMapping("/user_list.do")
 	public ModelAndView u_recipe_list(HttpServletRequest request, HttpServletResponse response,
 			@RequestParam(value = "selectedWay", required = false) String selectedWay,
 			@RequestParam(value = "selectedCate", required = false) String selectedCate,

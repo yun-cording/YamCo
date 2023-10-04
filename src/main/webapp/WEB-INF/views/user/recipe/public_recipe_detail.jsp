@@ -309,7 +309,7 @@
 					            // AJAX 요청을 보냅니다. (_ 쓰면 안됨!!)
 					            $.ajax({
 					                type: "POST",
-					                url: "/reportInsert.go",
+					                url: "/reportInsert.do",
 					                data: {
 					                    reason: selectedReason,
 					                    otherReason: otherReason,
@@ -513,14 +513,12 @@
 											    	<button style="background-color: white; cursor: not-allowed;" disabled class="round_btn revision_delete_btn comment_revision" id="comment_revision_btn${loop.index}" data-revision_btn="comment_like_btn_img${loop.index}">수정</button>
 											    	<button style="background-color: white; cursor: not-allowed;" disabled class="round_btn revision_delete_btn comment_delete_btn" id="comment_delete${loop.index}" data-delete_btn="comment_like_btn_img${loop.index}">삭제</button>
 											    </c:otherwise>
-									    	</c:choose>
-								    	
+									    	</c:choose>								    	
 								        
 								        <img class="like_btn" id="comment_like_btn_img${loop.index}" src="resources/images/thumbs-up.png" alt="좋아요 버튼"
 											    data-button-id="comment_like_btn_img${loop.index}">
 								    	<p class="like_number" style="	height: 15px; float: right; color: tomato; font-size: 20px; text-align: center;
-	text-align: center;
-	position:relative; top: -35px; left: -105px;" id="like_number${loop.index}" data-likeNum_id="comment_like_btn_img${loop.index}"><strong>${cvo.c_like}</strong></p>
+	text-align: center;	position:relative; top: -35px; left: -105px;" id="like_number${loop.index}" data-likeNum_id="comment_like_btn_img${loop.index}"><strong>${cvo.c_like}</strong></p>
 								       
 								        
 								        <div id="comment_downline"></div>
@@ -598,8 +596,7 @@
             // alert(typeOfMIdx);
 	
             
-            // 버튼 눌렀을 때 로그인 안되 어있으면 login 페이지로 넘기자
-        	
+            // 버튼 눌렀을 때 로그인 안 되어있으면 login 페이지로 넘기자
             $.ajax({
                 url: "/wish_ornot.do", 
                 type: "GET", // POST 요청
@@ -638,12 +635,12 @@
 		
        // 댓글 좋아요
        $(".like_btn").click(function () {
-    	   if (mNick == "null" || mNick === "null" || mNick == null || mNick === null || mNick === undefined || mNick == undefined || mNick == "" || mNick === "") {
+    	   if (mNick == "null" || mNick === "null" || mNick === null || mNick === undefined || mNick === "") {
                var result = confirm("로그인이 필요합니다. 계속하시겠습니까?");
                if (result) {
                    window.location.href = "/go_login.do";
                } else {
-                   // 사용자가 로그인을 취소하면 아무 작업도 하지 않습니다.
+                   // 사용자가 로그인 페이지로 이동을 취소하면 아무 작업도 하지 않음.
                }
             }else {
             	// 다 안걸리면 작업 하자
@@ -651,9 +648,8 @@
             	var likeCnt = $(this).next().children('strong');
         	    // 자료형 확인
         	    console.log(typeof buttonId);
-
-
-            	  // Ajax 요청 보내기
+        	    
+            	// Ajax 요청 보내기
                 $.ajax({
                     type: "GET",
                     url: "/comment_like.do",

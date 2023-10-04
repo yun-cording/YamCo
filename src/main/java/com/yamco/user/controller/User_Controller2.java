@@ -91,7 +91,7 @@ public class User_Controller2 {
 	@Autowired
 	private AdminService admin_Service;
 
-	@RequestMapping("/main.go")
+	@RequestMapping("/main.do")
 	public ModelAndView homeGo(HttpSession session) {
 		ModelAndView mv = new ModelAndView("/main");
 
@@ -215,7 +215,7 @@ public class User_Controller2 {
 
 	
 
-	@RequestMapping("/ranking_recipe.go")
+	@RequestMapping("/ranking_recipe.do")
 	public ModelAndView rankingRecipeGo(HttpServletRequest request, HttpServletResponse response) {
 		// 랭킹
 		// 상우 DB에 방문자수 로그 찍기 (랭킹)
@@ -224,7 +224,7 @@ public class User_Controller2 {
 		return mv;
 	}
 
-	@RequestMapping("/ranking_search.go")
+	@RequestMapping("/ranking_search.do")
 	public ModelAndView rankingSearchGo() {
 		ModelAndView mv = new ModelAndView("/user/ranking/ranking_search");
 		List<String> result = user_log_Service.getU_recipeRankListSearch1Month();
@@ -232,7 +232,7 @@ public class User_Controller2 {
 		return mv;
 	}
 
-	@RequestMapping("/ranking_search_7day.go")
+	@RequestMapping("/ranking_search_7day.do")
 	public ModelAndView rankingSearch7DayGo() {
 		ModelAndView mv = new ModelAndView("/user/ranking/ranking_search_7day");
 		List<String> result = user_log_Service.getU_recipeRankListSearch7Days();
@@ -240,7 +240,7 @@ public class User_Controller2 {
 		return mv;
 	}
 
-	@RequestMapping("/award.go")
+	@RequestMapping("/award.do")
 	public ModelAndView awardGo(HttpServletRequest request, HttpServletResponse response) {
 		// 상우 DB에 방문자수 로그 찍기 (랭킹)
 		log_Service.visitorUp(request, response);
@@ -269,13 +269,13 @@ public class User_Controller2 {
 		return mv;
 	}
 
-	@RequestMapping("/faq.go")
+	@RequestMapping("/faq.do")
 	public ModelAndView faqGo() {
 		ModelAndView mv = new ModelAndView("/user/faq/faq");
 		return mv;
 	}
 
-	@RequestMapping("/plz.go")
+	@RequestMapping("/plz.do")
 	public ModelAndView plzGo(HttpServletRequest request, HttpServletResponse response) {
 		// 냉부해
 		// 상우 DB에 방문자수 로그 찍기
@@ -284,7 +284,7 @@ public class User_Controller2 {
 		return mv;
 	}
 
-	@RequestMapping("/login.go")
+	@RequestMapping("/login.do")
 	public ModelAndView loginGo(@RequestParam("url") String url) {
 		// 로그인하면 원래 있던 페이지로 이동하기 위한 url 주소 받기
 		ModelAndView mv = new ModelAndView("/login/login");
@@ -292,33 +292,33 @@ public class User_Controller2 {
 		return mv;
 	}
 
-	@RequestMapping("/member_join.go")
+	@RequestMapping("/member_join.do")
 	public ModelAndView memberJoinGo() {
 		ModelAndView mv = new ModelAndView("/login/member_join");
 		return mv;
 	}
 
-	@RequestMapping("/find_pw.go")
+	@RequestMapping("/find_pw.do")
 	public ModelAndView findPwGo() {
 		ModelAndView mv = new ModelAndView("/login/find_pw");
 		return mv;
 	}
 
-	@RequestMapping("/new_pw.go")
+	@RequestMapping("/new_pw.do")
 	public ModelAndView newPwGo() {
 		ModelAndView mv = new ModelAndView("/login/new_pw");
 		return mv;
 	}
 
-	@RequestMapping("/social_join.go")
+	@RequestMapping("/social_join.do")
 	public ModelAndView socialJoinGo() {
 		ModelAndView mv = new ModelAndView("/social_join");
 		return mv;
 	}
 	
-	// /user_recipe_write.go recipe_controller로 이동 
+	// /user_recipe_write.do recipe_controller로 이동 
 
-	@RequestMapping("/myinfo.go")
+	@RequestMapping("/myinfo.do")
 	public ModelAndView myinfoGo(HttpSession session) {
 		ModelAndView mv = new ModelAndView("/mypage/myinfo");
 		String m_idx = (String) session.getAttribute("m_idx");
@@ -338,7 +338,7 @@ public class User_Controller2 {
 		return mv;
 	}
 
-	@RequestMapping("/mywishlist.go")
+	@RequestMapping("/mywishlist.do")
 	public ModelAndView myWishListGo(HttpSession session, @ModelAttribute("order") String order) {
 		ModelAndView mv = new ModelAndView("/mypage/myWishList");
 		String m_idx = (String) session.getAttribute("m_idx");
@@ -409,7 +409,7 @@ public class User_Controller2 {
 		return mv;
 	}
 
-	@RequestMapping("/reportcontent.go")
+	@RequestMapping("/reportcontent.do")
 	public ModelAndView reportContentGo(HttpSession session) {
 		ModelAndView mv = new ModelAndView("/mypage/reportContent");
 		String m_idx = (String) session.getAttribute("m_idx");
@@ -419,7 +419,7 @@ public class User_Controller2 {
 		return mv;
 	}
 
-	@RequestMapping("/reportcomment.go")
+	@RequestMapping("/reportcomment.do")
 	public ModelAndView reportCommentGo(HttpSession session) {
 		ModelAndView mv = new ModelAndView("/mypage/reportComment");
 		String m_idx = (String) session.getAttribute("m_idx");
@@ -435,7 +435,7 @@ public class User_Controller2 {
 		return mv;
 	}
 
-	@RequestMapping("/mycontent.go")
+	@RequestMapping("/mycontent.do")
 	public ModelAndView myContentGo(HttpSession session) {
 		ModelAndView mv = new ModelAndView("/mypage/myContent");
 		String m_idx = (String) session.getAttribute("m_idx");
@@ -446,7 +446,7 @@ public class User_Controller2 {
 		return mv;
 	}
 
-	@RequestMapping("/mycontent_search.go")
+	@RequestMapping("/mycontent_search.do")
 	public ModelAndView myContentOrderGo(HttpSession session, @ModelAttribute("keyword") String keyword,
 			@ModelAttribute("orderKey") String orderKey, @ModelAttribute("order") String order) {
 		ModelAndView mv = new ModelAndView("/mypage/myContent");
@@ -479,7 +479,7 @@ public class User_Controller2 {
 		return mv;
 	}
 
-	@RequestMapping("/mycomment.go")
+	@RequestMapping("/mycomment.do")
 	public ModelAndView myCommentGo(HttpSession session) {
 		ModelAndView mv = new ModelAndView("/mypage/myComment");
 		String m_idx = (String) session.getAttribute("m_idx");
@@ -515,7 +515,7 @@ public class User_Controller2 {
 	}
 
 
-	@RequestMapping("/search.go")
+	@RequestMapping("/search.do")
 	public ModelAndView searchGo(@ModelAttribute("search_text") String search_text,
 			@ModelAttribute("order") String order, HttpSession session) {
 		ModelAndView mv = new ModelAndView("/user/recipe/search_list");
@@ -866,7 +866,7 @@ public class User_Controller2 {
 	
 	
 
-	@RequestMapping("/changeMyInfo.go")
+	@RequestMapping("/changeMyInfo2.do")
 	public ModelAndView changeMyInfoGo(HttpSession session) {
 		ModelAndView mv = new ModelAndView("mypage/changeMyinfo");
 		String m_idx = (String) session.getAttribute("m_idx");
@@ -882,7 +882,7 @@ public class User_Controller2 {
 
 	@RequestMapping("/changeMyInfo.do")
 	public ModelAndView changeMyInfoDo(HttpSession session, Member_VO mvo, MultipartFile file) {
-		ModelAndView mv = new ModelAndView("redirect:/myinfo.go");
+		ModelAndView mv = new ModelAndView("redirect:/myinfo.do");
 		String path = session.getServletContext().getRealPath("/resources/user_image");
 		String f_name = file.getOriginalFilename();
 		if (file.isEmpty()) {
@@ -909,8 +909,8 @@ public class User_Controller2 {
 		return mv;
 	}
 
-	@RequestMapping("/leaveMember.go")
-	public ModelAndView leaveMemberGo(HttpSession session) {
+	@RequestMapping("/leaveMember2.do")
+	public ModelAndView leaveMemberDo2(HttpSession session) {
 		ModelAndView mv = new ModelAndView("/mypage/leaveMember");
 		String m_idx = (String) session.getAttribute("m_idx");
 		Member_VO mvo = member_Service.getMemberOne(m_idx);
@@ -1059,7 +1059,8 @@ public class User_Controller2 {
 	
 	// TODO 상우 게시글 신고 시작
 	
-	@RequestMapping("/reportInsert.go")
+	@SuppressWarnings("unused")
+	@RequestMapping("/reportInsert.do")
 	@ResponseBody
 	public Map<String, Object> reportInsert(HttpSession session,
 			@RequestParam(value = "reason", required = false) String reason,
@@ -1068,9 +1069,9 @@ public class User_Controller2 {
 			) {
 		
 		
-		String m_idx = (String) session.getAttribute("m_idx");
 		// 댓글 정보 받기 (정보 없으면 null)
 		String c_idx = null;
+		String m_idx = (String) session.getAttribute("m_idx");
 		String rcp_idx = (String) session.getAttribute("rcp_idx");
 		
 		Report_VO revo = new Report_VO();
@@ -1083,7 +1084,7 @@ public class User_Controller2 {
 			if (c_idx != null) {
 				revo.setC_idx(c_idx);
 			}
-			if (rcp_idx != null) {
+			else if (rcp_idx != null) {
 				revo.setRcp_idx(rcp_idx);
 			}
 			// 기타가 아닌 경우
@@ -1096,15 +1097,10 @@ public class User_Controller2 {
 				revo.setRcp_idx(rcp_idx);
 			}
 		}
-
-			
-		
-		
 		Map<String, Object> result = new HashMap<String, Object>();
 		
 		// 해당 게시물에 대해서 사용자가 신고를 했는지 안했는지 확인 => 신고 안한 경우에만 신고 작동
 		// 신고 이미 한 경우에는, 이미 신고 완료한 게시물입니다 alert 띄우자!
-		
 		String result_str =  admin_Service.reportInsert(revo);
 		
 		// insert 성공 시
@@ -1123,7 +1119,7 @@ public class User_Controller2 {
 	// TODO 상우 게시글 신고 완료
 	
 	
-	@RequestMapping("/changeMyPw.go")
+	@RequestMapping("/changeMyPw2.do")
 	public ModelAndView changeMyPwGo() {
 		return new ModelAndView("/mypage/changeMypw");
 	}

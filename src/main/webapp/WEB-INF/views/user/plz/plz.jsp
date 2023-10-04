@@ -190,7 +190,7 @@ clear: both;
 			<div class="container">
 				<div class="row mx-5">
 				<div class="col-10">
-					<span class="search_subject">검색된 냠냠's 쉐프레시피는 총</span> <span class="search_count">${u_list.size()}</span> <span class="search_subject">개 입니다.</span>
+					<span class="search_subject">검색된 냠냠's 쉐프레시피는 총</span> <span class="search_count">1</span><span class="search_subject">개 입니다.</span>
 				</div>
 				<div id="u_order_hit" class="col-1 tab-on" onclick="searchbt(0,0)">
 					<span>조회순</span>
@@ -282,7 +282,7 @@ document.addEventListener("DOMContentLoaded", function() {
                      var newRecipe = '';
                      newRecipe += '<div class="u_recipe_one">';
                      newRecipe += '    <a href="/user_recipe_detail.do?rcp_idx=' + k.rcp_idx + '">';
-                     newRecipe += '        <p><img src="' + k.u_rcp_img + '" class="recipe_thumbnail"></p>';
+                     newRecipe += '        <p><img src="/resources/user_image/user_thumnail/' + k.u_rcp_img + '" class="recipe_thumbnail"></p>';
                      newRecipe += '        <p>' + k.u_rcp_title + '</p>';
                      newRecipe += '        <div class="writer">';
                      newRecipe += '            <img src="' + k.m_image + '" class="profile"><span>' + k.m_nick + '</span>';

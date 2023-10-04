@@ -10,7 +10,6 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 <script type="text/javascript">
 function recipeChk() {
-//$("#recipeChk").on('click', function() {
 $.ajax({
 	type: 'get',
 	url : '/limit_recipe_chk.do',
@@ -23,27 +22,26 @@ $.ajax({
 		if(result=="yes"){
 		if(confirm("작성중인 게시글이 있습니다.\n이어서 작성하시겠습니까?\n취소클릭시 기존글은 삭제되고 새글 작성페이지로 넘어갑니다.") == true){
 			result="yes";
-		location.href="/user_recipe_write.go?result="+result;
+		location.href="/user_recipe_write.do?result="+result;
 		}else{
 			result = "cancelandgo";
-			location.href="/user_recipe_write.go?result="+result;			
+			location.href="/user_recipe_write.do?result="+result;			
 		}		
 		}else {
 			result="ing";
-			location.href="/user_recipe_write.go?result="+result;
+			location.href="/user_recipe_write.do?result="+result;
 		}
 	}
 }); /* ajax 끝 */
-//}); /* recipeChk 클릭 끝 */	
 }
 
 
 </script>
 <body>
-	<form action="/search.go">
+	<form action="/search.do">
 	<div id="header" class="clear">
 		<div class="onediv">
-           <a href="/main.go"><img class="mainlogo" src ="/resources/images/logo.png"></a>
+           <a href="/main.do"><img class="mainlogo" src ="/resources/images/logo.png"></a>
         </div>
 		<div class="twodiv">
            <input type="text" class="search_tf" name="search_text" value="" />
@@ -55,7 +53,7 @@ $.ajax({
         </form>
         <div class="login">
                 <div class="login_bt" onclick="togglePop()">
-                  <!-- <a id="login_link" href="/login.go?"> -->
+                  <!-- <a id="login_link" href="/login.do?"> -->
                   <a id="login_link" onclick="gologin()">
                 <div class="login_thumbnail"><img id="user_thumbnail" src=""></div>
                 <span id="login_text" class="login_text">로 그 인</span></a>
@@ -68,27 +66,27 @@ $.ajax({
               </div>
         <div class="rcp_write">
                 <div class="rcp_write_bt">
-                  <a onclick="recipeChk()"><span class="rcp_write_text">레시피 작성</span><!-- href="/user_recipe_write.go"  id="recipeChk"-->
+                  <a onclick="recipeChk()"><span class="rcp_write_text">레시피 작성</span><!-- href="/user_recipe_write.do"  id="recipeChk"-->
                 <img class="rcp_write_icon" src ="/resources/images/secret_recipe_icon.png"></a>
                 </div>
             </div>
         
         <div class="menu_bar">
-                <a href="/public_list.go"><div class="menu tab1"><span id="p_rcp">냠냠공식레시피</span></div></a>
-                <a href="/user_list.go"><div class="menu tab2"><span id="chef_rcp">냠냠's쉐프레시피</span></div></a>
+                <a href="/public_list.do"><div class="menu tab1"><span id="p_rcp">냠냠공식레시피</span></div></a>
+                <a href="/user_list.do"><div class="menu tab2"><span id="chef_rcp">냠냠's쉐프레시피</span></div></a>
                 <a href="/go_ranking_recipe_7day.do"><div class="menu tab3"><span id="rank">랭킹</span></div></a>
-                <a href="/plz.go"><div class="menu tab4"><span id="open_ref">냉장고를열어봐</span></div></a>
-                <a href="/award.go"><div class="menu tab5"><span id="grade">명예의전당</span></div></a>
-                <a href="/faq.go"><div class="menu tab6"><span id="faq">FAQ</span></div></a>
+                <a href="/plz.do"><div class="menu tab4"><span id="open_ref">냉장고를열어봐</span></div></a>
+                <a href="/award.do"><div class="menu tab5"><span id="grade">명예의전당</span></div></a>
+                <a href="/faq.do"><div class="menu tab6"><span id="faq">FAQ</span></div></a>
               </div>
         </div>
         <script type="text/javascript">
         function myPage_go(f) {
-    		f.action="/myinfo.go";
+    		f.action="/myinfo.do";
     		f.submit();
     	}
         function logOut_go(f) {
-    		f.action="/logOut_go";
+    		f.action="/logOut_go.do";
     		f.submit();
     	}
         </script>
@@ -137,7 +135,7 @@ $.ajax({
           
           var url = window.location.pathname;
 			function gologin() {
-				location.href="/login.go?url="+url
+				location.href="/login.do?url="+url
 			}
           </script>
 </body>

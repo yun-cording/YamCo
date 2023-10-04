@@ -123,10 +123,10 @@
 					});
 				});
 				function search_sort_grade_go() {
-					location.href="/search.go?search_text="+'${search_text}'+"&order=1"
+					location.href="/search.do?search_text="+'${search_text}'+"&order=1"
 				}
 				function search_sort_hit_go() {
-					location.href="/search.go?search_text="+'${search_text}'+"&order=0"
+					location.href="/search.do?search_text="+'${search_text}'+"&order=0"
 				}
 			</script>
 			<!-- 레시피 출력끝  -->

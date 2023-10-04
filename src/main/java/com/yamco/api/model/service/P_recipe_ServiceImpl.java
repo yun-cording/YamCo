@@ -38,14 +38,14 @@ public class P_recipe_ServiceImpl implements P_recipe_Service {
 	//	카테고리(cate), 작성자(writer) => 공공데이터는 writer를 "냠냠레시피"
 	//	세션추가만??? 
 		
-	//    // JsonNode는 JSON 데이터의 노드를 나타내는 클래스로, 직접적으로 데이터 클래스의 역할을 대신할 수 없습니다.
+	//    // JsonNode는 JSON 데이터의 노드를 나타내는 클래스로, 직접적으로 데이터 클래스의 역할을 대신할 수 없음.
 		 try {
 	            ObjectMapper objectMapper = new ObjectMapper();
 	            File jsonFile = new File(servletContext.getRealPath("/resources/data/api_data.json"));
 	
 	            // File jsonFile = new File("src\\main\\webapp\\resources\\data\\api_data.json"); // JSON 파일 경로
 	            // src/main/webapp 안의 리소스 폴더는 웹 애플리케이션 컨텍스트 경로의 일부이기 때문에 상대경로로 
-	            // 직접 참조할 수 없습니다. 대신 ServletContext를 사용하여 리소스에 접근해야 합니다.
+	            // 직접 참조할 수 없음. 대신 ServletContext를 사용하여 리소스에 접근해야 함.
 	
 	            JsonNode rootNode = objectMapper.readTree(jsonFile);
 	            
@@ -69,7 +69,6 @@ public class P_recipe_ServiceImpl implements P_recipe_Service {
 	    	    	    }
 	    	    	}
 	    	    	return rowList;
-	    	    	
 	            }
 		 }catch (Exception e) {
 			System.out.println(e);

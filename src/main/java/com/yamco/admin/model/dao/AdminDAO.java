@@ -67,10 +67,12 @@ public class AdminDAO {
 		for (Admin_Report_VO k : recipe_report_list) {
 			String idx = k.getRcp_idx();
 			U_recipe_meta_VO vo = sqlSessionTemplate.selectOne("u_recipe.metaData", idx); // 게시글 번호로 닉네임, 제목 가져오기
-			if(vo.getU_rcp_status().equals("0")) {
-				k.setM_nick(vo.getM_nick());
-				k.setU_rcp_title(vo.getU_rcp_title());
-				final_report_list.add(k);
+			if(vo!=null) {
+				if(vo.getU_rcp_status().equals("0")) {
+					k.setM_nick(vo.getM_nick());
+					k.setU_rcp_title(vo.getU_rcp_title());
+					final_report_list.add(k);
+				}
 			}
 		}
 		for (Admin_Report_VO k : comment_report_list) {
@@ -90,23 +92,25 @@ public class AdminDAO {
 			String idx = k.getRcp_idx();
 			if(idx!=null) { // 게시글이면 
 				U_recipe_meta_VO vo = sqlSessionTemplate.selectOne("u_recipe.metaData", idx); // 게시글 번호로 제목가져오기
-				String inputString = k.getR_time();
-
-		        // SimpleDateFormat을 사용하여 문자열을 날짜 객체로 변환
-		        SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		        Date date = null;
-		        try {
-		            date = inputFormat.parse(inputString);
-		        } catch (Exception e) {
-		            e.printStackTrace();
-		        }
-
-		        // 출력 형식을 지정한 SimpleDateFormat을 사용하여 원하는 형식으로 변환
-		        SimpleDateFormat outputFormat = new SimpleDateFormat("yyyy년MM월dd일 HH시mm분ss초");
-		        String outputString = outputFormat.format(date);
-		        k.setR_time(outputString);
-				k.setU_rcp_title(vo.getU_rcp_title());
-				recent_report_list2.add(k);
+				if(vo!=null) {
+					String inputString = k.getR_time();
+					
+					// SimpleDateFormat을 사용하여 문자열을 날짜 객체로 변환
+					SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+					Date date = null;
+					try {
+						date = inputFormat.parse(inputString);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+					
+					// 출력 형식을 지정한 SimpleDateFormat을 사용하여 원하는 형식으로 변환
+					SimpleDateFormat outputFormat = new SimpleDateFormat("yyyy년MM월dd일 HH시mm분ss초");
+					String outputString = outputFormat.format(date);
+					k.setR_time(outputString);
+					k.setU_rcp_title(vo.getU_rcp_title());
+					recent_report_list2.add(k);
+				}
 			}else {
 				Comment_VO cvo = new Comment_VO();
 				cvo.setC_idx(k.getC_idx());
@@ -261,7 +265,7 @@ public class AdminDAO {
 					k.setRecipe_attacknick(recipe_attacknick);
 					k.setRecipe_defencenick(arcvo.getM_nick());
 					answerRcp_list.add(k);
-				}
+				}else {
 				String recipe_attacknick = sqlSessionTemplate.selectOne("admin.recipe_attacknick",k.getM_idx());
 				Admin_Report_Chk_VO arcvo = sqlSessionTemplate.selectOne("admin.getRecipe_info",k.getRcp_idx());
 				k.setU_rcp_status(arcvo.getU_rcp_status());
@@ -269,6 +273,7 @@ public class AdminDAO {
 				k.setRecipe_attacknick(recipe_attacknick);
 				k.setRecipe_defencenick(arcvo.getM_nick());
 				rcp_list.add(k);
+				}
 				//recipe_defencenick
 			}else if(k.getC_idx() != null ){
 				if(k.getR_answer() != null) { // 답변 처리가 된것들
@@ -281,7 +286,7 @@ public class AdminDAO {
 					k.setComment_attacknick(comment_attacknick);
 					k.setComment_defencenick(comment_defencenick);
 					answerC_list.add(k);
-				}
+				}else {
 				String comment_attacknick  = sqlSessionTemplate.selectOne("admin.comment_attacknick",k.getM_idx());// 신고자 닉네임가져오기
 				//System.out.println("comment_attacknick : "+comment_attacknick);
 				Admin_Report_Chk_VO arcvo = sqlSessionTemplate.selectOne("admin.comment_defencenick",k.getC_idx()); // 작성자 닉네임
@@ -291,6 +296,7 @@ public class AdminDAO {
 				k.setComment_attacknick(comment_attacknick);
 				k.setComment_defencenick(comment_defencenick);
 				c_list.add(k);
+				}
 			}
 			
 		}
