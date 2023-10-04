@@ -35,7 +35,7 @@ public class LoginController {
 		try {
 			String clientId = "YvbCvm24gWq60XdG4a8G";// 애플리케이션 클라이언트 아이디값";
 			String clientSecret = "Zg7E_cBoml";// 애플리케이션 클라이언트 시크릿값";
-			String redirectURI = URLEncoder.encode("http://localhost:8090/naver_login.do", "UTF-8");
+			String redirectURI = URLEncoder.encode("https://nohssam.shop/naver_login.do", "UTF-8");
 			String apiURL;
 			apiURL = "https://nid.naver.com/oauth2.0/token?grant_type=authorization_code&";
 			apiURL += "client_id=" + clientId;
@@ -155,7 +155,7 @@ public class LoginController {
 		return new ModelAndView("error404");
 	}
 	
-	@RequestMapping("/logOut_go")
+	@RequestMapping("/logOut_go.do")
 	public ModelAndView logoutDo(HttpSession session) {
 		session.removeAttribute("adminChk");
 		session.removeAttribute("loginChk");
@@ -192,7 +192,7 @@ public class LoginController {
 			StringBuffer sb = new StringBuffer();
 			sb.append("grant_type=authorization_code");
 			sb.append("&client_id=aab498f24417783525d7f40dcb83e5e6");
-			sb.append("&redirect_uri=http://localhost:8090/kakaologin.do");
+			sb.append("&redirect_uri=https://nohssam.shop/kakaologin.do");
 			sb.append("&code=" + code);
 			bw.write(sb.toString());
 			bw.flush();

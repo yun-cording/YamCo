@@ -23,7 +23,7 @@ public class limit_Recipe_Controller {
 	
 	
 	//임시저장으로 불러온 게시글 저장 or 임시저장
-	@PostMapping("/limit_write_go")
+	@PostMapping("/limit_write_go.do")
 	public ModelAndView get_write(U_recipe_VO uvo, HttpServletRequest request,
 			@RequestPart("u_rcp_img1") MultipartFile u_rcp_img1, String u_rcp_ingArr, String u_rcp_status) {
 		ModelAndView mv = new ModelAndView("redirect:/");

@@ -86,7 +86,7 @@ $.ajax({
     		f.submit();
     	}
         function logOut_go(f) {
-    		f.action="/logOut_go";
+    		f.action="/logOut_go.do";
     		f.submit();
     	}
         </script>
