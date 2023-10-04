@@ -300,7 +300,7 @@ cursor: pointer;
 			<div class="clear">
 			<div class="border new_yamyam">
 				<div><span class="title">최신 냠냠레시피</span></div>
-				<button type="button" class="plus view" onclick="">더보기</button>
+				<button type="button" class="plus view" onclick="rcpgo()">더보기</button>
 			
 			<div class="flexbetween">
 				<c:forEach items="${userList }" var="k">
@@ -450,7 +450,9 @@ cursor: pointer;
 
 	 	// 5초마다 이미지 변경
 	    setInterval(changeImage, 3000);
-	 	
+	    function rcpgo() {
+	    	location.href ="/user_list.do" ;
+		}
 	    function awardgo() {
 	    	location.href ="/award.do" ;
 		}
