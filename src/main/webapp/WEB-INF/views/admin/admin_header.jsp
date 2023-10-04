@@ -86,7 +86,7 @@
 				<div class="modal-footer">
 					<button class="btn btn-secondary" type="button"
 						data-dismiss="modal">취소</button>
-					<a class="btn btn-danger" href="/logOut_go">로그아웃</a>
+					<a class="btn btn-danger" href="/logOut_go.do">로그아웃</a>
 				</div>
 			</div>
 		</div>
