@@ -8,7 +8,7 @@
 <link rel="stylesheet" href="resources/css/login/new_pw.css?after" />
 </head>
 <body>
-	${mail_alert}
+	${alert}
 	<jsp:include page="member_header.jsp" />
 	<form method="post">
 	<div id="mydiv">
