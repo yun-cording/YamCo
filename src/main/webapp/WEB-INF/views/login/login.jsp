@@ -62,9 +62,9 @@ function restorePlaceholder(element, defaultPlaceholder) {
 	 ${alert}
 <form method="post">
 <c:set var="clientId" value="YvbCvm24gWq60XdG4a8G" />
-<c:set var="redirectURI" value="http://localhost:8090/naver_login.do" />
+<c:set var="redirectURI" value="https://nohssam.shop/naver_login.do" />
 <c:set var="REST_API_KEY" value="aab498f24417783525d7f40dcb83e5e6"></c:set>
-<c:set var="REDIRECT_URI" value="http://localhost:8090/kakaologin.do"></c:set>
+<c:set var="REDIRECT_URI" value="https://nohssam.shop/kakaologin.do"></c:set>
 	<div id="content">
 	<div id="top_color">
 		<a href="/main.do"><img class="center"
