@@ -325,7 +325,7 @@ $(document).ready(function() {
 	} 
 		
 	if(confirm("저장 하시겠습니까?") == true){
-		f.action="/write_go?u_rcp_ingArr="+u_rcp_ingArr+"&u_rcp_status="+u_rcp_status;
+		f.action="/write_go.do?u_rcp_ingArr="+u_rcp_ingArr+"&u_rcp_status="+u_rcp_status;
 		f.submit()
 		}else{
 			return false;
