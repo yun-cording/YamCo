@@ -76,7 +76,7 @@
 					</div>
 				</c:forEach>
 			</div>
-			<div class=pagecontainer>
+		<%-- 	<div class=pagecontainer>
 				<ol class="paging">
 					<li><a href=""> < </a></li>
 					<li><a href=""> 1 </a></li>
@@ -86,7 +86,7 @@
 					<li><a href=""> 5 </a></li>
 					<li><a href=""> > </a></li>
 				</ol>
-			</div>
+			</div> --%>
 			<!-- 레시피 출력끝  -->
 		</div>
 		<aside id="sidebar-right">
@@ -101,40 +101,41 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script type="text/javascript">
 	$(document).ready(function () {
-		
 	  	// JavaScript를 사용하여 클릭 이벤트 처리
 	    var cookWay = document.querySelectorAll("#howto_menu li");
+	  	var selectedWay="${selectedWay}"
+	    var selectedCate="${selectedCate}"
 	    
 	    cookWay.forEach(function(item) {
 	        item.addEventListener("click", function() {
 	            // 클릭된 요소의 텍스트 내용을 얻습니다.
 	            var selectedWay = item.textContent;
-	            // alert(selectedWay);
+	            location.href = "/public_list.do?selectedWay="+selectedWay+"&selectedCate="+selectedCate
 	            // 선택된 요소를 서버로 전달하는 AJAX 요청을 보냅니다.
 	            // 이 부분은 실제로 서버와 통신하는 부분입니다.
 	            // AJAX 요청을 보내는 방법은 jQuery나 Fetch API를 사용할 수 있습니다.
 	            // 예를 들면, jQuery.ajax() 또는 fetch() 함수를 사용할 수 있습니다.
-	            $.ajax({
+	            /* $.ajax({
 	                type: "GET",
 	                url: "/public_list.do", // Spring MVC 컨트롤러의 엔드포인트 URL
 	                data: { selectedWay: selectedWay }, // 선택된 메뉴를 데이터로 전달
 	                success: function (response) {
-	                  	// alert("성공!");
+	                  	console.log('응답 : ',response)
 	                },
 	                error: function () {
 	                    // 오류 발생 시 처리할 내용을 여기에 추가하세요.
-	                }
-	            });
+	                } 
+	            }); */
 	        });
 	    });
-	    
 	  	// JavaScript를 사용하여 클릭 이벤트 처리
-	    var category = document.querySelectorAll("#category_menu li");
+	     var category = document.querySelectorAll("#category_menu li");
 	    
 	    category.forEach(function(item) {
 	        item.addEventListener("click", function() {
 	            // 클릭된 요소의 텍스트 내용을 얻습니다.
 	            var selectedCate = item.textContent;
+	            location.href = "/public_list.do?selectedWay="+selectedWay+"&selectedCate="+selectedCate
 	            // alert(selectedCate);
 	            // 선택된 요소를 서버로 전달하는 AJAX 요청을 보냅니다.
 	            // 이 부분은 실제로 서버와 통신하는 부분입니다.
@@ -153,7 +154,7 @@
 	            });
 	        });
 	    });
-	});
+    });
 </script>
 
 

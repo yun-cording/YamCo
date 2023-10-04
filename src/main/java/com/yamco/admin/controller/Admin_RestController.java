@@ -26,8 +26,6 @@ public class Admin_RestController {
 	
 	@RequestMapping("/modal_send.do")
 	public String modal_send(@RequestParam("reporter") String reporter , @RequestParam("r_answer") String r_answer) {
-		System.out.println("reporter : "+reporter);
-		System.out.println("message_text : "+r_answer);
 		String msg = "alert('처리완료');";
 		return msg;
 	}

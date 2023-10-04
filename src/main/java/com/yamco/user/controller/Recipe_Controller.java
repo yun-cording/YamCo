@@ -56,11 +56,8 @@ public class Recipe_Controller {
 			@RequestPart("u_rcp_img1") MultipartFile u_rcp_img1,String u_rcp_ingArr, String u_rcp_status) {
 		ModelAndView mv = new ModelAndView("redirect:/");
 		HttpSession session = request.getSession();
-		System.out.println("recipe_status : " + u_rcp_status);
 		String name = (String) session.getAttribute("m_nick");
-		System.out.println("닉네임 : " + name);
 		String m_idx = (String) session.getAttribute("m_idx");
-		System.out.println("midx : " + m_idx);
 
 		uvo.setM_idx(m_idx);
 		uvo.setU_rcp_blind("0");
@@ -77,7 +74,6 @@ public class Recipe_Controller {
 		uvo.setU_rcp_ing(u_rcp_ingArr);
 		uvo.setU_rcp_category(uvo.getU_rcp_category2());
 		uvo.setU_rcp_ctype(uvo.getU_rcp_category1());
-		System.out.println(u_rcp_ingArr);
 		
 		try {
 			if (u_rcp_status.equals("2")) { // 임시 저장으로 등록했을 경우
@@ -114,9 +110,7 @@ public class Recipe_Controller {
 				String u_rcp_img = uniqueName + fileName;
 				// db에 파일 이름 값 넣기
 				uvo.setU_rcp_img(u_rcp_img);
-				System.out.println("파일 이름 : " + u_rcp_img);
 				String path = request.getSession().getServletContext().getRealPath("resources/user_image/user_thumnail"); // 업로드할 폴더 경로
-				System.out.println("저장 경로 : " + path);
 				File saveFile = new File(path + "//" + u_rcp_img);
 				u_rcp_img1.transferTo(saveFile); // 파일을 톰켓 가상폴더에 저장 // 파일 처리 끝		
 
@@ -125,7 +119,6 @@ public class Recipe_Controller {
 				return mv;
 			} // 글쓰기로 등록했을 경우 끝
 		} catch (Exception e) {
-			System.out.println("error메세지는 : " + e);
 			return null;
 		}
 	}
@@ -134,18 +127,14 @@ public class Recipe_Controller {
 	@RequestMapping("/user_recipe_write.do")
 	public ModelAndView userRecipeWriteGo(HttpSession session, String result) {
 		ModelAndView mv = new ModelAndView();
-		System.out.println("header에서넘어온 result : " + result);
 		String result2 = result;
 		String m_idx = (String) session.getAttribute("m_idx");
-		System.out.println("작성중인 m_idx : " + m_idx);
 		
 		if(result2.equals("yes")){ // 임시저장글 작성페이지로 이동할 경우
 			U_recipe_VO urvo = u_recipe_Service.getLimit_recipe(m_idx);
 			// 카테고리 값 넘겨주기 처리
 			String category_choice1 = urvo.getU_rcp_ctype();
-			System.out.println("category_choice1 : " + category_choice1);
 			String category_choice2 = urvo.getU_rcp_category();
-			System.out.println("category_choice2 : " + category_choice2);
 			
 			// 키워드 처리
 			String u_rcp_keyword1 = "";
@@ -153,15 +142,12 @@ public class Recipe_Controller {
 			if(urvo.getU_rcp_keyword().contains(",")) { // 키워드가 2개 입력됐을경우
 				u_rcp_keyword1 = urvo.getU_rcp_keyword().split(",")[0];
 				u_rcp_keyword2 = urvo.getU_rcp_keyword().split(",")[1];
-				System.out.println("u_rcp_keyword1 : " + u_rcp_keyword1);
-				System.out.println("u_rcp_keyword2 : " + u_rcp_keyword2);
 				mv.addObject("u_rcp_keyword2",u_rcp_keyword2);
 				mv.addObject("keyword_length",2);
 			}else { // 키워드가 1개인 경우
 				u_rcp_keyword1 = urvo.getU_rcp_keyword();
 				mv.addObject("u_rcp_keyword1",u_rcp_keyword1);
 				mv.addObject("keyword_length",1);
-				System.out.println("u_rcp_keyword1 : " + u_rcp_keyword1);
 			}
 			if(urvo.getU_rcp_ing()!=null) {
 				String[] arr = urvo.getU_rcp_ing().split(",");
@@ -215,9 +201,7 @@ public class Recipe_Controller {
 			}
 			String path2 = request.getContextPath();
 			if (path2 == null) {
-				System.out.println("path2 is null");
 			}
-			System.out.println(path2);
 			map.put("fname", fname);
 			map.put("path", "/resources/user_image/user_summernote_img");
 			return map; 
@@ -243,7 +227,6 @@ public class Recipe_Controller {
 		// 전체 리스트 받아오기
 		List<U_recipe_meta_VO> userList = u_recipe_Service.u_recipe_list();
 		
-		System.out.println(userList.size());
 		
 		mv.addObject("userList", userList);
 		
@@ -286,7 +269,6 @@ public class Recipe_Controller {
 		// 이 게시물에 들어간 댓글 전체 받아오기
 		List<Comment_VO> comments_list_all = p_recipe_Service.load_all_comments(String.valueOf(rcp_idx));
 		for (Comment_VO comment_VO : comments_list_all) {
-//				System.out.println(comment_VO.getC_contents());
 		}
 
 		List<Comment_VO> comments_list_mine = new ArrayList<>();
@@ -343,7 +325,6 @@ public class Recipe_Controller {
 		
 		
 		
-		// System.out.println("내꺼 갯수 : " + comments_list_mine.size());
 		// 댓글 전체리스트
 		// 이용자 id도 보내주자
 		// 아래 삭제해도 됨 (세션에서 뽑아씀)
@@ -353,9 +334,7 @@ public class Recipe_Controller {
 		mv.addObject("random_list", random_list);
 		mv.addObject("uvo", uvo);
 //			mv.addObject("manualMap", manualMap);
-		// System.out.println("detail list 갔다!");
 		// 전체 리스트
-		// System.out.println(detail_list);
 		
 		
 		// m_nick, m_idx, loginChk, session 들어감
@@ -396,7 +375,6 @@ public class Recipe_Controller {
 		}
 		// TODO 희준 세션에 최근리스트 추가하기 끝
 		
-		System.out.println("상세 cont 완료");
 
 		return mv;
 	}

@@ -19,7 +19,7 @@
 		</aside>
 		<div id="content">
 			<!-- 카테고리 만들기 -->
-			<div id="category">
+			<%-- <div id="category">
 				<div id="category_helmet"></div>
 				<ul id="howto_menu">
 					<li id="howto_first">조리방법</li>
@@ -50,6 +50,7 @@
 					
 				</ul>
 			</div>
+			--%>
 			<!-- 카테고리 끝 -->
 			<!-- 레시피 출력 -->
 			<!-- 콘텐츠공간 -->

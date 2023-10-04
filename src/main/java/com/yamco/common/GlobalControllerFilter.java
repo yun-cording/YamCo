@@ -43,7 +43,6 @@ public class GlobalControllerFilter implements Filter {
             throws IOException, ServletException {
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         HttpSession session = httpRequest.getSession(false); // 이미 생성된 세션이 있는 경우만 가져옴
-        //System.out.println("세션 있는지 여부 체크 : (common패키지 안 GlobalControllerFilter.java파일에서 찍고 있어용)" + session);
         
         // 세션이 null이 아니고, 실행이 안 되었을 때
         if (session != null && session.getAttribute("filterExecuted") == null) {
@@ -54,14 +53,12 @@ public class GlobalControllerFilter implements Filter {
             }
             visitorCount++;
             // 증가된 방문자 수 맞춰서 update + 1
-            // System.out.println("방문자수 올렸다!");
             // ★ 작동 안한다 (방문자수 up시키는 db 접근법)
             // log_Service.visitorUp();
             // DAO로 바로 접근해도 안된다!
             // log_DAO.visitorUp();
             
             session.getServletContext().setAttribute("visitorCount", visitorCount);
-            //System.out.println("냠냠시치 지금까지 방문자 수는 : " + visitorCount);
             
             // 해당 값을 DB에 넣어주자.
 

@@ -53,11 +53,8 @@ public class P_recipe_ServiceImpl implements P_recipe_Service {
 	            if (rootNode != null && rootNode.isObject()) {
 	            	// row 안의 자료들 전체를 담음
 	    	    	JsonNode recipeDataNode = rootNode.path("COOKRCP01").path("row");
-	    	    	System.out.println(recipeDataNode.isNull());
 	    	    	// 전체 자료 출력
-	    	    	// System.out.println(recipeDataNode);
 	    	    	// 자료형은 ArrayNode임
-//	    	    	System.out.println("자료형은 : " + recipeDataNode.getClass().getName());
 	    	    	List<JsonNode> rowList = new ArrayList<>();
 	    	    	
 	    	    	// 키와 값은 따로 담기지 않고, JSON 데이터의 구조를 유지한 채로 처리하는 부분
