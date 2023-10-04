@@ -346,10 +346,10 @@ $(document).ready(function() {
 			for (var i = 0; i < fieldCount; i++) {
 				u_rcp_ingArr[i] = $("#ing_box"+(i+1)).val();
 			}
-			f.action="/write_go?u_rcp_ingArr="+u_rcp_ingArr+"&u_rcp_status="+u_rcp_status;
+			f.action="/write_go.do?u_rcp_ingArr="+u_rcp_ingArr+"&u_rcp_status="+u_rcp_status;
 			f.submit()
 		}else{
-			f.action="/write_go?u_rcp_status="+u_rcp_status;
+			f.action="/write_go.do?u_rcp_status="+u_rcp_status;
 			f.submit();	
 		}
 		

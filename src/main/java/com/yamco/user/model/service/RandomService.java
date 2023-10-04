@@ -25,14 +25,12 @@ public class RandomService {
 	 	@Autowired
 		private Random_DAO random_DAO ;
 	 
-	 
-	 	@PostConstruct
-	    public void initializeFileList() {
-	        
-	 		fileList = random_DAO.getRandomList();
-	 		updateSelectedFile();
-	 		
-	    }
+		  @PostConstruct public void initializeFileList() {
+		  
+		  fileList = random_DAO.getRandomList(); updateSelectedFile();
+		  
+		  }
+		 
 	    
 	    // 매일 자정에 호출되는 메서드  @Scheduled(cron = "0 0 0 * * ?")
 	    @Scheduled(cron = "0 */3 * * * ?") // 테스트용 3분 간격

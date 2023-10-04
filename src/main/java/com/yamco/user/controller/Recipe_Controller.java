@@ -51,7 +51,7 @@ public class Recipe_Controller {
 	P_recipe_Service p_recipe_Service;
 
 	//레시피 저장 , 레시피 임시저장
-	@PostMapping("/write_go")
+	@PostMapping("/write_go.do")
 	public ModelAndView get_write(U_recipe_VO uvo, HttpServletRequest request,
 			@RequestPart("u_rcp_img1") MultipartFile u_rcp_img1,String u_rcp_ingArr, String u_rcp_status) {
 		ModelAndView mv = new ModelAndView("redirect:/");

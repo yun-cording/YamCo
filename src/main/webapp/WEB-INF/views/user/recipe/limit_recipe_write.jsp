@@ -663,7 +663,7 @@ function write_go(f) {
 		
 	if(confirm("저장 하시겠습니까?") == true){
 			//alert("저장해");
-		f.action="/limit_write_go?u_rcp_ingArr="+u_rcp_ingArr+"&u_rcp_status="+u_rcp_status;
+		f.action="/limit_write_go.do?u_rcp_ingArr="+u_rcp_ingArr+"&u_rcp_status="+u_rcp_status;
 		f.submit()
 		}else{
 			//alert("저장안해");	
@@ -687,10 +687,10 @@ function write_go(f) {
 			for (var i = 0; i < fieldCount; i++) {
 				u_rcp_ingArr[i] = $("#ing_box"+(i+1)).val();
 			}
-			f.action="/limit_write_go?u_rcp_ingArr="+u_rcp_ingArr+"&u_rcp_status="+u_rcp_status;
+			f.action="/limit_write_go.do?u_rcp_ingArr="+u_rcp_ingArr+"&u_rcp_status="+u_rcp_status;
 			f.submit()
 		}else{
-			f.action="/limit_write_go?u_rcp_status="+u_rcp_status;
+			f.action="/limit_write_go.do?u_rcp_status="+u_rcp_status;
 			f.submit();	
 		}
 		
