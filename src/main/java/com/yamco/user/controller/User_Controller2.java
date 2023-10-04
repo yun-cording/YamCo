@@ -186,8 +186,6 @@ public class User_Controller2 {
 		// 세션에서 String 형태로 rcp_idx 받아오자
 	    Map<String, String> response_map = new HashMap<>();
 	    
-	    System.out.println(rcp_idx + "rcp_idx");
-	    System.out.println(m_idx + "m_idx");
 
 	    // m_idx 받아오기
 	    m_idx = (String) session.getAttribute("m_idx");
@@ -198,7 +196,6 @@ public class User_Controller2 {
 		
 		// DB에서 받아오는 로직 추가
 		liked_ornot_result = p_Recipe_DAO.liked_ornot(m_idx, rcp_idx);
-		System.out.println(liked_ornot_result);
 		
 		if (liked_ornot_result == "1") {
 			// liked_ornot이 1이면(좋아요를 insert 했다면) 좋아요 되어있음 반환
@@ -633,7 +630,6 @@ public class User_Controller2 {
 
 		    // Comment_VO 객체에서 c_idx 추출
 		    c_idx = commentVo.getC_idx();
-		    // System.out.println("해당 댓글의 c_idx는" + c_idx);
 		}else {
 			
 		}
@@ -648,7 +644,6 @@ public class User_Controller2 {
 		// liked_ornot 추가 좋아요 여부 확인
 		liked_ornot_num = comment_Service.comment_likedornot(c_idx, m_idx);
 		liked_ornot = String.valueOf(liked_ornot_num);
-		System.out.println(liked_ornot);
 		
 		// 확인 후 insert 혹은 delete
 		comment_Service.insertOrUpdateCommentLike(c_idx, m_idx, liked_ornot);
@@ -697,8 +692,6 @@ public class User_Controller2 {
 	    	HttpSession session1 = request.getSession();
 			String currentRcpIdx = (String) session1.getAttribute("currentRcpIdx");
 			
-			System.out.println("rcpidx는 : " + currentRcpIdx);
-			System.out.println("버튼 ID는 : " + buttonId);
 			
 			// 숫자 부분을 추출하는 정규 표현식
 			Pattern pattern = Pattern.compile("\\d+$");
@@ -719,23 +712,17 @@ public class User_Controller2 {
 
 			    // Comment_VO 객체에서 c_idx 추출
 			    c_idx = commentVo.getC_idx();
-			    System.out.println("해당 댓글의 c_idx는" + c_idx);
 			}else {
-				System.out.println("일치하는 댓글 없당!");
 			}
 			
 			int cHitValue = 0; // 댓글의 c_hit 값을 저장할 변수, 초기값은 -1 또는 다른 적절한 값으로 설정
 
 			for (Comment_VO commentVO : comments_list_all) {
-				System.out.println(commentVO.getC_idx());
 
 			    if (commentVO.getC_idx().equals(c_idx)) {
-			    	System.out.println("c_idx는 : " + c_idx);
 			        cHitValue = Integer.parseInt(commentVO.getC_like());
-			        System.out.println("담은 총 좋아요 수 " + cHitValue);
 			        break; // 
 			    }else {
-			    	System.out.println("일치 없음 ㅠㅠ");
 			    }
 			}
 			
@@ -746,7 +733,6 @@ public class User_Controller2 {
 
 			
 			response.put("cHitValue", cHitValue);
-			System.out.println("총 좋아요 수" + cHitValue);
 			response.put("success", true);
 	        response.put("message", "댓글 좋아요 완료함!");
 			
@@ -846,13 +832,10 @@ public class User_Controller2 {
 				 
 				 // Comment_VO 객체에서 c_idx 추출
 				 c_idx = commentVo.getC_idx();
-				 System.out.println("해당 댓글의 c_idx는" + c_idx);
 			 }else {
-				 System.out.println("일치하는 댓글 없당!");
 			 }
 			
 			 comment_Service.comment_delete(c_idx);
-			 System.out.println("삭제 완료!");
 			 
 			 return "Success"; // 성공적으로 업데이트된 경우 반환할 응답 메시지
 		 } catch (Exception e) {
@@ -996,11 +979,9 @@ public class User_Controller2 {
 				byte[] in = image.getBytes();
 				File out = new File(path, f_name);
 				FileCopyUtils.copy(in, out);
-				System.out.println("이미지 저장 성공");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			System.out.println("이미지 저장 실패");
 		}
 		
 		// ★ 이미지 실제 경로에 업로드
@@ -1014,16 +995,13 @@ public class User_Controller2 {
 //	                // 업로드할 파일의 경로 설정
 //	                String originalFilename = image.getOriginalFilename();
 //	                String filePath = uploadPath + originalFilename;
-//	                System.out.println("파일 이름 : " + originalFilename);
 //
 //	                // 파일을 업로드
 //	                File dest = new File(filePath);
 //	                image.transferTo(dest);
-//	                System.out.println("이미지 업로드 했다!");
 //
 //	            } catch (IOException e) {
 //	                e.printStackTrace();
-//	                System.out.println("이미지 업로드 오류");
 //	            }
 //	        } else {
 //	            // 이미지 파일이 비어있는 경우 처리
@@ -1040,14 +1018,10 @@ public class User_Controller2 {
 		cvo.setC_grade(rate);
 
 		// 여기네 (세션에서 값 null로 나옴)
-		System.out.println("오류 체크");
 		String s_rcp_idx = (String) session.getAttribute("rcp_idx");
-		System.out.println(s_rcp_idx);
 
-		// System.out.println("자료형은 : " +
 		// session.getAttribute("rcp_idx").getClass().getName());
 
-		// System.out.println(s_rcp_idx);
 		cvo.setRcp_idx(String.valueOf(s_rcp_idx));
 
 		int result = user_Service.comment_write(cvo);

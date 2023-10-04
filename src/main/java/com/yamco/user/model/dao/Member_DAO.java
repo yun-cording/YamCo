@@ -57,7 +57,6 @@ public class Member_DAO {
 	
 	// 비밀번호 변경
 	public int getChangePw(Member_VO mvo) {
-		System.out.println("2");
 		return sqlSessionTemplate.update("member.changePw", mvo);
 	}
 

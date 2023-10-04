@@ -43,7 +43,6 @@ public class Comment_DAO {
 		Map<String, String> comment_Map = new HashMap<String, String>();
 		comment_Map.put("newText", newText);
 	    comment_Map.put("c_idx", c_idx);
-	    System.out.println(newText);
 		int result = 0;
 		result = sqlSessionTemplate.update("comment.comment_revision", comment_Map);
 		return result;
@@ -73,7 +72,6 @@ public class Comment_DAO {
 		Map<String, String> comment_likeornot_map = new HashMap<String, String>();
 		comment_likeornot_map.put("c_idx", c_idx);
 		comment_likeornot_map.put("m_idx", m_idx);
-		System.out.println("DAO에서 받은 likedornot" + liked_ornot);
 		comment_likeornot_map.put("liked_ornot", liked_ornot);
 		int result = 0;
 		// delete 쓰면 틀린다!
@@ -83,7 +81,6 @@ public class Comment_DAO {
 
 		}else if (liked_ornot.equals("1")) {
 			result = sqlSessionTemplate.update("comment.deleteCommentLike", comment_likeornot_map);
-			System.out.println("delete 실행");
 			// c_like를 하나 내리자 걍
 			sqlSessionTemplate.update("comment.comment_like_down", c_idx);
 

@@ -24,7 +24,6 @@ public class Ajax_Controller {
 	public String memberNickChkDo(String m_nick) {
 		// 닉네임이 있는지 db가서 확인하기
 		int res = api_Service.getNickChk(m_nick);
-		System.out.println(res);
 		return String.valueOf(res) ;
 	}
 	

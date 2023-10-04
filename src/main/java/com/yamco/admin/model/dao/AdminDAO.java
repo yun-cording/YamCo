@@ -278,7 +278,6 @@ public class AdminDAO {
 			}else if(k.getC_idx() != null ){
 				if(k.getR_answer() != null) { // 답변 처리가 된것들
 					String comment_attacknick  = sqlSessionTemplate.selectOne("admin.comment_attacknick",k.getM_idx());// 신고자 닉네임가져오기
-					//System.out.println("comment_attacknick : "+comment_attacknick);
 					Admin_Report_Chk_VO arcvo = sqlSessionTemplate.selectOne("admin.comment_defencenick",k.getC_idx()); // 작성자 닉네임
 					String comment_defencenick = arcvo.getM_nick();
 					k.setC_status(arcvo.getC_status());
@@ -288,7 +287,6 @@ public class AdminDAO {
 					answerC_list.add(k);
 				}else {
 				String comment_attacknick  = sqlSessionTemplate.selectOne("admin.comment_attacknick",k.getM_idx());// 신고자 닉네임가져오기
-				//System.out.println("comment_attacknick : "+comment_attacknick);
 				Admin_Report_Chk_VO arcvo = sqlSessionTemplate.selectOne("admin.comment_defencenick",k.getC_idx()); // 작성자 닉네임
 				String comment_defencenick = arcvo.getM_nick();
 				k.setC_status(arcvo.getC_status());

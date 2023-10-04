@@ -57,14 +57,11 @@ public class Admin_Controller {
 	@RequestMapping("answer_to_reporter.do")
 	public ModelAndView answer_report(String answer_text , String reporter_name) {
 		ModelAndView mv = new ModelAndView("redirect:/admin/admin_report_recipe.do");
-		System.out.println("신고자 : " + reporter_name);
 		String r_idx = reporter_name.split("닉")[0].trim();
-		System.out.println("r_idx : " + r_idx);
 		String r_answer = answer_text.trim();
 		Admin_Report_Chk_VO arcvo = new Admin_Report_Chk_VO();
 		arcvo.setR_idx(r_idx);
 		arcvo.setR_answer(r_answer);
-		System.out.println("answer_text : "+answer_text);
 		int result = adminService.answer_report(arcvo);
 		
 		return mv;
