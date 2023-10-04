@@ -27,6 +27,7 @@ public class LoginController {
 	private Api_Service api_Service;
 	@Autowired
 	private Member_Service member_Service;
+
 	// TODO 희준의 작업공간 시작
 	@RequestMapping("/naver_login.do")
 	public ModelAndView naverLoginGo(String code, String state, HttpSession session) {
@@ -89,12 +90,12 @@ public class LoginController {
 					String id = response.get("id").toString();
 					String nickname = response.get("nickname").toString();
 					String profile_image = "";
-					if(response.get("profile_image")!=null) {
+					if (response.get("profile_image") != null) {
 						profile_image = response.get("profile_image").toString();
 					}
 					String gender = response.get("gender").toString();
 					String mobile = "";
-					if(response.get("mobile")!=null) {
+					if (response.get("mobile") != null) {
 						mobile = response.get("mobile").toString();
 					}
 					String birthday = response.get("birthday").toString();
@@ -112,19 +113,19 @@ public class LoginController {
 
 					// DB다녀와서 고유id 있는지 체크하기
 					Member_VO m_vo2 = api_Service.getIdChk(id);
-					if(m_vo2!=null) {
-						if(m_vo2.getM_status().equals("3")) {
-							String alert="탈퇴한 회원입니다.";
+					if (m_vo2 != null) {
+						if (m_vo2.getM_status().equals("3")) {
+							String alert = "탈퇴한 회원입니다.";
 							mv.addObject("alert", alert);
 							mv.setViewName("login/login");
 							return mv;
-						}else if(m_vo2.getM_status().equals("4")){
-							String alert="블락된 회원입니다. 게시물, 댓글 작성이 제한됩니다.";
+						} else if (m_vo2.getM_status().equals("4")) {
+							String alert = "블락된 회원입니다. 게시물, 댓글 작성이 제한됩니다.";
 							mv.addObject("alert", alert);
 							mv.setViewName("redirect:/main.do");
 							return mv;
-						}else {
-							if (m_vo2.getM_nick() !=null) {
+						} else {
+							if (m_vo2.getM_nick() != null) {
 								// 닉네임 널이 아니라면
 								mv.setViewName("redirect:/main.do");
 								session.setAttribute("loginChk", true);
@@ -133,11 +134,11 @@ public class LoginController {
 								session.setAttribute("m_image", m_vo2.getM_image());
 							} else {
 								mv.setViewName("/login/social_join"); // 닉네임받는곳
-								mv.addObject("m_id",id); // 소셜로그인 고유id
-								mv.addObject("m_nick",nickname); // 소셜로그인내부 nick네임
+								mv.addObject("m_id", id); // 소셜로그인 고유id
+								mv.addObject("m_nick", nickname); // 소셜로그인내부 nick네임
 							}
 						}
-					}else {
+					} else {
 						// 없으면 DB에 닉네임 null로 저장후 닉네임 받으러
 						m_vo.setM_nick(null);// db에 저장할 닉네임 null
 						member_Service.getMemberJoin(m_vo); // db에 저장
@@ -154,7 +155,7 @@ public class LoginController {
 		}
 		return new ModelAndView("error404");
 	}
-	
+
 	@RequestMapping("/logOut_go.do")
 	public ModelAndView logoutDo(HttpSession session) {
 		session.removeAttribute("adminChk");
@@ -164,7 +165,7 @@ public class LoginController {
 		session.removeAttribute("m_image");
 		return new ModelAndView("redirect:/main.do");
 	}
-	
+
 	// TODO 희준의 작업공간 끝
 
 	// TODO 재훈 시작
@@ -268,7 +269,7 @@ public class LoginController {
 					}
 
 					// 4) DB보냄 생일
-					String birthday = null ;
+					String birthday = null;
 					if (kakao_account.get("birthday") != null) {
 						birthday = kakao_account.get("birthday").toString();
 					}
@@ -340,14 +341,14 @@ public class LoginController {
 				session.setAttribute("m_nick", mvo.getM_nick());
 				session.setAttribute("m_idx", mvo.getM_idx());
 				session.setAttribute("m_image", mvo.getM_image());
-			 // db에 값이 있고 닉네임까지 입력되어 있을경우 메인으로이동 끝
-			}else {
+				// db에 값이 있고 닉네임까지 입력되어 있을경우 메인으로이동 끝
+			} else {
 				mv.setViewName("/login/social_join"); // 닉네임받는곳
 				mv.addObject("m_id", m_id); // 소셜로그인 고유id
 			}
 			return mv;
-		 // db에 값은 저장되어있지만 닉네임이 입력이 안되어있을때 닉네임 입력 페이지로이동 끝
-		}else { // db에 값이 없는경우 = 처음 회원가입하는경우
+			// db에 값은 저장되어있지만 닉네임이 입력이 안되어있을때 닉네임 입력 페이지로이동 끝
+		} else { // db에 값이 없는경우 = 처음 회원가입하는경우
 			mvo = new Member_VO();
 			mvo.setM_id(m_id);
 			mvo.setM_image(m_image);
